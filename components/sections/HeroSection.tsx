@@ -211,9 +211,9 @@ export function HeroSection() {
                 fontFamily: 'var(--font-serif)',
                 fontStyle: 'italic',
                 fontWeight: 600,
-                fontSize: 'clamp(2.15rem, 4.4vw, 5rem)',
-                lineHeight: 0.92,
-                letterSpacing: '-0.02em',
+                fontSize: 'clamp(1.75rem, 3.4vw, 3.75rem)',
+                lineHeight: 1.05,
+                letterSpacing: '-0.015em',
                 color: 'var(--burg-primary)',
               }}
             >
