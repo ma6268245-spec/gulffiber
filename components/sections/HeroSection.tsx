@@ -431,7 +431,7 @@ export function HeroSection() {
               textShadow: '0 1px 8px rgba(255, 255, 255, 0.95), 0 2px 16px rgba(255, 255, 255, 0.85)',
             }}
           >
-            Pakistan Origin · 1.2D–15D · MOQ 5T
+            Pakistan Origin · 1.2D–60D
           </p>
         </div>
 

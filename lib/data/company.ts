@@ -42,7 +42,7 @@ export const GULF_FIBRE_DATA: CompanyData = {
     { value: '4+', label: 'Quality Certifications', status: 'VERIFIED', source: 'GRS, ISO 9001, OEKO-TEX, PTEA' },
   ],
   productCategories: [
-    { id: '01', title: 'Polyester Staple Fibre', subtitle: 'Virgin & Recycled · 1.2D–15D', status: 'VERIFIED' },
+    { id: '01', title: 'Polyester Staple Fibre', subtitle: 'Virgin & Recycled · 1.2D–60D', status: 'VERIFIED' },
     { id: '02', title: 'Wadding & Thermal Infill', subtitle: 'High-loft · Thermal bonding', status: 'VERIFIED' },
     { id: '03', title: 'Felt & Non-Woven Materials', subtitle: 'Needle-punched · All weights', status: 'VERIFIED' },
     { id: '04', title: 'Linings & Fusing Materials', subtitle: 'Woven & non-woven interlinings', status: 'VERIFIED' },

@@ -8,7 +8,7 @@ const PRODUCTS = [
   {
     id: '01',
     title: 'Polyester Staple Fibre',
-    subtitle: 'Virgin & Recycled · 1.2D–15D',
+    subtitle: 'Virgin & Recycled · 1.2D–60D',
     img: '/images/collection-rolls.jpg',
     desc: 'High-tenacity PSF for spinning, wadding, and technical applications.',
     aspectStyle: { gridRow: 'span 2' },
