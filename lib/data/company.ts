@@ -39,6 +39,7 @@ export const GULF_FIBRE_DATA: CompanyData = {
   metrics: [
     { value: '350+', label: 'Customers Served', status: 'VERIFIED' },
     { value: '25+', label: 'Years in Business', status: 'VERIFIED', source: 'Established 1999' },
+    { value: '4+', label: 'Quality Certifications', status: 'VERIFIED', source: 'GRS, ISO 9001, OEKO-TEX, PTEA' },
   ],
   productCategories: [
     { id: '01', title: 'Polyester Staple Fibre', subtitle: 'Virgin & Recycled · 1.2D–15D', status: 'VERIFIED' },
