@@ -3,10 +3,11 @@
 import { useEffect, useRef } from 'react'
 
 const STATS = [
-  { num: 500, suffix: '+', label: 'Active Clients', sub: 'Across 18 countries' },
-  { num: 25, suffix: '+', label: 'Years of Excellence', sub: 'Since 1999' },
+  { num: 15000, suffix: ' T', label: 'Yearly Production', sub: 'High-grade regenerated PSF', formatComma: true },
+  { num: 350, suffix: '+', label: 'Active Clients', sub: 'Spinning & industrial mills' },
+  { num: 250, suffix: '+', label: 'Employees', sub: 'Plant engineers & workforce' },
+  { num: 25, suffix: '+', label: 'Years of Excellence', sub: 'Established 1999' },
   { num: 100, suffix: '%', label: 'GRS Certified', sub: 'Global Recycled Standard' },
-  { num: 24, suffix: 'h', label: 'Dispatch Time', sub: 'Guaranteed same-day' },
 ]
 
 export function StatsBar() {
@@ -30,7 +31,12 @@ export function StatsBar() {
             ease: 'power2.out',
             scrollTrigger: { trigger: el, start: 'top 92%', once: true },
             onUpdate: () => {
-              if (el) el.textContent = Math.round(obj.val) + stat.suffix
+              if (el) {
+                const formatted = stat.formatComma
+                  ? Math.round(obj.val).toLocaleString()
+                  : Math.round(obj.val)
+                el.textContent = `${formatted}${stat.suffix}`
+              }
             },
           })
         })
@@ -49,12 +55,13 @@ export function StatsBar() {
         borderTop: '1px solid rgba(255,255,255,0.1)',
       }}
     >
-      <div className="container">
+      <div style={{ width: '100%', maxWidth: '100%', paddingInline: 'clamp(1rem, 2.5vw, 3.5rem)' }}>
         <div
           className="stats-grid"
           style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(4, 1fr)',
+            gridTemplateColumns: 'repeat(5, 1fr)',
+            width: '100%',
           }}
         >
           {STATS.map((stat, i) => (
@@ -62,8 +69,8 @@ export function StatsBar() {
               key={stat.label}
               className="stat-col"
               style={{
-                padding: '2.5rem 1.5rem',
-                borderRight: i < 3 ? '1px solid rgba(255,255,255,0.15)' : 'none',
+                padding: '2.5rem 1rem',
+                borderRight: i < STATS.length - 1 ? '1px solid rgba(255,255,255,0.15)' : 'none',
                 textAlign: 'center',
               }}
             >
@@ -71,11 +78,12 @@ export function StatsBar() {
                 className={`stat-num-${i}`}
                 style={{
                   fontFamily: 'var(--font-sans)',
-                  fontSize: 'clamp(2.25rem, 4.5vw, 4.5rem)',
+                  fontSize: 'clamp(2rem, 3.3vw, 3.85rem)',
                   fontWeight: 900,
                   color: 'var(--white)',
                   lineHeight: 1,
                   marginBottom: '0.5rem',
+                  whiteSpace: 'nowrap',
                 }}
               >
                 0{stat.suffix}
@@ -83,12 +91,13 @@ export function StatsBar() {
               <div
                 style={{
                   fontFamily: 'var(--font-sans)',
-                  fontSize: '0.6875rem',
+                  fontSize: '0.75rem',
                   fontWeight: 700,
-                  letterSpacing: '0.12em',
+                  letterSpacing: '0.1em',
                   textTransform: 'uppercase',
                   color: 'rgba(255,255,255,0.85)',
                   marginBottom: '0.25rem',
+                  whiteSpace: 'nowrap',
                 }}
               >
                 {stat.label}
@@ -98,7 +107,7 @@ export function StatsBar() {
                   fontFamily: 'var(--font-serif)',
                   fontStyle: 'italic',
                   fontSize: '0.875rem',
-                  color: 'rgba(255,255,255,0.6)',
+                  color: 'rgba(255,255,255,0.65)',
                 }}
               >
                 {stat.sub}
@@ -109,19 +118,27 @@ export function StatsBar() {
       </div>
 
       <style>{`
-        @media (max-width: 900px) {
+        @media (max-width: 1024px) {
           .stats-grid {
-            grid-template-columns: repeat(2, 1fr) !important;
+            grid-template-columns: repeat(3, 1fr) !important;
           }
           .stat-col {
-            border-right: none !important;
+            border-right: 1px solid rgba(255,255,255,0.15) !important;
             border-bottom: 1px solid rgba(255,255,255,0.15);
             padding: 2rem 1rem !important;
+          }
+        }
+        @media (max-width: 768px) {
+          .stats-grid {
+            grid-template-columns: repeat(2, 1fr) !important;
           }
         }
         @media (max-width: 480px) {
           .stats-grid {
             grid-template-columns: 1fr !important;
+          }
+          .stat-col {
+            border-right: none !important;
           }
         }
       `}</style>

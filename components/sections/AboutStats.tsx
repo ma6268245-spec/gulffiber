@@ -3,10 +3,10 @@
 import { useEffect, useRef } from 'react'
 
 const STATS = [
-  { num: 11, suffix: '+', label: 'Years in Business', sub: 'Since 1999' },
-  { num: 3, suffix: '+', label: 'GRS Certificates', sub: 'Global Standard' },
-  { num: 21, suffix: '%', label: 'Recycled Content', sub: 'Year-on-year growth' },
-  { num: 15, suffix: '%', label: 'Energy Reduction', sub: 'Vs. industry average' },
+  { num: 25, suffix: '+', label: 'Years in Business', sub: 'Established 1999' },
+  { num: 4, suffix: '+', label: 'Accredited Standards', sub: 'GRS, ISO 9001, OEKO-TEX' },
+  { num: 100, suffix: '%', label: 'GRS Recycled Input', sub: 'Post-consumer verification' },
+  { num: 350, suffix: '+', label: 'Industrial Clients', sub: 'Spinning & nonwoven mills' },
 ]
 
 export function AboutStats() {

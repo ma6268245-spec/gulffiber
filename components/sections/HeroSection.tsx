@@ -58,8 +58,9 @@ export function HeroSection() {
           '-=0.3'
         )
 
-        // Number count-up animation: 0 -> 350+, 0 -> 25+, 0 -> 4+
+        // Number count-up animation: 0 -> 15,000 T, 0 -> 350+, 0 -> 25+, 0 -> 4+
         const targets = [
+          { val: 0, end: 15000, suffix: ' T', formatComma: true },
           { val: 0, end: 350, suffix: '+' },
           { val: 0, end: 25, suffix: '+' },
           { val: 0, end: 4, suffix: '+' },
@@ -70,11 +71,14 @@ export function HeroSection() {
             val: target.end,
             duration: 2.2,
             ease: 'power2.out',
-            delay: 0.4 + index * 0.1,
+            delay: 0.4 + index * 0.08,
             onUpdate: () => {
               const el = statRefs.current[index]
               if (el) {
-                el.textContent = `${Math.floor(target.val)}${target.suffix}`
+                const formattedNum = target.formatComma
+                  ? Math.floor(target.val).toLocaleString()
+                  : Math.floor(target.val)
+                el.textContent = `${formattedNum}${target.suffix}`
               }
             },
           })
@@ -256,20 +260,21 @@ export function HeroSection() {
         </div>
 
         {/* Stats */}
-        <div style={{ display: 'flex', gap: '0', borderTop: '1px solid var(--border-light)', paddingTop: '1rem' }}>
+        <div style={{ display: 'flex', gap: '0', borderTop: '1px solid var(--border-light)', paddingTop: '1.25rem' }}>
           {[
+            { num: '15,000 T', label: 'Yearly Production' },
             { num: '350+', label: 'Customers Served' },
             { num: '25+', label: 'Years in Business' },
-            { num: '4+', label: 'Quality Certifications' },
+            { num: '4+', label: 'Quality Certs' },
           ].map((stat, i) => (
             <div
               key={stat.label}
               className="hero-stat"
               style={{
                 flex: 1,
-                paddingInlineEnd: '1.25rem',
-                borderRight: i < 2 ? '1px solid var(--border-light)' : 'none',
-                paddingInlineStart: i > 0 ? '1.25rem' : 0,
+                paddingInlineEnd: '1rem',
+                borderRight: i < 3 ? '1px solid var(--border-light)' : 'none',
+                paddingInlineStart: i > 0 ? '1rem' : 0,
               }}
             >
               <div
@@ -277,23 +282,25 @@ export function HeroSection() {
                 className="hero-stat-num"
                 style={{
                   fontFamily: 'var(--font-sans)',
-                  fontSize: 'clamp(1.5rem, 2.2vw, 2.25rem)',
+                  fontSize: 'clamp(1.5rem, 2.1vw, 2.25rem)',
                   fontWeight: 900,
                   color: 'var(--burg-primary)',
                   lineHeight: 1,
-                  marginBottom: '0.25rem',
+                  marginBottom: '0.35rem',
+                  whiteSpace: 'nowrap',
                 }}
               >
-                0+
+                0
               </div>
               <div
                 style={{
                   fontFamily: 'var(--font-sans)',
                   fontSize: '0.6875rem',
                   fontWeight: 800,
-                  letterSpacing: '0.08em',
+                  letterSpacing: '0.06em',
                   textTransform: 'uppercase',
                   color: 'var(--ink)',
+                  whiteSpace: 'nowrap',
                 }}
               >
                 {stat.label}
@@ -308,7 +315,7 @@ export function HeroSection() {
             display: 'flex',
             alignItems: 'center',
             gap: '0.75rem',
-            marginTop: '0.875rem',
+            marginTop: 'clamp(1.5rem, 2.5vh, 2.25rem)',
             opacity: 1,
           }}
         >
@@ -346,93 +353,39 @@ export function HeroSection() {
           />
         </div>
 
-        {/* Floating text — FEATURED PRODUCT (Pure Text Positioned on Left of Image) */}
+        {/* Official ISO 9001:2015 Certified Seal */}
         <div
           className="hero-card hero-card-offer"
           style={{
             position: 'absolute',
             bottom: 'clamp(2rem, 3.5vh, 2.75rem)',
-            left: 'clamp(1.5rem, 3vw, 2.5rem)',
-            right: 'auto',
-            background: 'transparent',
-            border: 'none',
-            boxShadow: 'none',
-            padding: 0,
+            right: 'clamp(1.5rem, 3vw, 2.5rem)',
+            left: 'auto',
             zIndex: 3,
-            textAlign: 'left',
+            display: 'flex',
+            alignItems: 'center',
           }}
         >
-          {/* Eyebrow: Crimson Icon + FEATURED */}
           <div
             style={{
-              display: 'inline-flex',
+              position: 'relative',
+              width: 'clamp(6.5rem, 9vw, 9.25rem)',
+              height: 'clamp(6.5rem, 9vw, 9.25rem)',
+              filter: 'drop-shadow(0 14px 28px rgba(7, 20, 46, 0.28)) drop-shadow(0 2px 8px rgba(0, 0, 0, 0.15))',
+              display: 'flex',
               alignItems: 'center',
-              gap: '0.45rem',
-              marginBottom: '0.35rem',
+              justifyContent: 'center',
             }}
           >
-            {/* Red Spool Icon */}
-            <svg
-              width="18"
-              height="18"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="#D32F2F"
-              strokeWidth="2.2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <circle cx="12" cy="12" r="9" />
-              <circle cx="9" cy="10" r="2" />
-              <circle cx="15" cy="10" r="2" />
-              <circle cx="12" cy="16" r="2" />
-            </svg>
-            <span
-              style={{
-                fontFamily: 'var(--font-sans)',
-                fontSize: '0.8125rem',
-                fontWeight: 900,
-                letterSpacing: '0.14em',
-                textTransform: 'uppercase',
-                color: '#D32F2F',
-                lineHeight: 1,
-                textShadow: '0 1px 8px rgba(255, 255, 255, 0.95), 0 2px 16px rgba(255, 255, 255, 0.85)',
-              }}
-            >
-              FEATURED
-            </span>
+            <Image
+              src="/images/iso-9001-seal-v2.png"
+              alt="ISO 9001 Certified Company"
+              width={180}
+              height={180}
+              style={{ objectFit: 'contain', width: '100%', height: '100%' }}
+              priority
+            />
           </div>
-
-          {/* Title: Bold High-Contrast Serif */}
-          <h3
-            style={{
-              fontFamily: 'var(--font-serif)',
-              fontSize: 'clamp(1.65rem, 2.4vw, 2.35rem)',
-              fontWeight: 800,
-              color: '#06122C',
-              lineHeight: 1.1,
-              margin: '0 0 0.35rem 0',
-              letterSpacing: '-0.02em',
-              textShadow: '0 1px 10px rgba(255, 255, 255, 0.95), 0 2px 20px rgba(255, 255, 255, 0.85)',
-            }}
-          >
-            Recycled PSF Pro
-          </h3>
-
-          {/* Subtitle / Specs */}
-          <p
-            style={{
-              fontFamily: 'var(--font-sans)',
-              fontSize: '0.875rem',
-              color: '#0F172A',
-              fontWeight: 700,
-              letterSpacing: '0.02em',
-              margin: 0,
-              textShadow: '0 1px 8px rgba(255, 255, 255, 0.95), 0 2px 16px rgba(255, 255, 255, 0.85)',
-            }}
-          >
-            Pakistan Origin · 1.2D–60D
-          </p>
         </div>
 
       </div>
@@ -449,8 +402,8 @@ export function HeroSection() {
           }
           .hero-card-offer {
             bottom: 1.5rem !important;
-            left: 1.5rem !important;
-            right: auto !important;
+            right: 1.5rem !important;
+            left: auto !important;
           }
         }
         @media (max-width: 576px) {

@@ -37,9 +37,11 @@ export const GULF_FIBRE_DATA: CompanyData = {
   origin: 'Pakistan',
   status: 'VERIFIED',
   metrics: [
+    { value: '15,000 MT', label: 'Annual Production Capacity', status: 'VERIFIED' },
     { value: '350+', label: 'Customers Served', status: 'VERIFIED' },
     { value: '25+', label: 'Years in Business', status: 'VERIFIED', source: 'Established 1999' },
     { value: '4+', label: 'Quality Certifications', status: 'VERIFIED', source: 'GRS, ISO 9001, OEKO-TEX, PTEA' },
+    { value: '250+', label: 'Workforce / Employees', status: 'VERIFIED' },
   ],
   productCategories: [
     { id: '01', title: 'Polyester Staple Fibre', subtitle: 'Virgin & Recycled · 1.2D–60D', status: 'VERIFIED' },
