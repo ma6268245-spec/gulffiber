@@ -58,11 +58,10 @@ export function HeroSection() {
           '-=0.3'
         )
 
-        // Number count-up animation: 0 -> 500+, 0 -> 25+, 0 -> 18
+        // Number count-up animation: 0 -> 350+, 0 -> 25+
         const targets = [
-          { val: 0, end: 500, suffix: '+' },
+          { val: 0, end: 350, suffix: '+' },
           { val: 0, end: 25, suffix: '+' },
-          { val: 0, end: 18, suffix: '' },
         ]
 
         targets.forEach((target, index) => {
@@ -175,15 +174,15 @@ export function HeroSection() {
               style={{
                 display: 'block',
                 fontFamily: 'var(--font-sans)',
-                fontSize: 'clamp(2.75rem, 5.5vw, 6.25rem)',
+                fontSize: 'clamp(2.4rem, 4.8vw, 5.5rem)',
                 fontWeight: 900,
-                lineHeight: 0.88,
+                lineHeight: 0.9,
                 letterSpacing: '-0.035em',
                 textTransform: 'uppercase',
                 color: 'var(--ink)',
               }}
             >
-              PREMIUM
+              PIONEERS OF
             </span>
           </div>
           <div className="clip-line">
@@ -192,15 +191,15 @@ export function HeroSection() {
               style={{
                 display: 'block',
                 fontFamily: 'var(--font-sans)',
-                fontSize: 'clamp(2.75rem, 5.5vw, 6.25rem)',
+                fontSize: 'clamp(2.4rem, 4.8vw, 5.5rem)',
                 fontWeight: 900,
-                lineHeight: 0.88,
+                lineHeight: 0.9,
                 letterSpacing: '-0.035em',
                 textTransform: 'uppercase',
                 color: 'var(--ink)',
               }}
             >
-              FIBRES FOR
+              REGENERATED
             </span>
           </div>
           <div className="clip-line">
@@ -211,13 +210,13 @@ export function HeroSection() {
                 fontFamily: 'var(--font-serif)',
                 fontStyle: 'italic',
                 fontWeight: 600,
-                fontSize: 'clamp(2.75rem, 5.5vw, 6.25rem)',
-                lineHeight: 0.88,
-                letterSpacing: '-0.025em',
+                fontSize: 'clamp(2.15rem, 4.4vw, 5rem)',
+                lineHeight: 0.92,
+                letterSpacing: '-0.02em',
                 color: 'var(--burg-primary)',
               }}
             >
-              The World
+              Polyester Fiber in Pakistan
             </span>
           </div>
         </div>
@@ -256,20 +255,19 @@ export function HeroSection() {
         </div>
 
         {/* Stats */}
-        <div style={{ display: 'flex', gap: '0', borderTop: '1px solid var(--border-light)', paddingTop: '1rem' }}>
+        <div style={{ display: 'flex', gap: '0', borderTop: '1px solid var(--border-light)', paddingTop: '1rem', maxWidth: '380px' }}>
           {[
-            { num: '500+', label: 'Customers Served' },
+            { num: '350+', label: 'Customers Served' },
             { num: '25+', label: 'Years in Business' },
-            { num: '18', label: 'Export Markets' },
           ].map((stat, i) => (
             <div
               key={stat.label}
               className="hero-stat"
               style={{
                 flex: 1,
-                paddingInlineEnd: '1.25rem',
-                borderRight: i < 2 ? '1px solid var(--border-light)' : 'none',
-                paddingInlineStart: i > 0 ? '1.25rem' : 0,
+                paddingInlineEnd: '1.5rem',
+                borderRight: i < 1 ? '1px solid var(--border-light)' : 'none',
+                paddingInlineStart: i > 0 ? '1.5rem' : 0,
               }}
             >
               <div
@@ -277,14 +275,14 @@ export function HeroSection() {
                 className="hero-stat-num"
                 style={{
                   fontFamily: 'var(--font-sans)',
-                  fontSize: 'clamp(1.5rem, 2.2vw, 2.25rem)',
+                  fontSize: 'clamp(1.65rem, 2.4vw, 2.35rem)',
                   fontWeight: 900,
                   color: 'var(--burg-primary)',
                   lineHeight: 1,
                   marginBottom: '0.25rem',
                 }}
               >
-                {i < 2 ? '0+' : '0'}
+                0+
               </div>
               <div
                 style={{
