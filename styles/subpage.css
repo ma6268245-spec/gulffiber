@@ -155,6 +155,15 @@
 }
 .sp-root .sp-head-aside { max-width: 46ch; }
 
+.sp-root .btn-ghost svg {
+  width: 14px !important;
+  height: 14px !important;
+  max-width: 14px !important;
+  max-height: 14px !important;
+  flex-shrink: 0;
+  display: inline-block;
+}
+
 /* ── Copy ───────────────────────────────────────────────────────────────── */
 .sp-root .sp-lede {
   font-size: 1rem;

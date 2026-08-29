@@ -331,6 +331,15 @@ body {
   transition: gap 0.25s ease;
 }
 
+.btn-ghost svg {
+  width: 14px !important;
+  height: 14px !important;
+  max-width: 14px !important;
+  max-height: 14px !important;
+  flex-shrink: 0;
+  display: inline-block;
+}
+
 .btn-ghost:hover {
   gap: 0.75rem;
 }

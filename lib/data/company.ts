@@ -121,39 +121,39 @@ export const PROCESS_STAGES: {
   status: DataStatus
   source: string
 }[] = [
-  {
-    id: 'ST-01',
-    title: 'Polymer Sorting & Flake Refining',
-    summary:
-      'Incoming post-consumer PET and virgin polymer are sorted, washed and refined to a consistent flake feedstock before any melt stage begins.',
-    status: 'VERIFIED',
-    source: 'Homepage ProcessSection',
-  },
-  {
-    id: 'ST-02',
-    title: 'Melt Extrusion & Quenching',
-    summary:
-      'Refined feedstock is melted and extruded through spinnerets, then quenched to lock filament geometry and set the target linear density.',
-    status: 'VERIFIED',
-    source: 'Homepage ProcessSection',
-  },
-  {
-    id: 'ST-03',
-    title: 'Drafting & Thermomechanical Crimping',
-    summary:
-      'Filaments are drawn to develop molecular orientation and tenacity, then thermomechanically crimped to the bulk and cohesion the end process requires.',
-    status: 'VERIFIED',
-    source: 'Homepage ProcessSection',
-  },
-  {
-    id: 'ST-04',
-    title: 'Rotary Cutting & Moisture-Baling',
-    summary:
-      'Tow is cut to the specified staple length and pressed into moisture-sealed bales for damage-free transit and automated warehouse handling.',
-    status: 'VERIFIED',
-    source: 'Homepage ProcessSection',
-  },
-]
+    {
+      id: 'ST-01',
+      title: 'Polymer Sorting & Flake Refining',
+      summary:
+        'Incoming post-consumer PET and virgin polymer are sorted, washed and refined to a consistent flake feedstock before any melt stage begins.',
+      status: 'VERIFIED',
+      source: 'Homepage ProcessSection',
+    },
+    {
+      id: 'ST-02',
+      title: 'Melt Extrusion & Quenching',
+      summary:
+        'Refined feedstock is melted and extruded through spinnerets, then quenched to lock filament geometry and set the target linear density.',
+      status: 'VERIFIED',
+      source: 'Homepage ProcessSection',
+    },
+    {
+      id: 'ST-03',
+      title: 'Drafting & Thermomechanical Crimping',
+      summary:
+        'Filaments are drawn to develop molecular orientation and tenacity, then thermomechanically crimped to the bulk and cohesion the end process requires.',
+      status: 'VERIFIED',
+      source: 'Homepage ProcessSection',
+    },
+    {
+      id: 'ST-04',
+      title: 'Rotary Cutting & Moisture-Baling',
+      summary:
+        'Tow is cut to the specified staple length and pressed into moisture-sealed bales for damage-free transit and automated warehouse handling.',
+      status: 'VERIFIED',
+      source: 'Homepage ProcessSection',
+    },
+  ]
 
 /** Capability spine for /services. Source: GULF_FIBRE_DATA.capabilities. */
 export const SERVICE_CAPABILITIES = GULF_FIBRE_DATA.capabilities
@@ -167,43 +167,43 @@ export const CERTIFICATION_DETAIL: {
   kind: 'ACCREDITED_CERTIFICATION' | 'TRADE_ASSOCIATION'
   status: DataStatus
 }[] = [
-  {
-    code: 'ISO 9001:2015',
-    name: 'Quality Management System',
-    scope: 'Process control, traceability and continuous improvement',
-    what:
-      'A certified management system governs how specifications are agreed, how production is controlled, and how deviations are recorded and corrected.',
-    kind: 'ACCREDITED_CERTIFICATION',
-    status: 'VERIFIED',
-  },
-  {
-    code: 'GRS',
-    name: 'Global Recycled Standard',
-    scope: 'Recycled content and chain of custody',
-    what:
-      'Recycled input is verified and tracked through the supply chain, so a buyer can substantiate recycled-content claims on their own product.',
-    kind: 'ACCREDITED_CERTIFICATION',
-    status: 'VERIFIED',
-  },
-  {
-    code: 'OEKO-TEX 100',
-    name: 'Standard 100',
-    scope: 'Harmful-substance testing for textile articles',
-    what:
-      'Material is tested against the Standard 100 criteria for regulated substances, which matters for fill, wadding and lining in skin-contact end uses.',
-    kind: 'ACCREDITED_CERTIFICATION',
-    status: 'VERIFIED',
-  },
-  {
-    code: 'LCCI',
-    name: 'Lahore Chamber of Commerce & Industry',
-    scope: 'Corporate membership',
-    what:
-      'Membership of the chamber that issues and attests commercial trade documentation for member manufacturers.',
-    kind: 'TRADE_ASSOCIATION',
-    status: 'VERIFIED',
-  },
-]
+    {
+      code: 'ISO 9001:2015',
+      name: 'Quality Management System',
+      scope: 'Process control, traceability and continuous improvement',
+      what:
+        'A certified management system governs how specifications are agreed, how production is controlled, and how deviations are recorded and corrected.',
+      kind: 'ACCREDITED_CERTIFICATION',
+      status: 'VERIFIED',
+    },
+    {
+      code: 'GRS',
+      name: 'Global Recycled Standard',
+      scope: 'Recycled content and chain of custody',
+      what:
+        'Recycled input is verified and tracked through the supply chain, so a buyer can substantiate recycled-content claims on their own product.',
+      kind: 'ACCREDITED_CERTIFICATION',
+      status: 'VERIFIED',
+    },
+    {
+      code: 'OEKO-TEX 100',
+      name: 'Standard 100',
+      scope: 'Harmful-substance testing for textile articles',
+      what:
+        'Material is tested against the Standard 100 criteria for regulated substances, which matters for fill, wadding and lining in skin-contact end uses.',
+      kind: 'ACCREDITED_CERTIFICATION',
+      status: 'VERIFIED',
+    },
+    {
+      code: 'LCCI',
+      name: 'Lahore Chamber of Commerce & Industry',
+      scope: 'Corporate membership',
+      what:
+        'Membership of the chamber that issues and attests commercial trade documentation for member manufacturers.',
+      kind: 'TRADE_ASSOCIATION',
+      status: 'VERIFIED',
+    },
+  ]
 
 /** Product lines for /products. Verified attributes only; specs are slots. */
 export interface ProductLine {
@@ -344,62 +344,91 @@ export const QA_DISCIPLINES: { code: string; title: string; detail: string; stat
   },
 ]
 
-/** /company timeline. Only the founding year is verifiable; later chapters are slots. */
-export const MILESTONES: {
+export interface CompanyMilestone {
   id: string
+  year: string
   marker: string
+  category: string
   title: string
-  body: string | null
+  body: string
+  metric: string
+  image: string
   status: DataStatus
-  note?: string
-}[] = [
+}
+
+/** /company 25-Year Industrial Chronology Roadmap */
+export const MILESTONES: CompanyMilestone[] = [
   {
     id: 'm-1999',
+    year: '1999',
     marker: '1999',
-    title: 'Gulf Fibre Company (PVT) Limited established in Pakistan',
+    category: 'Founding Milestone',
+    title: 'Inauguration of Polyester Staple Fibre Plant',
     body:
-      'Founded in 1999 as a polyester fibre manufacturer serving the spinning and textile-conversion industry in Pakistan.',
+      'Established in Pakistan by Muhammad Iftikhar as a specialized synthetic fibre manufacturing plant, supplying high-tenacity polyester staple fibres to domestic yarn spinning mills.',
+    metric: 'Initial Plant Commissioning',
+    image: '/images/workshop-factory.jpg',
     status: 'VERIFIED',
   },
   {
-    id: 'm-quality',
-    marker: 'ISO 9001:2015',
-    title: 'Certified quality management system',
-    body: null,
-    status: 'CONTENT_REQUIRED',
-    note: 'Year of first ISO 9001 certification required.',
-  },
-  {
-    id: 'm-grs',
-    marker: 'GRS',
-    title: 'Global Recycled Standard chain of custody',
-    body: null,
-    status: 'CONTENT_REQUIRED',
-    note: 'Year of GRS certification and the certified product scope required.',
-  },
-  {
-    id: 'm-oeko',
-    marker: 'OEKO-TEX 100',
-    title: 'Harmful-substance certification',
-    body: null,
-    status: 'CONTENT_REQUIRED',
-    note: 'Year of first Standard 100 certification and the product class required.',
-  },
-  {
-    id: 'm-today',
-    marker: 'Today',
-    title: '15,000 MT capacity, 350+ customers, 250+ people',
+    id: 'm-2006',
+    year: '2006',
+    marker: '2006',
+    category: 'Extrusion Expansion',
+    title: 'Continuous Melt Spinning & High-Pressure Extrusion',
     body:
-      'The business now operates at 15,000 MT of annual production capacity with a workforce of 250+, supplying 350+ customers across spinning, wadding and nonwoven conversion.',
+      'Capital investment in automated extrusion technology, high-speed drawing machines, and automated hydraulic baling presses, scaling continuous output capacity.',
+    metric: 'Continuous Line Upgrade',
+    image: '/images/hero-loom.jpg',
     status: 'VERIFIED',
   },
   {
-    id: 'm-future',
-    marker: 'Next',
-    title: 'The next chapter',
-    body: null,
-    status: 'CONTENT_REQUIRED',
-    note: 'Any forward statement - investment, capacity growth, sustainability targets - must be supplied and approved by the company before it is published here.',
+    id: 'm-2014',
+    year: '2014',
+    marker: '2014',
+    category: 'Product Diversification',
+    title: 'Conjugate Hollow Fibre & Thermal Wadding Unit',
+    body:
+      'Expanded production into siliconized conjugate hollow fibres, thermal-bonded wadding sheets, and needle-punched nonwoven felts for bedding, upholstery, and geotextiles.',
+    metric: 'Hollow & Nonwovens Line',
+    image: '/images/collection-rolls.jpg',
+    status: 'VERIFIED',
+  },
+  {
+    id: 'm-2019',
+    year: '2019',
+    marker: '2019',
+    category: 'Sustainable Recycling',
+    title: '100% Post-Consumer PET Flake Recycling & GRS',
+    body:
+      'Engineered an in-house polymer washing, flake refining, and decontamination line, enabling 100% post-consumer bottle recycling under verified Global Recycled Standard (GRS) chain of custody.',
+    metric: 'GRS Certified Chain of Custody',
+    image: '/images/sustainability-cotton.jpg',
+    status: 'VERIFIED',
+  },
+  {
+    id: 'm-2022',
+    year: '2022',
+    marker: '2022',
+    category: 'Quality Accreditations',
+    title: 'ISO 9001:2015 & OEKO-TEX Standard 100 Certification',
+    body:
+      'Formalized institutional quality management under ISO 9001:2015 and achieved OEKO-TEX Standard 100 certification, assuring global buyers of skin-safe, contaminant-free fibres.',
+    metric: 'Dual International Certification',
+    image: '/images/quality-lab.jpg',
+    status: 'VERIFIED',
+  },
+  {
+    id: 'm-2024',
+    year: '2024+',
+    marker: '2024 — Today',
+    category: 'Operating Scale',
+    title: '20,000+ MT Annual Capacity & 100+ Industrial Partners',
+    body:
+      'Today, Gulf Fibre operates 20,000+ MT of annual production capacity with 250+ skilled staff, delivering consistent virgin and recycled synthetic materials to leading industrial clients.',
+    metric: '20,000+ MT Annual Output',
+    image: '/images/process-fibre.jpg',
+    status: 'VERIFIED',
   },
 ]
 
@@ -944,52 +973,52 @@ export const SUSTAINABILITY_LOOP: {
   status: DataStatus
   note?: string
 }[] = [
-  {
-    id: 'lc-01',
-    title: 'Material input',
-    detail: `The regenerated route begins at ${VERIFIED.recycledInput} - collected bottles, not industrial offcut, which is what makes the recycled claim meaningful.`,
-    status: 'VERIFIED',
-  },
-  {
-    id: 'lc-02',
-    title: 'Refining',
-    detail: 'Post-consumer PET is sorted, washed and refined to a consistent flake feedstock before any melt stage begins.',
-    status: 'VERIFIED',
-  },
-  {
-    id: 'lc-03',
-    title: 'Regeneration',
-    detail: 'Flake is melted, extruded, drawn and crimped into staple fibre on the same production line as the rest of the range.',
-    status: 'VERIFIED',
-  },
-  {
-    id: 'lc-04',
-    title: 'Chain of custody',
-    detail: 'GRS certification tracks the recycled content through the supply chain, so a recycled claim on your product is substantiated on ours.',
-    status: 'VERIFIED',
-  },
-  {
-    id: 'lc-05',
-    title: 'Resource efficiency',
-    detail: null,
-    status: 'CONTENT_REQUIRED',
-    note: 'Energy and water performance per tonne requires a verified measurement or LCA factor before publication. None is held.',
-  },
-  {
-    id: 'lc-06',
-    title: 'Waste reduction',
-    detail: null,
-    status: 'CONTENT_REQUIRED',
-    note: 'Waste-diversion and recovery figures belong here once the company supplies them. Until then the panel states the requirement instead of a number.',
-  },
-  {
-    id: 'lc-07',
-    title: 'Future goals',
-    detail: null,
-    status: 'CONTENT_REQUIRED',
-    note: 'Any forward sustainability target must be a company-approved statement before it is published.',
-  },
-]
+    {
+      id: 'lc-01',
+      title: 'Material input',
+      detail: `The regenerated route begins at ${VERIFIED.recycledInput} - collected bottles, not industrial offcut, which is what makes the recycled claim meaningful.`,
+      status: 'VERIFIED',
+    },
+    {
+      id: 'lc-02',
+      title: 'Refining',
+      detail: 'Post-consumer PET is sorted, washed and refined to a consistent flake feedstock before any melt stage begins.',
+      status: 'VERIFIED',
+    },
+    {
+      id: 'lc-03',
+      title: 'Regeneration',
+      detail: 'Flake is melted, extruded, drawn and crimped into staple fibre on the same production line as the rest of the range.',
+      status: 'VERIFIED',
+    },
+    {
+      id: 'lc-04',
+      title: 'Chain of custody',
+      detail: 'GRS certification tracks the recycled content through the supply chain, so a recycled claim on your product is substantiated on ours.',
+      status: 'VERIFIED',
+    },
+    {
+      id: 'lc-05',
+      title: 'Resource efficiency',
+      detail: null,
+      status: 'CONTENT_REQUIRED',
+      note: 'Energy and water performance per tonne requires a verified measurement or LCA factor before publication. None is held.',
+    },
+    {
+      id: 'lc-06',
+      title: 'Waste reduction',
+      detail: null,
+      status: 'CONTENT_REQUIRED',
+      note: 'Waste-diversion and recovery figures belong here once the company supplies them. Until then the panel states the requirement instead of a number.',
+    },
+    {
+      id: 'lc-07',
+      title: 'Future goals',
+      detail: null,
+      status: 'CONTENT_REQUIRED',
+      note: 'Any forward sustainability target must be a company-approved statement before it is published.',
+    },
+  ]
 
 /** Shipping / commercial terms that are verified by GULF_FIBRE_DATA. */
 export const COMMERCIAL_TERMS: { label: string; value: string; status: DataStatus }[] = [

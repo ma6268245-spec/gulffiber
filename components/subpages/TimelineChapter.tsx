@@ -1,80 +1,104 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
-import { DataSlot, Provenance } from '@/components/subpages/Primitives'
-import { MILESTONES } from '@/lib/data/company'
+import { useEffect, useRef } from 'react'
+import Image from 'next/image'
+import { MILESTONES, type CompanyMilestone } from '@/lib/data/company'
 
 /* ===========================================================================
-   TIMELINE CHAPTER (Company page - history)
+   COMPACT ALTERNATING INDUSTRIAL TIMELINE WITH SMOOTH REVEAL
    ---------------------------------------------------------------------------
-   A vertical rail that fills with scroll while the milestones light up as they
-   cross the viewport - the visitor feels the chronology advancing under their
-   own scroll. Every milestone keeps its provenance: dated entries carry the
-   VERIFIED pill, undated ones render as labelled slots that name exactly what
-   date or statement to supply. Reduced motion: the rail is full and every
-   entry is lit from the start.
+   - Compact width (880px max-width) and scaled image cards
+   - Central luminous timeline rail with scroll-scrub fill
+   - Smooth staggered GSAP ScrollTrigger reveals on every milestone
    =========================================================================== */
 
 export function TimelineChapter() {
-  const wrapRef = useRef<HTMLOListElement>(null)
-  const [rail, setRail] = useState(0)
-  const [lit, setLit] = useState<number[]>([])
+  const containerRef = useRef<HTMLDivElement>(null)
+  const railFillRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     let ctx: { revert: () => void } | undefined
     let cancelled = false
 
-    const run = async () => {
+    const initAnimation = async () => {
       if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-        setRail(1)
-        setLit(MILESTONES.map((_, i) => i))
+        if (railFillRef.current) railFillRef.current.style.transform = 'scaleY(1)'
         return
       }
+
       const { getGsap } = await import('@/lib/animations')
       const gsap = await getGsap()
-      if (cancelled || !wrapRef.current) return
+      if (cancelled || !containerRef.current) return
 
-      const wrap = wrapRef.current
-      if (!wrap) return
+      const container = containerRef.current
+      if (!container) return
 
       ctx = gsap.context(() => {
-        /* Rail fills across the whole list's travel through the viewport. */
-        gsap.to(
-          { v: 0 },
-          {
-            v: 1,
-            ease: 'none',
-            scrollTrigger: {
-              trigger: wrap,
-              start: 'top 70%',
-              end: 'bottom 55%',
-              scrub: 0.5,
-              onUpdate: (self: { progress: number }) => setRail(self.progress),
-            },
-          }
-        )
-
-        /* Each milestone lights up when it enters, and stays lit. */
-        Array.from(wrap.children).forEach((el, i) => {
+        // 1. Scrub rail fill as the user scrolls through the timeline
+        if (railFillRef.current) {
           gsap.fromTo(
-            el,
-            { opacity: 0.45 },
+            railFillRef.current,
+            { scaleY: 0 },
             {
-              opacity: 1,
-              duration: 0.5,
+              scaleY: 1,
+              ease: 'none',
               scrollTrigger: {
-                trigger: el,
-                start: 'top 78%',
-                once: true,
-                onEnter: () => setLit((prev) => (prev.includes(i) ? prev : [...prev, i])),
+                trigger: container,
+                start: 'top 75%',
+                end: 'bottom 60%',
+                scrub: 0.6,
               },
             }
           )
+        }
+
+        // 2. Smooth reveal for each row
+        const rows = container.querySelectorAll('.timeline-row')
+        rows.forEach((row) => {
+          const img = row.querySelector('.timeline-img-box')
+          const text = row.querySelector('.timeline-text-box')
+          const dot = row.querySelector('.timeline-center-dot')
+
+          const tl = gsap.timeline({
+            scrollTrigger: {
+              trigger: row,
+              start: 'top 82%',
+              once: true,
+            },
+          })
+
+          if (dot) {
+            tl.fromTo(
+              dot,
+              { scale: 0, opacity: 0 },
+              { scale: 1, opacity: 1, duration: 0.45, ease: 'back.out(2)' },
+              0
+            )
+          }
+
+          if (img) {
+            tl.fromTo(
+              img,
+              { opacity: 0, y: 35, scale: 0.96 },
+              { opacity: 1, y: 0, scale: 1, duration: 0.75, ease: 'power3.out' },
+              0.05
+            )
+          }
+
+          if (text) {
+            tl.fromTo(
+              text,
+              { opacity: 0, y: 30 },
+              { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out' },
+              0.12
+            )
+          }
         })
-      }, wrapRef.current)
+      }, containerRef)
     }
 
-    run()
+    initAnimation()
+
     return () => {
       cancelled = true
       if (ctx) ctx.revert()
@@ -82,35 +106,311 @@ export function TimelineChapter() {
   }, [])
 
   return (
-    <div className="sp-timeline">
-      <div className="sp-timeline__rail" aria-hidden="true">
-        <span className="sp-timeline__fill" style={{ transform: `scaleY(${rail})` }} />
+    <div
+      ref={containerRef}
+      style={{
+        position: 'relative',
+        maxWidth: '880px',
+        margin: '0 auto',
+        width: '100%',
+      }}
+    >
+      {/* ── Central Vertical Glowing Rail Background ── */}
+      <div
+        className="timeline-center-rail"
+        style={{
+          position: 'absolute',
+          top: '1.5rem',
+          bottom: '1.5rem',
+          left: '50%',
+          transform: 'translateX(-50%)',
+          width: '2px',
+          background: 'rgba(255, 255, 255, 0.08)',
+          zIndex: 1,
+        }}
+      >
+        {/* Dynamic Glowing Fill Line */}
+        <div
+          ref={railFillRef}
+          style={{
+            position: 'absolute',
+            inset: 0,
+            background: 'linear-gradient(180deg, #38B6FF 0%, #0A4BB8 50%, #38B6FF 100%)',
+            boxShadow: '0 0 10px #38B6FF, 0 0 20px rgba(56, 182, 255, 0.4)',
+            transformOrigin: 'top',
+            transform: 'scaleY(0)',
+          }}
+        />
       </div>
 
-      <ol className="sp-timeline__list" ref={wrapRef}>
-        {MILESTONES.map((m, i) => (
-          <li className="sp-timeline__item" data-lit={lit.includes(i)} key={m.id}>
-            <span className="sp-timeline__marker">{m.marker}</span>
-            <div className="sp-timeline__body">
-              <h3 className="sp-timeline__title">{m.title}</h3>
-              {m.body ? (
-                <>
-                  <p className="sp-body">{m.body}</p>
-                  <div style={{ marginTop: '0.85rem' }}>
-                    <Provenance status={m.status} />
+      {/* ── Timeline Rows ── */}
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 'clamp(2.25rem, 4.5vh, 3.75rem)',
+          position: 'relative',
+          zIndex: 2,
+        }}
+      >
+        {MILESTONES.map((m: CompanyMilestone, idx: number) => {
+          const isEven = idx % 2 === 0 // 0, 2, 4 -> Image Left, Text Right; 1, 3, 5 -> Text Left, Image Right
+
+          return (
+            <div
+              key={m.id}
+              className="timeline-row"
+              style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(2, minmax(0, 1fr))',
+                gap: 'clamp(1.5rem, 3.5vw, 2.75rem)',
+                alignItems: 'center',
+                position: 'relative',
+              }}
+            >
+              {/* Center Dot on Rail */}
+              <div
+                className="timeline-center-dot"
+                style={{
+                  position: 'absolute',
+                  left: '50%',
+                  top: '50%',
+                  transform: 'translate(-50%, -50%)',
+                  width: '12px',
+                  height: '12px',
+                  borderRadius: '50%',
+                  background: '#38B6FF',
+                  boxShadow: '0 0 10px #38B6FF, 0 0 18px rgba(56, 182, 255, 0.6)',
+                  border: '2px solid #040F26',
+                  zIndex: 3,
+                }}
+              />
+
+              {/* ── LEFT COLUMN ── */}
+              <div
+                style={{
+                  order: isEven ? 1 : 1,
+                  paddingRight: 'clamp(0.25rem, 1.5vw, 1rem)',
+                }}
+              >
+                {isEven ? (
+                  /* Image on Left */
+                  <div
+                    className="timeline-img-box"
+                    style={{
+                      position: 'relative',
+                      borderRadius: '14px',
+                      overflow: 'hidden',
+                      border: '1px solid rgba(255, 255, 255, 0.12)',
+                      boxShadow: '0 12px 28px rgba(0, 0, 0, 0.35)',
+                      aspectRatio: '16 / 10',
+                      maxWidth: '380px',
+                      marginLeft: 'auto',
+                      background: 'rgba(255, 255, 255, 0.03)',
+                      transition: 'transform 0.3s ease, border-color 0.3s ease',
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.transform = 'scale(1.02)'
+                      e.currentTarget.style.borderColor = 'rgba(56, 182, 255, 0.5)'
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.transform = 'scale(1)'
+                      e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.12)'
+                    }}
+                  >
+                    <Image
+                      src={m.image}
+                      alt={m.title}
+                      fill
+                      sizes="(max-width: 768px) 100vw, 400px"
+                      style={{ objectFit: 'cover' }}
+                    />
+                    <div
+                      style={{
+                        position: 'absolute',
+                        inset: 0,
+                        background: 'linear-gradient(180deg, rgba(4, 15, 38, 0) 65%, rgba(4, 15, 38, 0.6) 100%)',
+                      }}
+                    />
                   </div>
-                </>
-              ) : (
-                <DataSlot
-                  title="Date or statement required"
-                  note={m.note ?? 'A verified date is required before this entry can be published.'}
-                  status={m.status}
-                />
-              )}
+                ) : (
+                  /* Text Block on Left */
+                  <div className="timeline-text-box" style={{ maxWidth: '380px', marginLeft: 'auto' }}>
+                    <span
+                      style={{
+                        fontSize: '0.6875rem',
+                        fontWeight: 800,
+                        fontFamily: 'var(--font-sans)',
+                        textTransform: 'uppercase',
+                        letterSpacing: '0.08em',
+                        color: 'var(--burg-bright, #38B6FF)',
+                        display: 'block',
+                        marginBottom: '0.25rem',
+                      }}
+                    >
+                      {m.category}
+                    </span>
+                    <div
+                      style={{
+                        fontSize: 'clamp(2rem, 3.2vw, 2.65rem)',
+                        fontWeight: 900,
+                        fontFamily: 'var(--font-sans)',
+                        letterSpacing: '-0.03em',
+                        color: '#FFFFFF',
+                        lineHeight: 1,
+                      }}
+                    >
+                      {m.marker}
+                    </div>
+                    <div
+                      style={{
+                        width: '100%',
+                        height: '1px',
+                        background: 'rgba(255, 255, 255, 0.12)',
+                        margin: '0.65rem 0 0.85rem',
+                      }}
+                    />
+                    <p
+                      style={{
+                        fontSize: '0.875rem',
+                        lineHeight: 1.65,
+                        color: 'rgba(255, 255, 255, 0.72)',
+                        margin: 0,
+                      }}
+                    >
+                      {m.body}
+                    </p>
+                  </div>
+                )}
+              </div>
+
+              {/* ── RIGHT COLUMN ── */}
+              <div
+                style={{
+                  order: 2,
+                  paddingLeft: 'clamp(0.25rem, 1.5vw, 1rem)',
+                }}
+              >
+                {isEven ? (
+                  /* Text Block on Right */
+                  <div className="timeline-text-box" style={{ maxWidth: '380px' }}>
+                    <span
+                      style={{
+                        fontSize: '0.6875rem',
+                        fontWeight: 800,
+                        fontFamily: 'var(--font-sans)',
+                        textTransform: 'uppercase',
+                        letterSpacing: '0.08em',
+                        color: 'var(--burg-bright, #38B6FF)',
+                        display: 'block',
+                        marginBottom: '0.25rem',
+                      }}
+                    >
+                      {m.category}
+                    </span>
+                    <div
+                      style={{
+                        fontSize: 'clamp(2rem, 3.2vw, 2.65rem)',
+                        fontWeight: 900,
+                        fontFamily: 'var(--font-sans)',
+                        letterSpacing: '-0.03em',
+                        color: '#FFFFFF',
+                        lineHeight: 1,
+                      }}
+                    >
+                      {m.marker}
+                    </div>
+                    <div
+                      style={{
+                        width: '100%',
+                        height: '1px',
+                        background: 'rgba(255, 255, 255, 0.12)',
+                        margin: '0.65rem 0 0.85rem',
+                      }}
+                    />
+                    <p
+                      style={{
+                        fontSize: '0.875rem',
+                        lineHeight: 1.65,
+                        color: 'rgba(255, 255, 255, 0.72)',
+                        margin: 0,
+                      }}
+                    >
+                      {m.body}
+                    </p>
+                  </div>
+                ) : (
+                  /* Image on Right */
+                  <div
+                    className="timeline-img-box"
+                    style={{
+                      position: 'relative',
+                      borderRadius: '14px',
+                      overflow: 'hidden',
+                      border: '1px solid rgba(255, 255, 255, 0.12)',
+                      boxShadow: '0 12px 28px rgba(0, 0, 0, 0.35)',
+                      aspectRatio: '16 / 10',
+                      maxWidth: '380px',
+                      background: 'rgba(255, 255, 255, 0.03)',
+                      transition: 'transform 0.3s ease, border-color 0.3s ease',
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.transform = 'scale(1.02)'
+                      e.currentTarget.style.borderColor = 'rgba(56, 182, 255, 0.5)'
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.transform = 'scale(1)'
+                      e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.12)'
+                    }}
+                  >
+                    <Image
+                      src={m.image}
+                      alt={m.title}
+                      fill
+                      sizes="(max-width: 768px) 100vw, 400px"
+                      style={{ objectFit: 'cover' }}
+                    />
+                    <div
+                      style={{
+                        position: 'absolute',
+                        inset: 0,
+                        background: 'linear-gradient(180deg, rgba(4, 15, 38, 0) 65%, rgba(4, 15, 38, 0.6) 100%)',
+                      }}
+                    />
+                  </div>
+                )}
+              </div>
             </div>
-          </li>
-        ))}
-      </ol>
+          )
+        })}
+      </div>
+
+      {/* ── Responsive CSS for Mobile Screens ── */}
+      <style jsx>{`
+        @media (max-width: 768px) {
+          .timeline-center-rail {
+            left: 0 !important;
+            transform: none !important;
+          }
+          .timeline-center-dot {
+            left: 0 !important;
+            transform: translate(-50%, -50%) !important;
+          }
+          .timeline-row {
+            grid-template-columns: 1fr !important;
+            gap: 1.25rem !important;
+            padding-left: 1.25rem !important;
+          }
+          .timeline-img-box {
+            max-width: 100% !important;
+            margin-left: 0 !important;
+          }
+          .timeline-text-box {
+            max-width: 100% !important;
+            margin-left: 0 !important;
+          }
+        }
+      `}</style>
     </div>
   )
 }

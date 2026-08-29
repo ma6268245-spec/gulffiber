@@ -19,7 +19,16 @@ import type { DataStatus } from '@/lib/data/company'
    =========================================================================== */
 
 const ARROW = (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" aria-hidden="true">
+  <svg
+    width="14"
+    height="14"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2.5"
+    aria-hidden="true"
+    style={{ width: '14px', height: '14px', flexShrink: 0, display: 'inline-block' }}
+  >
     <path d="M5 12h14M12 5l7 7-7 7" />
   </svg>
 )
@@ -154,6 +163,7 @@ export function SectionHead({
   link,
   linkLabel = 'Learn more',
   dark = false,
+  stacked = false,
 }: {
   eyebrow: string
   title: string
@@ -162,8 +172,47 @@ export function SectionHead({
   link?: string
   linkLabel?: string
   dark?: boolean
+  stacked?: boolean
 }) {
   void dark
+  if (stacked) {
+    return (
+      <div style={{ maxWidth: '820px', marginBottom: 'clamp(2rem, 4vh, 3rem)' }}>
+        <div style={{ marginBottom: '0.85rem' }}>
+          <SectionLabel>{eyebrow}</SectionLabel>
+        </div>
+        <h2 className="h-section" style={{ marginBottom: lede || link ? '0.85rem' : 0 }}>
+          {title}
+          {em && (
+            <>
+              {' '}
+              <em>{em}</em>
+            </>
+          )}
+        </h2>
+        {lede && (
+          <p
+            className="sp-lede"
+            style={{
+              maxWidth: '62ch',
+              margin: '0 0 1rem',
+              fontSize: '1rem',
+              lineHeight: 1.65,
+              color: dark ? 'rgba(255, 255, 255, 0.72)' : 'var(--muted)',
+            }}
+          >
+            {lede}
+          </p>
+        )}
+        {link && (
+          <div style={{ marginTop: '0.85rem' }}>
+            <ArrowLink href={link}>{linkLabel}</ArrowLink>
+          </div>
+        )}
+      </div>
+    )
+  }
+
   return (
     <div className="sp-head">
       <div>
