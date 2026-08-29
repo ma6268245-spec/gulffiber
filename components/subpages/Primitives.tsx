@@ -196,7 +196,6 @@ export function SectionHead({
             style={{
               maxWidth: '62ch',
               margin: '0 0 1rem',
-              fontSize: '1rem',
               lineHeight: 1.65,
               color: dark ? 'rgba(255, 255, 255, 0.72)' : 'var(--muted)',
             }}

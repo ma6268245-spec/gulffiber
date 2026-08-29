@@ -166,14 +166,14 @@
 
 /* ── Copy ───────────────────────────────────────────────────────────────── */
 .sp-root .sp-lede {
-  font-size: 1rem;
-  line-height: 1.7;
+  font-size: 1.0625rem;
+  line-height: 1.65;
   color: var(--muted);
   max-width: 48ch;
 }
 .sp-root .sp-body {
-  font-size: 0.9375rem;
-  line-height: 1.75;
+  font-size: 1rem;
+  line-height: 1.7;
   color: var(--muted);
   max-width: 60ch;
 }
@@ -331,7 +331,7 @@
   text-transform: uppercase;
   color: var(--burg-primary);
 }
-.sp-root .sp-row-val { font-size: 0.9375rem; line-height: 1.65; color: var(--muted); }
+.sp-root .sp-row-val { font-size: 1rem; line-height: 1.6; color: var(--muted); }
 .sp-root .sp-row-val strong { color: var(--ink); font-weight: 700; }
 
 /* ── Numbered step list (homepage ProcessSection grammar) ───────────────── */
@@ -811,6 +811,9 @@
 /* ── Responsive ─────────────────────────────────────────────────────────── */
 @media (max-width: 1024px) {
   .sp-root .sp-grid-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .sp-root .sp-lede { font-size: 1rem; }
+  .sp-root .sp-body { font-size: 0.96875rem; }
+  .sp-root .sp-route__detail { font-size: 0.8125rem; }
 }
 @media (max-width: 992px) {
   .sp-root .sp-hero { grid-template-columns: 1fr; }
@@ -827,6 +830,11 @@
   .sp-root .sp-row { grid-template-columns: minmax(0, 1fr); gap: 0.35rem; }
   .sp-root .sp-step { grid-template-columns: minmax(0, 1fr); gap: 0.5rem; }
   .sp-root .sp-steps-wide .sp-step { grid-template-columns: minmax(0, 1fr); }
+  .sp-root .sp-lede { font-size: 0.9375rem; line-height: 1.6; }
+  .sp-root .sp-body { font-size: 0.9375rem; line-height: 1.65; }
+  .sp-root .sp-row-val { font-size: 0.9375rem; line-height: 1.55; }
+  .sp-root .sp-route__label { font-size: 0.6875rem; }
+  .sp-root .sp-route__detail { font-size: 0.8125rem; }
 }
 @media (max-width: 600px) {
   .sp-root .sp-grid-2,
@@ -1196,14 +1204,14 @@
 }
 .sp-root .sp-route__label {
   font-family: var(--font-sans);
-  font-size: 0.6875rem;
+  font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--ink);
   margin: 0 0 0.25rem;
 }
-.sp-root .sp-route__detail { font-size: 0.8125rem; line-height: 1.6; color: var(--muted); margin: 0; }
+.sp-root .sp-route__detail { font-size: 0.875rem; line-height: 1.6; color: var(--muted); margin: 0; }
 @media (max-width: 600px) {
   .sp-root .sp-route__station { grid-template-columns: minmax(0, 1fr); gap: 0.15rem; }
 }
