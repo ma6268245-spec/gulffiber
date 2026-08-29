@@ -149,7 +149,7 @@ export default function CompanyPage() {
                 >
                   <div>
                     <p style={{ fontSize: 'clamp(1.75rem, 2.8vw, 2.25rem)', fontWeight: 900, fontFamily: 'var(--font-sans)', color: 'var(--burg-primary)', lineHeight: 1, margin: '0 0 0.35rem' }}>
-                      <Counter end={VERIFIED.annualCapacityValue} comma suffix=" MT" />
+                      <Counter end={VERIFIED.annualCapacityValue} comma suffix=" T" />
                     </p>
                     <p style={{ fontSize: '0.75rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.06em', color: 'var(--ink)', margin: '0 0 0.15rem' }}>
                       Annual Production
@@ -332,7 +332,7 @@ export default function CompanyPage() {
                 eyebrow="04 · 25 Years of History"
                 title="25 Years of manufacturing heritage,"
                 em="1999 to Present"
-                lede="From our founding staple fibre plant in 1999 to today's 20,000+ MT automated production capacity, explore the key milestones and expansions across a quarter-century of industrial operations."
+                lede="From our founding staple fibre plant in 1999 to today's 15,000+ T automated production capacity, explore the key milestones and expansions across a quarter-century of industrial operations."
                 stacked
                 dark
               />

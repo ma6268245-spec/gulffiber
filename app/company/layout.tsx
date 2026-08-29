@@ -4,7 +4,7 @@ import '@/styles/subpage.css'
 export const metadata: Metadata = {
   title: 'Company - Gulf Fibre Company (PVT) Limited',
   description:
-    'Polyester fibre manufacturer established in Pakistan in 1999. 15,000 MT annual production capacity, 250+ people, 350+ customers across spinning, wadding and nonwoven conversion.',
+    'Polyester fibre manufacturer established in Pakistan in 1999. 15,000 T annual production capacity, 250+ people, 350+ customers across spinning, wadding and nonwoven conversion.',
 }
 
 /**
