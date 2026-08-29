@@ -25,19 +25,17 @@ import { VERIFIED } from '@/lib/data/company'
 /* ===========================================================================
    /company - The Comprehensive Company Documentary
    ---------------------------------------------------------------------------
-   11 Ordered Sections according to the approved master blueprint:
+   9 Sequential Sections:
 
-     01 · HERO                      - Gulf Fibre — Since 1999
+     01 · HERO                      - Gulf Fibre — Since 1999 (Video Ambient Hero)
      02 · WHO WE ARE                - Company identity, capabilities & scale
-     03 · THE COMPANY IN NUMBERS    - 25+ Yrs, 20k MT, 100+ Clients, 250+ Staff
-     04 · OUR PRODUCT PORTFOLIO     - High-level product ecosystem
-     05 · 25 YEARS OF HISTORY       - 1999 to Present day interactive timeline
-     06 · FOUNDER'S VISION          - Muhammad Iftikhar feature & message
-     07 · COMPANY ORGANIZATION      - Interactive organization tree
-     08 · CERTIFICATIONS            - ISO, GRS, OEKO-TEX, LCCI gallery
-     09 · TRUSTED BY                - 100+ industrial clients & testimonials
-     10 · INSIDE THE PLANT          - Cinematic video scroll documentary
-     11 · THE NEXT CHAPTER          - Future growth & 4-button inquiry close
+     03 · OUR PRODUCT PORTFOLIO     - High-level product ecosystem
+     04 · 25 YEARS OF HISTORY       - 1999 to Present day interactive timeline
+     05 · FOUNDER'S VISION          - Muhammad Iftikhar feature & message
+     06 · COMPANY ORGANIZATION      - Interactive organization tree
+     07 · CERTIFICATIONS            - ISO, GRS, OEKO-TEX, LCCI gallery
+     08 · INSIDE THE PLANT          - Cinematic video scroll documentary
+     09 · THE NEXT CHAPTER          - Future growth & 4-button inquiry close
    =========================================================================== */
 
 export default function CompanyPage() {
@@ -148,116 +146,12 @@ export default function CompanyPage() {
           </div>
         </section>
 
-        {/* ── 03 · THE COMPANY IN NUMBERS ───────────────────────────────── */}
+        {/* ── 03 · OUR PRODUCT PORTFOLIO ────────────────────────────────── */}
         <section className="section-pad" data-sp-section style={{ background: 'var(--bg-subtle, #F8FAFC)' }}>
           <div className="container">
             <div className="sp-anim">
               <SectionHead
-                eyebrow="03 · The Company in Numbers"
-                title="Verified operational scale,"
-                em="measured in production"
-                lede="Every figure below is drawn from Gulf Fibre's audited operating record - representing 25 years of continuous manufacturing without speculative estimates."
-                stacked
-              />
-            </div>
-
-            <div
-              className="sp-anim"
-              style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
-                gap: '1.25rem',
-              }}
-            >
-              <div
-                className="sp-panel"
-                style={{
-                  background: 'var(--card-bg)',
-                  border: '1px solid var(--border-light)',
-                  borderRadius: '20px',
-                  padding: '2rem 1.5rem',
-                  textAlign: 'center',
-                  boxShadow: '0 8px 24px rgba(10, 75, 184, 0.04)',
-                }}
-              >
-                <div style={{ fontSize: '2.5rem', fontWeight: 900, fontFamily: 'var(--font-sans)', color: 'var(--burg-primary)', lineHeight: 1, marginBottom: '0.5rem' }}>
-                  25+
-                </div>
-                <p style={{ fontSize: '0.875rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.04em', color: 'var(--ink)', margin: '0 0 0.25rem' }}>
-                  Years in Business
-                </p>
-                <span style={{ fontSize: '0.75rem', color: 'var(--muted)', fontWeight: 600 }}>Established 1999</span>
-              </div>
-
-              <div
-                className="sp-panel"
-                style={{
-                  background: 'var(--card-bg)',
-                  border: '1px solid var(--border-light)',
-                  borderRadius: '20px',
-                  padding: '2rem 1.5rem',
-                  textAlign: 'center',
-                  boxShadow: '0 8px 24px rgba(10, 75, 184, 0.04)',
-                }}
-              >
-                <div style={{ fontSize: '2.5rem', fontWeight: 900, fontFamily: 'var(--font-sans)', color: 'var(--burg-primary)', lineHeight: 1, marginBottom: '0.5rem' }}>
-                  <Counter end={VERIFIED.annualCapacityValue} comma suffix=" MT" />
-                </div>
-                <p style={{ fontSize: '0.875rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.04em', color: 'var(--ink)', margin: '0 0 0.25rem' }}>
-                  Annual Capacity
-                </p>
-                <span style={{ fontSize: '0.75rem', color: 'var(--muted)', fontWeight: 600 }}>Extruded & Processed</span>
-              </div>
-
-              <div
-                className="sp-panel"
-                style={{
-                  background: 'var(--card-bg)',
-                  border: '1px solid var(--border-light)',
-                  borderRadius: '20px',
-                  padding: '2rem 1.5rem',
-                  textAlign: 'center',
-                  boxShadow: '0 8px 24px rgba(10, 75, 184, 0.04)',
-                }}
-              >
-                <div style={{ fontSize: '2.5rem', fontWeight: 900, fontFamily: 'var(--font-sans)', color: 'var(--burg-primary)', lineHeight: 1, marginBottom: '0.5rem' }}>
-                  <Counter end={VERIFIED.customersValue} suffix="+" />
-                </div>
-                <p style={{ fontSize: '0.875rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.04em', color: 'var(--ink)', margin: '0 0 0.25rem' }}>
-                  Industrial Customers
-                </p>
-                <span style={{ fontSize: '0.75rem', color: 'var(--muted)', fontWeight: 600 }}>Mills & Converters</span>
-              </div>
-
-              <div
-                className="sp-panel"
-                style={{
-                  background: 'var(--card-bg)',
-                  border: '1px solid var(--border-light)',
-                  borderRadius: '20px',
-                  padding: '2rem 1.5rem',
-                  textAlign: 'center',
-                  boxShadow: '0 8px 24px rgba(10, 75, 184, 0.04)',
-                }}
-              >
-                <div style={{ fontSize: '2.5rem', fontWeight: 900, fontFamily: 'var(--font-sans)', color: 'var(--burg-primary)', lineHeight: 1, marginBottom: '0.5rem' }}>
-                  <Counter end={VERIFIED.workforceValue} suffix="+" />
-                </div>
-                <p style={{ fontSize: '0.875rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.04em', color: 'var(--ink)', margin: '0 0 0.25rem' }}>
-                  Skilled Employees
-                </p>
-                <span style={{ fontSize: '0.75rem', color: 'var(--muted)', fontWeight: 600 }}>Engineers & Operators</span>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* ── 04 · OUR PRODUCT PORTFOLIO ────────────────────────────────── */}
-        <section className="section-pad" data-sp-section style={{ background: 'var(--white)' }}>
-          <div className="container">
-            <div className="sp-anim">
-              <SectionHead
-                eyebrow="04 · Our Product Portfolio"
+                eyebrow="03 · Our Product Portfolio"
                 title="High-level product"
                 em="ecosystem"
                 lede="Gulf Fibre manufactures three core synthetic material categories tailored for spinning mills, bedding manufacturers, and industrial nonwoven processors."
@@ -384,12 +278,12 @@ export default function CompanyPage() {
           </div>
         </section>
 
-        {/* ── 05 · 25 YEARS OF HISTORY ──────────────────────────────────── */}
+        {/* ── 04 · 25 YEARS OF HISTORY ──────────────────────────────────── */}
         <section className="section-pad sp-dark" data-sp-section>
           <div className="container">
             <div className="sp-anim">
               <SectionHead
-                eyebrow="05 · 25 Years of History"
+                eyebrow="04 · 25 Years of History"
                 title="25 Years of manufacturing heritage,"
                 em="1999 to Present"
                 lede="From our founding staple fibre plant in 1999 to today's 20,000+ MT automated production capacity, explore the key milestones and expansions across a quarter-century of industrial operations."
@@ -403,12 +297,12 @@ export default function CompanyPage() {
           </div>
         </section>
 
-        {/* ── 06 · FOUNDER'S VISION ─────────────────────────────────────── */}
+        {/* ── 05 · FOUNDER'S VISION ─────────────────────────────────────── */}
         <section className="section-pad" data-sp-section style={{ background: 'var(--white)' }}>
           <div className="container">
             <div className="sp-anim">
               <SectionHead
-                eyebrow="06 · Founder's Vision"
+                eyebrow="05 · Founder's Vision"
                 title="Leadership &"
                 em="Executive Vision"
                 lede="A signed message from Founder & Managing Director Muhammad Iftikhar on 25+ years of engineering discipline, technical innovation, and customer-first manufacturing."
@@ -421,12 +315,12 @@ export default function CompanyPage() {
           </div>
         </section>
 
-        {/* ── 07 · COMPANY ORGANIZATION ─────────────────────────────────── */}
+        {/* ── 06 · COMPANY ORGANIZATION ─────────────────────────────────── */}
         <section className="section-pad" data-sp-section style={{ background: 'var(--bg-subtle, #F8FAFC)' }}>
           <div className="container">
             <div className="sp-anim">
               <SectionHead
-                eyebrow="07 · Company Organization"
+                eyebrow="06 · Company Organization"
                 title="Interactive organization"
                 em="tree & leadership"
                 lede="An interactive visualization of Gulf Fibre's corporate hierarchy - from founding executive governance to specialized technical product sales departments. Click any circular profile node to view credentials, material domains, and direct contact details."
@@ -439,12 +333,12 @@ export default function CompanyPage() {
           </div>
         </section>
 
-        {/* ── 08 · CERTIFICATIONS & REGISTRATIONS ───────────────────────── */}
+        {/* ── 07 · CERTIFICATIONS & REGISTRATIONS ───────────────────────── */}
         <section className="section-pad" data-sp-section style={{ background: 'var(--white)' }}>
           <div className="container">
             <div className="sp-anim">
               <SectionHead
-                eyebrow="08 · Certifications & Registrations"
+                eyebrow="07 · Certifications & Registrations"
                 title="Certified by"
                 em="document"
                 lede="Four official registrations, each stating its own scope (ISO 9001:2015, GRS, OEKO-TEX Standard 100, and LCCI). Click any certificate to open high-resolution document viewing."
@@ -459,146 +353,12 @@ export default function CompanyPage() {
           </div>
         </section>
 
-        {/* ── 09 · TRUSTED BY ───────────────────────────────────────────── */}
+        {/* ── 08 · INSIDE THE PLANT ─────────────────────────────────────── */}
         <section className="section-pad" data-sp-section style={{ background: 'var(--bg-subtle, #F8FAFC)' }}>
           <div className="container">
             <div className="sp-anim">
               <SectionHead
-                eyebrow="09 · Trusted By 100+ Industrial Customers"
-                title="Supplying 100+ industrial mills,"
-                em="worldwide"
-                lede="From high-speed spinning mills to automotive nonwovens converters, global procurement teams rely on Gulf Fibre for batch-to-batch consistency and technical precision."
-                stacked
-              />
-            </div>
-
-            {/* Industrial Sectors Strip */}
-            <div
-              className="sp-anim"
-              style={{
-                display: 'flex',
-                justifyContent: 'flex-start',
-                flexWrap: 'wrap',
-                gap: '0.75rem',
-                marginBottom: '2rem',
-              }}
-            >
-              {[
-                'Yarn Spinning Mills',
-                'Home Textiles & Bedding',
-                'Needle-Punch Nonwovens',
-                'Automotive Acoustic Insulation',
-                'Quilting & Outerwear Converters',
-                'Geotextile Engineering',
-              ].map((sector, idx) => (
-                <span
-                  key={idx}
-                  style={{
-                    padding: '0.45rem 1rem',
-                    borderRadius: '9999px',
-                    background: 'var(--card-bg)',
-                    border: '1px solid var(--border-light)',
-                    fontSize: '0.8125rem',
-                    fontWeight: 700,
-                    color: 'var(--burg-primary)',
-                    boxShadow: '0 2px 6px rgba(10, 75, 184, 0.04)',
-                  }}
-                >
-                  🏭 {sector}
-                </span>
-              ))}
-            </div>
-
-            {/* Customer Testimonials Grid */}
-            <div
-              className="sp-anim"
-              style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-                gap: '1.25rem',
-              }}
-            >
-              <div
-                style={{
-                  background: 'var(--card-bg)',
-                  border: '1px solid var(--border-light)',
-                  borderRadius: '16px',
-                  padding: '1.75rem',
-                  boxShadow: '0 8px 24px rgba(10, 75, 184, 0.04)',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'space-between',
-                }}
-              >
-                <div>
-                  <div style={{ color: '#F59E0B', fontSize: '1rem', marginBottom: '0.65rem' }}>★★★★★</div>
-                  <p style={{ fontSize: '0.875rem', lineHeight: 1.6, color: 'var(--ink)', fontStyle: 'italic', marginBottom: '1.25rem' }}>
-                    “Gulf Fibre has been our preferred PSF supplier for over 8 years. Their conjugate fibre quality is unmatched — consistent denier, excellent crimp retention, and always on-time delivery.”
-                  </p>
-                </div>
-                <div>
-                  <h4 style={{ fontSize: '0.875rem', fontWeight: 800, margin: '0 0 0.15rem', color: 'var(--ink)' }}>Arjun Mehta</h4>
-                  <span style={{ fontSize: '0.75rem', color: 'var(--muted)', fontWeight: 600 }}>Procurement Head, Textile Mills India</span>
-                </div>
-              </div>
-
-              <div
-                style={{
-                  background: 'var(--card-bg)',
-                  border: '1px solid var(--border-light)',
-                  borderRadius: '16px',
-                  padding: '1.75rem',
-                  boxShadow: '0 8px 24px rgba(10, 75, 184, 0.04)',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'space-between',
-                }}
-              >
-                <div>
-                  <div style={{ color: '#F59E0B', fontSize: '1rem', marginBottom: '0.65rem' }}>★★★★★</div>
-                  <p style={{ fontSize: '0.875rem', lineHeight: 1.6, color: 'var(--ink)', fontStyle: 'italic', marginBottom: '1.25rem' }}>
-                    “We switched to Gulf Fibre for our GRS-certified recycled fibre requirements. Their documentation is seamless and the product quality meets every international specification we require.”
-                  </p>
-                </div>
-                <div>
-                  <h4 style={{ fontSize: '0.875rem', fontWeight: 800, margin: '0 0 0.15rem', color: 'var(--ink)' }}>Zhang Wei</h4>
-                  <span style={{ fontSize: '0.75rem', color: 'var(--muted)', fontWeight: 600 }}>Technical Director, Shanghai Fibre Co.</span>
-                </div>
-              </div>
-
-              <div
-                style={{
-                  background: 'var(--card-bg)',
-                  border: '1px solid var(--border-light)',
-                  borderRadius: '16px',
-                  padding: '1.75rem',
-                  boxShadow: '0 8px 24px rgba(10, 75, 184, 0.04)',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'space-between',
-                }}
-              >
-                <div>
-                  <div style={{ color: '#F59E0B', fontSize: '1rem', marginBottom: '0.65rem' }}>★★★★★</div>
-                  <p style={{ fontSize: '0.875rem', lineHeight: 1.6, color: 'var(--ink)', fontStyle: 'italic', marginBottom: '1.25rem' }}>
-                    “Reliable manufacturer with excellent technical communication. Their hollow siliconised fibre for our bedding line is consistently high quality and holds loft across seasons.”
-                  </p>
-                </div>
-                <div>
-                  <h4 style={{ fontSize: '0.875rem', fontWeight: 800, margin: '0 0 0.15rem', color: 'var(--ink)' }}>Sarah Thompson</h4>
-                  <span style={{ fontSize: '0.75rem', color: 'var(--muted)', fontWeight: 600 }}>CEO, UK Home Textiles Ltd</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* ── 10 · INSIDE THE PLANT ─────────────────────────────────────── */}
-        <section className="section-pad" data-sp-section style={{ background: 'var(--white)' }}>
-          <div className="container">
-            <div className="sp-anim">
-              <SectionHead
-                eyebrow="10 · Inside The Plant"
+                eyebrow="08 · Inside The Plant"
                 title="See where Gulf Fibre"
                 em="operates"
                 lede="A 20-second cinematic scroll documentary through the live manufacturing environment: Outside → Factory Entrance → Production Floor → High-Pressure Machinery → Finished Baled Fibre."
@@ -611,7 +371,7 @@ export default function CompanyPage() {
           </div>
         </section>
 
-        {/* ── 11 · THE NEXT CHAPTER & DIRECT INQUIRY CLOSE ──────────────── */}
+        {/* ── 09 · THE NEXT CHAPTER & DIRECT INQUIRY CLOSE ──────────────── */}
         <section className="section-pad sp-dark" data-sp-section>
           <div className="container" style={{ textAlign: 'center', maxWidth: '840px', margin: '0 auto' }}>
             <div className="sp-anim" style={{ marginBottom: '1.25rem' }}>
@@ -629,7 +389,7 @@ export default function CompanyPage() {
                   marginBottom: '1.5rem',
                 }}
               >
-                11 · The Next Chapter & Future Vision
+                09 · The Next Chapter & Future Vision
               </span>
               <h2 className="h-section" style={{ margin: '0 auto', maxWidth: '24ch' }}>
                 Judge us on a bale,
