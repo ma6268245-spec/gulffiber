@@ -154,53 +154,115 @@ export default function QualityPage() {
         {/* ── Certificate of Analysis ────────────────────────────────────── */}
         <section className="section-pad" data-sp-section style={{ background: 'var(--white)' }}>
           <div className="container">
-            <div className="sp-split">
-              <div className="sp-anim">
-                <SectionHead
-                  eyebrow="Documentation"
-                  title="Every consignment"
-                  em="arrives with its record"
-                />
-                <SpecRows
-                  rows={[
-                    {
-                      key: 'Issued with',
-                      value: (
-                        <>
-                          A <strong>Certificate of Analysis</strong> per consignment, so delivered material can be
-                          reconciled against the agreed specification.
-                        </>
-                      ),
-                    },
-                    { key: 'Standard bale', value: <strong>{VERIFIED.baleWeight}, moisture-sealed</strong> },
-                    { key: 'Denier range', value: <strong>{VERIFIED.denierRange}</strong> },
-                    { key: 'Recycled input', value: <strong>{VERIFIED.recycledInput}</strong> },
-                  ]}
-                />
+            <div
+              className="sp-split"
+              style={{
+                alignItems: 'stretch',
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+                gap: 'clamp(2rem, 4vw, 3.5rem)',
+              }}
+            >
+              <div
+                className="sp-anim"
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'space-between',
+                }}
+              >
+                <div>
+                  <SectionHead
+                    eyebrow="Documentation"
+                    title="Every consignment"
+                    em="arrives with its record"
+                  />
+                  <SpecRows
+                    rows={[
+                      {
+                        key: 'Issued with',
+                        value: (
+                          <>
+                            A <strong>Certificate of Analysis</strong> per consignment, so delivered material can be
+                            reconciled against the agreed specification.
+                          </>
+                        ),
+                      },
+                      { key: 'Standard bale', value: <strong>{VERIFIED.baleWeight}, moisture-sealed</strong> },
+                      { key: 'Denier range', value: <strong>{VERIFIED.denierRange}</strong> },
+                      { key: 'Recycled input', value: <strong>{VERIFIED.recycledInput}</strong> },
+                    ]}
+                  />
+                </div>
                 <div style={{ marginTop: '2rem' }}>
                   <ArrowLink href="/contact">Send a specification to quote against</ArrowLink>
                 </div>
               </div>
 
-              <div className="sp-anim" style={{ display: 'grid', gap: '1.5rem' }}>
+              <div
+                className="sp-anim"
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'space-between',
+                  gap: '1.25rem',
+                  marginTop: 'clamp(1.5rem, 3.5vw, 3rem)',
+                }}
+              >
                 <div
                   className="sp-panel"
-                  style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '16rem' }}
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    flex: '1 1 auto',
+                    minHeight: '15rem',
+                    background: 'var(--bg-subtle, #F8FAFC)',
+                    border: '1px solid var(--border-light, #E2E8F0)',
+                    borderRadius: '16px',
+                    padding: '1.75rem',
+                  }}
                 >
                   <Image
                     src="/images/iso-9001-seal-v2.png"
                     alt="ISO 9001:2015 certification seal"
-                    width={220}
-                    height={220}
-                    sizes="220px"
-                    style={{ height: 'auto', maxWidth: '100%' }}
+                    width={200}
+                    height={200}
+                    sizes="200px"
+                    style={{ height: 'auto', maxWidth: '100%', filter: 'drop-shadow(0 6px 18px rgba(10, 75, 184, 0.12))' }}
                   />
                 </div>
-                <DataSlot
-                  title="Sample Certificate of Analysis"
-                  note="A redacted specimen COA would let a buyer see exactly which parameters are reported before placing a first order. Provide one and it can be published or gated here."
-                  minHeight="10rem"
-                />
+
+                <div
+                  style={{
+                    background: 'var(--bg-subtle, #F8FAFC)',
+                    border: '1px solid rgba(10, 75, 184, 0.15)',
+                    borderRadius: '16px',
+                    padding: '1.15rem 1.35rem',
+                  }}
+                >
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', marginBottom: '0.3rem' }}>
+                    <span style={{ fontSize: '0.85rem' }}>🛡️</span>
+                    <p
+                      style={{
+                        fontSize: '0.6875rem',
+                        fontWeight: 800,
+                        color: 'var(--burg-primary, #0A4BB8)',
+                        letterSpacing: '0.06em',
+                        textTransform: 'uppercase',
+                        margin: 0,
+                      }}
+                    >
+                      Quality Assurance Record
+                    </p>
+                  </div>
+                  <h4 style={{ fontSize: '0.875rem', fontWeight: 800, color: '#0F172A', margin: '0 0 0.3rem' }}>
+                    Consignment Certificate of Analysis (COA)
+                  </h4>
+                  <p style={{ fontSize: '0.75rem', color: '#64748B', lineHeight: 1.45, margin: 0 }}>
+                    Every dispatched bale shipment is accompanied by verified laboratory batch metrics covering denier, cut length tolerance, tensile strength, elongation, and moisture limits.
+                  </p>
+                </div>
               </div>
             </div>
           </div>
