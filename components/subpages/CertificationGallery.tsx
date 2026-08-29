@@ -462,7 +462,7 @@ export function CertificationGallery() {
         })}
       </div>
 
-      {/* ── FULL-SCREEN GLASSMORPHIC LIGHTBOX MODAL ───────────────────────── */}
+      {/* ── FULL-SCREEN NEUTRAL TRANSLUCENT LIGHTBOX (Shows Background Clearly with Soft Blur) ── */}
       {open && (
         <div
           className="sp-lightbox"
@@ -474,14 +474,14 @@ export function CertificationGallery() {
             position: 'fixed',
             inset: 0,
             zIndex: 999999,
-            background: 'rgba(5, 12, 28, 0.76)',
-            backdropFilter: 'blur(28px) saturate(180%)',
-            WebkitBackdropFilter: 'blur(28px) saturate(180%)',
+            background: 'rgba(0, 0, 0, 0.38)',
+            backdropFilter: 'blur(10px)',
+            WebkitBackdropFilter: 'blur(10px)',
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
             justifyContent: 'center',
-            padding: 'clamp(1rem, 2.5vw, 2.5rem)',
+            padding: 'clamp(1rem, 2vw, 2.5rem)',
           }}
         >
           {/* Floating Top Header: Document Counter & Close Button */}
@@ -500,15 +500,15 @@ export function CertificationGallery() {
           >
             <div
               style={{
-                background: 'rgba(255, 255, 255, 0.12)',
+                background: 'rgba(0, 0, 0, 0.65)',
                 color: '#FFFFFF',
                 fontSize: '0.8125rem',
                 fontWeight: 700,
                 padding: '0.45rem 1.15rem',
                 borderRadius: '9999px',
-                backdropFilter: 'blur(16px)',
-                WebkitBackdropFilter: 'blur(16px)',
-                border: '1px solid rgba(255, 255, 255, 0.22)',
+                backdropFilter: 'blur(12px)',
+                WebkitBackdropFilter: 'blur(12px)',
+                border: '1px solid rgba(255, 255, 255, 0.25)',
                 boxShadow: '0 8px 24px rgba(0, 0, 0, 0.25)',
                 pointerEvents: 'auto',
                 display: 'flex',
@@ -516,9 +516,9 @@ export function CertificationGallery() {
                 gap: '0.5rem',
               }}
             >
-              <span style={{ color: '#93C5FD' }}>{open.code}</span>
-              <span style={{ opacity: 0.5 }}>·</span>
-              <span>Document {openIdx! + 1} of {ENTRIES.length}</span>
+              <span style={{ color: '#F1F5F9', fontWeight: 800 }}>{open.code}</span>
+              <span style={{ opacity: 0.4 }}>·</span>
+              <span style={{ color: '#E2E8F0' }}>Document {openIdx! + 1} of {ENTRIES.length}</span>
             </div>
 
             <button
@@ -528,7 +528,7 @@ export function CertificationGallery() {
               onClick={() => setOpenIdx(null)}
               aria-label="Close document view"
               style={{
-                background: 'rgba(255, 255, 255, 0.15)',
+                background: 'rgba(0, 0, 0, 0.65)',
                 color: '#FFFFFF',
                 border: '1px solid rgba(255, 255, 255, 0.3)',
                 borderRadius: '50%',
@@ -539,8 +539,8 @@ export function CertificationGallery() {
                 justifyContent: 'center',
                 cursor: 'pointer',
                 pointerEvents: 'auto',
-                backdropFilter: 'blur(16px)',
-                WebkitBackdropFilter: 'blur(16px)',
+                backdropFilter: 'blur(12px)',
+                WebkitBackdropFilter: 'blur(12px)',
                 boxShadow: '0 8px 24px rgba(0, 0, 0, 0.3)',
                 transition: 'all 0.2s ease',
               }}
@@ -560,7 +560,7 @@ export function CertificationGallery() {
               top: '50%',
               transform: 'translateY(-50%)',
               zIndex: 25,
-              background: 'rgba(255, 255, 255, 0.12)',
+              background: 'rgba(0, 0, 0, 0.65)',
               color: '#FFFFFF',
               border: '1px solid rgba(255, 255, 255, 0.25)',
               borderRadius: '50%',
@@ -570,8 +570,8 @@ export function CertificationGallery() {
               alignItems: 'center',
               justifyContent: 'center',
               cursor: 'pointer',
-              backdropFilter: 'blur(16px)',
-              WebkitBackdropFilter: 'blur(16px)',
+              backdropFilter: 'blur(12px)',
+              WebkitBackdropFilter: 'blur(12px)',
               boxShadow: '0 8px 30px rgba(0, 0, 0, 0.35)',
               transition: 'all 0.2s ease',
             }}
@@ -590,7 +590,7 @@ export function CertificationGallery() {
               top: '50%',
               transform: 'translateY(-50%)',
               zIndex: 25,
-              background: 'rgba(255, 255, 255, 0.12)',
+              background: 'rgba(0, 0, 0, 0.65)',
               color: '#FFFFFF',
               border: '1px solid rgba(255, 255, 255, 0.25)',
               borderRadius: '50%',
@@ -600,8 +600,8 @@ export function CertificationGallery() {
               alignItems: 'center',
               justifyContent: 'center',
               cursor: 'pointer',
-              backdropFilter: 'blur(16px)',
-              WebkitBackdropFilter: 'blur(16px)',
+              backdropFilter: 'blur(12px)',
+              WebkitBackdropFilter: 'blur(12px)',
               boxShadow: '0 8px 30px rgba(0, 0, 0, 0.35)',
               transition: 'all 0.2s ease',
             }}
@@ -616,12 +616,12 @@ export function CertificationGallery() {
               position: 'relative',
               width: '100%',
               maxWidth: '860px',
-              height: 'calc(80vh - 40px)',
+              height: 'calc(82vh - 40px)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               zIndex: 10,
-              filter: 'drop-shadow(0 25px 60px rgba(0, 0, 0, 0.65))',
+              filter: 'drop-shadow(0 20px 50px rgba(0, 0, 0, 0.5))',
             }}
           >
             {open.asset ? (
@@ -633,13 +633,13 @@ export function CertificationGallery() {
                 sizes="(max-width: 1200px) 95vw, 860px"
                 style={{
                   objectFit: 'contain',
-                  borderRadius: '6px',
+                  borderRadius: '4px',
                 }}
               />
             ) : null}
           </div>
 
-          {/* Floating Frosted Glass Bottom Caption Bar */}
+          {/* Floating Frosted Bottom Caption Bar (Neutral Glass) */}
           <div
             onClick={(e) => e.stopPropagation()}
             style={{
@@ -649,13 +649,13 @@ export function CertificationGallery() {
               transform: 'translateX(-50%)',
               zIndex: 30,
               width: 'min(92vw, 860px)',
-              background: 'rgba(11, 20, 38, 0.82)',
-              backdropFilter: 'blur(24px)',
-              WebkitBackdropFilter: 'blur(24px)',
-              border: '1px solid rgba(255, 255, 255, 0.18)',
-              borderRadius: '16px',
+              background: 'rgba(15, 23, 42, 0.85)',
+              backdropFilter: 'blur(16px)',
+              WebkitBackdropFilter: 'blur(16px)',
+              border: '1px solid rgba(255, 255, 255, 0.2)',
+              borderRadius: '14px',
               padding: '0.75rem 1.4rem',
-              boxShadow: '0 16px 40px rgba(0, 0, 0, 0.45)',
+              boxShadow: '0 16px 40px rgba(0, 0, 0, 0.4)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'space-between',
@@ -663,12 +663,12 @@ export function CertificationGallery() {
             }}
           >
             <div style={{ flex: '1 1 auto', minWidth: 0 }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '0.2rem' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '0.15rem' }}>
                 <span
                   style={{
-                    background: 'rgba(59, 130, 246, 0.2)',
-                    color: '#93C5FD',
-                    border: '1px solid rgba(147, 197, 253, 0.3)',
+                    background: 'rgba(255, 255, 255, 0.15)',
+                    color: '#FFFFFF',
+                    border: '1px solid rgba(255, 255, 255, 0.3)',
                     fontSize: '0.65rem',
                     fontWeight: 800,
                     padding: '0.15rem 0.5rem',
@@ -696,7 +696,7 @@ export function CertificationGallery() {
               <p
                 style={{
                   margin: 0,
-                  color: 'rgba(255, 255, 255, 0.72)',
+                  color: 'rgba(255, 255, 255, 0.75)',
                   fontSize: '0.72rem',
                   lineHeight: 1.35,
                   whiteSpace: 'nowrap',
@@ -712,15 +712,15 @@ export function CertificationGallery() {
               <div
                 style={{
                   flex: '0 0 auto',
-                  background: 'rgba(255, 255, 255, 0.08)',
-                  border: '1px solid rgba(255, 255, 255, 0.15)',
-                  borderRadius: '8px',
+                  background: 'rgba(255, 255, 255, 0.1)',
+                  border: '1px solid rgba(255, 255, 255, 0.2)',
+                  borderRadius: '6px',
                   padding: '0.35rem 0.75rem',
                   textAlign: 'right',
                 }}
               >
-                <div style={{ fontSize: '0.58rem', color: '#94A3B8', fontWeight: 600, textTransform: 'uppercase' }}>Ref Number</div>
-                <div style={{ fontSize: '0.75rem', fontWeight: 800, color: '#38BDF8' }}>
+                <div style={{ fontSize: '0.58rem', color: '#CBD5E1', fontWeight: 600, textTransform: 'uppercase' }}>Ref Number</div>
+                <div style={{ fontSize: '0.75rem', fontWeight: 800, color: '#FFFFFF' }}>
                   {open.certNumber}
                 </div>
               </div>
