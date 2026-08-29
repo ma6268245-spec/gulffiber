@@ -4,7 +4,7 @@ import { useEffect, useRef } from 'react'
 
 const STATS = [
   { num: 25, suffix: '+', label: 'Years in Business', sub: 'Established 1999' },
-  { num: 4, suffix: '+', label: 'Accredited Standards', sub: 'GRS, ISO 9001, OEKO-TEX' },
+  { num: 4, suffix: '+', label: 'Accredited Standards', sub: 'ISO 9001, GRS, OEKO-TEX, LCCI' },
   { num: 100, suffix: '%', label: 'GRS Recycled Input', sub: 'Post-consumer verification' },
   { num: 350, suffix: '+', label: 'Industrial Clients', sub: 'Spinning & nonwoven mills' },
 ]

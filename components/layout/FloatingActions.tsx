@@ -55,7 +55,7 @@ const PRESET_CONVERSATIONS: Record<
     action: { text: 'Browse Full Catalog →', href: '/products' },
   },
   certs: {
-    answer: 'Every export shipment is certified under GRS (Global Recycled Standard) with Scope Certificates and audited under ISO 9001:2015 and OEKO-TEX Standard 100 compliance.',
+    answer: 'Every shipment is verified under ISO 9001:2015, certified under GRS (Global Recycled Standard) with full Scope Certificates, compliant with OEKO-TEX Standard 100, and backed by the Membership Certificate of Lahore Chamber of Commerce and Industry (LCCI).',
     quickOptions: [
       { label: 'Shipping rates to EU', query: 'Tell me about shipping rates to EU' },
       { label: 'Request Proforma Quote', query: 'How do I request a quote?' },
@@ -78,7 +78,7 @@ export function FloatingActions() {
         { label: 'Shipping rates to EU countries', query: 'Tell me about shipping rates to EU' },
         { label: 'Shipping rates to USA & Americas', query: 'Tell me about shipping rates to USA' },
         { label: 'Request Lab Test Samples (1–5kg)', query: 'Can I request lab test samples?' },
-        { label: 'GRS & ISO 9001 Certifications', query: 'Do you provide GRS and ISO certificates?' },
+        { label: 'ISO 9001, GRS, OEKO-TEX & LCCI Certs', query: 'Do you provide GRS and ISO certificates?' },
       ],
     },
   ])

@@ -40,7 +40,7 @@ export const GULF_FIBRE_DATA: CompanyData = {
     { value: '15,000 MT', label: 'Annual Production Capacity', status: 'VERIFIED' },
     { value: '350+', label: 'Customers Served', status: 'VERIFIED' },
     { value: '25+', label: 'Years in Business', status: 'VERIFIED', source: 'Established 1999' },
-    { value: '4+', label: 'Quality Certifications', status: 'VERIFIED', source: 'GRS, ISO 9001, OEKO-TEX, PTEA' },
+    { value: '4+', label: 'Quality Certifications', status: 'VERIFIED', source: 'ISO 9001:2015, GRS, OEKO-TEX Standard 100, LCCI' },
     { value: '250+', label: 'Workforce / Employees', status: 'VERIFIED' },
   ],
   productCategories: [
@@ -56,9 +56,9 @@ export const GULF_FIBRE_DATA: CompanyData = {
     { title: 'Export & Logistics', description: 'Full export documentation, container loading, and dedicated shipping coordination.', status: 'VERIFIED' },
   ],
   certifications: [
-    { name: 'GRS (Global Recycled Standard)', type: 'ACCREDITED_CERTIFICATION', status: 'VERIFIED' },
     { name: 'ISO 9001:2015', type: 'ACCREDITED_CERTIFICATION', status: 'VERIFIED' },
+    { name: 'GRS (Global Recycled Standard)', type: 'ACCREDITED_CERTIFICATION', status: 'VERIFIED' },
     { name: 'OEKO-TEX Standard 100', type: 'ACCREDITED_CERTIFICATION', status: 'VERIFIED' },
-    { name: 'Pakistan Textile Exporters Association (PTEA)', type: 'TRADE_ASSOCIATION', status: 'VERIFIED' },
+    { name: 'Membership Certificate of Lahore Chamber of Commerce & Industry (LCCI)', type: 'TRADE_ASSOCIATION', status: 'VERIFIED' },
   ],
 }

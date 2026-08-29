@@ -15,6 +15,37 @@ const TESTING_PARAMETERS = [
   { param: 'Spin Finish Oil Pickup (OPU)', standard: 'Solvent Extraction', tolerance: '0.12% – 0.18%', desc: 'Static dissipation and lubrication uniformity for friction-free high-speed spinning.' },
 ]
 
+const CERTIFICATIONS = [
+  {
+    name: 'ISO 9001:2015',
+    title: 'Quality Management System',
+    desc: 'International certification guaranteeing standardized production processes, continuous quality auditing, and rigorous batch control.',
+    badge: '/images/iso-9001-seal-v2.png',
+    status: 'Active & Verified',
+  },
+  {
+    name: 'Global Recycled Standard (GRS)',
+    title: 'Post-Consumer Recycled Traceability',
+    desc: 'Full supply-chain certification verifying 100% post-consumer recycled PET content, environmental compliance, and chain-of-custody documentation.',
+    badge: null,
+    status: 'Certified Recycled',
+  },
+  {
+    name: 'OEKO-TEX Standard 100',
+    title: 'Harmful Substance Safety',
+    desc: 'Global textile testing standard ensuring our fibres are free from harmful chemicals and heavy metals, certified safe for direct skin contact.',
+    badge: null,
+    status: 'Skin-Contact Safe',
+  },
+  {
+    name: 'Lahore Chamber of Commerce & Industry',
+    title: 'Membership Certificate (LCCI)',
+    desc: 'Official accredited corporate membership certificate with the premier trade and commerce authority representing industrial manufacturing.',
+    badge: null,
+    status: 'Corporate Member',
+  },
+]
+
 export default function QualityPage() {
   return (
     <>
@@ -50,7 +81,7 @@ export default function QualityPage() {
               <span style={{ fontFamily: 'var(--font-serif)', fontStyle: 'italic', color: 'var(--burg-bright)' }}>Quality Assurance</span>
             </h1>
             <p style={{ fontSize: '1rem', lineHeight: 1.7, color: 'rgba(255,255,255,0.7)', maxWidth: '56ch' }}>
-              Every tonne of Gulf Fibre shipped across the globe is backed by multi-stage in-house testing and batch-specific Certificates of Analysis.
+              Every tonne of Gulf Fibre shipped across the globe is backed by multi-stage in-house testing, international accreditations, and batch-specific Certificates of Analysis.
             </p>
           </div>
         </section>
@@ -86,7 +117,7 @@ export default function QualityPage() {
             </div>
 
             {/* Test Parameters Table */}
-            <div>
+            <div style={{ marginBottom: '5rem' }}>
               <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
                 <span className="eyebrow" style={{ marginBottom: '0.75rem' }}>Standard Specifications</span>
                 <h3 className="h-section">
@@ -112,6 +143,68 @@ export default function QualityPage() {
                     <p style={{ fontSize: '0.8125rem', color: 'var(--muted)', lineHeight: 1.6 }}>
                       {t.desc}
                     </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Official Certifications & Accreditations Showcase */}
+            <div>
+              <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
+                <span className="eyebrow" style={{ marginBottom: '0.75rem' }}>Verified Accreditations</span>
+                <h3 className="h-section">
+                  OFFICIAL CERTIFICATIONS &amp;<br />
+                  <em>Industry Memberships</em>
+                </h3>
+              </div>
+
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '1.5rem' }}>
+                {CERTIFICATIONS.map((c) => (
+                  <div
+                    key={c.name}
+                    style={{
+                      background: 'var(--white)',
+                      border: '1px solid var(--border-light)',
+                      borderRadius: '16px',
+                      padding: '2rem 1.5rem',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      justifyContent: 'space-between',
+                      boxShadow: '0 8px 24px rgba(10, 75, 184, 0.04)',
+                    }}
+                  >
+                    <div>
+                      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.25rem' }}>
+                        <span
+                          style={{
+                            fontSize: '0.625rem',
+                            fontWeight: 800,
+                            letterSpacing: '0.06em',
+                            textTransform: 'uppercase',
+                            color: '#16A34A',
+                            background: 'rgba(34, 197, 94, 0.1)',
+                            padding: '0.2rem 0.6rem',
+                            borderRadius: '9999px',
+                          }}
+                        >
+                          {c.status}
+                        </span>
+                        {c.badge && (
+                          <div style={{ width: '36px', height: '36px', position: 'relative' }}>
+                            <Image src={c.badge} alt={c.name} fill style={{ objectFit: 'contain' }} />
+                          </div>
+                        )}
+                      </div>
+                      <h4 style={{ fontFamily: 'var(--font-sans)', fontSize: '1.15rem', fontWeight: 900, color: 'var(--ink)', marginBottom: '0.35rem' }}>
+                        {c.name}
+                      </h4>
+                      <div style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--burg-primary)', marginBottom: '0.75rem' }}>
+                        {c.title}
+                      </div>
+                      <p style={{ fontSize: '0.8125rem', color: 'var(--muted)', lineHeight: 1.6 }}>
+                        {c.desc}
+                      </p>
+                    </div>
                   </div>
                 ))}
               </div>

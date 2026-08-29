@@ -186,10 +186,10 @@ export function TrustBanner() {
               Accredited Certifications:
             </span>
             <span style={{ fontSize: '0.625rem', fontWeight: 800, background: 'rgba(255,255,255,0.12)', padding: '0.2rem 0.55rem', borderRadius: '9999px', color: '#FFFFFF', border: '1px solid rgba(255,255,255,0.2)' }}>
-              GRS Certified
+              ISO 9001:2015
             </span>
             <span style={{ fontSize: '0.625rem', fontWeight: 800, background: 'rgba(255,255,255,0.12)', padding: '0.2rem 0.55rem', borderRadius: '9999px', color: '#FFFFFF', border: '1px solid rgba(255,255,255,0.2)' }}>
-              ISO 9001:2015
+              GRS Certified
             </span>
             <span style={{ fontSize: '0.625rem', fontWeight: 800, background: 'rgba(255,255,255,0.12)', padding: '0.2rem 0.55rem', borderRadius: '9999px', color: '#FFFFFF', border: '1px solid rgba(255,255,255,0.2)' }}>
               OEKO-TEX Standard 100
@@ -198,10 +198,10 @@ export function TrustBanner() {
 
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', flexWrap: 'wrap' }}>
             <span style={{ fontSize: '0.625rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.08em', color: 'rgba(255,255,255,0.6)' }}>
-              Trade Association:
+              Trade Chamber:
             </span>
             <span style={{ fontSize: '0.625rem', fontWeight: 800, background: 'rgba(255,255,255,0.06)', padding: '0.2rem 0.55rem', borderRadius: '9999px', color: 'rgba(255,255,255,0.85)', border: '1px solid rgba(255,255,255,0.15)' }}>
-              Pakistan Textile Exporters Association (PTEA Member)
+              Lahore Chamber of Commerce & Industry (LCCI Member)
             </span>
           </div>
         </div>
