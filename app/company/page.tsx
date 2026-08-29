@@ -449,24 +449,18 @@ export default function CompanyPage() {
             </p>
 
             {/* 4 Direct Action Trigger Buttons */}
-            <div
-              className="sp-anim"
-              style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
-                gap: '0.85rem',
-                maxWidth: '780px',
-                margin: '0 auto',
-              }}
-            >
+            <div className="sp-anim sp-cta-actions">
               <Link
                 className="btn-primary"
                 href="/contact"
                 style={{
+                  width: '100%',
                   justifyContent: 'center',
                   padding: '0.85rem 1rem',
-                  fontSize: '0.875rem',
+                  fontSize: '0.8125rem',
+                  letterSpacing: '0.04em',
                   borderRadius: '10px',
+                  textAlign: 'center',
                 }}
               >
                 📦 Request Samples
@@ -474,62 +468,74 @@ export default function CompanyPage() {
               <Link
                 href="/quality"
                 style={{
+                  width: '100%',
                   display: 'inline-flex',
                   alignItems: 'center',
                   justifyContent: 'center',
                   padding: '0.85rem 1rem',
-                  fontSize: '0.875rem',
+                  fontSize: '0.8125rem',
                   fontWeight: 800,
                   fontFamily: 'var(--font-sans)',
+                  letterSpacing: '0.04em',
+                  textTransform: 'uppercase',
                   color: '#FFFFFF',
                   background: 'rgba(255, 255, 255, 0.08)',
                   border: '1px solid rgba(255, 255, 255, 0.2)',
                   borderRadius: '10px',
                   textDecoration: 'none',
                   transition: 'all 0.2s ease',
+                  textAlign: 'center',
                 }}
               >
-                📊 Technical Reports
+                📊 Quality Reports
               </Link>
               <Link
                 href="/contact"
                 style={{
+                  width: '100%',
                   display: 'inline-flex',
                   alignItems: 'center',
                   justifyContent: 'center',
                   padding: '0.85rem 1rem',
-                  fontSize: '0.875rem',
+                  fontSize: '0.8125rem',
                   fontWeight: 800,
                   fontFamily: 'var(--font-sans)',
+                  letterSpacing: '0.04em',
+                  textTransform: 'uppercase',
                   color: '#FFFFFF',
                   background: 'rgba(255, 255, 255, 0.08)',
                   border: '1px solid rgba(255, 255, 255, 0.2)',
                   borderRadius: '10px',
                   textDecoration: 'none',
                   transition: 'all 0.2s ease',
+                  textAlign: 'center',
                 }}
               >
-                💼 Contact / RFQ
+                💼 Direct RFQ
               </Link>
               <Link
                 href="/contact"
                 style={{
+                  width: '100%',
                   display: 'inline-flex',
                   alignItems: 'center',
                   justifyContent: 'center',
                   padding: '0.85rem 1rem',
-                  fontSize: '0.875rem',
+                  fontSize: '0.8125rem',
                   fontWeight: 800,
                   fontFamily: 'var(--font-sans)',
+                  letterSpacing: '0.04em',
+                  textTransform: 'uppercase',
                   color: '#FFFFFF',
                   background: 'rgba(255, 255, 255, 0.08)',
                   border: '1px solid rgba(255, 255, 255, 0.2)',
                   borderRadius: '10px',
                   textDecoration: 'none',
                   transition: 'all 0.2s ease',
+                  textAlign: 'center',
                 }}
               >
-                📍 Factory Location
+                📍 Plant Location
               </Link>
             </div>
           </div>
