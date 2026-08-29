@@ -104,7 +104,7 @@ const CERT_COORDS: Record<string, { top: string; left: string; width: string; he
     left: '44.9%',
     width: '10.7%',
     height: '25.0%',
-    plaqueTitle: 'GRS 4.0 · FACILITY & SITE APPENDIX',
+    plaqueTitle: 'GRS 4.0 · SITE & FACILITY APPENDIX',
     issuer: 'Control Union Certifications B.V. (Netherlands)',
     shortScope: 'Mechanical Recycling, Dyeing & Trading Operations',
   },
@@ -113,7 +113,7 @@ const CERT_COORDS: Record<string, { top: string; left: string; width: string; he
     left: '56.6%',
     width: '10.7%',
     height: '25.0%',
-    plaqueTitle: 'THE LAHORE CHAMBER OF COMMERCE',
+    plaqueTitle: 'LAHORE CHAMBER OF COMMERCE (LCCI)',
     issuer: 'The Lahore Chamber of Commerce & Industry',
     shortScope: 'Registered Corporate Manufacturer & Exporter (Member Since 2004)',
   },
@@ -291,10 +291,10 @@ export function CertificationGallery() {
                   cursor: 'pointer',
                   borderRadius: '4px',
                   outline: 'none',
-                  transform: isHovered ? 'scale(1.35) translateY(-8px)' : 'scale(1)',
+                  transform: isHovered ? 'scale(1.4) translateY(-10px)' : 'scale(1)',
                   transformOrigin: 'center center',
                   transition: 'transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease',
-                  boxShadow: isHovered ? '0 28px 56px rgba(0, 0, 0, 0.45), 0 10px 20px rgba(0,0,0,0.25)' : 'none',
+                  boxShadow: isHovered ? '0 32px 64px rgba(0, 0, 0, 0.5), 0 12px 24px rgba(0,0,0,0.3)' : 'none',
                 }}
               >
                 {/* When hovered, render high-res original scan in sharp wood frame overlay */}
@@ -339,7 +339,7 @@ export function CertificationGallery() {
                               src={c.asset}
                               alt={`${c.code} certificate`}
                               fill
-                              sizes="25vw"
+                              sizes="30vw"
                               style={{ objectFit: 'contain', padding: '2px' }}
                             />
                           )}
@@ -358,7 +358,7 @@ export function CertificationGallery() {
                               right: '3px',
                               background: '#0A4BB8',
                               color: '#FFFFFF',
-                              fontSize: '0.5rem',
+                              fontSize: '0.52rem',
                               fontWeight: 800,
                               padding: '0.15rem 0.45rem',
                               borderRadius: '9999px',
@@ -373,29 +373,36 @@ export function CertificationGallery() {
                           </div>
                         </div>
 
-                        {/* Engraved Plaque */}
+                        {/* Engraved Brass Plaque with clean wrapping so full name is NEVER cut off */}
                         <div
                           style={{
                             marginTop: '2px',
                             background: 'linear-gradient(180deg, #FDE68A 0%, #D4AF37 45%, #B4881A 100%)',
                             borderRadius: '1.5px',
-                            padding: '2px 3px',
+                            padding: '2px 4px',
                             textAlign: 'center',
                             border: '0.5px solid #8C6215',
                             color: '#2A1804',
+                            minHeight: '18px',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
                           }}
                         >
                           <div
                             style={{
-                              fontSize: '0.45rem',
+                              fontSize: '0.44rem',
                               fontWeight: 800,
-                              letterSpacing: '0.04em',
+                              letterSpacing: '0.03em',
                               textTransform: 'uppercase',
                               lineHeight: 1.15,
                               fontFamily: 'var(--font-sans)',
-                              whiteSpace: 'nowrap',
+                              whiteSpace: 'normal',
+                              wordBreak: 'normal',
+                              display: '-webkit-box',
+                              WebkitLineClamp: 2,
+                              WebkitBoxOrient: 'vertical',
                               overflow: 'hidden',
-                              textOverflow: 'ellipsis',
                             }}
                           >
                             {c.plaqueTitle}
@@ -411,7 +418,7 @@ export function CertificationGallery() {
               <div
                 style={{
                   position: 'absolute',
-                  top: 'calc(100% + 10px)',
+                  top: 'calc(100% + 12px)',
                   left: '50%',
                   transform: isHovered
                     ? 'translateX(-50%) translateY(0)'
@@ -419,33 +426,33 @@ export function CertificationGallery() {
                   opacity: isHovered ? 1 : 0,
                   pointerEvents: isHovered ? 'auto' : 'none',
                   zIndex: 120,
-                  width: '240px',
-                  background: 'rgba(255, 255, 255, 0.96)',
-                  backdropFilter: 'blur(10px)',
+                  width: '260px',
+                  background: 'rgba(255, 255, 255, 0.98)',
+                  backdropFilter: 'blur(12px)',
                   borderRadius: '10px',
-                  padding: '0.65rem 0.8rem',
-                  boxShadow: '0 16px 36px rgba(0, 0, 0, 0.28), 0 2px 6px rgba(0,0,0,0.08)',
+                  padding: '0.75rem 0.9rem',
+                  boxShadow: '0 20px 40px rgba(0, 0, 0, 0.3), 0 2px 6px rgba(0,0,0,0.08)',
                   border: '1px solid rgba(10, 75, 184, 0.25)',
                   transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
                 }}
               >
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.2rem' }}>
-                  <span style={{ fontSize: '0.625rem', fontWeight: 800, color: 'var(--burg-primary, #0A4BB8)', letterSpacing: '0.06em', textTransform: 'uppercase' }}>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.25rem' }}>
+                  <span style={{ fontSize: '0.65rem', fontWeight: 800, color: 'var(--burg-primary, #0A4BB8)', letterSpacing: '0.06em', textTransform: 'uppercase' }}>
                     {c.code}
                   </span>
                   <Provenance status="VERIFIED" />
                 </div>
 
-                <div style={{ fontSize: '0.6875rem', fontWeight: 700, color: '#0F172A', marginBottom: '0.15rem', lineHeight: 1.25 }}>
+                <div style={{ fontSize: '0.72rem', fontWeight: 800, color: '#0F172A', marginBottom: '0.2rem', lineHeight: 1.3 }}>
                   {c.issuer}
                 </div>
 
-                <div style={{ fontSize: '0.5625rem', color: '#64748B', lineHeight: 1.4, marginBottom: '0.25rem' }}>
+                <div style={{ fontSize: '0.58rem', color: '#475569', lineHeight: 1.45, marginBottom: '0.35rem' }}>
                   {c.shortScope}
                 </div>
 
                 {c.certNumber && (
-                  <div style={{ fontSize: '0.5rem', fontWeight: 700, color: '#334155', background: '#F1F5F9', padding: '0.15rem 0.35rem', borderRadius: '3px' }}>
+                  <div style={{ fontSize: '0.52rem', fontWeight: 700, color: '#1E293B', background: '#F1F5F9', padding: '0.2rem 0.4rem', borderRadius: '4px', border: '1px solid #E2E8F0' }}>
                     Ref: {c.certNumber}
                   </div>
                 )}
@@ -455,7 +462,7 @@ export function CertificationGallery() {
         })}
       </div>
 
-      {/* ── FULL-SCREEN LIGHTBOX MODAL ────────────────────────────────────── */}
+      {/* ── FULL-SCREEN LIGHTBOX MODAL (Higher z-index, larger picture, compact sleek footer) ── */}
       {open && (
         <div
           className="sp-lightbox"
@@ -466,13 +473,13 @@ export function CertificationGallery() {
           style={{
             position: 'fixed',
             inset: 0,
-            zIndex: 9999,
-            background: 'rgba(4, 15, 38, 0.94)',
-            backdropFilter: 'blur(16px)',
+            zIndex: 999999,
+            background: 'rgba(3, 10, 26, 0.96)',
+            backdropFilter: 'blur(20px)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            padding: 'clamp(1rem, 3vw, 2.5rem)',
+            padding: 'clamp(0.75rem, 2vw, 1.75rem)',
           }}
         >
           <div
@@ -480,25 +487,26 @@ export function CertificationGallery() {
             onClick={(e) => e.stopPropagation()}
             style={{
               position: 'relative',
-              background: '#FFFFFF',
-              borderRadius: '24px',
-              maxWidth: '920px',
+              background: '#070E1C',
+              borderRadius: '20px',
+              maxWidth: '1080px',
               width: '100%',
-              maxHeight: '94vh',
+              height: '92vh',
+              maxHeight: '92vh',
               overflow: 'hidden',
               display: 'flex',
               flexDirection: 'column',
-              boxShadow: '0 30px 80px rgba(0, 0, 0, 0.6)',
+              boxShadow: '0 30px 90px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 255, 255, 0.1)',
             }}
           >
             {/* Header: Document Index & Close Button */}
             <div
               style={{
                 position: 'absolute',
-                top: '1rem',
-                left: '1.25rem',
+                top: '0.85rem',
+                left: '1rem',
                 right: '1rem',
-                zIndex: 10,
+                zIndex: 20,
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'space-between',
@@ -507,7 +515,7 @@ export function CertificationGallery() {
             >
               <span
                 style={{
-                  background: 'rgba(4, 15, 38, 0.85)',
+                  background: 'rgba(7, 14, 28, 0.88)',
                   color: '#FFFFFF',
                   fontSize: '0.75rem',
                   fontWeight: 700,
@@ -528,37 +536,39 @@ export function CertificationGallery() {
                 onClick={() => setOpenIdx(null)}
                 aria-label="Close document view"
                 style={{
-                  background: 'rgba(4, 15, 38, 0.85)',
+                  background: 'rgba(7, 14, 28, 0.88)',
                   color: '#FFFFFF',
                   border: '1px solid rgba(255, 255, 255, 0.2)',
                   borderRadius: '50%',
-                  width: '40px',
-                  height: '40px',
+                  width: '38px',
+                  height: '38px',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
                   cursor: 'pointer',
                   pointerEvents: 'auto',
-                  transition: 'background 0.2s ease',
+                  transition: 'all 0.2s ease',
                 }}
               >
                 {CLOSE}
               </button>
             </div>
 
-            {/* Document Viewer Container with Prev / Next buttons */}
+            {/* Document Viewer Container with Prev / Next buttons — Maximized Space */}
             <div
               className="sp-lightbox__media"
               style={{
                 position: 'relative',
                 flex: '1 1 auto',
-                minHeight: '480px',
-                maxHeight: '66vh',
+                width: '100%',
+                height: '100%',
+                minHeight: 0,
                 background: '#070E1C',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
                 overflow: 'hidden',
+                padding: '3rem 1rem 1rem',
               }}
             >
               {/* Prev Button */}
@@ -571,10 +581,10 @@ export function CertificationGallery() {
                   left: '1.25rem',
                   top: '50%',
                   transform: 'translateY(-50%)',
-                  zIndex: 5,
-                  background: 'rgba(255, 255, 255, 0.18)',
+                  zIndex: 15,
+                  background: 'rgba(255, 255, 255, 0.15)',
                   color: '#FFFFFF',
-                  border: '1px solid rgba(255, 255, 255, 0.3)',
+                  border: '1px solid rgba(255, 255, 255, 0.25)',
                   borderRadius: '50%',
                   width: '46px',
                   height: '46px',
@@ -599,10 +609,10 @@ export function CertificationGallery() {
                   right: '1.25rem',
                   top: '50%',
                   transform: 'translateY(-50%)',
-                  zIndex: 5,
-                  background: 'rgba(255, 255, 255, 0.18)',
+                  zIndex: 15,
+                  background: 'rgba(255, 255, 255, 0.15)',
                   color: '#FFFFFF',
-                  border: '1px solid rgba(255, 255, 255, 0.3)',
+                  border: '1px solid rgba(255, 255, 255, 0.25)',
                   borderRadius: '50%',
                   width: '46px',
                   height: '46px',
@@ -623,35 +633,89 @@ export function CertificationGallery() {
                   alt={`${open.code} - ${open.name} official certificate document`}
                   fill
                   priority
-                  sizes="90vw"
-                  style={{ objectFit: 'contain', padding: '1.5rem' }}
+                  sizes="(max-width: 1200px) 100vw, 1100px"
+                  style={{ objectFit: 'contain', padding: '0.5rem' }}
                 />
               ) : null}
             </div>
 
-            {/* Document Details Footer */}
+            {/* Document Details Footer — Sleek, Compact Low-Profile Bar */}
             <div
               className="sp-lightbox__caption"
               style={{
-                padding: '1.5rem 2rem',
-                borderTop: '1px solid var(--border-light, #E2E8F0)',
+                flex: '0 0 auto',
+                padding: '0.75rem 1.5rem',
+                borderTop: '1px solid rgba(255, 255, 255, 0.12)',
                 background: '#FFFFFF',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                gap: '1rem',
+                flexWrap: 'nowrap',
               }}
             >
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '0.5rem', marginBottom: '0.4rem' }}>
-                <span className="sp-cat" style={{ margin: 0 }}>{open.code}</span>
-                {open.certNumber && (
-                  <span style={{ fontSize: '0.8125rem', fontWeight: 700, color: 'var(--burg-primary, #0A4BB8)' }}>
-                    {open.certNumber}
+              <div style={{ flex: '1 1 auto', minWidth: 0 }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', marginBottom: '0.15rem' }}>
+                  <span
+                    style={{
+                      background: 'rgba(10, 75, 184, 0.12)',
+                      color: 'var(--burg-primary, #0A4BB8)',
+                      fontSize: '0.6875rem',
+                      fontWeight: 800,
+                      padding: '0.15rem 0.5rem',
+                      borderRadius: '4px',
+                      textTransform: 'uppercase',
+                      letterSpacing: '0.04em',
+                    }}
+                  >
+                    {open.code}
                   </span>
-                )}
+                  <h3
+                    style={{
+                      fontSize: '0.95rem',
+                      fontWeight: 800,
+                      margin: 0,
+                      color: 'var(--ink, #0F172A)',
+                      whiteSpace: 'nowrap',
+                      overflow: 'hidden',
+                      textOverflow: 'ellipsis',
+                    }}
+                  >
+                    {open.name}
+                  </h3>
+                </div>
+                <p
+                  style={{
+                    margin: 0,
+                    color: 'var(--muted, #64748B)',
+                    fontSize: '0.75rem',
+                    lineHeight: 1.35,
+                    whiteSpace: 'nowrap',
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                  }}
+                >
+                  {open.what}
+                </p>
               </div>
-              <h3 className="sp-cert__title" style={{ fontSize: '1.25rem', fontWeight: 800, margin: '0 0 0.45rem', color: 'var(--ink, #0F172A)' }}>
-                {open.name}
-              </h3>
-              <p className="sp-small" style={{ margin: 0, color: 'var(--muted, #64748B)', fontSize: '0.875rem', lineHeight: 1.6 }}>
-                {open.what}
-              </p>
+
+              {open.certNumber && (
+                <div
+                  style={{
+                    flex: '0 0 auto',
+                    background: '#F1F5F9',
+                    border: '1px solid #E2E8F0',
+                    borderRadius: '6px',
+                    padding: '0.35rem 0.65rem',
+                    textAlign: 'right',
+                  }}
+                >
+                  <div style={{ fontSize: '0.625rem', color: '#64748B', fontWeight: 600, textTransform: 'uppercase' }}>Ref Number</div>
+                  <div style={{ fontSize: '0.75rem', fontWeight: 800, color: 'var(--burg-primary, #0A4BB8)' }}>
+                    {open.certNumber}
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -659,5 +723,6 @@ export function CertificationGallery() {
     </>
   )
 }
+
 
 
