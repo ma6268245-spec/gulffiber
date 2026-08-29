@@ -74,7 +74,12 @@
 html {
   font-size: 16px;
   scroll-behavior: auto;
+  scroll-padding-top: 5.75rem;
   /* Lenis handles smooth scroll */
+}
+
+[id] {
+  scroll-margin-top: 5.75rem;
 }
 
 body {

@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -9,7 +9,7 @@ export function HeroSection() {
   const statRefs = useRef<(HTMLDivElement | null)[]>([])
 
   useEffect(() => {
-    let ctx: any
+    let ctx: { revert: () => void } | undefined
 
     const initGsap = async () => {
       const gsap = (await import('gsap')).default

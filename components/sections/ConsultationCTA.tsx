@@ -7,7 +7,7 @@ export function ConsultationCTA() {
   const sectionRef = useRef<HTMLElement>(null)
 
   useEffect(() => {
-    let ctx: any;
+    let ctx: { revert: () => void } | undefined
     const init = async () => {
       const gsap = (await import('gsap')).default
       const { ScrollTrigger } = await import('gsap/ScrollTrigger')

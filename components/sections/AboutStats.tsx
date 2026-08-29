@@ -13,7 +13,7 @@ export function AboutStats() {
   const sectionRef = useRef<HTMLElement>(null)
 
   useEffect(() => {
-    let ctx: any;
+    let ctx: { revert: () => void } | undefined
     const init = async () => {
       const { getGsap, counterAnim } = await import('@/lib/animations')
       const gsap = await getGsap()

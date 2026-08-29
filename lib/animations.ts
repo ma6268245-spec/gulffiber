@@ -1,9 +1,12 @@
-// Shared GSAP animation utilities
+import type gsapCore from 'gsap'
+
+export type Gsap = typeof gsapCore
+export type Targets = string | Element | Element[] | NodeListOf<Element> | null
 
 // Lazy-load GSAP + ScrollTrigger once
 let gsapReady: Promise<typeof import('gsap')['default']> | null = null
 
-export async function getGsap() {
+export async function getGsap(): Promise<typeof import('gsap')['default']> {
   if (!gsapReady) {
     gsapReady = (async () => {
       const gsap = (await import('gsap')).default
@@ -40,10 +43,10 @@ export const STAGGER = {
 
 /** Fade-up reveal for generic elements */
 export function fadeUpReveal(
-  gsap: any,
-  targets: string,
+  gsap: Gsap,
+  targets: Targets,
   opts?: {
-    trigger?: string | Element
+    trigger?: string | Element | null
     start?: string
     stagger?: number
     duration?: number
@@ -51,6 +54,7 @@ export function fadeUpReveal(
     y?: number
   }
 ) {
+  if (!targets) return
   const o = {
     trigger: opts?.trigger ?? targets,
     start: opts?.start ?? 'top 88%',
@@ -70,23 +74,24 @@ export function fadeUpReveal(
       stagger: o.stagger,
       delay: o.delay,
       ease: EASE.smooth,
-      scrollTrigger: { trigger: o.trigger, start: o.start, once: true },
+      scrollTrigger: { trigger: o.trigger as gsap.DOMTarget, start: o.start, once: true },
     }
   )
 }
 
 /** Line-by-line masked text reveal */
 export function textLineReveal(
-  gsap: any,
-  targets: string,
+  gsap: Gsap,
+  targets: Targets,
   opts?: {
-    trigger?: string | Element
+    trigger?: string | Element | null
     start?: string
     stagger?: number
     duration?: number
     delay?: number
   }
 ) {
+  if (!targets) return
   const o = {
     trigger: opts?.trigger ?? targets,
     start: opts?.start ?? 'top 88%',
@@ -105,22 +110,24 @@ export function textLineReveal(
       stagger: o.stagger,
       delay: o.delay,
       ease: EASE.out,
-      scrollTrigger: { trigger: o.trigger, start: o.start, once: true },
+      scrollTrigger: { trigger: o.trigger as gsap.DOMTarget, start: o.start, once: true },
     }
   )
 }
 
 /** Fade scale image/section reveal */
 export function clipReveal(
-  gsap: any,
-  target: string,
+  gsap: Gsap,
+  target: Targets,
   _direction: 'up' | 'down' | 'left' | 'right' = 'up',
   opts?: {
-    trigger?: string | Element
+    trigger?: string | Element | null
     start?: string
     duration?: number
   }
 ) {
+  if (!target) return
+  void _direction
   return gsap.fromTo(
     target,
     { opacity: 0, scale: 0.96 },
@@ -130,7 +137,7 @@ export function clipReveal(
       duration: opts?.duration ?? DUR.reveal,
       ease: EASE.smooth,
       scrollTrigger: {
-        trigger: opts?.trigger ?? target,
+        trigger: (opts?.trigger ?? target) as gsap.DOMTarget,
         start: opts?.start ?? 'top 85%',
         once: true,
       },
@@ -140,20 +147,21 @@ export function clipReveal(
 
 /** Scroll-linked parallax for images */
 export function parallaxImage(
-  gsap: any,
-  target: string,
+  gsap: Gsap,
+  target: Targets,
   opts?: {
-    trigger?: string | Element
+    trigger?: string | Element | null
     intensity?: number
     start?: string
     end?: string
   }
 ) {
+  if (!target) return
   return gsap.to(target, {
     yPercent: -(opts?.intensity ?? 6),
     ease: EASE.linear,
     scrollTrigger: {
-      trigger: opts?.trigger ?? target,
+      trigger: (opts?.trigger ?? target) as gsap.DOMTarget,
       start: opts?.start ?? 'top bottom',
       end: opts?.end ?? 'bottom top',
       scrub: true,
@@ -163,7 +171,7 @@ export function parallaxImage(
 
 /** Animated number counter on scroll */
 export function counterAnim(
-  gsap: any,
+  gsap: Gsap,
   el: Element,
   endVal: number,
   suffix: string = '',
@@ -190,15 +198,16 @@ export function counterAnim(
 
 /** Stagger card entrance (scale + opacity) */
 export function cardEntrance(
-  gsap: any,
-  targets: string,
+  gsap: Gsap,
+  targets: Targets,
   opts?: {
-    trigger?: string | Element
+    trigger?: string | Element | null
     start?: string
     stagger?: number
     delay?: number
   }
 ) {
+  if (!targets) return
   return gsap.fromTo(
     targets,
     { opacity: 0, scale: 0.9, y: 25 },
@@ -211,7 +220,7 @@ export function cardEntrance(
       delay: opts?.delay ?? 0,
       ease: 'back.out(1.4)',
       scrollTrigger: {
-        trigger: opts?.trigger ?? targets,
+        trigger: (opts?.trigger ?? targets) as gsap.DOMTarget,
         start: opts?.start ?? 'top 85%',
         once: true,
       },

@@ -3,17 +3,33 @@
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
 
+import { GALLERY_CATEGORIES, GALLERY_ITEMS } from '@/lib/data/gallery'
+
+/* Every entry below is grounded in lib/data/company.ts (and gallery.ts) -
+   no invented deniers, capacities, destinations or claims. */
 const SEARCH_DATABASE = [
-  { title: 'Recycled Polyester Staple Fibre (PSF)', category: 'Product', href: '/products', tag: '1.2D–15D', desc: 'High-tenacity GRS-certified staple fibre for spinning mills.' },
-  { title: 'Hollow Conjugate Siliconized Fibre (HCS)', category: 'Product', href: '/products', tag: '7D / 15D', desc: '3D helical spiral crimp for luxury pillows and thermal infill.' },
-  { title: 'Automotive & Industrial Non-Woven Felt', category: 'Product', href: '/products', tag: '80–1200 GSM', desc: 'Needle-punched geotextiles, acoustic felts, and headliners.' },
-  { title: 'Custom Denier Extrusion & Spinning', category: 'Service', href: '/services', tag: 'Capabilities', desc: 'Tailored tensile strength, cut lengths (32mm–102mm), and crimp rates.' },
-  { title: 'GRS (Global Recycled Standard) Certification', category: 'Quality', href: '/quality', tag: '100% Recycled', desc: 'Scope certificates and batch-specific Certificate of Analysis (COA).' },
-  { title: 'ISO 9001:2015 Quality Management', category: 'Quality', href: '/quality', tag: 'ISO Certified', desc: 'Automated optical testing and German draw-frame parameters.' },
-  { title: 'Eco-Loop Circular Sustainability', category: 'Sustainability', href: '/sustainability', tag: 'Eco-Loop', desc: 'Diverting millions of plastic bottles from coastal landfills annually.' },
-  { title: 'Karachi Manufacturing Plant & Port Logistics', category: 'Company', href: '/company', tag: 'FOB / CIF', desc: '24-hour export container dispatch to 18 worldwide destinations.' },
-  { title: 'Executive Leadership & Management Team', category: 'Company', href: '/company', tag: 'Leadership', desc: 'Meet our Co-Founder, Operations Directors, and Polymer Scientists.' },
-  { title: 'Request Sample Cones & Proforma Quote', category: 'Contact', href: '/contact', tag: 'Sales Desk', desc: 'Direct inquiry for 1kg–5kg lab test swatches and volume pricing.' },
+  { title: 'Recycled Polyester Staple Fibre', category: 'Product', href: '/products#psf-regenerated', tag: 'GRS', desc: '100% post-consumer PET regenerated into staple fibre under GRS chain of custody.' },
+  { title: 'Virgin Polyester Staple Fibre', category: 'Product', href: '/products#psf-virgin', tag: 'PSF', desc: 'Virgin fibre across the denier range for spinning, filling and industrial applications.' },
+  { title: 'High-Loft Wadding', category: 'Product', href: '/products#wadding', tag: 'Bonded', desc: 'High-loft, thermally bonded wadding for bedding, furniture and insulation.' },
+  { title: 'Needle-Punched Felt', category: 'Product', href: '/products#felt', tag: 'Nonwoven', desc: 'Needle-punched technical felts for automotive, acoustic and industrial uses.' },
+  { title: 'Interlining Materials', category: 'Product', href: '/products#interlining', tag: 'Woven', desc: 'Woven and non-woven interlining goods for garment tailoring.' },
+  { title: 'The Service Journey', category: 'Service', href: '/services', tag: '7 Steps', desc: 'How an enquiry moves from requirement to delivered consignment, step by step.' },
+  { title: 'The Production Sequence', category: 'Service', href: '/services', tag: 'Process', desc: 'The published manufacturing sequence, from feedstock to cut and baled material.' },
+  { title: 'ISO 9001:2015 Quality Management', category: 'Quality', href: '/quality', tag: 'Certified', desc: 'The certified quality management system governing specifications and verification.' },
+  { title: 'GRS - Global Recycled Standard', category: 'Quality', href: '/quality', tag: 'Recycled', desc: 'Scope certificate and chain of custody for recycled material.' },
+  { title: 'The Circular Material Journey', category: 'Sustainability', href: '/sustainability', tag: 'Lifecycle', desc: 'The recycled route from post-consumer PET back to fibre - verified facts only.' },
+  { title: 'Company Story & Timeline', category: 'Company', href: '/company', tag: 'Since 1999', desc: 'The company history, timeline and leadership - with slots where the record is outstanding.' },
+  { title: 'The Visual Archive', category: 'Gallery', href: '/gallery', tag: 'Archive', desc: 'Factory, materials, manufacturing, products, quality, people and sustainability.' },
+  { title: 'Samples, Quotations & Documentation', category: 'Contact', href: '/contact', tag: 'Enquiry', desc: 'Choose an intent and the enquiry reaches the desk that answers it.' },
+  /* Archive entries: search reaches straight into the gallery data, so a
+     photograph the client adds becomes discoverable with no extra work. */
+  ...GALLERY_ITEMS.map((item) => ({
+    title: item.title,
+    category: 'Gallery',
+    href: '/gallery',
+    tag: GALLERY_CATEGORIES.find((c) => c.id === item.category)?.label ?? 'Archive',
+    desc: item.description,
+  })),
 ]
 
 export function SearchModal({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
@@ -68,15 +84,16 @@ export function SearchModal({ isOpen, onClose }: { isOpen: boolean; onClose: () 
     >
       {/* Modal Dialog Card */}
       <div
+        className="search-modal-card"
         style={{
           width: '100%',
           maxWidth: '640px',
-          background: 'rgba(255, 255, 255, 0.92)',
+          background: 'var(--glass-card-bg)',
           backdropFilter: 'blur(32px) saturate(180%)',
           WebkitBackdropFilter: 'blur(32px) saturate(180%)',
-          border: '1px solid rgba(255, 255, 255, 0.95)',
+          border: '1px solid var(--glass-card-border)',
           borderRadius: '24px',
-          boxShadow: '0 28px 70px rgba(7, 20, 46, 0.35), inset 0 1px 1px #FFFFFF',
+          boxShadow: '0 28px 70px rgba(7, 20, 46, 0.35)',
           overflow: 'hidden',
           display: 'flex',
           flexDirection: 'column',
@@ -90,7 +107,7 @@ export function SearchModal({ isOpen, onClose }: { isOpen: boolean; onClose: () 
             alignItems: 'center',
             gap: '0.75rem',
             padding: '1.25rem 1.5rem',
-            borderBottom: '1px solid rgba(10, 35, 80, 0.1)',
+            borderBottom: '1px solid var(--border-light)',
           }}
         >
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--burg-primary)" strokeWidth="2.5">
@@ -120,9 +137,9 @@ export function SearchModal({ isOpen, onClose }: { isOpen: boolean; onClose: () 
               fontWeight: 800,
               padding: '0.2rem 0.5rem',
               borderRadius: '6px',
-              background: 'rgba(10, 75, 184, 0.08)',
+              background: 'rgba(10, 75, 184, 0.1)',
               color: 'var(--burg-primary)',
-              border: '1px solid rgba(10, 75, 184, 0.15)',
+              border: '1px solid var(--border-light)',
             }}
           >
             ESC

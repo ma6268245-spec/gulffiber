@@ -8,7 +8,7 @@ export function TrustBanner() {
   const sectionRef = useRef<HTMLElement>(null)
 
   useEffect(() => {
-    let ctx: any;
+    let ctx: { revert: () => void } | undefined
     const init = async () => {
       const { getGsap, textLineReveal, fadeUpReveal, parallaxImage } = await import('@/lib/animations')
       const gsap = await getGsap()
@@ -142,7 +142,7 @@ export function TrustBanner() {
             marginBottom: '2.5rem',
           }}
         >
-          Our commitment goes beyond production — it's about building long-term relationships with every customer who chooses us.
+          Our commitment goes beyond production — it&apos;s about building long-term relationships with every customer who chooses us.
         </p>
 
         {/* CTAs */}

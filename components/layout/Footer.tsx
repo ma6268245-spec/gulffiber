@@ -14,9 +14,10 @@ const SERVICES = [
 const QUICKLINKS = [
   { label: 'About Us', href: '/company' },
   { label: 'Products', href: '/products' },
-  { label: 'Applications', href: '/applications' },
+  { label: 'Services', href: '/services' },
   { label: 'Sustainability', href: '/sustainability' },
   { label: 'Quality', href: '/quality' },
+  { label: 'Gallery', href: '/gallery' },
   { label: 'Contact', href: '/contact' },
 ]
 

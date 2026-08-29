@@ -7,7 +7,7 @@ export function ContactStrip() {
   const sectionRef = useRef<HTMLElement>(null)
 
   useEffect(() => {
-    let ctx: any;
+    let ctx: { revert: () => void } | undefined
     const init = async () => {
       const { getGsap, fadeUpReveal } = await import('@/lib/animations')
       const gsap = await getGsap()

@@ -49,16 +49,22 @@ export default function Home() {
       {/* 10. Applications */}
       <AdvantagesSection />
 
-      {/* 11. Sustainability */}
+      {/* 11. Key Performance Numbers */}
+      <AboutStats />
+
+      {/* 12. Client Feedback */}
+      <TestimonialsSection />
+
+      {/* 13. Sustainability */}
       <SustainabilitySection />
 
-      {/* 12. Certifications & Trust */}
+      {/* 14. Certifications & Trust */}
       <TrustBanner />
 
-      {/* 13. Technical Insights */}
+      {/* 15. Technical Insights */}
       <BlogSection />
 
-      {/* 14. Final RFQ CTA */}
+      {/* 16. Final RFQ CTA */}
       <ConsultationCTA />
 
       {/* Global Utilities */}

@@ -16,16 +16,20 @@ const ThemeContext = createContext<ThemeContextType>({
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [theme, setTheme] = useState<Theme>('light')
-  const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
-    setMounted(true)
+    let raf = 0
     const saved = localStorage.getItem('gulf-fibre-theme') as Theme | null
     if (saved === 'dark' || saved === 'light') {
-      setTheme(saved)
       document.documentElement.setAttribute('data-theme', saved)
+      raf = requestAnimationFrame(() => {
+        setTheme(saved)
+      })
     } else {
       document.documentElement.setAttribute('data-theme', 'light')
+    }
+    return () => {
+      if (raf) cancelAnimationFrame(raf)
     }
   }, [])
 

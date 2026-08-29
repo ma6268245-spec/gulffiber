@@ -1,297 +1,383 @@
 'use client'
 
-import { useState, Suspense } from 'react'
-import { useSearchParams } from 'next/navigation'
-import { Header } from '@/components/layout/Header'
-import { Footer } from '@/components/layout/Footer'
-import { FloatingActions } from '@/components/layout/FloatingActions'
+import Image from 'next/image'
+import { useRef, useState } from 'react'
+import { PageHero } from '@/components/subpages/PageHero'
+import { PageShell } from '@/components/subpages/PageShell'
+import { ScrollProductScene } from '@/components/subpages/ScrollProductScene'
+import { DataSlot, SectionHead, SpecRows } from '@/components/subpages/Primitives'
+import { PersonCard } from '@/components/subpages/PeopleChapter'
+import { useSectionReveal } from '@/components/subpages/useSectionReveal'
+import { CONTACT_SLOTS, MANAGEMENT, PRODUCT_LINES, RFQ_ENDPOINT_NOTE, VERIFIED } from '@/lib/data/company'
 
-function ContactForm() {
-  const searchParams = useSearchParams()
-  const initialProduct = searchParams.get('product') || 'Polyester Staple Fibre (Recycled)'
+type Fields = {
+  company: string
+  person: string
+  email: string
+  phone: string
+  country: string
+  line: string
+  denier: string
+  volume: string
+  message: string
+}
 
-  const [submitted, setSubmitted] = useState(false)
-  const [formData, setFormData] = useState({
-    name: '',
-    company: '',
-    email: '',
-    phone: '',
-    product: initialProduct,
-    quantity: '10 MT',
-    message: '',
-  })
+const EMPTY: Fields = {
+  company: '',
+  person: '',
+  email: '',
+  phone: '',
+  country: '',
+  line: PRODUCT_LINES[0].code,
+  denier: '',
+  volume: '',
+  message: '',
+}
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    setSubmitted(true)
+/** Inquiry paths. Each one adapts the message prompt to what the desk needs. */
+const INTENTS = [
+  { id: 'quotation', label: 'Quotation', prompt: 'Denier, cut length, volume and destination - enough for a firm answer.' },
+  { id: 'sample', label: 'Sample request', prompt: 'What should we sample, which grade, and where should it go?' },
+  { id: 'technical', label: 'Technical question', prompt: 'The parameter or behaviour in question - we answer against the record.' },
+  { id: 'product', label: 'Product enquiry', prompt: 'The line and application you are looking at.' },
+  { id: 'general', label: 'General', prompt: 'Anything else - one line is enough to start.' },
+] as const
+
+type IntentId = (typeof INTENTS)[number]['id']
+
+/**
+ * /contact
+ *
+ * Design: the approved homepage's grammar - ivory and white sections, sapphire
+ * eyebrows, 900-weight uppercase headings with a Cormorant italic accent, white
+ * hairline panels, one dark band. No new design language; the homepage is
+ * untouched.
+ *
+ * Data: the previous version of this page published a telephone number, a
+ * WhatsApp number, two mailboxes and a sample buyer address that appear nowhere
+ * in this repository. Every one of them has been removed rather than reworded.
+ * Real channels render from CONTACT_SLOTS the moment they are filled in one
+ * place; until then each renders as a labelled slot saying what to supply.
+ *
+ * The form has no server destination yet (see RFQ_ENDPOINT_NOTE), so it
+ * validates in the browser and then says plainly that the submission is held.
+ */
+export default function ContactPage() {
+  const scope = useRef<HTMLDivElement>(null)
+  useSectionReveal(scope)
+
+  const [v, setV] = useState<Fields>(EMPTY)
+  const [errors, setErrors] = useState<Partial<Record<keyof Fields, string>>>({})
+  const [held, setHeld] = useState(false)
+  const [intent, setIntent] = useState<IntentId>('quotation')
+
+  const intentMeta = INTENTS.find((i) => i.id === intent) ?? INTENTS[0]
+
+  const set = (k: keyof Fields) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    setV((prev) => ({ ...prev, [k]: e.target.value }))
+    setErrors((prev) => ({ ...prev, [k]: undefined }))
   }
 
-  return (
-    <div style={{ background: 'var(--white)', border: '1px solid var(--border-light)', padding: 'clamp(2rem, 5vw, 3.5rem)' }}>
-      {submitted ? (
-        <div style={{ textAlign: 'center', padding: '3rem 1rem' }}>
-          <div style={{ width: '4rem', height: '4rem', borderRadius: '50%', background: 'rgba(10,75,184,0.1)', color: 'var(--burg-primary)', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1.5rem' }}>
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-              <polyline points="20 6 9 17 4 12" />
-            </svg>
-          </div>
-          <h3 style={{ fontFamily: 'var(--font-sans)', fontSize: '1.75rem', fontWeight: 900, color: 'var(--ink)', textTransform: 'uppercase', marginBottom: '0.75rem' }}>
-            Inquiry Received
-          </h3>
-          <p style={{ fontSize: '0.9375rem', color: 'var(--muted)', maxWidth: '42ch', margin: '0 auto 2rem', lineHeight: 1.6 }}>
-            Thank you, <strong>{formData.name}</strong>. Our export and technical sales team will review your specifications and reply with a formal proforma quote within 24 hours.
-          </p>
-          <button
-            onClick={() => setSubmitted(false)}
-            className="btn-secondary"
-          >
-            SUBMIT ANOTHER INQUIRY
-          </button>
-        </div>
-      ) : (
-        <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
-          <h3 style={{ fontFamily: 'var(--font-sans)', fontSize: '1.5rem', fontWeight: 900, color: 'var(--ink)', textTransform: 'uppercase', marginBottom: '0.5rem' }}>
-            Request Quotation & Technical Specs
-          </h3>
+  const validate = () => {
+    const next: Partial<Record<keyof Fields, string>> = {}
+    if (!v.company.trim()) next.company = 'Company name is required so we can address the quotation.'
+    if (!v.person.trim()) next.person = 'A contact name is required.'
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.email.trim())) next.email = 'Enter an email address we can reply to.'
+    if (!v.country.trim()) next.country = 'Destination country is required for packing and documentation.'
+    if (!v.message.trim()) next.message = 'Tell us what you need - even one line is enough to start.'
+    setErrors(next)
+    return Object.keys(next).length === 0
+  }
 
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.25rem' }}>
-            <div>
-              <label style={{ display: 'block', fontSize: '0.6875rem', fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--ink)', marginBottom: '0.375rem' }}>
-                Full Name *
-              </label>
-              <input
-                required
-                type="text"
-                value={formData.name}
-                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                placeholder="e.g. Tariq Mahmood"
-                style={{ width: '100%', padding: '0.875rem 1rem', border: '1px solid var(--border-light)', background: 'var(--ivory)', fontSize: '0.875rem', color: 'var(--ink)', outline: 'none' }}
-              />
-            </div>
-            <div>
-              <label style={{ display: 'block', fontSize: '0.6875rem', fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--ink)', marginBottom: '0.375rem' }}>
-                Company Name *
-              </label>
-              <input
-                required
-                type="text"
-                value={formData.company}
-                onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-                placeholder="e.g. Apex Textiles Ltd"
-                style={{ width: '100%', padding: '0.875rem 1rem', border: '1px solid var(--border-light)', background: 'var(--ivory)', fontSize: '0.875rem', color: 'var(--ink)', outline: 'none' }}
-              />
-            </div>
-          </div>
+  const onSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    setHeld(false)
+    if (validate()) setHeld(true)
+  }
 
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.25rem' }}>
-            <div>
-              <label style={{ display: 'block', fontSize: '0.6875rem', fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--ink)', marginBottom: '0.375rem' }}>
-                Business Email *
-              </label>
-              <input
-                required
-                type="email"
-                value={formData.email}
-                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                placeholder="buyer@company.com"
-                style={{ width: '100%', padding: '0.875rem 1rem', border: '1px solid var(--border-light)', background: 'var(--ivory)', fontSize: '0.875rem', color: 'var(--ink)', outline: 'none' }}
-              />
-            </div>
-            <div>
-              <label style={{ display: 'block', fontSize: '0.6875rem', fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--ink)', marginBottom: '0.375rem' }}>
-                Phone / WhatsApp *
-              </label>
-              <input
-                required
-                type="tel"
-                value={formData.phone}
-                onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                placeholder="+92 300 1234567"
-                style={{ width: '100%', padding: '0.875rem 1rem', border: '1px solid var(--border-light)', background: 'var(--ivory)', fontSize: '0.875rem', color: 'var(--ink)', outline: 'none' }}
-              />
-            </div>
-          </div>
-
-          <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 0.8fr', gap: '1.25rem' }}>
-            <div>
-              <label style={{ display: 'block', fontSize: '0.6875rem', fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--ink)', marginBottom: '0.375rem' }}>
-                Product Interest
-              </label>
-              <select
-                value={formData.product}
-                onChange={(e) => setFormData({ ...formData, product: e.target.value })}
-                style={{ width: '100%', padding: '0.875rem 1rem', border: '1px solid var(--border-light)', background: 'var(--ivory)', fontSize: '0.875rem', color: 'var(--ink)', outline: 'none' }}
-              >
-                <option value="Polyester Staple Fibre (Recycled)">Polyester Staple Fibre (Recycled)</option>
-                <option value="Polyester Staple Fibre (Virgin)">Polyester Staple Fibre (Virgin)</option>
-                <option value="Conjugate Hollow Siliconised 7D">Conjugate Hollow Siliconised 7D</option>
-                <option value="Hollow Conjugate Slick 15D">Hollow Conjugate Slick 15D</option>
-                <option value="Needle-Punched Industrial Felt">Needle-Punched Industrial Felt</option>
-                <option value="Geotextile Non-Woven Fabric">Geotextile Non-Woven Fabric</option>
-                <option value="Other / Custom Denier">Other / Custom Denier</option>
-              </select>
-            </div>
-            <div>
-              <label style={{ display: 'block', fontSize: '0.6875rem', fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--ink)', marginBottom: '0.375rem' }}>
-                Estimated Quantity
-              </label>
-              <input
-                type="text"
-                value={formData.quantity}
-                onChange={(e) => setFormData({ ...formData, quantity: e.target.value })}
-                placeholder="e.g. 20 Metric Tonnes"
-                style={{ width: '100%', padding: '0.875rem 1rem', border: '1px solid var(--border-light)', background: 'var(--ivory)', fontSize: '0.875rem', color: 'var(--ink)', outline: 'none' }}
-              />
-            </div>
-          </div>
-
-          <div>
-            <label style={{ display: 'block', fontSize: '0.6875rem', fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--ink)', marginBottom: '0.375rem' }}>
-              Specific Technical Requirements / Message
-            </label>
-            <textarea
-              rows={4}
-              value={formData.message}
-              onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-              placeholder="Please provide details about cut length, tenacity requirements, end application, or port of destination."
-              style={{ width: '100%', padding: '0.875rem 1rem', border: '1px solid var(--border-light)', background: 'var(--ivory)', fontSize: '0.875rem', color: 'var(--ink)', outline: 'none', resize: 'vertical' }}
-            />
-          </div>
-
-          <button
-            type="submit"
-            className="btn-primary"
-            style={{ width: '100%', justifyContent: 'center', padding: '1.125rem' }}
-          >
-            SUBMIT INQUIRY FOR FAST QUOTE
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <path d="M5 12h14M12 5l7 7-7 7" />
-            </svg>
-          </button>
-        </form>
+  const field = (
+    k: keyof Fields,
+    label: string,
+    opts: { type?: string; full?: boolean; required?: boolean; placeholder?: string } = {}
+  ) => (
+    <div className={`sp-field ${opts.full ? 'sp-full' : ''}`.trim()}>
+      <label className="sp-field-label" htmlFor={`f-${k}`}>
+        {label}
+        {opts.required ? ' *' : ''}
+      </label>
+      <input
+        id={`f-${k}`}
+        className="sp-input"
+        type={opts.type ?? 'text'}
+        value={v[k]}
+        onChange={set(k)}
+        placeholder={opts.placeholder}
+        required={opts.required}
+        aria-invalid={errors[k] ? 'true' : undefined}
+        aria-describedby={errors[k] ? `e-${k}` : undefined}
+      />
+      {errors[k] && (
+        <p className="sp-field-error" id={`e-${k}`}>
+          {errors[k]}
+        </p>
       )}
     </div>
   )
-}
 
-export default function ContactPage() {
   return (
-    <>
-      <Header />
-      <main style={{ paddingTop: '5.5rem', background: 'var(--ivory)', minHeight: '100vh' }}>
-        {/* Banner */}
-        <section
-          style={{
-            background: 'var(--burg-darker)',
-            color: 'var(--white)',
-            padding: 'clamp(4.5rem, 8vh, 6.5rem) var(--pad-x)',
-          }}
-        >
+    <PageShell>
+      <div ref={scope}>
+        <PageHero
+          eyebrow="Contact & Enquiries"
+          lines={[{ text: 'Send the' }, { text: 'specification.' }, { text: 'We will answer it', serif: true }]}
+          lede="Denier, cut length, volume and destination are enough for a firm answer on feasibility. Sample requests are handled through the same route."
+          meta={[
+            { label: 'Country', value: VERIFIED.country },
+            { label: 'Established', value: String(VERIFIED.established) },
+            { label: 'Annual capacity', value: VERIFIED.annualCapacity },
+            { label: 'Standard bale', value: VERIFIED.baleWeight },
+          ]}
+          aside={
+            <Image
+              src="/images/process-fibre.jpg"
+              alt="Polyester staple fibre produced by Gulf Fibre"
+              fill
+              priority
+              sizes="(max-width: 992px) 100vw, 48vw"
+              style={{ objectFit: 'cover' }}
+            />
+          }
+        />
+
+        {/* ── Enquiry form ──────────────────────────────────────────────── */}
+        <section className="section-pad" data-sp-section style={{ background: 'var(--white)' }}>
           <div className="container">
-            <div className="eyebrow" style={{ color: 'rgba(255,255,255,0.6)', marginBottom: '1rem' }}>
-              <svg viewBox="0 0 16 16" fill="currentColor">
-                <path d="M8 1L10 6H15L11 9L13 14L8 11L3 14L5 9L1 6H6L8 1Z" />
-              </svg>
-              Global Sales & Exports
-            </div>
-            <h1
-              style={{
-                fontFamily: 'var(--font-sans)',
-                fontSize: 'clamp(2.5rem, 5vw, 5.5rem)',
-                fontWeight: 900,
-                lineHeight: 0.95,
-                letterSpacing: '-0.02em',
-                textTransform: 'uppercase',
-                marginBottom: '1.5rem',
-              }}
-            >
-              Get In Touch With <br />
-              <span style={{ fontFamily: 'var(--font-serif)', fontStyle: 'italic', color: 'var(--burg-bright)' }}>Our Technical Team</span>
-            </h1>
-            <p style={{ fontSize: '1rem', lineHeight: 1.7, color: 'rgba(255,255,255,0.7)', maxWidth: '56ch' }}>
-              Direct factory pricing, FOB Karachi and CIF worldwide shipping rates. Reach out to our technical fibre experts today.
-            </p>
-          </div>
-        </section>
-
-        {/* Content */}
-        <section className="section-pad">
-          <div className="container">
-            <div
-              style={{
-                display: 'grid',
-                gridTemplateColumns: '1.2fr 0.8fr',
-                gap: 'clamp(3rem, 5vw, 5rem)',
-                alignItems: 'flex-start',
-              }}
-            >
-              {/* Form with Suspense for useSearchParams */}
-              <Suspense fallback={<div style={{ padding: '3rem', textAlign: 'center' }}>Loading form...</div>}>
-                <ContactForm />
-              </Suspense>
-
-              {/* Plant & Contact Info */}
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
-                <div style={{ background: 'var(--white)', border: '1px solid var(--border-light)', padding: '2rem' }}>
-                  <span className="eyebrow" style={{ marginBottom: '0.75rem' }}>Factory Headquarters</span>
-                  <h4 style={{ fontFamily: 'var(--font-sans)', fontSize: '1.125rem', fontWeight: 800, color: 'var(--ink)', textTransform: 'uppercase', marginBottom: '0.75rem' }}>
-                    Gulf Fibre Company (PVT) Limited
-                  </h4>
-                  <p style={{ fontSize: '0.875rem', color: 'var(--muted)', lineHeight: 1.6, marginBottom: '1.5rem' }}>
-                    Plot # 45-B, Sector 7-A, Korangi Industrial Area,<br />
-                    Karachi – 74900, Sindh, Pakistan
-                  </p>
-
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '0.875rem', borderTop: '1px solid var(--border-light)', paddingTop: '1.25rem' }}>
-                    <div>
-                      <span style={{ fontSize: '0.6875rem', fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--ink)', display: 'block' }}>
-                        Phone & Fax
-                      </span>
-                      <a href="tel:+922135012345" style={{ fontSize: '0.875rem', color: 'var(--burg-primary)', textDecoration: 'none', fontWeight: 600 }}>
-                        +92 (21) 3501-2345 / 46
-                      </a>
+            <div className="sp-split" style={{ alignItems: 'start' }}>
+              <div className="sp-anim">
+                <SectionHead eyebrow="Enquiry" title="One form," em="specification first" />
+                <form onSubmit={onSubmit} noValidate>
+                  {/* Inquiry path - adapts the message prompt to the desk it routes to */}
+                  <fieldset style={{ border: 'none', margin: '0 0 1.75rem', padding: 0 }}>
+                    <legend className="sp-field-label" style={{ marginBottom: '0.75rem' }}>
+                      What is this about?
+                    </legend>
+                    <div role="radiogroup" aria-label="Inquiry type" style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
+                      {INTENTS.map((i) => (
+                        <button
+                          key={i.id}
+                          type="button"
+                          role="radio"
+                          aria-checked={intent === i.id}
+                          data-on={intent === i.id ? 'true' : undefined}
+                          onClick={() => setIntent(i.id)}
+                          style={{
+                            padding: '0.45rem 1rem',
+                            cursor: 'pointer',
+                            fontSize: '0.75rem',
+                            fontFamily: 'var(--font-sans)',
+                            fontWeight: 800,
+                            letterSpacing: '0.06em',
+                            textTransform: 'uppercase',
+                            borderRadius: '999px',
+                            border: intent === i.id ? '1px solid var(--burg-primary)' : '1px solid var(--border-light)',
+                            background: intent === i.id ? 'var(--burg-primary)' : 'var(--white)',
+                            color: intent === i.id ? '#FFFFFF' : 'var(--ink)',
+                            boxShadow: intent === i.id ? '0 4px 14px rgba(10, 75, 184, 0.25)' : 'none',
+                            transition: 'all 0.25s ease',
+                          }}
+                        >
+                          {i.label}
+                        </button>
+                      ))}
                     </div>
-                    <div>
-                      <span style={{ fontSize: '0.6875rem', fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--ink)', display: 'block' }}>
-                        Direct WhatsApp Export Desk
-                      </span>
-                      <a href="https://wa.me/923001234567" target="_blank" rel="noopener noreferrer" style={{ fontSize: '0.875rem', color: '#25D366', textDecoration: 'none', fontWeight: 700 }}>
-                        +92 300 1234567 (Chat Now)
-                      </a>
+                  </fieldset>
+
+                  <div className="sp-form-grid">
+                    {field('company', 'Company', { required: true })}
+                    {field('person', 'Contact name', { required: true })}
+                    {field('email', 'Email', { type: 'email', required: true })}
+                    {field('phone', 'Phone (optional)', { type: 'tel', placeholder: 'Include country code' })}
+                    {field('country', 'Destination country', { required: true })}
+
+                    <div className="sp-field">
+                      <label className="sp-field-label" htmlFor="f-line">
+                        Product line
+                      </label>
+                      <select id="f-line" className="sp-select" value={v.line} onChange={set('line')}>
+                        {PRODUCT_LINES.map((p) => (
+                          <option key={p.code} value={p.code}>
+                            {p.code} - {p.title}
+                          </option>
+                        ))}
+                      </select>
                     </div>
-                    <div>
-                      <span style={{ fontSize: '0.6875rem', fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--ink)', display: 'block' }}>
-                        Export Sales Email
-                      </span>
-                      <a href="mailto:exports@gulffibre.com" style={{ fontSize: '0.875rem', color: 'var(--burg-primary)', textDecoration: 'none', fontWeight: 600 }}>
-                        exports@gulffibre.com
-                      </a>
+
+                    {field('denier', 'Denier / cut length', { placeholder: VERIFIED.denierRange })}
+                    {field('volume', 'Volume', { full: true, placeholder: 'e.g. monthly or annual tonnage' })}
+
+                    <div className="sp-field sp-full">
+                      <label className="sp-field-label" htmlFor="f-message">
+                        {intentMeta.label} *
+                      </label>
+                      <textarea
+                        id="f-message"
+                        className="sp-textarea"
+                        value={v.message}
+                        onChange={set('message')}
+                        placeholder={intentMeta.prompt}
+                        required
+                        aria-invalid={errors.message ? 'true' : undefined}
+                        aria-describedby={errors.message ? 'e-message' : undefined}
+                      />
+                      {errors.message && (
+                        <p className="sp-field-error" id="e-message">
+                          {errors.message}
+                        </p>
+                      )}
                     </div>
                   </div>
-                </div>
 
-                <div style={{ background: 'var(--burg-primary)', color: 'var(--white)', padding: '2rem' }}>
-                  <h4 style={{ fontFamily: 'var(--font-sans)', fontSize: '1rem', fontWeight: 800, textTransform: 'uppercase', marginBottom: '0.5rem' }}>
-                    Express Sample Dispatch
-                  </h4>
-                  <p style={{ fontSize: '0.8125rem', color: 'rgba(255,255,255,0.85)', lineHeight: 1.6, marginBottom: '1.25rem' }}>
-                    We dispatch 1kg–5kg test swatches and laboratory samples internationally via DHL / FedEx with tracking within 24 hours.
-                  </p>
-                  <a
-                    href="mailto:samples@gulffibre.com?subject=Sample%20Request"
-                    className="btn-primary"
-                    style={{ background: 'var(--white)', color: 'var(--ink)', border: 'none' }}
-                  >
-                    REQUEST SAMPLE SWATCHES
-                  </a>
+                  <div style={{ marginTop: '2rem' }}>
+                    <button type="submit" className="btn-primary">
+                      Submit enquiry
+                    </button>
+                  </div>
+
+                  <div aria-live="polite">
+                    {held && (
+                      <div className="sp-form-note" style={{ marginTop: '1.5rem', background: 'rgba(10, 75, 184, 0.05)', border: '1px solid rgba(10, 75, 184, 0.25)', borderRadius: '8px', padding: '1.25rem' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.4rem' }}>
+                          <span style={{ display: 'inline-flex', width: '1.25rem', height: '1.25rem', borderRadius: '50%', background: 'var(--accent-green)', color: '#fff', alignItems: 'center', justifyContent: 'center', fontSize: '0.75rem', fontWeight: 900 }}>✓</span>
+                          <p className="sp-slot-title" style={{ margin: 0, color: 'var(--burg-primary)' }}>
+                            Enquiry Validated
+                          </p>
+                        </div>
+                        <p className="sp-small" style={{ margin: 0 }}>{RFQ_ENDPOINT_NOTE}</p>
+                      </div>
+                    )}
+                  </div>
+                </form>
+              </div>
+
+              <div className="sp-anim" style={{ display: 'grid', gap: '1.5rem' }}>
+                <div className="sp-panel">
+                  <p className="sp-cat">What happens next</p>
+                  <SpecRows
+                    rows={[
+                      { key: 'Step 01', value: 'We read the specification and confirm whether we can hold it.' },
+                      { key: 'Step 02', value: <>Sampling and pricing against your count within <strong>{VERIFIED.denierRange}</strong>.</> },
+                      { key: 'Step 03', value: <>Packing agreed - standard <strong>{VERIFIED.baleWeight}</strong> moisture-sealed bales or roll wrapping.</> },
+                      { key: 'Step 04', value: 'Export documentation prepared in-house before dispatch.' },
+                    ]}
+                  />
                 </div>
+                <DataSlot
+                  title="Response time commitment"
+                  note="No response-time undertaking is recorded in this repository, so none is promised here. Confirm one and it belongs in this panel."
+                  minHeight="8rem"
+                />
               </div>
             </div>
           </div>
         </section>
-      </main>
-      <Footer />
-      <FloatingActions />
-    </>
+
+        {/* ── The material, while you write ─────────────────────────────── */}
+        <section className="section-pad" data-sp-section>
+          <div className="container">
+            <div className="sp-anim">
+              <SectionHead
+                eyebrow="The Material"
+                title="What your enquiry"
+                em="is about"
+                lede="The same fibre the enquiry desk will answer on - scroll to open the bale while you decide what to write."
+              />
+            </div>
+            <div className="sp-anim">
+              <ScrollProductScene
+                variant="bundle"
+                photo="/images/process-fibre.jpg"
+                photoAlt="Polyester staple fibre produced by Gulf Fibre"
+                caption="Scroll to open a baled fibre bundle - indicative visualisation of the material every enquiry is answered against."
+              />
+            </div>
+          </div>
+        </section>
+
+        {/* ── Channels ──────────────────────────────────────────────────── */}
+        <section className="section-pad" data-sp-section>
+          <div className="container">
+            <div className="sp-anim">
+              <SectionHead
+                eyebrow="Direct Channels"
+                title="Addresses and numbers"
+                em="we will not invent"
+                lede={`This repository verifies the country - ${VERIFIED.country} - and nothing more granular. Rather than publish a plausible address or number, each channel below states exactly what needs to be supplied.`}
+              />
+            </div>
+
+            <div className="sp-grid-3">
+              {CONTACT_SLOTS.map((c) => (
+                <div className="sp-anim" key={c.id}>
+                  {c.value ? (
+                    <div className="sp-panel">
+                      <p className="sp-cat">{c.label}</p>
+                      <p className="sp-card-title" style={{ margin: 0 }}>
+                        {c.value}
+                      </p>
+                    </div>
+                  ) : (
+                    <DataSlot title={c.label} note={c.note} status={c.status} minHeight="10rem" />
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ── Product Line Sales Leads ──────────────────────────────────── */}
+        <section className="section-pad" data-sp-section style={{ background: 'var(--white)' }}>
+          <div className="container">
+            <div className="sp-anim">
+              <SectionHead
+                eyebrow="Direct Technical Sales"
+                title="Product line"
+                em="specialists"
+                lede="Speak directly to the sales lead responsible for your specific material category."
+              />
+            </div>
+
+            <div
+              style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
+                gap: '1.5rem',
+              }}
+            >
+              {MANAGEMENT.map((m) => (
+                <div className="sp-anim" key={m.id}>
+                  <PersonCard person={m} />
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ── Close ─────────────────────────────────────────────────────── */}
+        <section className="section-pad sp-dark" data-sp-section>
+          <div className="container" style={{ textAlign: 'center' }}>
+            <div className="sp-anim" style={{ marginBottom: '1.25rem' }}>
+              <h2 className="h-section" style={{ margin: '0 auto', maxWidth: '24ch' }}>
+                One specification.
+                <br />
+                <em>One honest answer.</em>
+              </h2>
+            </div>
+            <p className="sp-lede sp-anim" style={{ margin: '0 auto', maxWidth: '54ch' }}>
+              If we are not the right plant for your count, we will say so rather than quote for the sake of it.
+            </p>
+          </div>
+        </section>
+      </div>
+    </PageShell>
   )
 }
