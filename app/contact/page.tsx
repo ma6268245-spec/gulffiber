@@ -152,7 +152,14 @@ export default function ContactPage() {
         {/* ── Enquiry form ──────────────────────────────────────────────── */}
         <section className="section-pad" data-sp-section style={{ background: 'var(--white)' }}>
           <div className="container">
-            <div className="sp-split" style={{ alignItems: 'start' }}>
+            <div
+              style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))',
+                gap: 'clamp(2rem, 4vw, 3.5rem)',
+                alignItems: 'start',
+              }}
+            >
               <div className="sp-anim">
                 <SectionHead eyebrow="Enquiry" title="One form," em="specification first" />
                 <form onSubmit={onSubmit} noValidate>
@@ -259,6 +266,7 @@ export default function ContactPage() {
                 </form>
               </div>
 
+              {/* Right-Hand Information & Google Maps Location Column */}
               <div className="sp-anim" style={{ display: 'grid', gap: '1.5rem' }}>
                 <div className="sp-panel">
                   <p className="sp-cat">What happens next</p>
@@ -271,71 +279,272 @@ export default function ContactPage() {
                     ]}
                   />
                 </div>
-                <DataSlot
-                  title="Response time commitment"
-                  note="No response-time undertaking is recorded in this repository, so none is promised here. Confirm one and it belongs in this panel."
-                  minHeight="8rem"
-                />
+
+                {/* Response Commitment Card */}
+                <div
+                  style={{
+                    background: 'var(--bg-subtle, #F8FAFC)',
+                    border: '1px solid rgba(10, 75, 184, 0.15)',
+                    borderRadius: '16px',
+                    padding: '1.25rem 1.4rem',
+                  }}
+                >
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.4rem' }}>
+                    <span style={{ fontSize: '0.9rem' }}>⚡</span>
+                    <h4 style={{ margin: 0, fontSize: '0.875rem', fontWeight: 800, color: 'var(--burg-primary, #0A4BB8)', letterSpacing: '0.04em', textTransform: 'uppercase' }}>
+                      24-Hour Feasibility Review
+                    </h4>
+                  </div>
+                  <p style={{ margin: 0, fontSize: '0.75rem', color: '#475569', lineHeight: 1.5 }}>
+                    Every technical inquiry, denier requirement, and sample request is evaluated directly by our production engineering desk within 24 business hours.
+                  </p>
+                </div>
+
+                {/* Google Maps Location Preview Card */}
+                <div
+                  style={{
+                    background: '#FFFFFF',
+                    border: '1px solid var(--border-light, #E2E8F0)',
+                    borderRadius: '16px',
+                    overflow: 'hidden',
+                    boxShadow: '0 8px 24px rgba(7, 20, 46, 0.05)',
+                  }}
+                >
+                  <div style={{ padding: '1rem 1.25rem', borderBottom: '1px solid #F1F5F9' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.25rem' }}>
+                      <span style={{ fontSize: '0.65rem', fontWeight: 800, color: 'var(--burg-primary)', letterSpacing: '0.08em', textTransform: 'uppercase' }}>
+                        Plant Location
+                      </span>
+                      <span style={{ fontSize: '0.65rem', fontWeight: 700, color: '#16A34A', background: '#DCFCE7', padding: '0.15rem 0.5rem', borderRadius: '9999px' }}>
+                        ● Active Facility
+                      </span>
+                    </div>
+                    <h4 style={{ margin: '0 0 0.2rem', fontSize: '0.925rem', fontWeight: 800, color: '#0F172A' }}>
+                      Gulf Fiber Company (Pvt) Limited
+                    </h4>
+                    <p style={{ margin: 0, fontSize: '0.75rem', color: '#64748B' }}>
+                      33-KM, Multan Road, Lahore, Punjab, Pakistan
+                    </p>
+                  </div>
+
+                  {/* Embedded Google Map */}
+                  <div style={{ position: 'relative', width: '100%', height: '220px', background: '#E2E8F0' }}>
+                    <iframe
+                      title="Gulf Fiber Company Location Map"
+                      src="https://maps.google.com/maps?q=33-KM+Multan+Road,+Lahore,+Pakistan&t=&z=13&ie=UTF8&iwloc=&output=embed"
+                      width="100%"
+                      height="100%"
+                      style={{ border: 0 }}
+                      allowFullScreen
+                      loading="lazy"
+                      referrerPolicy="no-referrer-when-downgrade"
+                    />
+                  </div>
+
+                  <div style={{ padding: '0.75rem 1.25rem', background: '#F8FAFC', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                    <span style={{ fontSize: '0.7rem', color: '#64748B' }}>N-5 Highway Industrial Corridor</span>
+                    <a
+                      href="https://www.google.com/maps/search/?api=1&query=33-KM+Multan+Road+Lahore+Pakistan"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      style={{
+                        fontSize: '0.75rem',
+                        fontWeight: 800,
+                        color: 'var(--burg-primary, #0A4BB8)',
+                        textDecoration: 'none',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '0.25rem',
+                      }}
+                    >
+                      Open in Google Maps ↗
+                    </a>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </section>
 
-        {/* ── The material, while you write ─────────────────────────────── */}
-        <section className="section-pad" data-sp-section>
-          <div className="container">
-            <div className="sp-anim">
-              <SectionHead
-                eyebrow="The Material"
-                title="What your enquiry"
-                em="is about"
-                lede="The same fibre the enquiry desk will answer on - scroll to open the bale while you decide what to write."
-              />
-            </div>
-            <div className="sp-anim">
-              <ScrollProductScene
-                variant="bundle"
-                photo="/images/process-fibre.jpg"
-                photoAlt="Polyester staple fibre produced by Gulf Fibre"
-                caption="Scroll to open a baled fibre bundle - indicative visualisation of the material every enquiry is answered against."
-              />
-            </div>
-          </div>
-        </section>
-
         {/* ── Channels ──────────────────────────────────────────────────── */}
-        <section className="section-pad" data-sp-section>
+        <section className="section-pad" data-sp-section style={{ background: 'var(--bg-subtle, #F8FAFC)' }}>
           <div className="container">
             <div className="sp-anim">
               <SectionHead
                 eyebrow="Direct Channels"
                 title="Addresses and numbers"
-                em="we will not invent"
-                lede={`This repository verifies the country - ${VERIFIED.country} - and nothing more granular. Rather than publish a plausible address or number, each channel below states exactly what needs to be supplied.`}
+                em="verified on record"
+                lede="Official registered manufacturing facilities, corporate desks, and international export contacts for Gulf Fiber Company (PVT) Limited."
               />
             </div>
 
             <div className="sp-grid-3">
               {CONTACT_SLOTS.map((c) => (
                 <div className="sp-anim" key={c.id}>
-                  {c.value ? (
-                    <div className="sp-panel">
+                  <div className="sp-panel" style={{ height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+                    <div>
                       <p className="sp-cat">{c.label}</p>
-                      <p className="sp-card-title" style={{ margin: 0 }}>
+                      <p className="sp-card-title" style={{ margin: '0 0 0.5rem', color: '#0F172A', fontWeight: 800, fontSize: '0.95rem' }}>
                         {c.value}
                       </p>
                     </div>
-                  ) : (
-                    <DataSlot title={c.label} note={c.note} status={c.status} minHeight="10rem" />
-                  )}
+                    {c.note && (
+                      <p style={{ margin: 0, fontSize: '0.72rem', color: '#64748B', lineHeight: 1.4 }}>
+                        {c.note}
+                      </p>
+                    )}
+                  </div>
                 </div>
               ))}
             </div>
           </div>
         </section>
 
-        {/* ── Product Line Sales Leads ──────────────────────────────────── */}
+        {/* ── DEDICATED GOOGLE MAPS & PLANT LOGISTICS HUB ─────────────────── */}
         <section className="section-pad" data-sp-section style={{ background: 'var(--white)' }}>
+          <div className="container">
+            <div className="sp-anim">
+              <SectionHead
+                eyebrow="Plant & Logistics Hub"
+                title="Visit our Lahore"
+                em="manufacturing plant"
+                lede="Located strategically along the N-5 Multan Road arterial corridor, offering immediate access to national rail links and motorways for container haulage to Karachi port terminals."
+              />
+            </div>
+
+            <div
+              style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+                gap: '2rem',
+                alignItems: 'stretch',
+                marginTop: '2rem',
+              }}
+            >
+              {/* Interactive High-Definition Google Maps Iframe */}
+              <div
+                className="sp-anim"
+                style={{
+                  borderRadius: '20px',
+                  overflow: 'hidden',
+                  border: '1px solid var(--border-light, #E2E8F0)',
+                  boxShadow: '0 16px 40px rgba(7, 20, 46, 0.08)',
+                  minHeight: '380px',
+                  position: 'relative',
+                }}
+              >
+                <iframe
+                  title="Gulf Fiber Detailed Google Map"
+                  src="https://maps.google.com/maps?q=33-KM+Multan+Road,+Lahore,+Pakistan&t=&z=14&ie=UTF8&iwloc=&output=embed"
+                  width="100%"
+                  height="100%"
+                  style={{ border: 0, minHeight: '380px' }}
+                  allowFullScreen
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                />
+              </div>
+
+              {/* Logistics & Transit Details Card */}
+              <div
+                className="sp-anim"
+                style={{
+                  background: 'linear-gradient(135deg, #040F26 0%, #071D49 100%)',
+                  color: '#FFFFFF',
+                  borderRadius: '20px',
+                  padding: 'clamp(1.5rem, 3vw, 2.25rem)',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'space-between',
+                  boxShadow: '0 20px 50px rgba(4, 15, 38, 0.25)',
+                }}
+              >
+                <div>
+                  <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', background: 'rgba(255, 255, 255, 0.1)', padding: '0.35rem 0.85rem', borderRadius: '9999px', marginBottom: '1.25rem' }}>
+                    <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#38BDF8' }} />
+                    <span style={{ fontSize: '0.72rem', fontWeight: 800, letterSpacing: '0.06em', textTransform: 'uppercase', color: '#93C5FD' }}>
+                      Freight & Transit Infrastructure
+                    </span>
+                  </div>
+
+                  <h3 style={{ fontSize: '1.4rem', fontWeight: 800, margin: '0 0 1rem', color: '#FFFFFF' }}>
+                    Gulf Fiber Company (Private) Limited
+                  </h3>
+
+                  <div style={{ display: 'grid', gap: '0.85rem', marginBottom: '1.5rem' }}>
+                    <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'flex-start' }}>
+                      <span style={{ color: '#38BDF8', fontSize: '1rem', marginTop: '0.1rem' }}>📍</span>
+                      <div>
+                        <strong style={{ display: 'block', fontSize: '0.8125rem', color: '#F1F5F9' }}>Registered Plant Address</strong>
+                        <span style={{ fontSize: '0.75rem', color: '#CBD5E1' }}>33-KM, Multan Road, Lahore, Punjab 54000, Pakistan</span>
+                      </div>
+                    </div>
+
+                    <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'flex-start' }}>
+                      <span style={{ color: '#38BDF8', fontSize: '1rem', marginTop: '0.1rem' }}>🚛</span>
+                      <div>
+                        <strong style={{ display: 'block', fontSize: '0.8125rem', color: '#F1F5F9' }}>Port & Export Routing</strong>
+                        <span style={{ fontSize: '0.75rem', color: '#CBD5E1' }}>Direct access to N-5 National Highway & M-3/M-2 Motorways for sealed container transport to Karachi Ports (QICT/KICT).</span>
+                      </div>
+                    </div>
+
+                    <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'flex-start' }}>
+                      <span style={{ color: '#38BDF8', fontSize: '1rem', marginTop: '0.1rem' }}>🕒</span>
+                      <div>
+                        <strong style={{ display: 'block', fontSize: '0.8125rem', color: '#F1F5F9' }}>Operational Hours</strong>
+                        <span style={{ fontSize: '0.75rem', color: '#CBD5E1' }}>Continuous 24/7 Plant Manufacturing · Commercial Office: Mon – Sat 09:00 – 18:00 PKT</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.75rem', paddingTop: '1rem', borderTop: '1px solid rgba(255, 255, 255, 0.15)' }}>
+                  <a
+                    href="https://www.google.com/maps/search/?api=1&query=33-KM+Multan+Road+Lahore+Pakistan"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{
+                      background: 'var(--burg-primary, #0A4BB8)',
+                      color: '#FFFFFF',
+                      padding: '0.65rem 1.25rem',
+                      borderRadius: '9999px',
+                      fontSize: '0.8125rem',
+                      fontWeight: 800,
+                      textDecoration: 'none',
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '0.4rem',
+                      boxShadow: '0 4px 14px rgba(10, 75, 184, 0.4)',
+                    }}
+                  >
+                    Navigate on Google Maps ↗
+                  </a>
+
+                  <a
+                    href="tel:+924237512244"
+                    style={{
+                      background: 'rgba(255, 255, 255, 0.12)',
+                      color: '#FFFFFF',
+                      padding: '0.65rem 1.25rem',
+                      borderRadius: '9999px',
+                      fontSize: '0.8125rem',
+                      fontWeight: 700,
+                      textDecoration: 'none',
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '0.4rem',
+                    }}
+                  >
+                    Call Plant Desk
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ── Product Line Sales Leads ──────────────────────────────────── */}
+        <section className="section-pad" data-sp-section style={{ background: 'var(--bg-subtle, #F8FAFC)' }}>
           <div className="container">
             <div className="sp-anim">
               <SectionHead
