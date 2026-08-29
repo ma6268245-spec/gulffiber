@@ -2,6 +2,7 @@
 
 import Image from 'next/image'
 import { useEffect, useRef, useState } from 'react'
+import { createPortal } from 'react-dom'
 import { Provenance } from '@/components/subpages/Primitives'
 import { CERT_ASSETS, CERTIFICATION_DETAIL } from '@/lib/data/company'
 
@@ -155,11 +156,16 @@ const ENTRIES: CertEntry[] = ORDERED_CODES.map((code) => {
 export function CertificationGallery() {
   const [openIdx, setOpenIdx] = useState<number | null>(null)
   const [hoveredIdx, setHoveredIdx] = useState<number | null>(null)
+  const [mounted, setMounted] = useState(false)
   const closeRef = useRef<HTMLButtonElement>(null)
   const cardRefs = useRef<(HTMLButtonElement | null)[]>([])
   const prevIdx = useRef<number>(0)
 
   const open = openIdx === null ? null : ENTRIES[openIdx]
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
 
   useEffect(() => {
     if (openIdx === null) return
@@ -462,278 +468,254 @@ export function CertificationGallery() {
         })}
       </div>
 
-      {/* ── FULL-SCREEN NEUTRAL TRANSLUCENT LIGHTBOX (Properly Sized to Fit Screen) ── */}
-      {open && (
-        <div
-          className="sp-lightbox"
-          role="dialog"
-          aria-modal="true"
-          aria-label={`${open.code} certificate`}
-          onClick={() => setOpenIdx(null)}
-          style={{
-            position: 'fixed',
-            inset: 0,
-            zIndex: 9999999,
-            background: 'rgba(0, 0, 0, 0.45)',
-            backdropFilter: 'blur(10px)',
-            WebkitBackdropFilter: 'blur(10px)',
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            justifyContent: 'center',
-            padding: '1rem',
-            overflow: 'hidden',
-          }}
-        >
-          {/* Floating Top Header: Document Counter & Close Button */}
-          <div
-            style={{
-              position: 'fixed',
-              top: '1rem',
-              left: 'clamp(1rem, 3vw, 2.5rem)',
-              right: 'clamp(1rem, 3vw, 2.5rem)',
-              zIndex: 30,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              pointerEvents: 'none',
-            }}
-          >
+      {/* ── FULL-SCREEN PORTAL LIGHTBOX (Mounted to document.body to break out of stacking context) ── */}
+      {mounted && open && typeof document !== 'undefined'
+        ? createPortal(
             <div
-              style={{
-                background: 'rgba(0, 0, 0, 0.72)',
-                color: '#FFFFFF',
-                fontSize: '0.75rem',
-                fontWeight: 700,
-                padding: '0.35rem 0.95rem',
-                borderRadius: '9999px',
-                backdropFilter: 'blur(12px)',
-                WebkitBackdropFilter: 'blur(12px)',
-                border: '1px solid rgba(255, 255, 255, 0.25)',
-                boxShadow: '0 4px 16px rgba(0, 0, 0, 0.3)',
-                pointerEvents: 'auto',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '0.45rem',
-              }}
-            >
-              <span style={{ color: '#F8FAFC', fontWeight: 800 }}>{open.code}</span>
-              <span style={{ opacity: 0.4 }}>·</span>
-              <span style={{ color: '#E2E8F0' }}>Document {openIdx! + 1} of {ENTRIES.length}</span>
-            </div>
-
-            <button
-              ref={closeRef}
-              type="button"
-              className="sp-lightbox__close"
+              className="sp-lightbox"
+              role="dialog"
+              aria-modal="true"
+              aria-label={`${open.code} certificate`}
               onClick={() => setOpenIdx(null)}
-              aria-label="Close document view"
               style={{
-                background: 'rgba(0, 0, 0, 0.72)',
-                color: '#FFFFFF',
-                border: '1px solid rgba(255, 255, 255, 0.3)',
-                borderRadius: '50%',
-                width: '38px',
-                height: '38px',
+                position: 'fixed',
+                inset: 0,
+                zIndex: 99999999,
+                background: 'rgba(0, 0, 0, 0.45)',
+                backdropFilter: 'blur(10px)',
+                WebkitBackdropFilter: 'blur(10px)',
                 display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                cursor: 'pointer',
-                pointerEvents: 'auto',
-                backdropFilter: 'blur(12px)',
-                WebkitBackdropFilter: 'blur(12px)',
-                boxShadow: '0 4px 16px rgba(0, 0, 0, 0.3)',
-                transition: 'all 0.2s ease',
-              }}
-            >
-              {CLOSE}
-            </button>
-          </div>
-
-          {/* Floating Left Arrow */}
-          <button
-            type="button"
-            onClick={goPrev}
-            aria-label="Previous Certificate"
-            style={{
-              position: 'fixed',
-              left: 'clamp(0.5rem, 1.5vw, 1.5rem)',
-              top: '50%',
-              transform: 'translateY(-50%)',
-              zIndex: 25,
-              background: 'rgba(0, 0, 0, 0.65)',
-              color: '#FFFFFF',
-              border: '1px solid rgba(255, 255, 255, 0.25)',
-              borderRadius: '50%',
-              width: '44px',
-              height: '44px',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              cursor: 'pointer',
-              backdropFilter: 'blur(12px)',
-              WebkitBackdropFilter: 'blur(12px)',
-              boxShadow: '0 6px 20px rgba(0, 0, 0, 0.35)',
-              transition: 'all 0.2s ease',
-            }}
-          >
-            {CHEVRON_LEFT}
-          </button>
-
-          {/* Floating Right Arrow */}
-          <button
-            type="button"
-            onClick={goNext}
-            aria-label="Next Certificate"
-            style={{
-              position: 'fixed',
-              right: 'clamp(0.5rem, 1.5vw, 1.5rem)',
-              top: '50%',
-              transform: 'translateY(-50%)',
-              zIndex: 25,
-              background: 'rgba(0, 0, 0, 0.65)',
-              color: '#FFFFFF',
-              border: '1px solid rgba(255, 255, 255, 0.25)',
-              borderRadius: '50%',
-              width: '44px',
-              height: '44px',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              cursor: 'pointer',
-              backdropFilter: 'blur(12px)',
-              WebkitBackdropFilter: 'blur(12px)',
-              boxShadow: '0 6px 20px rgba(0, 0, 0, 0.35)',
-              transition: 'all 0.2s ease',
-            }}
-          >
-            {CHEVRON_RIGHT}
-          </button>
-
-          {/* ── CENTRAL FLOATING CONTAINER (Scaled to fit viewport perfectly) ── */}
-          <div
-            onClick={(e) => e.stopPropagation()}
-            style={{
-              position: 'relative',
-              width: 'min(90vw, 580px)',
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              zIndex: 10,
-            }}
-          >
-            {/* High-Resolution Certificate Document Canvas (Height bounded so it never clips) */}
-            <div
-              style={{
-                position: 'relative',
-                width: '100%',
-                height: 'min(62vh, 480px)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                filter: 'drop-shadow(0 16px 40px rgba(0, 0, 0, 0.55))',
-              }}
-            >
-              {open.asset ? (
-                <Image
-                  src={open.asset}
-                  alt={`${open.code} - ${open.name} official certificate document`}
-                  fill
-                  priority
-                  sizes="(max-width: 768px) 90vw, 580px"
-                  style={{
-                    objectFit: 'contain',
-                    borderRadius: '4px',
-                  }}
-                />
-              ) : null}
-            </div>
-
-            {/* Floating Frosted Bottom Caption Bar (Compact & fits screen cleanly) */}
-            <div
-              style={{
-                marginTop: '0.75rem',
-                width: '100%',
-                background: 'rgba(15, 23, 42, 0.88)',
-                backdropFilter: 'blur(16px)',
-                WebkitBackdropFilter: 'blur(16px)',
-                border: '1px solid rgba(255, 255, 255, 0.2)',
-                borderRadius: '12px',
-                padding: '0.6rem 1rem',
-                boxShadow: '0 12px 30px rgba(0, 0, 0, 0.4)',
-                display: 'flex',
+                flexDirection: 'column',
                 alignItems: 'center',
                 justifyContent: 'space-between',
-                gap: '0.75rem',
+                padding: 'clamp(0.75rem, 1.5vh, 1.25rem)',
+                overflow: 'hidden',
               }}
             >
-              <div style={{ flex: '1 1 auto', minWidth: 0 }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.15rem' }}>
-                  <span
-                    style={{
-                      background: 'rgba(255, 255, 255, 0.15)',
-                      color: '#FFFFFF',
-                      border: '1px solid rgba(255, 255, 255, 0.3)',
-                      fontSize: '0.625rem',
-                      fontWeight: 800,
-                      padding: '0.12rem 0.45rem',
-                      borderRadius: '4px',
-                      letterSpacing: '0.04em',
-                      textTransform: 'uppercase',
-                    }}
-                  >
-                    {open.code}
-                  </span>
-                  <h3
-                    style={{
-                      fontSize: '0.85rem',
-                      fontWeight: 800,
-                      margin: 0,
-                      color: '#FFFFFF',
-                      whiteSpace: 'nowrap',
-                      overflow: 'hidden',
-                      textOverflow: 'ellipsis',
-                    }}
-                  >
-                    {open.name}
-                  </h3>
-                </div>
-                <p
+              {/* Top Floating Controls Bar */}
+              <div
+                style={{
+                  width: '100%',
+                  maxWidth: '1200px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  zIndex: 30,
+                  pointerEvents: 'none',
+                }}
+              >
+                {/* Document Pill */}
+                <div
                   style={{
-                    margin: 0,
-                    color: 'rgba(255, 255, 255, 0.72)',
-                    fontSize: '0.6875rem',
-                    lineHeight: 1.3,
+                    background: 'rgba(15, 23, 42, 0.85)',
+                    color: '#FFFFFF',
+                    fontSize: '0.75rem',
+                    fontWeight: 700,
+                    padding: '0.35rem 0.95rem',
+                    borderRadius: '9999px',
+                    backdropFilter: 'blur(12px)',
+                    WebkitBackdropFilter: 'blur(12px)',
+                    border: '1px solid rgba(255, 255, 255, 0.25)',
+                    boxShadow: '0 4px 16px rgba(0, 0, 0, 0.3)',
+                    pointerEvents: 'auto',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '0.45rem',
+                  }}
+                >
+                  <span style={{ color: '#60A5FA', fontWeight: 800 }}>{open.code}</span>
+                  <span style={{ opacity: 0.4 }}>·</span>
+                  <span style={{ color: '#E2E8F0' }}>Document {openIdx! + 1} of {ENTRIES.length}</span>
+                </div>
+
+                {/* Close Button */}
+                <button
+                  ref={closeRef}
+                  type="button"
+                  className="sp-lightbox__close"
+                  onClick={() => setOpenIdx(null)}
+                  aria-label="Close document view"
+                  style={{
+                    background: 'rgba(15, 23, 42, 0.85)',
+                    color: '#FFFFFF',
+                    border: '1px solid rgba(255, 255, 255, 0.3)',
+                    borderRadius: '50%',
+                    width: '38px',
+                    height: '38px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    cursor: 'pointer',
+                    pointerEvents: 'auto',
+                    backdropFilter: 'blur(12px)',
+                    WebkitBackdropFilter: 'blur(12px)',
+                    boxShadow: '0 4px 16px rgba(0, 0, 0, 0.3)',
+                    transition: 'all 0.2s ease',
+                  }}
+                >
+                  {CLOSE}
+                </button>
+              </div>
+
+              {/* Floating Left Arrow */}
+              <button
+                type="button"
+                onClick={goPrev}
+                aria-label="Previous Certificate"
+                style={{
+                  position: 'fixed',
+                  left: 'clamp(0.5rem, 1.5vw, 1.5rem)',
+                  top: '50%',
+                  transform: 'translateY(-50%)',
+                  zIndex: 25,
+                  background: 'rgba(15, 23, 42, 0.75)',
+                  color: '#FFFFFF',
+                  border: '1px solid rgba(255, 255, 255, 0.25)',
+                  borderRadius: '50%',
+                  width: '46px',
+                  height: '46px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  cursor: 'pointer',
+                  backdropFilter: 'blur(12px)',
+                  WebkitBackdropFilter: 'blur(12px)',
+                  boxShadow: '0 6px 20px rgba(0, 0, 0, 0.35)',
+                  transition: 'all 0.2s ease',
+                }}
+              >
+                {CHEVRON_LEFT}
+              </button>
+
+              {/* Floating Right Arrow */}
+              <button
+                type="button"
+                onClick={goNext}
+                aria-label="Next Certificate"
+                style={{
+                  position: 'fixed',
+                  right: 'clamp(0.5rem, 1.5vw, 1.5rem)',
+                  top: '50%',
+                  transform: 'translateY(-50%)',
+                  zIndex: 25,
+                  background: 'rgba(15, 23, 42, 0.75)',
+                  color: '#FFFFFF',
+                  border: '1px solid rgba(255, 255, 255, 0.25)',
+                  borderRadius: '50%',
+                  width: '46px',
+                  height: '46px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  cursor: 'pointer',
+                  backdropFilter: 'blur(12px)',
+                  WebkitBackdropFilter: 'blur(12px)',
+                  boxShadow: '0 6px 20px rgba(0, 0, 0, 0.35)',
+                  transition: 'all 0.2s ease',
+                }}
+              >
+                {CHEVRON_RIGHT}
+              </button>
+
+              {/* ── LARGE HIGH-RESOLUTION CERTIFICATE DOCUMENT DISPLAY ── */}
+              <div
+                onClick={(e) => e.stopPropagation()}
+                style={{
+                  position: 'relative',
+                  flex: '1 1 auto',
+                  width: '100%',
+                  maxWidth: 'min(92vw, 840px)',
+                  maxHeight: 'calc(100vh - 120px)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  zIndex: 10,
+                  filter: 'drop-shadow(0 20px 50px rgba(0, 0, 0, 0.65))',
+                }}
+              >
+                {open.asset ? (
+                  <Image
+                    src={open.asset}
+                    alt={`${open.code} - ${open.name} official certificate document`}
+                    fill
+                    priority
+                    sizes="(max-width: 1200px) 92vw, 840px"
+                    style={{
+                      objectFit: 'contain',
+                      borderRadius: '6px',
+                    }}
+                  />
+                ) : null}
+              </div>
+
+              {/* ── SLEEK, COMPACT SMALL INFO PILL (Low Profile, Never dominates screen) ── */}
+              <div
+                onClick={(e) => e.stopPropagation()}
+                style={{
+                  position: 'relative',
+                  zIndex: 30,
+                  background: 'rgba(15, 23, 42, 0.9)',
+                  backdropFilter: 'blur(16px)',
+                  WebkitBackdropFilter: 'blur(16px)',
+                  border: '1px solid rgba(255, 255, 255, 0.2)',
+                  borderRadius: '9999px',
+                  padding: '0.35rem 1.1rem',
+                  boxShadow: '0 8px 24px rgba(0, 0, 0, 0.4)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '0.75rem',
+                  maxWidth: 'min(92vw, 720px)',
+                  overflow: 'hidden',
+                }}
+              >
+                <span
+                  style={{
+                    background: 'rgba(59, 130, 246, 0.25)',
+                    color: '#93C5FD',
+                    fontSize: '0.625rem',
+                    fontWeight: 800,
+                    padding: '0.12rem 0.45rem',
+                    borderRadius: '4px',
+                    letterSpacing: '0.04em',
+                    textTransform: 'uppercase',
+                    flexShrink: 0,
+                  }}
+                >
+                  {open.code}
+                </span>
+
+                <span
+                  style={{
+                    fontSize: '0.78rem',
+                    fontWeight: 700,
+                    color: '#FFFFFF',
                     whiteSpace: 'nowrap',
                     overflow: 'hidden',
                     textOverflow: 'ellipsis',
                   }}
                 >
-                  {open.what}
-                </p>
-              </div>
+                  {open.name}
+                </span>
 
-              {open.certNumber && (
-                <div
-                  style={{
-                    flex: '0 0 auto',
-                    background: 'rgba(255, 255, 255, 0.08)',
-                    border: '1px solid rgba(255, 255, 255, 0.15)',
-                    borderRadius: '6px',
-                    padding: '0.25rem 0.6rem',
-                    textAlign: 'right',
-                  }}
-                >
-                  <div style={{ fontSize: '0.52rem', color: '#94A3B8', fontWeight: 600, textTransform: 'uppercase' }}>Ref Number</div>
-                  <div style={{ fontSize: '0.7rem', fontWeight: 800, color: '#FFFFFF' }}>
-                    {open.certNumber}
-                  </div>
-                </div>
-              )}
-            </div>
-          </div>
-        </div>
-      )}
+                {open.certNumber && (
+                  <span
+                    style={{
+                      fontSize: '0.6875rem',
+                      color: '#94A3B8',
+                      whiteSpace: 'nowrap',
+                      flexShrink: 0,
+                      borderLeft: '1px solid rgba(255, 255, 255, 0.2)',
+                      paddingLeft: '0.65rem',
+                    }}
+                  >
+                    Ref: <strong style={{ color: '#F1F5F9' }}>{open.certNumber}</strong>
+                  </span>
+                )}
+              </div>
+            </div>,
+            document.body
+          )
+        : null}
     </>
   )
 }
