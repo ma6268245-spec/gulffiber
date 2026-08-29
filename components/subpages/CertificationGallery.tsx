@@ -6,23 +6,21 @@ import { Provenance } from '@/components/subpages/Primitives'
 import { CERT_ASSETS, CERTIFICATION_DETAIL } from '@/lib/data/company'
 
 /* ===========================================================================
-   CERTIFICATION GALLERY (Company page - chapter 07 & Quality page)
+   PHOTOREALISTIC EXECUTIVE OFFICE CERTIFICATE GALLERY
    ---------------------------------------------------------------------------
-   Renders all 6 authentic official certificate documents in a balanced 3x2
-   responsive grid. Clicking any card opens a full-screen interactive lightbox
-   with Prev / Next navigation and keyboard controls.
+   Features:
+   - 16:9 architectural corporate photography of Gulf Fiber office.
+   - Symmetrical 3-column × 2-row gallery layout.
+   - Exactly 6 authentic certificates:
+       Row 1: ISO 9001:2015 | GRS Scope P.1 | EPA Punjab Approval
+       Row 2: OEKO-TEX® 100 | GRS Site P.3  | LCCI Membership
+   - Interactive hover zoom reveals high-res original scan with glass gleam.
+   - Interactive full-screen high-resolution lightbox viewer.
+   - Clean, professional design with all UI artifacts removed.
    =========================================================================== */
 
-const CERT_GLYPH = (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2" aria-hidden="true">
-    <path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z" />
-    <path d="M14 3v5h5" />
-    <path d="M9 13h6M9 17h4" />
-  </svg>
-)
-
 const MAGNIFIER = (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true" style={{ width: '13px', height: '13px' }}>
     <circle cx="11" cy="11" r="7" />
     <path d="m21 21-4.3-4.3" />
   </svg>
@@ -54,20 +52,109 @@ interface CertEntry {
   what: string
   asset: string | null
   kind: 'ACCREDITED_CERTIFICATION' | 'TRADE_ASSOCIATION'
+  plaqueTitle: string
+  issuer: string
+  shortScope: string
+  // Exact percentage positions on the 16:9 wall
+  top: string
+  left: string
+  width: string
+  height: string
 }
 
-const ENTRIES: CertEntry[] = CERTIFICATION_DETAIL.map((c) => ({
-  code: c.code,
-  name: c.name,
-  certNumber: c.certNumber,
-  scope: c.scope,
-  what: c.what,
-  asset: CERT_ASSETS[c.code] ?? null,
-  kind: c.kind,
-}))
+const CERT_COORDS: Record<string, { top: string; left: string; width: string; height: string; plaqueTitle: string; issuer: string; shortScope: string }> = {
+  'ISO 9001:2015': {
+    top: '10.8%',
+    left: '33.2%',
+    width: '10.7%',
+    height: '25.0%',
+    plaqueTitle: 'ISO 9001:2015 · QUALITY MANAGEMENT',
+    issuer: 'Sustainable Management System Inc. · ASCB (USA)',
+    shortScope: 'Manufacturing & Export of Recycled Polyester Fiber',
+  },
+  'GRS (Scope P.1)': {
+    top: '10.8%',
+    left: '44.9%',
+    width: '10.7%',
+    height: '25.0%',
+    plaqueTitle: 'GRS 4.0 · MAIN SCOPE CERTIFICATE',
+    issuer: 'Control Union Certifications B.V. (Netherlands)',
+    shortScope: '100% Post-Consumer Recycled PET Flake & Fibres',
+  },
+  'EPA Punjab': {
+    top: '10.8%',
+    left: '56.6%',
+    width: '10.7%',
+    height: '25.0%',
+    plaqueTitle: 'EPA PUNJAB · STATUTORY APPROVAL',
+    issuer: 'Govt. of the Punjab Environmental Protection Agency',
+    shortScope: 'Operational Environmental Approval for PET Processing',
+  },
+  'OEKO-TEX 100': {
+    top: '38.0%',
+    left: '33.2%',
+    width: '10.7%',
+    height: '25.0%',
+    plaqueTitle: 'OEKO-TEX® 100 · CLASS I (BABY SAFE)',
+    issuer: 'AITEX Textile Research Institute (Spain)',
+    shortScope: '100% Recycled Polyester Staple Fiber (White, Green, Black)',
+  },
+  'GRS (Site P.3)': {
+    top: '38.0%',
+    left: '44.9%',
+    width: '10.7%',
+    height: '25.0%',
+    plaqueTitle: 'GRS 4.0 · FACILITY & SITE APPENDIX',
+    issuer: 'Control Union Certifications B.V. (Netherlands)',
+    shortScope: 'Mechanical Recycling, Dyeing & Trading Operations',
+  },
+  LCCI: {
+    top: '38.0%',
+    left: '56.6%',
+    width: '10.7%',
+    height: '25.0%',
+    plaqueTitle: 'THE LAHORE CHAMBER OF COMMERCE',
+    issuer: 'The Lahore Chamber of Commerce & Industry',
+    shortScope: 'Registered Corporate Manufacturer & Exporter (Member Since 2004)',
+  },
+}
+
+// Ordered strictly in the 3x2 layout:
+// Row 1: ISO 9001, GRS Scope, EPA Punjab
+// Row 2: OEKO-TEX 100, GRS Site, LCCI
+const ORDERED_CODES = [
+  'ISO 9001:2015',
+  'GRS (Scope P.1)',
+  'EPA Punjab',
+  'OEKO-TEX 100',
+  'GRS (Site P.3)',
+  'LCCI',
+]
+
+const ENTRIES: CertEntry[] = ORDERED_CODES.map((code) => {
+  const detail = CERTIFICATION_DETAIL.find((c) => c.code === code)!
+  const coords = CERT_COORDS[code]
+  return {
+    code: detail.code,
+    name: detail.name,
+    certNumber: detail.certNumber,
+    scope: detail.scope,
+    what: detail.what,
+    asset: CERT_ASSETS[detail.code] ?? null,
+    kind: detail.kind,
+    top: coords.top,
+    left: coords.left,
+    width: coords.width,
+    height: coords.height,
+    plaqueTitle: coords.plaqueTitle,
+    issuer: coords.issuer,
+    shortScope: coords.shortScope,
+  }
+})
 
 export function CertificationGallery() {
   const [openIdx, setOpenIdx] = useState<number | null>(null)
+  const [hoveredIdx, setHoveredIdx] = useState<number | null>(null)
   const closeRef = useRef<HTMLButtonElement>(null)
   const cardRefs = useRef<(HTMLButtonElement | null)[]>([])
   const prevIdx = useRef<number>(0)
@@ -115,100 +202,260 @@ export function CertificationGallery() {
 
   return (
     <>
+      {/* ── FULL-BLEED 16:9 REALISTIC EXECUTIVE OFFICE CONTAINER ───────── */}
       <div
+        className="executive-office-wall-fullbleed"
         style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-          gap: '1.75rem',
+          position: 'relative',
+          width: '100vw',
+          marginLeft: 'calc(-50vw + 50%)',
+          marginRight: 'calc(-50vw + 50%)',
+          aspectRatio: '16 / 9',
+          minHeight: '520px',
+          maxHeight: '850px',
+          backgroundImage: 'url("/images/office-certificate-wall.jpg")',
+          backgroundPosition: 'center center',
+          backgroundSize: 'cover',
+          backgroundRepeat: 'no-repeat',
+          overflow: 'visible',
+          boxShadow: 'inset 0 20px 40px rgba(0,0,0,0.06), inset 0 -20px 40px rgba(0,0,0,0.08)',
         }}
       >
-        {ENTRIES.map((c, i) => (
-          <article
-            className="sp-cert"
-            key={c.code}
+        {/* ── INTERACTIVE INSTRUCTION BADGE (Top Center) ── */}
+        <div
+          style={{
+            position: 'absolute',
+            top: '3.5%',
+            left: '50%',
+            transform: 'translateX(-50%)',
+            zIndex: 20,
+            background: 'rgba(255, 255, 255, 0.94)',
+            padding: '0.35rem 1.25rem',
+            borderRadius: '9999px',
+            backdropFilter: 'blur(12px)',
+            boxShadow: '0 4px 16px rgba(0, 0, 0, 0.08)',
+            border: '1px solid rgba(255, 255, 255, 0.9)',
+            pointerEvents: 'none',
+          }}
+        >
+          <span
             style={{
-              background: 'var(--card-bg, #FFFFFF)',
-              border: '1px solid var(--border-light, #E2E8F0)',
-              borderRadius: '20px',
-              overflow: 'hidden',
-              display: 'flex',
-              flexDirection: 'column',
-              boxShadow: '0 8px 24px rgba(10, 75, 184, 0.04)',
-              transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+              fontSize: '0.75rem',
+              fontWeight: 800,
+              letterSpacing: '0.08em',
+              textTransform: 'uppercase',
+              color: 'var(--burg-primary, #0A4BB8)',
+              fontFamily: 'var(--font-sans)',
             }}
           >
-            <button
-              type="button"
-              className="sp-cert__media"
-              onClick={() => {
-                prevIdx.current = i
-                setOpenIdx(i)
-              }}
-              ref={(el) => {
-                cardRefs.current[i] = el
-              }}
-              aria-label={`Inspect ${c.name} (${c.code})`}
+            ✦ Hover over images to verify · Click to examine certificate ✦
+          </span>
+        </div>
+
+        {/* ── INTERACTIVE HOVER & LIGHTBOX HOTSPOTS OVER 3×2 FRAMES ───────── */}
+        {ENTRIES.map((c, i) => {
+          const isHovered = hoveredIdx === i
+
+          return (
+            <div
+              key={c.code}
               style={{
-                position: 'relative',
-                height: '290px',
-                width: '100%',
-                background: '#F8FAFC',
-                border: 'none',
-                borderBottom: '1px solid var(--border-light, #E2E8F0)',
-                cursor: 'pointer',
-                overflow: 'hidden',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
+                position: 'absolute',
+                top: c.top,
+                left: c.left,
+                width: c.width,
+                height: c.height,
+                zIndex: isHovered ? 100 : 10,
               }}
             >
-              {c.asset ? (
-                <Image
-                  src={c.asset}
-                  alt={`${c.code} - ${c.name} document scan`}
-                  fill
-                  sizes="(max-width: 992px) 100vw, 33vw"
-                  style={{ objectFit: 'contain', padding: '1rem' }}
-                />
-              ) : (
-                <span className="sp-cert__placeholder">
-                  {CERT_GLYPH}
-                  <span>{c.code} scan</span>
-                </span>
-              )}
-              <span className="sp-cert__zoom" aria-hidden="true">
-                {MAGNIFIER}
-                Inspect Document
-              </span>
-            </button>
+              {/* Interactive Frame Button */}
+              <button
+                type="button"
+                onClick={() => {
+                  prevIdx.current = i
+                  setOpenIdx(i)
+                }}
+                onMouseEnter={() => setHoveredIdx(i)}
+                onMouseLeave={() => setHoveredIdx(null)}
+                ref={(el) => {
+                  cardRefs.current[i] = el
+                }}
+                aria-label={`Inspect ${c.name} (${c.code})`}
+                style={{
+                  position: 'relative',
+                  width: '100%',
+                  height: '100%',
+                  background: 'transparent',
+                  border: 'none',
+                  padding: 0,
+                  cursor: 'pointer',
+                  borderRadius: '4px',
+                  outline: 'none',
+                  transform: isHovered ? 'scale(1.35) translateY(-8px)' : 'scale(1)',
+                  transformOrigin: 'center center',
+                  transition: 'transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease',
+                  boxShadow: isHovered ? '0 28px 56px rgba(0, 0, 0, 0.45), 0 10px 20px rgba(0,0,0,0.25)' : 'none',
+                }}
+              >
+                {/* When hovered, render high-res original scan in sharp wood frame overlay */}
+                {isHovered && (
+                  <div
+                    style={{
+                      position: 'absolute',
+                      inset: 0,
+                      background: 'linear-gradient(135deg, #2E1B12 0%, #150A05 40%, #3B2418 70%, #120703 100%)',
+                      borderRadius: '5px',
+                      padding: '4px',
+                      boxShadow: 'inset 0 1px 1px rgba(255, 255, 255, 0.3), inset 0 -1px 2px rgba(0, 0, 0, 0.6), 0 2px 4px rgba(0,0,0,0.3)',
+                      border: '1px solid #100602',
+                      display: 'flex',
+                      flexDirection: 'column',
+                    }}
+                  >
+                    <div
+                      style={{
+                        background: 'linear-gradient(135deg, #D4AF37 0%, #99751B 50%, #F5E096 100%)',
+                        padding: '1.5px',
+                        borderRadius: '3px',
+                        flex: 1,
+                        display: 'flex',
+                        flexDirection: 'column',
+                      }}
+                    >
+                      <div
+                        style={{
+                          background: '#FAF8F4',
+                          borderRadius: '2px',
+                          padding: '2px',
+                          flex: 1,
+                          display: 'flex',
+                          flexDirection: 'column',
+                          overflow: 'hidden',
+                        }}
+                      >
+                        <div style={{ position: 'relative', flex: 1, width: '100%', overflow: 'hidden' }}>
+                          {c.asset && (
+                            <Image
+                              src={c.asset}
+                              alt={`${c.code} certificate`}
+                              fill
+                              sizes="25vw"
+                              style={{ objectFit: 'contain', padding: '2px' }}
+                            />
+                          )}
+                          <div
+                            style={{
+                              position: 'absolute',
+                              inset: 0,
+                              background: 'linear-gradient(135deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0.06) 40%, transparent 60%)',
+                              pointerEvents: 'none',
+                            }}
+                          />
+                          <div
+                            style={{
+                              position: 'absolute',
+                              bottom: '3px',
+                              right: '3px',
+                              background: '#0A4BB8',
+                              color: '#FFFFFF',
+                              fontSize: '0.5rem',
+                              fontWeight: 800,
+                              padding: '0.15rem 0.45rem',
+                              borderRadius: '9999px',
+                              display: 'flex',
+                              alignItems: 'center',
+                              gap: '0.2rem',
+                              boxShadow: '0 2px 6px rgba(0, 0, 0, 0.4)',
+                            }}
+                          >
+                            {MAGNIFIER}
+                            Inspect
+                          </div>
+                        </div>
 
-            <div className="sp-cert__body" style={{ padding: '1.5rem', flex: 1, display: 'flex', flexDirection: 'column' }}>
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
-                <span className="sp-cat" style={{ margin: 0 }}>{c.code}</span>
-                {c.certNumber && (
-                  <span style={{ fontSize: '0.6875rem', color: 'var(--muted, #64748B)', fontWeight: 600 }}>
-                    {c.certNumber.split(' ')[0]}
+                        {/* Engraved Plaque */}
+                        <div
+                          style={{
+                            marginTop: '2px',
+                            background: 'linear-gradient(180deg, #FDE68A 0%, #D4AF37 45%, #B4881A 100%)',
+                            borderRadius: '1.5px',
+                            padding: '2px 3px',
+                            textAlign: 'center',
+                            border: '0.5px solid #8C6215',
+                            color: '#2A1804',
+                          }}
+                        >
+                          <div
+                            style={{
+                              fontSize: '0.45rem',
+                              fontWeight: 800,
+                              letterSpacing: '0.04em',
+                              textTransform: 'uppercase',
+                              lineHeight: 1.15,
+                              fontFamily: 'var(--font-sans)',
+                              whiteSpace: 'nowrap',
+                              overflow: 'hidden',
+                              textOverflow: 'ellipsis',
+                            }}
+                          >
+                            {c.plaqueTitle}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </button>
+
+              {/* Verified Specs Tooltip on Hover */}
+              <div
+                style={{
+                  position: 'absolute',
+                  top: 'calc(100% + 10px)',
+                  left: '50%',
+                  transform: isHovered
+                    ? 'translateX(-50%) translateY(0)'
+                    : 'translateX(-50%) translateY(6px)',
+                  opacity: isHovered ? 1 : 0,
+                  pointerEvents: isHovered ? 'auto' : 'none',
+                  zIndex: 120,
+                  width: '240px',
+                  background: 'rgba(255, 255, 255, 0.96)',
+                  backdropFilter: 'blur(10px)',
+                  borderRadius: '10px',
+                  padding: '0.65rem 0.8rem',
+                  boxShadow: '0 16px 36px rgba(0, 0, 0, 0.28), 0 2px 6px rgba(0,0,0,0.08)',
+                  border: '1px solid rgba(10, 75, 184, 0.25)',
+                  transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
+                }}
+              >
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.2rem' }}>
+                  <span style={{ fontSize: '0.625rem', fontWeight: 800, color: 'var(--burg-primary, #0A4BB8)', letterSpacing: '0.06em', textTransform: 'uppercase' }}>
+                    {c.code}
                   </span>
+                  <Provenance status="VERIFIED" />
+                </div>
+
+                <div style={{ fontSize: '0.6875rem', fontWeight: 700, color: '#0F172A', marginBottom: '0.15rem', lineHeight: 1.25 }}>
+                  {c.issuer}
+                </div>
+
+                <div style={{ fontSize: '0.5625rem', color: '#64748B', lineHeight: 1.4, marginBottom: '0.25rem' }}>
+                  {c.shortScope}
+                </div>
+
+                {c.certNumber && (
+                  <div style={{ fontSize: '0.5rem', fontWeight: 700, color: '#334155', background: '#F1F5F9', padding: '0.15rem 0.35rem', borderRadius: '3px' }}>
+                    Ref: {c.certNumber}
+                  </div>
                 )}
               </div>
-              <h3 className="sp-cert__title" style={{ fontSize: '1.0625rem', fontWeight: 800, margin: '0 0 0.5rem', color: 'var(--ink, #0F172A)' }}>
-                {c.name}
-              </h3>
-              <p className="sp-small" style={{ margin: '0 0 1.25rem', color: 'var(--muted, #64748B)', fontSize: '0.8125rem', lineHeight: 1.5, flex: 1 }}>
-                {c.scope}
-              </p>
-              <div className="sp-card-foot" style={{ marginTop: 'auto', borderTop: '1px solid var(--border-light, #E2E8F0)', paddingTop: '1rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                <span className="sp-card-foot-key" style={{ fontSize: '0.6875rem', fontWeight: 700, color: 'var(--burg-primary, #0A4BB8)' }}>
-                  {c.kind === 'ACCREDITED_CERTIFICATION' ? 'Official License' : 'Trade Body Member'}
-                </span>
-                <Provenance status="VERIFIED" />
-              </div>
             </div>
-          </article>
-        ))}
+          )
+        })}
       </div>
 
-      {/* ── Lightbox Modal ──────────────────────────────────────────────────── */}
+      {/* ── FULL-SCREEN LIGHTBOX MODAL ────────────────────────────────────── */}
       {open && (
         <div
           className="sp-lightbox"
@@ -220,8 +467,8 @@ export function CertificationGallery() {
             position: 'fixed',
             inset: 0,
             zIndex: 9999,
-            background: 'rgba(4, 15, 38, 0.92)',
-            backdropFilter: 'blur(12px)',
+            background: 'rgba(4, 15, 38, 0.94)',
+            backdropFilter: 'blur(16px)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
@@ -235,13 +482,13 @@ export function CertificationGallery() {
               position: 'relative',
               background: '#FFFFFF',
               borderRadius: '24px',
-              maxWidth: '880px',
+              maxWidth: '920px',
               width: '100%',
-              maxHeight: '92vh',
+              maxHeight: '94vh',
               overflow: 'hidden',
               display: 'flex',
               flexDirection: 'column',
-              boxShadow: '0 30px 70px rgba(0, 0, 0, 0.5)',
+              boxShadow: '0 30px 80px rgba(0, 0, 0, 0.6)',
             }}
           >
             {/* Header: Document Index & Close Button */}
@@ -260,17 +507,18 @@ export function CertificationGallery() {
             >
               <span
                 style={{
-                  background: 'rgba(4, 15, 38, 0.75)',
+                  background: 'rgba(4, 15, 38, 0.85)',
                   color: '#FFFFFF',
                   fontSize: '0.75rem',
                   fontWeight: 700,
-                  padding: '0.35rem 0.85rem',
+                  padding: '0.35rem 0.95rem',
                   borderRadius: '9999px',
                   backdropFilter: 'blur(8px)',
+                  border: '1px solid rgba(255, 255, 255, 0.2)',
                   pointerEvents: 'auto',
                 }}
               >
-                Document {openIdx! + 1} of {ENTRIES.length}
+                Document {openIdx! + 1} of {ENTRIES.length} · {open.code}
               </span>
 
               <button
@@ -280,17 +528,18 @@ export function CertificationGallery() {
                 onClick={() => setOpenIdx(null)}
                 aria-label="Close document view"
                 style={{
-                  background: 'rgba(4, 15, 38, 0.75)',
+                  background: 'rgba(4, 15, 38, 0.85)',
                   color: '#FFFFFF',
-                  border: 'none',
+                  border: '1px solid rgba(255, 255, 255, 0.2)',
                   borderRadius: '50%',
-                  width: '38px',
-                  height: '38px',
+                  width: '40px',
+                  height: '40px',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
                   cursor: 'pointer',
                   pointerEvents: 'auto',
+                  transition: 'background 0.2s ease',
                 }}
               >
                 {CLOSE}
@@ -303,9 +552,9 @@ export function CertificationGallery() {
               style={{
                 position: 'relative',
                 flex: '1 1 auto',
-                minHeight: '460px',
-                maxHeight: '64vh',
-                background: '#0B1528',
+                minHeight: '480px',
+                maxHeight: '66vh',
+                background: '#070E1C',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
@@ -319,22 +568,22 @@ export function CertificationGallery() {
                 aria-label="Previous Certificate"
                 style={{
                   position: 'absolute',
-                  left: '1rem',
+                  left: '1.25rem',
                   top: '50%',
                   transform: 'translateY(-50%)',
                   zIndex: 5,
-                  background: 'rgba(255, 255, 255, 0.2)',
+                  background: 'rgba(255, 255, 255, 0.18)',
                   color: '#FFFFFF',
                   border: '1px solid rgba(255, 255, 255, 0.3)',
                   borderRadius: '50%',
-                  width: '44px',
-                  height: '44px',
+                  width: '46px',
+                  height: '46px',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
                   cursor: 'pointer',
-                  backdropFilter: 'blur(8px)',
-                  transition: 'background 0.2s ease, transform 0.2s ease',
+                  backdropFilter: 'blur(10px)',
+                  transition: 'all 0.2s ease',
                 }}
               >
                 {CHEVRON_LEFT}
@@ -347,22 +596,22 @@ export function CertificationGallery() {
                 aria-label="Next Certificate"
                 style={{
                   position: 'absolute',
-                  right: '1rem',
+                  right: '1.25rem',
                   top: '50%',
                   transform: 'translateY(-50%)',
                   zIndex: 5,
-                  background: 'rgba(255, 255, 255, 0.2)',
+                  background: 'rgba(255, 255, 255, 0.18)',
                   color: '#FFFFFF',
                   border: '1px solid rgba(255, 255, 255, 0.3)',
                   borderRadius: '50%',
-                  width: '44px',
-                  height: '44px',
+                  width: '46px',
+                  height: '46px',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
                   cursor: 'pointer',
-                  backdropFilter: 'blur(8px)',
-                  transition: 'background 0.2s ease, transform 0.2s ease',
+                  backdropFilter: 'blur(10px)',
+                  transition: 'all 0.2s ease',
                 }}
               >
                 {CHEVRON_RIGHT}
@@ -375,37 +624,32 @@ export function CertificationGallery() {
                   fill
                   priority
                   sizes="90vw"
-                  style={{ objectFit: 'contain', padding: '1rem' }}
+                  style={{ objectFit: 'contain', padding: '1.5rem' }}
                 />
-              ) : (
-                <span className="sp-cert__placeholder">
-                  {CERT_GLYPH}
-                  <span>{open.code} scan</span>
-                </span>
-              )}
+              ) : null}
             </div>
 
             {/* Document Details Footer */}
             <div
               className="sp-lightbox__caption"
               style={{
-                padding: '1.25rem 1.75rem',
+                padding: '1.5rem 2rem',
                 borderTop: '1px solid var(--border-light, #E2E8F0)',
                 background: '#FFFFFF',
               }}
             >
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '0.5rem', marginBottom: '0.35rem' }}>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '0.5rem', marginBottom: '0.4rem' }}>
                 <span className="sp-cat" style={{ margin: 0 }}>{open.code}</span>
                 {open.certNumber && (
-                  <span style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--burg-primary, #0A4BB8)' }}>
+                  <span style={{ fontSize: '0.8125rem', fontWeight: 700, color: 'var(--burg-primary, #0A4BB8)' }}>
                     {open.certNumber}
                   </span>
                 )}
               </div>
-              <h3 className="sp-cert__title" style={{ fontSize: '1.15rem', fontWeight: 800, margin: '0 0 0.4rem', color: 'var(--ink, #0F172A)' }}>
+              <h3 className="sp-cert__title" style={{ fontSize: '1.25rem', fontWeight: 800, margin: '0 0 0.45rem', color: 'var(--ink, #0F172A)' }}>
                 {open.name}
               </h3>
-              <p className="sp-small" style={{ margin: 0, color: 'var(--muted, #64748B)', fontSize: '0.875rem', lineHeight: 1.5 }}>
+              <p className="sp-small" style={{ margin: 0, color: 'var(--muted, #64748B)', fontSize: '0.875rem', lineHeight: 1.6 }}>
                 {open.what}
               </p>
             </div>
@@ -415,4 +659,5 @@ export function CertificationGallery() {
     </>
   )
 }
+
 

@@ -387,7 +387,7 @@ export default function CompanyPage() {
                 eyebrow="07 · Certifications & Registrations"
                 title="Certified by"
                 em="document"
-                lede="Six official certificate documents, each verified with official statutory documentation (ISO 9001:2015, GRS Scope Page 1, GRS Site Appendix Page 3, OEKO-TEX Standard 100, EPA Punjab Approval, and LCCI). Click any certificate to inspect full-screen."
+                lede="Six official certificate documents, each verified with official statutory documentation (ISO 9001:2015, GRS Scope Certificate, GRS Site Appendix, OEKO-TEX Standard 100, EPA Punjab Approval, and LCCI). Hover over any certificate on the wall to zoom in and verify details, or click to examine the full-resolution scan."
                 link="/quality"
                 linkLabel="Read Quality Management Manual"
                 stacked
