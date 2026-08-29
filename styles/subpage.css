@@ -185,12 +185,12 @@
 .sp-root .sp-cat {
   display: block;
   font-family: var(--font-sans);
-  font-size: 0.5625rem;
+  font-size: 0.6875rem;
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--burg-primary);
-  margin-bottom: 0.375rem;
+  margin-bottom: 0.45rem;
 }
 
 /* ── Grids ──────────────────────────────────────────────────────────────── */
@@ -325,9 +325,10 @@
 }
 .sp-root .sp-row-key {
   font-family: var(--font-sans);
-  font-size: 0.6875rem;
+  font-size: 0.8125rem;
   font-weight: 800;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.06em;
+  line-height: 1.4;
   text-transform: uppercase;
   color: var(--burg-primary);
 }
@@ -833,7 +834,9 @@
   .sp-root .sp-lede { font-size: 0.9375rem; line-height: 1.6; }
   .sp-root .sp-body { font-size: 0.9375rem; line-height: 1.65; }
   .sp-root .sp-row-val { font-size: 0.9375rem; line-height: 1.55; }
-  .sp-root .sp-route__label { font-size: 0.6875rem; }
+  .sp-root .sp-row-key { font-size: 0.75rem; }
+  .sp-root .sp-route__num { font-size: 0.75rem; }
+  .sp-root .sp-route__label { font-size: 0.75rem; }
   .sp-root .sp-route__detail { font-size: 0.8125rem; }
 }
 @media (max-width: 600px) {
@@ -1196,17 +1199,17 @@
 }
 .sp-root .sp-route__num {
   font-family: var(--font-sans);
-  font-size: 0.6875rem;
+  font-size: 0.8125rem;
   font-weight: 800;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.06em;
   color: var(--burg-primary);
-  padding-top: 0.2rem;
+  padding-top: 0.15rem;
 }
 .sp-root .sp-route__label {
   font-family: var(--font-sans);
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.14em;
+  font-size: 0.8125rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--ink);
   margin: 0 0 0.25rem;
