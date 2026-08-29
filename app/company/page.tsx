@@ -407,7 +407,7 @@ export default function CompanyPage() {
                 eyebrow="08 · Inside The Plant"
                 title="See where Gulf Fibre"
                 em="operates"
-                lede="A 20-second cinematic scroll documentary through the live manufacturing environment: Outside → Factory Entrance → Production Floor → High-Pressure Machinery → Finished Baled Fibre."
+                lede="Explore authentic footage of our 33-KM Multan Road, Lahore production facility and live high-pressure extrusion lines in action."
                 stacked
               />
             </div>
