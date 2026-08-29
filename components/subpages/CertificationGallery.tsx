@@ -8,9 +8,9 @@ import { CERT_ASSETS, CERTIFICATION_DETAIL } from '@/lib/data/company'
 /* ===========================================================================
    CERTIFICATION GALLERY (Company page - chapter 07 & Quality page)
    ---------------------------------------------------------------------------
-   Each registration displays the authentic official high-resolution certificate
-   document. Clicking any card opens a full-screen interactive lightbox for
-   high-resolution document inspection.
+   Renders all 6 authentic official certificate documents in a balanced 3x2
+   responsive grid. Clicking any card opens a full-screen interactive lightbox
+   with Prev / Next navigation and keyboard controls.
    =========================================================================== */
 
 const CERT_GLYPH = (
@@ -31,6 +31,18 @@ const MAGNIFIER = (
 const CLOSE = (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" aria-hidden="true">
     <path d="M18 6L6 18M6 6l12 12" />
+  </svg>
+)
+
+const CHEVRON_LEFT = (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" style={{ width: '22px', height: '22px' }}>
+    <polyline points="15 18 9 12 15 6" />
+  </svg>
+)
+
+const CHEVRON_RIGHT = (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" style={{ width: '22px', height: '22px' }}>
+    <polyline points="9 18 15 12 9 6" />
   </svg>
 )
 
@@ -56,7 +68,6 @@ const ENTRIES: CertEntry[] = CERTIFICATION_DETAIL.map((c) => ({
 
 export function CertificationGallery() {
   const [openIdx, setOpenIdx] = useState<number | null>(null)
-  const [activeGrsPage, setActiveGrsPage] = useState<1 | 3>(1)
   const closeRef = useRef<HTMLButtonElement>(null)
   const cardRefs = useRef<(HTMLButtonElement | null)[]>([])
   const prevIdx = useRef<number>(0)
@@ -67,9 +78,17 @@ export function CertificationGallery() {
     if (openIdx === null) return
     document.body.style.overflow = 'hidden'
     closeRef.current?.focus()
+
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') setOpenIdx(null)
+      if (e.key === 'Escape') {
+        setOpenIdx(null)
+      } else if (e.key === 'ArrowLeft') {
+        setOpenIdx((idx) => (idx !== null ? (idx - 1 + ENTRIES.length) % ENTRIES.length : null))
+      } else if (e.key === 'ArrowRight') {
+        setOpenIdx((idx) => (idx !== null ? (idx + 1) % ENTRIES.length : null))
+      }
     }
+
     window.addEventListener('keydown', onKey)
     return () => {
       document.body.style.overflow = ''
@@ -84,13 +103,14 @@ export function CertificationGallery() {
     }
   }, [openIdx])
 
-  const getActiveAsset = (entry: CertEntry) => {
-    if (entry.code === 'GRS') {
-      return activeGrsPage === 1
-        ? '/images/certificates/grs-scope-certificate-page1.jpg'
-        : '/images/certificates/grs-scope-certificate-page3.jpg'
-    }
-    return entry.asset
+  const goPrev = (e: React.MouseEvent) => {
+    e.stopPropagation()
+    setOpenIdx((idx) => (idx !== null ? (idx - 1 + ENTRIES.length) % ENTRIES.length : null))
+  }
+
+  const goNext = (e: React.MouseEvent) => {
+    e.stopPropagation()
+    setOpenIdx((idx) => (idx !== null ? (idx + 1) % ENTRIES.length : null))
   }
 
   return (
@@ -98,8 +118,8 @@ export function CertificationGallery() {
       <div
         style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(290px, 1fr))',
-          gap: '1.5rem',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+          gap: '1.75rem',
         }}
       >
         {ENTRIES.map((c, i) => (
@@ -107,8 +127,8 @@ export function CertificationGallery() {
             className="sp-cert"
             key={c.code}
             style={{
-              background: 'var(--card-bg)',
-              border: '1px solid var(--border-light)',
+              background: 'var(--card-bg, #FFFFFF)',
+              border: '1px solid var(--border-light, #E2E8F0)',
               borderRadius: '20px',
               overflow: 'hidden',
               display: 'flex',
@@ -123,19 +143,18 @@ export function CertificationGallery() {
               onClick={() => {
                 prevIdx.current = i
                 setOpenIdx(i)
-                setActiveGrsPage(1)
               }}
               ref={(el) => {
                 cardRefs.current[i] = el
               }}
-              aria-label={`Inspect the ${c.code} certificate`}
+              aria-label={`Inspect ${c.name} (${c.code})`}
               style={{
                 position: 'relative',
-                height: '280px',
+                height: '290px',
                 width: '100%',
                 background: '#F8FAFC',
                 border: 'none',
-                borderBottom: '1px solid var(--border-light)',
+                borderBottom: '1px solid var(--border-light, #E2E8F0)',
                 cursor: 'pointer',
                 overflow: 'hidden',
                 display: 'flex',
@@ -146,7 +165,7 @@ export function CertificationGallery() {
               {c.asset ? (
                 <Image
                   src={c.asset}
-                  alt={`${c.code} certification scan`}
+                  alt={`${c.code} - ${c.name} document scan`}
                   fill
                   sizes="(max-width: 992px) 100vw, 33vw"
                   style={{ objectFit: 'contain', padding: '1rem' }}
@@ -167,19 +186,19 @@ export function CertificationGallery() {
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
                 <span className="sp-cat" style={{ margin: 0 }}>{c.code}</span>
                 {c.certNumber && (
-                  <span style={{ fontSize: '0.6875rem', color: 'var(--muted)', fontWeight: 600 }}>
+                  <span style={{ fontSize: '0.6875rem', color: 'var(--muted, #64748B)', fontWeight: 600 }}>
                     {c.certNumber.split(' ')[0]}
                   </span>
                 )}
               </div>
-              <h3 className="sp-cert__title" style={{ fontSize: '1.0625rem', fontWeight: 800, margin: '0 0 0.5rem', color: 'var(--ink)' }}>
+              <h3 className="sp-cert__title" style={{ fontSize: '1.0625rem', fontWeight: 800, margin: '0 0 0.5rem', color: 'var(--ink, #0F172A)' }}>
                 {c.name}
               </h3>
-              <p className="sp-small" style={{ margin: '0 0 1.25rem', color: 'var(--muted)', fontSize: '0.8125rem', lineHeight: 1.5, flex: 1 }}>
+              <p className="sp-small" style={{ margin: '0 0 1.25rem', color: 'var(--muted, #64748B)', fontSize: '0.8125rem', lineHeight: 1.5, flex: 1 }}>
                 {c.scope}
               </p>
-              <div className="sp-card-foot" style={{ marginTop: 'auto', borderTop: '1px solid var(--border-light)', paddingTop: '1rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                <span className="sp-card-foot-key" style={{ fontSize: '0.6875rem', fontWeight: 700, color: 'var(--burg-primary)' }}>
+              <div className="sp-card-foot" style={{ marginTop: 'auto', borderTop: '1px solid var(--border-light, #E2E8F0)', paddingTop: '1rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                <span className="sp-card-foot-key" style={{ fontSize: '0.6875rem', fontWeight: 700, color: 'var(--burg-primary, #0A4BB8)' }}>
                   {c.kind === 'ACCREDITED_CERTIFICATION' ? 'Official License' : 'Trade Body Member'}
                 </span>
                 <Provenance status="VERIFIED" />
@@ -201,8 +220,8 @@ export function CertificationGallery() {
             position: 'fixed',
             inset: 0,
             zIndex: 9999,
-            background: 'rgba(4, 15, 38, 0.88)',
-            backdropFilter: 'blur(10px)',
+            background: 'rgba(4, 15, 38, 0.92)',
+            backdropFilter: 'blur(12px)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
@@ -216,60 +235,142 @@ export function CertificationGallery() {
               position: 'relative',
               background: '#FFFFFF',
               borderRadius: '24px',
-              maxWidth: '860px',
+              maxWidth: '880px',
               width: '100%',
               maxHeight: '92vh',
               overflow: 'hidden',
               display: 'flex',
               flexDirection: 'column',
-              boxShadow: '0 25px 60px rgba(0, 0, 0, 0.4)',
+              boxShadow: '0 30px 70px rgba(0, 0, 0, 0.5)',
             }}
           >
-            {/* Close Button */}
-            <button
-              ref={closeRef}
-              type="button"
-              className="sp-lightbox__close"
-              onClick={() => setOpenIdx(null)}
-              aria-label="Close the certificate view"
+            {/* Header: Document Index & Close Button */}
+            <div
               style={{
                 position: 'absolute',
                 top: '1rem',
+                left: '1.25rem',
                 right: '1rem',
                 zIndex: 10,
-                background: 'rgba(4, 15, 38, 0.75)',
-                color: '#FFFFFF',
-                border: 'none',
-                borderRadius: '50%',
-                width: '38px',
-                height: '38px',
                 display: 'flex',
                 alignItems: 'center',
-                justifyContent: 'center',
-                cursor: 'pointer',
+                justifyContent: 'space-between',
+                pointerEvents: 'none',
               }}
             >
-              {CLOSE}
-            </button>
+              <span
+                style={{
+                  background: 'rgba(4, 15, 38, 0.75)',
+                  color: '#FFFFFF',
+                  fontSize: '0.75rem',
+                  fontWeight: 700,
+                  padding: '0.35rem 0.85rem',
+                  borderRadius: '9999px',
+                  backdropFilter: 'blur(8px)',
+                  pointerEvents: 'auto',
+                }}
+              >
+                Document {openIdx! + 1} of {ENTRIES.length}
+              </span>
 
-            {/* Document Viewer Container */}
+              <button
+                ref={closeRef}
+                type="button"
+                className="sp-lightbox__close"
+                onClick={() => setOpenIdx(null)}
+                aria-label="Close document view"
+                style={{
+                  background: 'rgba(4, 15, 38, 0.75)',
+                  color: '#FFFFFF',
+                  border: 'none',
+                  borderRadius: '50%',
+                  width: '38px',
+                  height: '38px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  cursor: 'pointer',
+                  pointerEvents: 'auto',
+                }}
+              >
+                {CLOSE}
+              </button>
+            </div>
+
+            {/* Document Viewer Container with Prev / Next buttons */}
             <div
               className="sp-lightbox__media"
               style={{
                 position: 'relative',
                 flex: '1 1 auto',
-                minHeight: '440px',
-                maxHeight: '62vh',
-                background: '#F1F5F9',
+                minHeight: '460px',
+                maxHeight: '64vh',
+                background: '#0B1528',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
                 overflow: 'hidden',
               }}
             >
+              {/* Prev Button */}
+              <button
+                type="button"
+                onClick={goPrev}
+                aria-label="Previous Certificate"
+                style={{
+                  position: 'absolute',
+                  left: '1rem',
+                  top: '50%',
+                  transform: 'translateY(-50%)',
+                  zIndex: 5,
+                  background: 'rgba(255, 255, 255, 0.2)',
+                  color: '#FFFFFF',
+                  border: '1px solid rgba(255, 255, 255, 0.3)',
+                  borderRadius: '50%',
+                  width: '44px',
+                  height: '44px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  cursor: 'pointer',
+                  backdropFilter: 'blur(8px)',
+                  transition: 'background 0.2s ease, transform 0.2s ease',
+                }}
+              >
+                {CHEVRON_LEFT}
+              </button>
+
+              {/* Next Button */}
+              <button
+                type="button"
+                onClick={goNext}
+                aria-label="Next Certificate"
+                style={{
+                  position: 'absolute',
+                  right: '1rem',
+                  top: '50%',
+                  transform: 'translateY(-50%)',
+                  zIndex: 5,
+                  background: 'rgba(255, 255, 255, 0.2)',
+                  color: '#FFFFFF',
+                  border: '1px solid rgba(255, 255, 255, 0.3)',
+                  borderRadius: '50%',
+                  width: '44px',
+                  height: '44px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  cursor: 'pointer',
+                  backdropFilter: 'blur(8px)',
+                  transition: 'background 0.2s ease, transform 0.2s ease',
+                }}
+              >
+                {CHEVRON_RIGHT}
+              </button>
+
               {open.asset ? (
                 <Image
-                  src={getActiveAsset(open)!}
+                  src={open.asset}
                   alt={`${open.code} - ${open.name} official certificate document`}
                   fill
                   priority
@@ -282,58 +383,6 @@ export function CertificationGallery() {
                   <span>{open.code} scan</span>
                 </span>
               )}
-
-              {/* GRS Multi-page switcher */}
-              {open.code === 'GRS' && (
-                <div
-                  style={{
-                    position: 'absolute',
-                    bottom: '1rem',
-                    left: '50%',
-                    transform: 'translateX(-50%)',
-                    zIndex: 5,
-                    display: 'flex',
-                    gap: '0.5rem',
-                    background: 'rgba(4, 15, 38, 0.85)',
-                    padding: '0.35rem 0.6rem',
-                    borderRadius: '9999px',
-                    backdropFilter: 'blur(8px)',
-                  }}
-                >
-                  <button
-                    type="button"
-                    onClick={() => setActiveGrsPage(1)}
-                    style={{
-                      border: 'none',
-                      background: activeGrsPage === 1 ? 'var(--burg-primary)' : 'transparent',
-                      color: '#FFFFFF',
-                      fontSize: '0.75rem',
-                      fontWeight: 700,
-                      padding: '0.25rem 0.75rem',
-                      borderRadius: '9999px',
-                      cursor: 'pointer',
-                    }}
-                  >
-                    Page 1 (Scope)
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => setActiveGrsPage(3)}
-                    style={{
-                      border: 'none',
-                      background: activeGrsPage === 3 ? 'var(--burg-primary)' : 'transparent',
-                      color: '#FFFFFF',
-                      fontSize: '0.75rem',
-                      fontWeight: 700,
-                      padding: '0.25rem 0.75rem',
-                      borderRadius: '9999px',
-                      cursor: 'pointer',
-                    }}
-                  >
-                    Page 3 (Site Appendix)
-                  </button>
-                </div>
-              )}
             </div>
 
             {/* Document Details Footer */}
@@ -341,22 +390,22 @@ export function CertificationGallery() {
               className="sp-lightbox__caption"
               style={{
                 padding: '1.25rem 1.75rem',
-                borderTop: '1px solid var(--border-light)',
+                borderTop: '1px solid var(--border-light, #E2E8F0)',
                 background: '#FFFFFF',
               }}
             >
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '0.5rem', marginBottom: '0.35rem' }}>
                 <span className="sp-cat" style={{ margin: 0 }}>{open.code}</span>
                 {open.certNumber && (
-                  <span style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--burg-primary)' }}>
+                  <span style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--burg-primary, #0A4BB8)' }}>
                     {open.certNumber}
                   </span>
                 )}
               </div>
-              <h3 className="sp-cert__title" style={{ fontSize: '1.15rem', fontWeight: 800, margin: '0 0 0.4rem', color: 'var(--ink)' }}>
+              <h3 className="sp-cert__title" style={{ fontSize: '1.15rem', fontWeight: 800, margin: '0 0 0.4rem', color: 'var(--ink, #0F172A)' }}>
                 {open.name}
               </h3>
-              <p className="sp-small" style={{ margin: 0, color: 'var(--muted)', fontSize: '0.875rem', lineHeight: 1.5 }}>
+              <p className="sp-small" style={{ margin: 0, color: 'var(--muted, #64748B)', fontSize: '0.875rem', lineHeight: 1.5 }}>
                 {open.what}
               </p>
             </div>
@@ -366,3 +415,4 @@ export function CertificationGallery() {
     </>
   )
 }
+

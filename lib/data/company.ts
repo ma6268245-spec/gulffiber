@@ -56,11 +56,12 @@ export const GULF_FIBRE_DATA: CompanyData = {
     { title: 'Export & Logistics', description: 'Full export documentation, container loading, and dedicated shipping coordination.', status: 'VERIFIED' },
   ],
   certifications: [
-    { name: 'ISO 9001:2015', type: 'ACCREDITED_CERTIFICATION', status: 'VERIFIED' },
-    { name: 'GRS (Global Recycled Standard)', type: 'ACCREDITED_CERTIFICATION', status: 'VERIFIED' },
-    { name: 'OEKO-TEX Standard 100', type: 'ACCREDITED_CERTIFICATION', status: 'VERIFIED' },
-    { name: 'Membership Certificate of Lahore Chamber of Commerce & Industry (LCCI)', type: 'TRADE_ASSOCIATION', status: 'VERIFIED' },
+    { name: 'ISO 9001:2015 Quality Management System', type: 'ACCREDITED_CERTIFICATION', status: 'VERIFIED' },
+    { name: 'GRS (Global Recycled Standard 4.0) Main Scope Certificate', type: 'ACCREDITED_CERTIFICATION', status: 'VERIFIED' },
+    { name: 'GRS (Global Recycled Standard 4.0) Facility & Site Appendix', type: 'ACCREDITED_CERTIFICATION', status: 'VERIFIED' },
+    { name: 'OEKO-TEX Standard 100 (Class I Baby Articles)', type: 'ACCREDITED_CERTIFICATION', status: 'VERIFIED' },
     { name: 'Environmental Approval (EPA Punjab)', type: 'ACCREDITED_CERTIFICATION', status: 'VERIFIED' },
+    { name: 'Membership Certificate of Lahore Chamber of Commerce & Industry (LCCI)', type: 'TRADE_ASSOCIATION', status: 'VERIFIED' },
   ],
 }
 
@@ -106,7 +107,7 @@ export const VERIFIED = {
   customersValue: 350,
   workforce: '250+',
   workforceValue: 250,
-  certificationCount: '5+',
+  certificationCount: '6',
   denierRange: '1.2D - 60D',
   denierMin: 1.2,
   denierMax: 60,
@@ -180,22 +181,42 @@ export const CERTIFICATION_DETAIL: {
     status: 'VERIFIED',
   },
   {
-    code: 'GRS',
-    name: 'Global Recycled Standard (GRS 4.0)',
+    code: 'GRS (Scope P.1)',
+    name: 'Global Recycled Standard (GRS 4.0) · Main Scope',
     certNumber: 'CU1068996GRS-2026-00014625',
     scope: '100% Post-Consumer Recycled PET Flake, Dyed & Undyed Fibres',
     what:
-      'Certified by Control Union Certifications B.V. (Netherlands) under License CB-CUC-1068996 / TE-00005889, verifying mechanical recycling, dyeing, and full chain-of-custody compliance.',
+      'Official Control Union Scope Certificate (Page 1) verifying post-consumer recycled PET feedstock inputs, dyed and undyed staple fibres, and comprehensive chain-of-custody compliance.',
+    kind: 'ACCREDITED_CERTIFICATION',
+    status: 'VERIFIED',
+  },
+  {
+    code: 'GRS (Site P.3)',
+    name: 'Global Recycled Standard (GRS 4.0) · Site Appendix',
+    certNumber: 'License: CB-CUC-1068996 · TE-00005889',
+    scope: 'Mechanical Recycling, Dyeing & Trading Operations (33-KM Multan Rd)',
+    what:
+      'Official Control Union Site Appendix (Page 3) certifying Gulf Fibre’s 33-KM Multan Road facility for mechanical recycling (PR0017), industrial dyeing (PR0008), and global trading (PR0030).',
     kind: 'ACCREDITED_CERTIFICATION',
     status: 'VERIFIED',
   },
   {
     code: 'OEKO-TEX 100',
-    name: 'OEKO-TEX® Standard 100 (Class I)',
+    name: 'OEKO-TEX® Standard 100 (Class I Baby Articles)',
     certNumber: 'Certificate 2023OK2168 (AITEX)',
     scope: '100% Recycled Polyester Staple Fibre (White, Green, Black)',
     what:
       'Certified under Product Class I (baby articles / sensitive skin contact), confirming zero harmful substances or restricted chemical residues across post-consumer PET staple fibre production.',
+    kind: 'ACCREDITED_CERTIFICATION',
+    status: 'VERIFIED',
+  },
+  {
+    code: 'EPA Punjab',
+    name: 'Environmental Protection Agency Approval',
+    certNumber: 'Letter No. AD(EIA)/EPA/F-444(IEE)/2018/254',
+    scope: 'Operational Environmental Approval for PET Bottle Crushing & Processing',
+    what:
+      'Official statutory operational approval granted by Government of the Punjab EPA, validating clean industrial recycling compliance and sustainable waste diversion.',
     kind: 'ACCREDITED_CERTIFICATION',
     status: 'VERIFIED',
   },
@@ -207,16 +228,6 @@ export const CERTIFICATION_DETAIL: {
     what:
       'Active manufacturing member firm of the Lahore Chamber of Commerce & Industry, attesting international export origin and official commercial trade documentation.',
     kind: 'TRADE_ASSOCIATION',
-    status: 'VERIFIED',
-  },
-  {
-    code: 'EPA Punjab',
-    name: 'Environmental Protection Agency Approval',
-    certNumber: 'Letter No. AD(EIA)/EPA/F-444(IEE)/2018/254',
-    scope: 'Operational Environmental Approval for PET Bottle Crushing & Processing',
-    what:
-      'Official statutory operational approval granted by Government of the Punjab EPA, validating clean industrial recycling compliance and sustainable waste diversion.',
-    kind: 'ACCREDITED_CERTIFICATION',
     status: 'VERIFIED',
   },
 ]
@@ -756,13 +767,14 @@ export const ORG_TREE_DATA: OrgNode[] = [
   },
 ]
 
-/** Official Certificate Document Scans per registration. */
+/** Official Certificate Document Scans per registration (6 full documents). */
 export const CERT_ASSETS: Record<string, string | null> = {
   'ISO 9001:2015': '/images/certificates/iso-9001-2015-certificate.jpg',
-  GRS: '/images/certificates/grs-scope-certificate-page1.jpg',
+  'GRS (Scope P.1)': '/images/certificates/grs-scope-certificate-page1.jpg',
+  'GRS (Site P.3)': '/images/certificates/grs-scope-certificate-page3.jpg',
   'OEKO-TEX 100': '/images/certificates/oeko-tex-standard-100-certificate.jpg',
-  LCCI: '/images/certificates/lcci-membership-certificate.jpg',
   'EPA Punjab': '/images/certificates/epa-punjab-environmental-approval.jpg',
+  LCCI: '/images/certificates/lcci-membership-certificate.jpg',
 }
 
 /* ===========================================================================

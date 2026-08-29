@@ -18,7 +18,7 @@ import {
 import { useSectionReveal } from '@/components/subpages/useSectionReveal'
 import { CERTIFICATION_DETAIL, PROCESS_STAGES, SUSTAINABILITY_LOOP, VERIFIED } from '@/lib/data/company'
 
-const GRS = CERTIFICATION_DETAIL.find((c) => c.code === 'GRS')!
+const GRS = CERTIFICATION_DETAIL.find((c) => c.code.startsWith('GRS'))!
 
 /**
  * /sustainability

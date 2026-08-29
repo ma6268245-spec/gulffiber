@@ -67,7 +67,7 @@ export default function QualityPage() {
                 eyebrow="Registrations & Scans"
                 title="What we hold,"
                 em="and what each one covers"
-                lede="Five verified statutory registrations and environmental permits. Click any document below to open high-resolution full-screen viewing."
+                lede="Six verified statutory registrations, scope appendices, and environmental permits. Click any document below to open high-resolution full-screen viewing."
                 link="/contact"
                 linkLabel="Ask for certified copies"
               />
