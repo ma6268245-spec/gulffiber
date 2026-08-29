@@ -5,7 +5,6 @@ import Image from 'next/image'
 import {
   ORG_DEPARTMENTS,
   ORG_TREE_DATA,
-  type OrgDepartment,
   type OrgNode,
 } from '@/lib/data/company'
 

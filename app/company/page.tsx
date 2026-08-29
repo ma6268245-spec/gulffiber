@@ -1,12 +1,10 @@
 'use client'
 
 import Link from 'next/link'
-import Image from 'next/image'
 import { useRef } from 'react'
 import { CompanyVideoScrollStory } from '@/components/company/CompanyVideoScrollStory'
 import { PageHero } from '@/components/subpages/PageHero'
 import { PageShell } from '@/components/subpages/PageShell'
-import { ScrollProductScene } from '@/components/subpages/ScrollProductScene'
 import { TimelineChapter } from '@/components/subpages/TimelineChapter'
 import { DirectorFeature } from '@/components/subpages/PeopleChapter'
 import { CompanyOrgTree } from '@/components/company/CompanyOrgTree'
@@ -14,7 +12,6 @@ import { CertificationGallery } from '@/components/subpages/CertificationGallery
 import {
   ArrowLink,
   Counter,
-  DataSlot,
   Provenance,
   SectionHead,
   SpecRows,

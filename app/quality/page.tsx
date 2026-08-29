@@ -8,15 +8,13 @@ import { PageShell } from '@/components/subpages/PageShell'
 import { ScrollProductScene } from '@/components/subpages/ScrollProductScene'
 import {
   ArrowLink,
-  DataSlot,
-  InfoCard,
   Provenance,
   SectionHead,
   SpecRows,
 } from '@/components/subpages/Primitives'
 import { useSectionReveal } from '@/components/subpages/useSectionReveal'
 import { CertificationGallery } from '@/components/subpages/CertificationGallery'
-import { CERTIFICATION_DETAIL, PROCESS_STAGES, QA_DISCIPLINES, VERIFIED } from '@/lib/data/company'
+import { PROCESS_STAGES, QA_DISCIPLINES, VERIFIED } from '@/lib/data/company'
 
 /**
  * /quality

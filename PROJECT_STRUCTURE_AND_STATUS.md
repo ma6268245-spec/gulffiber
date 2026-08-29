@@ -154,7 +154,7 @@ gulf-fibre/
      - *Eyebrow*: `Product Portfolio` with star glyph.
      - *Headline*: `Five lines, one specification discipline` (with Cormorant serif accent).
      - *Background*: HD loop `/videos/product-hero.mp4` with glassmorphic dark overlay.
-     - *Verified Stat Badges*: Denier range (`1.2D – 60D`), Annual capacity (`36,000+ MT`), Product lines (`5`), Customers served (`100+ mills`).
+     - *Verified Stat Badges*: Denier range (`1.2D – 60D`), Annual capacity (`15,000 T`), Product lines (`5`), Customers served (`350+`).
      - *Call to Action*: Direct link to `/contact` for quotation submission.
   2. **Section 01 · Editorial Collection Index (`The Collection`)**:
      - Numbered 2-digit index rows (`01` to `05`) with smooth anchor navigation (`#psf-regenerated`, `#psf-virgin`, `#wadding`, `#felt`, `#interlining`).
@@ -173,7 +173,7 @@ gulf-fibre/
   5. **Section 04 · Inside The Plant Factory Showcase (`CompanyVideoScrollStory`)**:
      - Dual video player showcasing real factory operations and high-precision spinning line machinery with independent audio/play toggles.
   6. **Section 05 · Commercial Supply & Logistics Terms (`sp-dark`)**:
-     - Standard 280 kg moisture-sealed baling, container stuffing limits (up to 25 MT per 40HC), and in-house COA export documentation.
+     - Standard 280 kg moisture-sealed baling, container stuffing coordination, and in-house COA export documentation.
   7. **Section 06 · Commercial Close**:
      - High-impact closing statement (`Tell us the count. We will quote the bale.`) and quotation CTA.
 

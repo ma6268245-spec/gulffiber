@@ -1,7 +1,7 @@
 'use client'
 
 import Image from 'next/image'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, useSyncExternalStore } from 'react'
 import { createPortal } from 'react-dom'
 import { Provenance } from '@/components/subpages/Primitives'
 import { CERT_ASSETS, CERTIFICATION_DETAIL } from '@/lib/data/company'
@@ -156,16 +156,12 @@ const ENTRIES: CertEntry[] = ORDERED_CODES.map((code) => {
 export function CertificationGallery() {
   const [openIdx, setOpenIdx] = useState<number | null>(null)
   const [hoveredIdx, setHoveredIdx] = useState<number | null>(null)
-  const [mounted, setMounted] = useState(false)
+  const mounted = useSyncExternalStore(() => () => {}, () => true, () => false)
   const closeRef = useRef<HTMLButtonElement>(null)
   const cardRefs = useRef<(HTMLButtonElement | null)[]>([])
   const prevIdx = useRef<number>(0)
 
   const open = openIdx === null ? null : ENTRIES[openIdx]
-
-  useEffect(() => {
-    setMounted(true)
-  }, [])
 
   useEffect(() => {
     if (openIdx === null) return

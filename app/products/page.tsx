@@ -5,7 +5,6 @@ import Image from 'next/image'
 import { useRef } from 'react'
 import { PageHero } from '@/components/subpages/PageHero'
 import { PageShell } from '@/components/subpages/PageShell'
-import { ProductHeroVideo } from '@/components/subpages/ProductHeroVideo'
 import { ScrollProductScene } from '@/components/subpages/ScrollProductScene'
 import { ProcessScrollChapter } from '@/components/subpages/ProcessScrollChapter'
 import { CompanyVideoScrollStory } from '@/components/company/CompanyVideoScrollStory'
@@ -63,7 +62,7 @@ export default function ProductsPage() {
         <PageHero
           eyebrow="Product Portfolio"
           lines={[{ text: 'Five lines,' }, { text: 'one specification' }, { text: 'discipline', serif: true }]}
-          lede={`Regenerated and virgin staple fibre from ${VERIFIED.denierRange}, high-loft wadding, needle-punched felt, and woven and nonwoven interlinings - supplied to the specification of the receiving operation.`}
+          lede={`Regenerated and virgin staple fibre (${VERIFIED.denierRange}), high-loft thermal-bonded wadding, needle-punched technical felt, and fusible garment interlinings — engineered to the precise specification of the receiving operation.`}
           meta={[
             { label: 'Denier range', value: VERIFIED.denierRange },
             { label: 'Annual capacity', value: VERIFIED.annualCapacity },

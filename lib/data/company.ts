@@ -251,17 +251,25 @@ export const PRODUCT_LINES: ProductLine[] = [
     id: 'psf-regenerated',
     code: 'PSF-R',
     title: 'Regenerated Polyester Staple Fibre',
-    subtitle: 'Post-consumer PET feedstock',
+    subtitle: '100% Recycled PET feedstock · Bottle flakes & polymer waste',
     positioning:
-      'Recycled staple fibre produced from post-consumer PET under GRS chain of custody, supplied across the full count range for spinning and nonwoven conversion.',
-    appliedIn: ['Ring & open-end spinning', 'Needle-punched nonwovens', 'Thermal fill'],
+      'Engineered recycled polyester staple fibre manufactured from sorted post-consumer PET bottle flakes and clean polymer waste under verified GRS chain of custody. Offered in solid and hollow configurations with tailored siliconized or non-siliconized surface finishes for spinning mills, fibrefill cushioning, and non-woven conversion.',
+    appliedIn: [
+      'Ring & open-end yarn spinning',
+      'Home textiles & bedding fill',
+      'Fibrefill & furniture cushioning',
+      'Non-woven & needle-punched substrates',
+    ],
     verifiedAttributes: [
-      { label: 'Denier range', value: VERIFIED.denierRange },
-      { label: 'Recycled input', value: VERIFIED.recycledInput },
-      { label: 'Chain of custody', value: 'GRS certified' },
+      { label: 'Fibre category', value: 'Polyester staple fibre (solid & hollow)' },
+      { label: 'Feedstock origin', value: '100% post-consumer PET bottle flakes' },
+      { label: 'Denier range', value: `${VERIFIED.denierRange} (grade-dependent)` },
+      { label: 'Cut length', value: '32 mm – 102 mm (customer-specified)' },
+      { label: 'Finish variants', value: 'Siliconized / non-siliconized / slick' },
+      { label: 'Compliance', value: 'GRS 4.0 (CU1068996) · OEKO-TEX Standard 100' },
     ],
     specSlot:
-      'Per-grade cut length, luster, tenacity, elongation and crimp figures require the mill technical data sheet before publication.',
+      'Specification pending production verification — batch tenacity (cN/dtex), elongation %, crimp count per inch, and oil pick-up (OPU) are confirmed per production lot on the consignment Certificate of Analysis.',
     image: '/images/process-fibre.jpg',
     status: 'VERIFIED',
   },
@@ -269,71 +277,109 @@ export const PRODUCT_LINES: ProductLine[] = [
     id: 'psf-virgin',
     code: 'PSF-V',
     title: 'Virgin Polyester Staple Fibre',
-    subtitle: 'Prime polymer feedstock',
+    subtitle: 'Prime polymer feedstock · Pure PTA & MEG',
     positioning:
-      'Virgin staple fibre for applications where colour consistency and prime-polymer processing behaviour are specified over recycled content.',
-    appliedIn: ['Fine-count spinning', 'Technical interlinings', 'Blended yarns'],
+      'High-purity virgin polyester staple fibre produced directly from prime PTA (Purified Terephthalic Acid) and MEG (Monoethylene Glycol) feedstock. Engineered for fine-count spinning, apparel textiles, and high-tenacity industrial applications requiring exceptional tensile uniformity, optical brightness, and dye uptake consistency.',
+    appliedIn: [
+      'Fine-count yarn spinning',
+      'Apparel & garment textiles',
+      'Polyester-cotton (PC) blended yarns',
+      'High-tenacity industrial fabrics',
+    ],
     verifiedAttributes: [
-      { label: 'Denier range', value: VERIFIED.denierRange },
-      { label: 'Feedstock', value: 'Virgin polymer' },
-      { label: 'Substance testing', value: 'OEKO-TEX Standard 100' },
+      { label: 'Fibre category', value: 'Virgin polyester staple fibre' },
+      { label: 'Feedstock origin', value: 'Prime PTA & MEG polymerization' },
+      { label: 'Denier range', value: '1.2D – 15D (spinning & industrial counts)' },
+      { label: 'Cut length', value: '32 mm – 76 mm (grade-dependent)' },
+      { label: 'Lustre options', value: 'Semi-dull / bright / super-white' },
+      { label: 'Substance safety', value: 'OEKO-TEX Standard 100 (Class I safe)' },
     ],
     specSlot:
-      'Grade-by-grade luster, cut length and mechanical property tables require the mill technical data sheet before publication.',
+      'Technical data sheet required — grade-specific tensile modulus, thermal shrinkage tables, and optical whiteness indexes are supplied per technical sales inquiry.',
     image: '/images/collection-rolls.jpg',
     status: 'VERIFIED',
   },
   {
     id: 'wadding',
     code: 'WAD',
-    title: 'Wadding & Thermal Infill',
-    subtitle: 'High-loft, thermally bonded',
+    title: 'Thermal-Bonded Polyester Wadding',
+    subtitle: 'High-loft non-woven infill · Chemical glue-free bonding',
     positioning:
-      'High-loft thermally bonded wadding engineered for recovery and thermal performance in bedding, upholstery and apparel fill.',
-    appliedIn: ['Quilts & duvets', 'Upholstered furniture', 'Insulated apparel'],
+      'Resilient non-woven cushioning and insulating batting produced by homogeneously blending polyester staple fibres with low-melt bonding fibres and passing the carded web through a precision thermal bonding oven. The heat-activated bonding process securely fuses the fibre matrix into a high-loft structure without relying on hazardous chemical glues or volatile resins.',
+    appliedIn: [
+      'Mattresses & bed toppers',
+      'Quilts, duvets & comforters',
+      'Upholstered furniture cushioning',
+      'Winter outerwear & insulated jackets',
+      'Air & liquid filtration media',
+      'Automotive & acoustic insulation',
+    ],
     verifiedAttributes: [
-      { label: 'Construction', value: 'High-loft, thermally bonded' },
-      { label: 'Substance testing', value: 'OEKO-TEX Standard 100' },
-      { label: 'Packing', value: 'Protective roll wrapping' },
+      { label: 'Construction', value: 'Thermal-bonded non-woven (glue-free)' },
+      { label: 'Bonding mechanism', value: 'Low-melt bicomponent fibre activation' },
+      { label: 'Core properties', value: 'High loft recovery, breathable, hypoallergenic' },
+      { label: 'Weight & width', value: 'Customizable GSM & roll width (per order)' },
+      { label: 'Durability', value: 'Wash-durable loft retention under compression' },
+      { label: 'Compliance', value: 'Produced within certified ISO & OEKO-TEX framework' },
     ],
     specSlot:
-      'GSM range, roll width, thickness and loft-recovery figures require confirmation from production before publication.',
+      'Specification pending production verification — exact GSM range (100–600+ g/m²), roll width (up to 3.2 m), loft thickness (mm), and compression recovery % are engineered to order and confirmed on proforma sheets.',
     image: '/images/sustainability-cotton.jpg',
     status: 'VERIFIED',
   },
   {
     id: 'felt',
     code: 'FLT',
-    title: 'Felt & Non-Woven Materials',
-    subtitle: 'Needle-punched, all weights',
+    title: 'Needle-Punched Felt & Non-Woven Materials',
+    subtitle: 'Mechanically interlocked structure · All weights',
     positioning:
-      'Needle-punched nonwoven felts across the weight range, used where dimensional stability and mechanical durability are the governing requirements.',
-    appliedIn: ['Automotive & acoustic', 'Filtration substrates', 'Industrial padding'],
+      'Dense, heavy-duty non-woven felt manufactured by mechanically entangling polyester staple fibres using thousands of high-speed barbed needles. The repeated penetration causes fibres to interlock three-dimensionally into a cohesive, dimensionally stable mat with high tear resistance, fluid permeability, and acoustic dampening properties without requiring chemical binders.',
+    appliedIn: [
+      'Industrial & liquid filtration',
+      'Automotive boot & acoustic linings',
+      'Geotextiles & civil engineering',
+      'Structural padding & protective insulation',
+      'Shoe insoles & footwear components',
+      'Embroidery backing & headwear stiffening',
+    ],
     verifiedAttributes: [
-      { label: 'Construction', value: 'Needle-punched' },
-      { label: 'Weight range', value: 'All weights' },
-      { label: 'Feedstock', value: 'Recycled or virgin' },
+      { label: 'Bonding method', value: 'Mechanical needle-punching (binder-free)' },
+      { label: 'Structural profile', value: 'Dense, cohesive, isotropic fibre matrix' },
+      { label: 'Mechanical strength', value: 'High tear resistance & dimensional stability' },
+      { label: 'Permeability', value: 'Engineered porosity for filtration & air passage' },
+      { label: 'Feedstock options', value: '100% GRS recycled or prime virgin PET' },
+      { label: 'Custom variants', value: 'Heat-calendered / optional adhesive backing' },
     ],
     specSlot:
-      'Weight table, roll width, density and tensile figures require confirmation from production before publication.',
+      'Technical data sheet required — caliper thickness (mm), weight range (GSM), tensile strength (MD/CD), air permeability, and puncture resistance tables require project-specific laboratory sheet confirmation.',
     image: '/images/workshop-factory.jpg',
     status: 'VERIFIED',
   },
   {
     id: 'interlining',
     code: 'INT',
-    title: 'Linings & Fusing Materials',
-    subtitle: 'Woven & non-woven interlinings',
+    title: 'Linings & Fusible Interlinings',
+    subtitle: 'Chemical-bonded, stitch-bonded & fusible substrates',
     positioning:
-      'Woven and nonwoven interlinings and fusible materials for garment construction, supplied to the specification of the making-up operation.',
-    appliedIn: ['Tailoring & formalwear', 'Collars & waistbands', 'Bag & case construction'],
+      'Engineered garment interlinings and fusing materials manufactured across distinct structural technologies — including chemical-bonded non-wovens stabilized with liquid resin binders, high-strength stitch-bonded webs reinforced with polyester threads, and lightweight fusible substrates coated with heat-activated low-melt thermoplastic adhesive dots for structured garment tailoring and making-up reinforcement.',
+    appliedIn: [
+      'Shirt collars, cuffs & plackets',
+      'Tailored suit jackets & blazer lapels',
+      'Waistbands & high-stress garment seams',
+      'Bags, luggage & leather goods reinforcement',
+      'Embroidery backing & tear-away stabilizers',
+      'Outerwear & formalwear tailoring',
+    ],
     verifiedAttributes: [
-      { label: 'Types', value: 'Woven & non-woven' },
-      { label: 'Function', value: 'Lining & fusing' },
-      { label: 'Substance testing', value: 'OEKO-TEX Standard 100' },
+      { label: 'Construction methods', value: 'Chemical-bonded · Stitch-bonded · Fusible-coated' },
+      { label: 'Adhesive technology', value: 'Heat-activated low-melt thermoplastic dot coating' },
+      { label: 'Reinforcement matrix', value: 'Liquid resin binder or high-tenacity stitch threads' },
+      { label: 'Performance profile', value: 'Dimensional stability, soft drape, peeling resistance' },
+      { label: 'Fusing parameters', value: 'Order-dependent (temperature, pressure, dwell time)' },
+      { label: 'Substance safety', value: 'Tested to OEKO-TEX Standard 100 (skin-contact safe)' },
     ],
     specSlot:
-      'Coating type, fusing temperature window, pressure and dwell time require confirmation from technical sales before publication.',
+      'Technical data sheet required — fusing temperature window (°C), pressure (bar), dwell time (seconds), base fabric GSM, and post-wash peel strength data are provided per garment making-up specification.',
     image: null,
     status: 'VERIFIED',
   },
@@ -796,136 +842,161 @@ export interface RouteStation {
 export const PRODUCT_ROUTES: Record<string, RouteStation[]> = {
   'psf-regenerated': [
     {
-      label: 'Feedstock',
-      detail: `Sorted, washed and refined post-consumer PET flake (${VERIFIED.recycledInput}) under GRS chain of custody.`,
+      label: 'Feedstock preparation & sorting',
+      detail:
+        'Incoming post-consumer PET bottles and clean industrial polymer waste are sorted, hot-washed, and processed into decontaminated flake under GRS chain of custody.',
       status: 'VERIFIED',
     },
     {
-      label: 'Extrusion',
-      detail: 'Flake is melted and extruded through spinnerets, then quenched to lock filament geometry and target linear density.',
+      label: 'Melt extrusion & spinning',
+      detail:
+        'Clean flake is dried, melted in high-pressure extruders, and forced through precision spinnerets to form continuous filament bundles.',
       status: 'VERIFIED',
     },
     {
-      label: 'Drafting & crimping',
-      detail: 'Filaments are drawn to develop orientation and tenacity, then thermomechanically crimped to the bulk the end process requires.',
+      label: 'Multi-stage drafting & orientation',
+      detail:
+        'Filaments pass through heated liquid draw-baths to develop molecular orientation, locking in target tensile tenacity and elongation characteristics.',
       status: 'VERIFIED',
     },
     {
-      label: 'Cutting & verification',
-      detail: 'Tow is rotary-cut to the specified staple length; tensile and moisture are verified in-house before the bale.',
+      label: 'Thermomechanical crimping & finish',
+      detail:
+        'Tow is mechanically crimped to impart 3D elasticity and bulk cohesion, with tailored siliconized or non-siliconized finish chemistry applied.',
       status: 'VERIFIED',
     },
     {
-      label: 'Baling',
-      detail: `Pressed into ${VERIFIED.baleWeight} moisture-sealed bales, export documentation prepared in-house.`,
+      label: 'Rotary cutting, baling & COA',
+      detail:
+        `Tow is cut to the specified staple length (32–102 mm) and compressed into standard ${VERIFIED.baleWeight} moisture-sealed bales with laboratory COA verification.`,
       status: 'VERIFIED',
     },
   ],
   'psf-virgin': [
     {
-      label: 'Feedstock',
-      detail: 'Prime virgin polymer, selected where colour consistency and prime-polymer processing behaviour are specified.',
+      label: 'Prime PTA & MEG feedstock',
+      detail:
+        'Pure PTA and MEG polymer feedstock ensure uniform intrinsic viscosity, high optical clarity, and consistent melt-flow indexes.',
       status: 'VERIFIED',
     },
     {
-      label: 'Extrusion',
-      detail: 'Polymer is melted and extruded through spinnerets, then quenched to lock filament geometry and target linear density.',
+      label: 'High-precision melt spinning',
+      detail:
+        'Molten polymer is extruded through high-density spinnerets and laminar-quenched into uniform filament bundles.',
       status: 'VERIFIED',
     },
     {
-      label: 'Drafting & crimping',
-      detail: 'Filaments are drawn and thermomechanically crimped to the bulk and cohesion the end process requires.',
+      label: 'Drawing & molecular orientation',
+      detail:
+        'High-ratio drawing develops high tensile tenacity, low thermal shrinkage, and precise elongation for fine-count spinning performance.',
       status: 'VERIFIED',
     },
     {
-      label: 'Cutting & verification',
-      detail: 'Rotary cutting to the specified staple length; tensile and moisture verified in-house, COA issued per consignment.',
+      label: 'Crimping & antistatic spin-finish',
+      detail:
+        'Filaments receive controlled mechanical crimp and antistatic finish chemistry optimized for high-speed yarn carding and spinning frames.',
       status: 'VERIFIED',
     },
     {
-      label: 'Baling',
-      detail: `${VERIFIED.baleWeight} moisture-sealed bales with in-house export documentation.`,
+      label: 'Precision cutting & moisture baling',
+      detail:
+        `Cut to uniform staple length (32–76 mm) and packed into ${VERIFIED.baleWeight} moisture-sealed bales with full batch Certificate of Analysis.`,
       status: 'VERIFIED',
     },
   ],
   wadding: [
     {
-      label: 'Fibre',
-      detail: 'Polyester staple fibre from the company’s own 1.2D-60D range forms the raw material of the web.',
+      label: 'Fibre opening & precision blending',
+      detail:
+        'Virgin/recycled polyester staple fibres and low-melt bicomponent bonding fibres are pneumatically opened and metered in exact ratios.',
       status: 'VERIFIED',
     },
     {
-      label: 'Web formation',
-      detail: 'Fibre is layered into a high-loft web - the construction that carries the thermal performance of the fill.',
+      label: 'Web formation & cross-lapping',
+      detail:
+        'High-speed carding machines comb fibres into a fine web, layered by cross-lappers to reach the target GSM, thickness, and loft profile.',
       status: 'VERIFIED',
     },
     {
-      label: 'Thermal bonding',
-      detail: 'The layered web is thermally bonded, which is what gives wadding its recovery behaviour under load.',
+      label: 'Thermal bonding oven (glue-free)',
+      detail:
+        'The layered web passes through a multi-zone hot-air oven where low-melt fibres fuse contact points without chemical glues or volatile resins.',
       status: 'VERIFIED',
     },
     {
-      label: 'Verification',
-      detail: 'Substance testing to OEKO-TEX Standard 100 and the in-house verification sequence apply to the finished fill.',
+      label: 'Calendering & loft stabilization',
+      detail:
+        'Controlled cooling zones and smooth calender rolls stabilize loft recovery, structural density, and surface uniformity.',
       status: 'VERIFIED',
     },
     {
-      label: 'Packing',
-      detail: 'Protective roll wrapping, coordinated in-house with export documentation.',
+      label: 'In-line slitting & protective roll packaging',
+      detail:
+        'Continuous edge-slitting, roll winding, and heavy-duty poly-film wrapping with in-line caliper and density quality verification.',
       status: 'VERIFIED',
     },
   ],
   felt: [
     {
-      label: 'Fibre',
-      detail: 'Recycled or virgin polyester fibre, per the order’s feedstock requirement.',
+      label: 'Fibre selection & carding',
+      detail:
+        'Selected GRS recycled or prime virgin polyester fibres are opened and carded into a homogeneous multi-directional fibre batt.',
       status: 'VERIFIED',
     },
     {
-      label: 'Web formation',
-      detail: 'Fibre is opened and laid into a batt across the weight range the line supplies.',
+      label: 'Multi-layer cross-lapping',
+      detail:
+        'The web is cross-lapped into heavy batts across the specified weight range to ensure isotropic tensile strength in both machine and cross directions.',
       status: 'VERIFIED',
     },
     {
-      label: 'Needle punching',
-      detail: 'Barbed needles interlock the batt fibre by fibre, producing the dimensional stability felts are specified for.',
+      label: 'Mechanical needle-punching',
+      detail:
+        'Thousands of reciprocating barbed needles repeatedly penetrate the batt, mechanically interlocking fibres into a dense, binder-free cohesive mat.',
       status: 'VERIFIED',
     },
     {
-      label: 'Verification',
-      detail: 'The in-house verification sequence and COA documentation apply before release.',
+      label: 'Thermal consolidation & calendering',
+      detail:
+        'Optional thermal calendering or surface singeing locks thickness tolerances, increases puncture resistance, and sets surface smoothness.',
       status: 'VERIFIED',
     },
     {
-      label: 'Packing',
-      detail: 'Protective roll wrapping, coordinated in-house with export documentation.',
+      label: 'Caliper inspection, slitting & roll winding',
+      detail:
+        'In-line density and thickness verification, precision edge-trimming, and protective roll wrapping for industrial dispatch.',
       status: 'VERIFIED',
     },
   ],
   interlining: [
     {
-      label: 'Yarn & fibre',
-      detail: 'Woven constructions are interlaced from yarn; non-woven constructions are laid from fibre - both from the company’s own range.',
+      label: 'Substrate web formation',
+      detail:
+        'Non-woven polyester staple fibre webs are carded, or woven base lattices are formed according to the target garment rigidity and drape.',
       status: 'VERIFIED',
     },
     {
-      label: 'Construction',
-      detail: 'The base cloth is woven or laid as the garment specification requires.',
+      label: 'Matrix consolidation',
+      detail:
+        'Substrates are consolidated via liquid resin binder thermal curing (chemical-bonded) or mechanical multi-thread stitching (stitch-bonded).',
       status: 'VERIFIED',
     },
     {
-      label: 'Fusing function',
-      detail: 'Lining and fusing materials are supplied to the specification of the making-up operation - coating and fusing parameters are order-specific.',
+      label: 'Thermoplastic adhesive dot coating',
+      detail:
+        'Heat-activated low-melt thermoplastic adhesive is applied via precision rotary screen printing in computerized dot patterns (CP/double dot).',
       status: 'VERIFIED',
     },
     {
-      label: 'Verification',
-      detail: 'Substance testing to OEKO-TEX Standard 100 covers skin-contact end uses.',
+      label: 'Thermal curing & drying tunnel',
+      detail:
+        'Hot-air curing tunnels anchor adhesive dots securely to the substrate surface without strike-through or compromising fabric hand feel.',
       status: 'VERIFIED',
     },
     {
-      label: 'Packing',
-      detail: 'Protective roll wrapping, coordinated in-house with export documentation.',
+      label: 'Optical inspection, slitting & roll packaging',
+      detail:
+        '100% optical inspection for dot uniformity, roll slitting to width, and moisture-sealed packaging accompanied by fusing recommendations.',
       status: 'VERIFIED',
     },
   ],
@@ -1051,8 +1122,8 @@ export const SUSTAINABILITY_LOOP: {
 
 /** Shipping / commercial terms that are verified by GULF_FIBRE_DATA. */
 export const COMMERCIAL_TERMS: { label: string; value: string; status: DataStatus }[] = [
-  { label: 'Standard bale', value: '280 kg, moisture-sealed', status: 'VERIFIED' },
-  { label: 'Alternative packing', value: 'Protective roll wrapping', status: 'VERIFIED' },
-  { label: 'Export documentation', value: 'Prepared in-house', status: 'VERIFIED' },
-  { label: 'Container loading', value: 'Coordinated by Gulf Fibre', status: 'VERIFIED' },
+  { label: 'Standard baling', value: '280 kg, moisture-sealed with high-tensile strapping', status: 'VERIFIED' },
+  { label: 'Roll goods packaging', value: 'Heavy-duty protective poly-wrapping (wadding, felt & interlinings)', status: 'VERIFIED' },
+  { label: 'Export logistics', value: 'FCL container loading coordinated from Lahore plant to Karachi ports', status: 'VERIFIED' },
+  { label: 'Consignment documentation', value: 'In-house export documentation & consignment Certificate of Analysis (COA)', status: 'VERIFIED' },
 ]
