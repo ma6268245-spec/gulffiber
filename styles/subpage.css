@@ -325,9 +325,9 @@
 }
 .sp-root .sp-row-key {
   font-family: var(--font-sans);
-  font-size: 0.8125rem;
+  font-size: 0.875rem;
   font-weight: 800;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.05em;
   line-height: 1.4;
   text-transform: uppercase;
   color: var(--burg-primary);
@@ -834,7 +834,7 @@
   .sp-root .sp-lede { font-size: 0.9375rem; line-height: 1.6; }
   .sp-root .sp-body { font-size: 0.9375rem; line-height: 1.65; }
   .sp-root .sp-row-val { font-size: 0.9375rem; line-height: 1.55; }
-  .sp-root .sp-row-key { font-size: 0.75rem; }
+  .sp-root .sp-row-key { font-size: 0.8125rem; }
   .sp-root .sp-route__num { font-size: 0.75rem; }
   .sp-root .sp-route__label { font-size: 0.75rem; }
   .sp-root .sp-route__detail { font-size: 0.8125rem; }
