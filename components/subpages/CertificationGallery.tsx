@@ -462,7 +462,7 @@ export function CertificationGallery() {
         })}
       </div>
 
-      {/* ── FULL-SCREEN LIGHTBOX MODAL (Higher z-index, larger picture, compact sleek footer) ── */}
+      {/* ── FULL-SCREEN GLASSMORPHIC LIGHTBOX MODAL ───────────────────────── */}
       {open && (
         <div
           className="sp-lightbox"
@@ -474,255 +474,264 @@ export function CertificationGallery() {
             position: 'fixed',
             inset: 0,
             zIndex: 999999,
-            background: 'rgba(3, 10, 26, 0.96)',
-            backdropFilter: 'blur(20px)',
+            background: 'rgba(5, 12, 28, 0.76)',
+            backdropFilter: 'blur(28px) saturate(180%)',
+            WebkitBackdropFilter: 'blur(28px) saturate(180%)',
             display: 'flex',
+            flexDirection: 'column',
             alignItems: 'center',
             justifyContent: 'center',
-            padding: 'clamp(0.75rem, 2vw, 1.75rem)',
+            padding: 'clamp(1rem, 2.5vw, 2.5rem)',
           }}
         >
+          {/* Floating Top Header: Document Counter & Close Button */}
           <div
-            className="sp-lightbox__panel"
-            onClick={(e) => e.stopPropagation()}
             style={{
-              position: 'relative',
-              background: '#070E1C',
-              borderRadius: '20px',
-              maxWidth: '1080px',
-              width: '100%',
-              height: '92vh',
-              maxHeight: '92vh',
-              overflow: 'hidden',
+              position: 'fixed',
+              top: '1.25rem',
+              left: 'clamp(1rem, 3vw, 2.5rem)',
+              right: 'clamp(1rem, 3vw, 2.5rem)',
+              zIndex: 30,
               display: 'flex',
-              flexDirection: 'column',
-              boxShadow: '0 30px 90px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 255, 255, 0.1)',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              pointerEvents: 'none',
             }}
           >
-            {/* Header: Document Index & Close Button */}
             <div
               style={{
-                position: 'absolute',
-                top: '0.85rem',
-                left: '1rem',
-                right: '1rem',
-                zIndex: 20,
+                background: 'rgba(255, 255, 255, 0.12)',
+                color: '#FFFFFF',
+                fontSize: '0.8125rem',
+                fontWeight: 700,
+                padding: '0.45rem 1.15rem',
+                borderRadius: '9999px',
+                backdropFilter: 'blur(16px)',
+                WebkitBackdropFilter: 'blur(16px)',
+                border: '1px solid rgba(255, 255, 255, 0.22)',
+                boxShadow: '0 8px 24px rgba(0, 0, 0, 0.25)',
+                pointerEvents: 'auto',
                 display: 'flex',
                 alignItems: 'center',
-                justifyContent: 'space-between',
-                pointerEvents: 'none',
+                gap: '0.5rem',
               }}
             >
-              <span
-                style={{
-                  background: 'rgba(7, 14, 28, 0.88)',
-                  color: '#FFFFFF',
-                  fontSize: '0.75rem',
-                  fontWeight: 700,
-                  padding: '0.35rem 0.95rem',
-                  borderRadius: '9999px',
-                  backdropFilter: 'blur(8px)',
-                  border: '1px solid rgba(255, 255, 255, 0.2)',
-                  pointerEvents: 'auto',
-                }}
-              >
-                Document {openIdx! + 1} of {ENTRIES.length} · {open.code}
-              </span>
-
-              <button
-                ref={closeRef}
-                type="button"
-                className="sp-lightbox__close"
-                onClick={() => setOpenIdx(null)}
-                aria-label="Close document view"
-                style={{
-                  background: 'rgba(7, 14, 28, 0.88)',
-                  color: '#FFFFFF',
-                  border: '1px solid rgba(255, 255, 255, 0.2)',
-                  borderRadius: '50%',
-                  width: '38px',
-                  height: '38px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  cursor: 'pointer',
-                  pointerEvents: 'auto',
-                  transition: 'all 0.2s ease',
-                }}
-              >
-                {CLOSE}
-              </button>
+              <span style={{ color: '#93C5FD' }}>{open.code}</span>
+              <span style={{ opacity: 0.5 }}>·</span>
+              <span>Document {openIdx! + 1} of {ENTRIES.length}</span>
             </div>
 
-            {/* Document Viewer Container with Prev / Next buttons — Maximized Space */}
-            <div
-              className="sp-lightbox__media"
+            <button
+              ref={closeRef}
+              type="button"
+              className="sp-lightbox__close"
+              onClick={() => setOpenIdx(null)}
+              aria-label="Close document view"
               style={{
-                position: 'relative',
-                flex: '1 1 auto',
-                width: '100%',
-                height: '100%',
-                minHeight: 0,
-                background: '#070E1C',
+                background: 'rgba(255, 255, 255, 0.15)',
+                color: '#FFFFFF',
+                border: '1px solid rgba(255, 255, 255, 0.3)',
+                borderRadius: '50%',
+                width: '44px',
+                height: '44px',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                overflow: 'hidden',
-                padding: '3rem 1rem 1rem',
+                cursor: 'pointer',
+                pointerEvents: 'auto',
+                backdropFilter: 'blur(16px)',
+                WebkitBackdropFilter: 'blur(16px)',
+                boxShadow: '0 8px 24px rgba(0, 0, 0, 0.3)',
+                transition: 'all 0.2s ease',
               }}
             >
-              {/* Prev Button */}
-              <button
-                type="button"
-                onClick={goPrev}
-                aria-label="Previous Certificate"
+              {CLOSE}
+            </button>
+          </div>
+
+          {/* Floating Left Arrow */}
+          <button
+            type="button"
+            onClick={goPrev}
+            aria-label="Previous Certificate"
+            style={{
+              position: 'fixed',
+              left: 'clamp(0.75rem, 2vw, 2rem)',
+              top: '50%',
+              transform: 'translateY(-50%)',
+              zIndex: 25,
+              background: 'rgba(255, 255, 255, 0.12)',
+              color: '#FFFFFF',
+              border: '1px solid rgba(255, 255, 255, 0.25)',
+              borderRadius: '50%',
+              width: '50px',
+              height: '50px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              cursor: 'pointer',
+              backdropFilter: 'blur(16px)',
+              WebkitBackdropFilter: 'blur(16px)',
+              boxShadow: '0 8px 30px rgba(0, 0, 0, 0.35)',
+              transition: 'all 0.2s ease',
+            }}
+          >
+            {CHEVRON_LEFT}
+          </button>
+
+          {/* Floating Right Arrow */}
+          <button
+            type="button"
+            onClick={goNext}
+            aria-label="Next Certificate"
+            style={{
+              position: 'fixed',
+              right: 'clamp(0.75rem, 2vw, 2rem)',
+              top: '50%',
+              transform: 'translateY(-50%)',
+              zIndex: 25,
+              background: 'rgba(255, 255, 255, 0.12)',
+              color: '#FFFFFF',
+              border: '1px solid rgba(255, 255, 255, 0.25)',
+              borderRadius: '50%',
+              width: '50px',
+              height: '50px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              cursor: 'pointer',
+              backdropFilter: 'blur(16px)',
+              WebkitBackdropFilter: 'blur(16px)',
+              boxShadow: '0 8px 30px rgba(0, 0, 0, 0.35)',
+              transition: 'all 0.2s ease',
+            }}
+          >
+            {CHEVRON_RIGHT}
+          </button>
+
+          {/* Floating High-Resolution Certificate Document Canvas */}
+          <div
+            onClick={(e) => e.stopPropagation()}
+            style={{
+              position: 'relative',
+              width: '100%',
+              maxWidth: '860px',
+              height: 'calc(80vh - 40px)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              zIndex: 10,
+              filter: 'drop-shadow(0 25px 60px rgba(0, 0, 0, 0.65))',
+            }}
+          >
+            {open.asset ? (
+              <Image
+                src={open.asset}
+                alt={`${open.code} - ${open.name} official certificate document`}
+                fill
+                priority
+                sizes="(max-width: 1200px) 95vw, 860px"
                 style={{
-                  position: 'absolute',
-                  left: '1.25rem',
-                  top: '50%',
-                  transform: 'translateY(-50%)',
-                  zIndex: 15,
-                  background: 'rgba(255, 255, 255, 0.15)',
-                  color: '#FFFFFF',
-                  border: '1px solid rgba(255, 255, 255, 0.25)',
-                  borderRadius: '50%',
-                  width: '46px',
-                  height: '46px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  cursor: 'pointer',
-                  backdropFilter: 'blur(10px)',
-                  transition: 'all 0.2s ease',
+                  objectFit: 'contain',
+                  borderRadius: '6px',
                 }}
-              >
-                {CHEVRON_LEFT}
-              </button>
+              />
+            ) : null}
+          </div>
 
-              {/* Next Button */}
-              <button
-                type="button"
-                onClick={goNext}
-                aria-label="Next Certificate"
-                style={{
-                  position: 'absolute',
-                  right: '1.25rem',
-                  top: '50%',
-                  transform: 'translateY(-50%)',
-                  zIndex: 15,
-                  background: 'rgba(255, 255, 255, 0.15)',
-                  color: '#FFFFFF',
-                  border: '1px solid rgba(255, 255, 255, 0.25)',
-                  borderRadius: '50%',
-                  width: '46px',
-                  height: '46px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  cursor: 'pointer',
-                  backdropFilter: 'blur(10px)',
-                  transition: 'all 0.2s ease',
-                }}
-              >
-                {CHEVRON_RIGHT}
-              </button>
-
-              {open.asset ? (
-                <Image
-                  src={open.asset}
-                  alt={`${open.code} - ${open.name} official certificate document`}
-                  fill
-                  priority
-                  sizes="(max-width: 1200px) 100vw, 1100px"
-                  style={{ objectFit: 'contain', padding: '0.5rem' }}
-                />
-              ) : null}
-            </div>
-
-            {/* Document Details Footer — Sleek, Compact Low-Profile Bar */}
-            <div
-              className="sp-lightbox__caption"
-              style={{
-                flex: '0 0 auto',
-                padding: '0.75rem 1.5rem',
-                borderTop: '1px solid rgba(255, 255, 255, 0.12)',
-                background: '#FFFFFF',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-                gap: '1rem',
-                flexWrap: 'nowrap',
-              }}
-            >
-              <div style={{ flex: '1 1 auto', minWidth: 0 }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', marginBottom: '0.15rem' }}>
-                  <span
-                    style={{
-                      background: 'rgba(10, 75, 184, 0.12)',
-                      color: 'var(--burg-primary, #0A4BB8)',
-                      fontSize: '0.6875rem',
-                      fontWeight: 800,
-                      padding: '0.15rem 0.5rem',
-                      borderRadius: '4px',
-                      textTransform: 'uppercase',
-                      letterSpacing: '0.04em',
-                    }}
-                  >
-                    {open.code}
-                  </span>
-                  <h3
-                    style={{
-                      fontSize: '0.95rem',
-                      fontWeight: 800,
-                      margin: 0,
-                      color: 'var(--ink, #0F172A)',
-                      whiteSpace: 'nowrap',
-                      overflow: 'hidden',
-                      textOverflow: 'ellipsis',
-                    }}
-                  >
-                    {open.name}
-                  </h3>
-                </div>
-                <p
+          {/* Floating Frosted Glass Bottom Caption Bar */}
+          <div
+            onClick={(e) => e.stopPropagation()}
+            style={{
+              position: 'fixed',
+              bottom: '1.25rem',
+              left: '50%',
+              transform: 'translateX(-50%)',
+              zIndex: 30,
+              width: 'min(92vw, 860px)',
+              background: 'rgba(11, 20, 38, 0.82)',
+              backdropFilter: 'blur(24px)',
+              WebkitBackdropFilter: 'blur(24px)',
+              border: '1px solid rgba(255, 255, 255, 0.18)',
+              borderRadius: '16px',
+              padding: '0.75rem 1.4rem',
+              boxShadow: '0 16px 40px rgba(0, 0, 0, 0.45)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              gap: '1rem',
+            }}
+          >
+            <div style={{ flex: '1 1 auto', minWidth: 0 }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '0.2rem' }}>
+                <span
                   style={{
+                    background: 'rgba(59, 130, 246, 0.2)',
+                    color: '#93C5FD',
+                    border: '1px solid rgba(147, 197, 253, 0.3)',
+                    fontSize: '0.65rem',
+                    fontWeight: 800,
+                    padding: '0.15rem 0.5rem',
+                    borderRadius: '4px',
+                    letterSpacing: '0.05em',
+                    textTransform: 'uppercase',
+                  }}
+                >
+                  {open.code}
+                </span>
+                <h3
+                  style={{
+                    fontSize: '0.925rem',
+                    fontWeight: 800,
                     margin: 0,
-                    color: 'var(--muted, #64748B)',
-                    fontSize: '0.75rem',
-                    lineHeight: 1.35,
+                    color: '#FFFFFF',
                     whiteSpace: 'nowrap',
                     overflow: 'hidden',
                     textOverflow: 'ellipsis',
                   }}
                 >
-                  {open.what}
-                </p>
+                  {open.name}
+                </h3>
               </div>
-
-              {open.certNumber && (
-                <div
-                  style={{
-                    flex: '0 0 auto',
-                    background: '#F1F5F9',
-                    border: '1px solid #E2E8F0',
-                    borderRadius: '6px',
-                    padding: '0.35rem 0.65rem',
-                    textAlign: 'right',
-                  }}
-                >
-                  <div style={{ fontSize: '0.625rem', color: '#64748B', fontWeight: 600, textTransform: 'uppercase' }}>Ref Number</div>
-                  <div style={{ fontSize: '0.75rem', fontWeight: 800, color: 'var(--burg-primary, #0A4BB8)' }}>
-                    {open.certNumber}
-                  </div>
-                </div>
-              )}
+              <p
+                style={{
+                  margin: 0,
+                  color: 'rgba(255, 255, 255, 0.72)',
+                  fontSize: '0.72rem',
+                  lineHeight: 1.35,
+                  whiteSpace: 'nowrap',
+                  overflow: 'hidden',
+                  textOverflow: 'ellipsis',
+                }}
+              >
+                {open.what}
+              </p>
             </div>
+
+            {open.certNumber && (
+              <div
+                style={{
+                  flex: '0 0 auto',
+                  background: 'rgba(255, 255, 255, 0.08)',
+                  border: '1px solid rgba(255, 255, 255, 0.15)',
+                  borderRadius: '8px',
+                  padding: '0.35rem 0.75rem',
+                  textAlign: 'right',
+                }}
+              >
+                <div style={{ fontSize: '0.58rem', color: '#94A3B8', fontWeight: 600, textTransform: 'uppercase' }}>Ref Number</div>
+                <div style={{ fontSize: '0.75rem', fontWeight: 800, color: '#38BDF8' }}>
+                  {open.certNumber}
+                </div>
+              </div>
+            )}
           </div>
         </div>
       )}
     </>
   )
 }
+
 
 
 
