@@ -161,7 +161,7 @@ export const CHAT_INTENTS: ChatIntent[] = [
       'oeko-tex', 'standard 100', 'lcci', 'audit', 'compliance', 'accredited',
     ],
     answer: () =>
-      `Four registrations are held: ${CERTIFICATION_DETAIL.map((c) => c.code).join(', ')}. ISO 9001:2015 governs process control and traceability, GRS verifies recycled content and chain of custody, OEKO-TEX Standard 100 covers harmful-substance testing, and LCCI is a trade-body membership. Certificate documents are supplied against request through the contact desk.`,
+      `Five official registrations and environmental approvals are held: ${CERTIFICATION_DETAIL.map((c) => c.code).join(', ')}. ISO 9001:2015 governs process control and export quality, GRS 4.0 verifies recycled content and chain of custody, OEKO-TEX Standard 100 covers harmful-substance testing (Class I baby articles), EPA Punjab grants operational environmental approval for PET recycling, and LCCI is our registered trade-body membership.`,
     cards: CERT_CARDS,
     suggestions: [
       { label: 'How is recycled content verified?', query: 'How is recycled content verified?' },

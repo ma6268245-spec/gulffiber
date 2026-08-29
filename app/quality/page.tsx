@@ -15,6 +15,7 @@ import {
   SpecRows,
 } from '@/components/subpages/Primitives'
 import { useSectionReveal } from '@/components/subpages/useSectionReveal'
+import { CertificationGallery } from '@/components/subpages/CertificationGallery'
 import { CERTIFICATION_DETAIL, PROCESS_STAGES, QA_DISCIPLINES, VERIFIED } from '@/lib/data/company'
 
 /**
@@ -23,17 +24,7 @@ import { CERTIFICATION_DETAIL, PROCESS_STAGES, QA_DISCIPLINES, VERIFIED } from '
  * Design: the approved homepage's own grammar - ivory and white sections,
  * sapphire eyebrows with the star glyph, 900-weight uppercase headings with a
  * Cormorant italic accent, white hairline cards, hairline stat strips, one dark
- * band for the process sequence. No new design language, no mono face, no
- * blueprint or coordinate markers. The homepage itself is untouched.
- *
- * Data: the previously published page asserted test methods and tolerances that
- * are nowhere in this repository - ASTM D1577 at +/-0.05 D, ISO 5079 above
- * 5.5 cN/dtex, ASTM D3822, JIS L1015, ASTM D5104, a spin-finish (OPU) window,
- * a "Karachi manufacturing facility", and four invented status pills
- * ("Active & Verified", "Certified Recycled", "Skin-Contact Safe", "Corporate
- * Member"). Those were removed rather than restated: a tolerance a buyer cannot
- * hold a supplier to is worse than no tolerance at all. Where a real document
- * or figure belongs, this page renders a labelled slot instead.
+ * band for the process sequence.
  */
 export default function QualityPage() {
   const scope = useRef<HTMLDivElement>(null)
@@ -45,7 +36,7 @@ export default function QualityPage() {
         <PageHero
           eyebrow="Quality & Compliance"
           lines={[{ text: 'Certified by' }, { text: 'document,' }, { text: 'not by adjective', serif: true }]}
-          lede="Four accredited and institutional registrations, an in-house verification sequence, and a Certificate of Analysis against which a receiving mill can reconcile every consignment."
+          lede="Five accredited and institutional registrations, an in-house verification sequence, and a Certificate of Analysis against which a receiving mill can reconcile every consignment."
           meta={[
             { label: 'Registrations', value: VERIFIED.certificationCount },
             { label: 'Established', value: String(VERIFIED.established) },
@@ -71,42 +62,19 @@ export default function QualityPage() {
         {/* ── Registrations ─────────────────────────────────────────────── */}
         <section className="section-pad" data-sp-section style={{ background: 'var(--white)' }}>
           <div className="container">
-            <div className="sp-anim">
+            <div className="sp-anim" style={{ marginBottom: '2.5rem' }}>
               <SectionHead
-                eyebrow="Registrations"
+                eyebrow="Registrations & Scans"
                 title="What we hold,"
                 em="and what each one covers"
-                lede="Each entry below states its own scope. Nothing is described as a guarantee of a property it does not test, and the trade membership is labelled as a membership rather than a certification."
+                lede="Five verified statutory registrations and environmental permits. Click any document below to open high-resolution full-screen viewing."
                 link="/contact"
-                linkLabel="Ask for certificates"
+                linkLabel="Ask for certified copies"
               />
             </div>
 
-            <div className="sp-grid-2">
-              {CERTIFICATION_DETAIL.map((c) => (
-                <div className="sp-anim" key={c.code}>
-                  <InfoCard
-                    category={c.scope}
-                    title={`${c.code} - ${c.name}`}
-                    body={c.what}
-                    footKey={c.kind === 'ACCREDITED_CERTIFICATION' ? 'Accredited certification' : 'Trade association'}
-                    footValue={<Provenance status={c.status} />}
-                  />
-                </div>
-              ))}
-            </div>
-
-            <div className="sp-grid-2 sp-anim" style={{ marginTop: '1.5rem' }}>
-              <DataSlot
-                title="Certificate documents"
-                note="Certificate numbers, issuing bodies, scopes and expiry dates are not recorded in this repository. Supply the certificate PDFs and this panel becomes a downloadable, dated register."
-                minHeight="11rem"
-              />
-              <DataSlot
-                title="Test method and tolerance matrix"
-                note="Method references and agreed tolerances per product line belong here. None are verified in this repository, so none are printed - a published tolerance a buyer cannot hold us to is worse than no tolerance at all."
-                minHeight="11rem"
-              />
+            <div className="sp-anim">
+              <CertificationGallery />
             </div>
           </div>
         </section>

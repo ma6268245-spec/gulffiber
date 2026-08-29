@@ -60,6 +60,7 @@ export const GULF_FIBRE_DATA: CompanyData = {
     { name: 'GRS (Global Recycled Standard)', type: 'ACCREDITED_CERTIFICATION', status: 'VERIFIED' },
     { name: 'OEKO-TEX Standard 100', type: 'ACCREDITED_CERTIFICATION', status: 'VERIFIED' },
     { name: 'Membership Certificate of Lahore Chamber of Commerce & Industry (LCCI)', type: 'TRADE_ASSOCIATION', status: 'VERIFIED' },
+    { name: 'Environmental Approval (EPA Punjab)', type: 'ACCREDITED_CERTIFICATION', status: 'VERIFIED' },
   ],
 }
 
@@ -105,7 +106,7 @@ export const VERIFIED = {
   customersValue: 350,
   workforce: '250+',
   workforceValue: 250,
-  certificationCount: '4+',
+  certificationCount: '5+',
   denierRange: '1.2D - 60D',
   denierMin: 1.2,
   denierMax: 60,
@@ -158,52 +159,67 @@ export const PROCESS_STAGES: {
 /** Capability spine for /services. Source: GULF_FIBRE_DATA.capabilities. */
 export const SERVICE_CAPABILITIES = GULF_FIBRE_DATA.capabilities
 
-/** Certification detail for /quality. Names verified; copy is descriptive only. */
+/** Certification detail for /quality and /company. Verified from original official certificates. */
 export const CERTIFICATION_DETAIL: {
   code: string
   name: string
+  certNumber?: string
   scope: string
   what: string
   kind: 'ACCREDITED_CERTIFICATION' | 'TRADE_ASSOCIATION'
   status: DataStatus
 }[] = [
-    {
-      code: 'ISO 9001:2015',
-      name: 'Quality Management System',
-      scope: 'Process control, traceability and continuous improvement',
-      what:
-        'A certified management system governs how specifications are agreed, how production is controlled, and how deviations are recorded and corrected.',
-      kind: 'ACCREDITED_CERTIFICATION',
-      status: 'VERIFIED',
-    },
-    {
-      code: 'GRS',
-      name: 'Global Recycled Standard',
-      scope: 'Recycled content and chain of custody',
-      what:
-        'Recycled input is verified and tracked through the supply chain, so a buyer can substantiate recycled-content claims on their own product.',
-      kind: 'ACCREDITED_CERTIFICATION',
-      status: 'VERIFIED',
-    },
-    {
-      code: 'OEKO-TEX 100',
-      name: 'Standard 100',
-      scope: 'Harmful-substance testing for textile articles',
-      what:
-        'Material is tested against the Standard 100 criteria for regulated substances, which matters for fill, wadding and lining in skin-contact end uses.',
-      kind: 'ACCREDITED_CERTIFICATION',
-      status: 'VERIFIED',
-    },
-    {
-      code: 'LCCI',
-      name: 'Lahore Chamber of Commerce & Industry',
-      scope: 'Corporate membership',
-      what:
-        'Membership of the chamber that issues and attests commercial trade documentation for member manufacturers.',
-      kind: 'TRADE_ASSOCIATION',
-      status: 'VERIFIED',
-    },
-  ]
+  {
+    code: 'ISO 9001:2015',
+    name: 'Quality Management System (QMS)',
+    certNumber: 'SMS-MSC-22422 (Reg: SMS-2022322)',
+    scope: 'Manufacturing & Export of Recycled Polyester Fiber',
+    what:
+      'Certified quality management under Sustainable Management System Inc. (SMS) / ASCB / IRQAO, governing process control, raw material batching, and global export quality assurance.',
+    kind: 'ACCREDITED_CERTIFICATION',
+    status: 'VERIFIED',
+  },
+  {
+    code: 'GRS',
+    name: 'Global Recycled Standard (GRS 4.0)',
+    certNumber: 'CU1068996GRS-2026-00014625',
+    scope: '100% Post-Consumer Recycled PET Flake, Dyed & Undyed Fibres',
+    what:
+      'Certified by Control Union Certifications B.V. (Netherlands) under License CB-CUC-1068996 / TE-00005889, verifying mechanical recycling, dyeing, and full chain-of-custody compliance.',
+    kind: 'ACCREDITED_CERTIFICATION',
+    status: 'VERIFIED',
+  },
+  {
+    code: 'OEKO-TEX 100',
+    name: 'OEKO-TEX® Standard 100 (Class I)',
+    certNumber: 'Certificate 2023OK2168 (AITEX)',
+    scope: '100% Recycled Polyester Staple Fibre (White, Green, Black)',
+    what:
+      'Certified under Product Class I (baby articles / sensitive skin contact), confirming zero harmful substances or restricted chemical residues across post-consumer PET staple fibre production.',
+    kind: 'ACCREDITED_CERTIFICATION',
+    status: 'VERIFIED',
+  },
+  {
+    code: 'LCCI',
+    name: 'Lahore Chamber of Commerce & Industry',
+    certNumber: 'Membership No. 52097_C (GST: 0301550300237 · NTN: 2143131-7)',
+    scope: 'Corporate Member & Registered Exporter (Since 2004)',
+    what:
+      'Active manufacturing member firm of the Lahore Chamber of Commerce & Industry, attesting international export origin and official commercial trade documentation.',
+    kind: 'TRADE_ASSOCIATION',
+    status: 'VERIFIED',
+  },
+  {
+    code: 'EPA Punjab',
+    name: 'Environmental Protection Agency Approval',
+    certNumber: 'Letter No. AD(EIA)/EPA/F-444(IEE)/2018/254',
+    scope: 'Operational Environmental Approval for PET Bottle Crushing & Processing',
+    what:
+      'Official statutory operational approval granted by Government of the Punjab EPA, validating clean industrial recycling compliance and sustainable waste diversion.',
+    kind: 'ACCREDITED_CERTIFICATION',
+    status: 'VERIFIED',
+  },
+]
 
 /** Product lines for /products. Verified attributes only; specs are slots. */
 export interface ProductLine {
@@ -740,12 +756,13 @@ export const ORG_TREE_DATA: OrgNode[] = [
   },
 ]
 
-/** Certificate artwork per registration. Only the ISO seal exists today. */
+/** Official Certificate Document Scans per registration. */
 export const CERT_ASSETS: Record<string, string | null> = {
-  'ISO 9001:2015': '/images/iso-9001-seal-v2.png',
-  GRS: null,
-  'OEKO-TEX 100': null,
-  LCCI: null,
+  'ISO 9001:2015': '/images/certificates/iso-9001-2015-certificate.jpg',
+  GRS: '/images/certificates/grs-scope-certificate-page1.jpg',
+  'OEKO-TEX 100': '/images/certificates/oeko-tex-standard-100-certificate.jpg',
+  LCCI: '/images/certificates/lcci-membership-certificate.jpg',
+  'EPA Punjab': '/images/certificates/epa-punjab-environmental-approval.jpg',
 }
 
 /* ===========================================================================
