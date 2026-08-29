@@ -148,14 +148,34 @@ gulf-fibre/
 ---
 
 ### 2. Products Page (`/products` — `app/products/page.tsx`)
-* **Role**: Comprehensive technical catalog covering all 5 product lines.
-* **Interactive Features**:
-  - **Editorial Index**: Quick jump navigation across all 5 divisions.
-  - **Per-Line Deep Dives**: Sticky specification aside + interactive 3D material scene (`bundle`, `loft`, `felt`, `weave`).
-  - **Manufacturing Route Ladders**: Step-by-step route cards (`PRODUCT_ROUTES`) for each material.
-  - **Pinned "How It's Made" Chapter (`ProcessScrollChapter`)**: 380vh dark scroll-pinned chapter that animates the 4 manufacturing stages in parametric 3D.
-  - **Company Film**: Interactive documentary player with on-demand video loading.
-  - **Commercial Terms**: Packing, baling (280 kg), and container logistics specifications.
+* **Role**: Comprehensive technical catalog and engineering showcase covering all 5 manufacturing divisions.
+* **Component Architecture & Section Hierarchy**:
+  1. **Hero Header (`PageHero`)**:
+     - *Eyebrow*: `Product Portfolio` with star glyph.
+     - *Headline*: `Five lines, one specification discipline` (with Cormorant serif accent).
+     - *Background*: HD loop `/videos/product-hero.mp4` with glassmorphic dark overlay.
+     - *Verified Stat Badges*: Denier range (`1.2D – 60D`), Annual capacity (`36,000+ MT`), Product lines (`5`), Customers served (`100+ mills`).
+     - *Call to Action*: Direct link to `/contact` for quotation submission.
+  2. **Section 01 · Editorial Collection Index (`The Collection`)**:
+     - Numbered 2-digit index rows (`01` to `05`) with smooth anchor navigation (`#psf-regenerated`, `#psf-virgin`, `#wadding`, `#felt`, `#interlining`).
+     - Displays line code, full title, subtitle, and chevron indicator.
+  3. **Section 02 · Line-by-Line Deep Dives (5 Distinct Divisions)**:
+     - **Specification Aside (`.sp-deep__aside`)**: Line code badge, H2 title, positioning lede, verified technical attributes table (`SpecRows`), application chips (`p.appliedIn`), and direct inquiry button with provenance badge.
+     - **Interactive 3D Material Scene (`ScrollProductScene`)**: Scroll-scrubbed parametric WebGL visual demonstrating unique line behavior:
+       - `psf-regenerated` & `psf-virgin`: `bundle` (opens baled fibre bundle and crimped cross-section).
+       - `wadding`: `loft` (thermal-bonded loft expansion and elasticity recovery).
+       - `felt`: `felt` (loose fibre interlocking into needle-punched mat).
+       - `interlining`: `weave` (warp and weft lattice locking into woven/fusible sheet).
+     - **Production Photo & Technical Sheet**: High-definition factory imagery and spec parameters.
+     - **Manufacturing Route Ladder (`.sp-route`)**: Step-by-step station journey (`PRODUCT_ROUTES`) detailing exact machinery and quality checkpoints per line.
+  4. **Section 03 · Pinned 3D Manufacturing Chapter (`ProcessScrollChapter`)**:
+     - 380vh dark scroll-pinned chapter that animates the 4 extrusion stages in real-time WebGL (Sorting → Extrusion → Drawing/Crimping → Baling).
+  5. **Section 04 · Inside The Plant Factory Showcase (`CompanyVideoScrollStory`)**:
+     - Dual video player showcasing real factory operations and high-precision spinning line machinery with independent audio/play toggles.
+  6. **Section 05 · Commercial Supply & Logistics Terms (`sp-dark`)**:
+     - Standard 280 kg moisture-sealed baling, container stuffing limits (up to 25 MT per 40HC), and in-house COA export documentation.
+  7. **Section 06 · Commercial Close**:
+     - High-impact closing statement (`Tell us the count. We will quote the bale.`) and quotation CTA.
 
 ---
 
