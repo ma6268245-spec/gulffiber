@@ -462,7 +462,7 @@ export function CertificationGallery() {
         })}
       </div>
 
-      {/* ── FULL-SCREEN NEUTRAL TRANSLUCENT LIGHTBOX (Shows Background Clearly with Soft Blur) ── */}
+      {/* ── FULL-SCREEN NEUTRAL TRANSLUCENT LIGHTBOX (Properly Sized to Fit Screen) ── */}
       {open && (
         <div
           className="sp-lightbox"
@@ -473,22 +473,23 @@ export function CertificationGallery() {
           style={{
             position: 'fixed',
             inset: 0,
-            zIndex: 999999,
-            background: 'rgba(0, 0, 0, 0.38)',
+            zIndex: 9999999,
+            background: 'rgba(0, 0, 0, 0.45)',
             backdropFilter: 'blur(10px)',
             WebkitBackdropFilter: 'blur(10px)',
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
             justifyContent: 'center',
-            padding: 'clamp(1rem, 2vw, 2.5rem)',
+            padding: '1rem',
+            overflow: 'hidden',
           }}
         >
           {/* Floating Top Header: Document Counter & Close Button */}
           <div
             style={{
               position: 'fixed',
-              top: '1.25rem',
+              top: '1rem',
               left: 'clamp(1rem, 3vw, 2.5rem)',
               right: 'clamp(1rem, 3vw, 2.5rem)',
               zIndex: 30,
@@ -500,23 +501,23 @@ export function CertificationGallery() {
           >
             <div
               style={{
-                background: 'rgba(0, 0, 0, 0.65)',
+                background: 'rgba(0, 0, 0, 0.72)',
                 color: '#FFFFFF',
-                fontSize: '0.8125rem',
+                fontSize: '0.75rem',
                 fontWeight: 700,
-                padding: '0.45rem 1.15rem',
+                padding: '0.35rem 0.95rem',
                 borderRadius: '9999px',
                 backdropFilter: 'blur(12px)',
                 WebkitBackdropFilter: 'blur(12px)',
                 border: '1px solid rgba(255, 255, 255, 0.25)',
-                boxShadow: '0 8px 24px rgba(0, 0, 0, 0.25)',
+                boxShadow: '0 4px 16px rgba(0, 0, 0, 0.3)',
                 pointerEvents: 'auto',
                 display: 'flex',
                 alignItems: 'center',
-                gap: '0.5rem',
+                gap: '0.45rem',
               }}
             >
-              <span style={{ color: '#F1F5F9', fontWeight: 800 }}>{open.code}</span>
+              <span style={{ color: '#F8FAFC', fontWeight: 800 }}>{open.code}</span>
               <span style={{ opacity: 0.4 }}>·</span>
               <span style={{ color: '#E2E8F0' }}>Document {openIdx! + 1} of {ENTRIES.length}</span>
             </div>
@@ -528,12 +529,12 @@ export function CertificationGallery() {
               onClick={() => setOpenIdx(null)}
               aria-label="Close document view"
               style={{
-                background: 'rgba(0, 0, 0, 0.65)',
+                background: 'rgba(0, 0, 0, 0.72)',
                 color: '#FFFFFF',
                 border: '1px solid rgba(255, 255, 255, 0.3)',
                 borderRadius: '50%',
-                width: '44px',
-                height: '44px',
+                width: '38px',
+                height: '38px',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
@@ -541,7 +542,7 @@ export function CertificationGallery() {
                 pointerEvents: 'auto',
                 backdropFilter: 'blur(12px)',
                 WebkitBackdropFilter: 'blur(12px)',
-                boxShadow: '0 8px 24px rgba(0, 0, 0, 0.3)',
+                boxShadow: '0 4px 16px rgba(0, 0, 0, 0.3)',
                 transition: 'all 0.2s ease',
               }}
             >
@@ -556,7 +557,7 @@ export function CertificationGallery() {
             aria-label="Previous Certificate"
             style={{
               position: 'fixed',
-              left: 'clamp(0.75rem, 2vw, 2rem)',
+              left: 'clamp(0.5rem, 1.5vw, 1.5rem)',
               top: '50%',
               transform: 'translateY(-50%)',
               zIndex: 25,
@@ -564,15 +565,15 @@ export function CertificationGallery() {
               color: '#FFFFFF',
               border: '1px solid rgba(255, 255, 255, 0.25)',
               borderRadius: '50%',
-              width: '50px',
-              height: '50px',
+              width: '44px',
+              height: '44px',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               cursor: 'pointer',
               backdropFilter: 'blur(12px)',
               WebkitBackdropFilter: 'blur(12px)',
-              boxShadow: '0 8px 30px rgba(0, 0, 0, 0.35)',
+              boxShadow: '0 6px 20px rgba(0, 0, 0, 0.35)',
               transition: 'all 0.2s ease',
             }}
           >
@@ -586,7 +587,7 @@ export function CertificationGallery() {
             aria-label="Next Certificate"
             style={{
               position: 'fixed',
-              right: 'clamp(0.75rem, 2vw, 2rem)',
+              right: 'clamp(0.5rem, 1.5vw, 1.5rem)',
               top: '50%',
               transform: 'translateY(-50%)',
               zIndex: 25,
@@ -594,137 +595,142 @@ export function CertificationGallery() {
               color: '#FFFFFF',
               border: '1px solid rgba(255, 255, 255, 0.25)',
               borderRadius: '50%',
-              width: '50px',
-              height: '50px',
+              width: '44px',
+              height: '44px',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               cursor: 'pointer',
               backdropFilter: 'blur(12px)',
               WebkitBackdropFilter: 'blur(12px)',
-              boxShadow: '0 8px 30px rgba(0, 0, 0, 0.35)',
+              boxShadow: '0 6px 20px rgba(0, 0, 0, 0.35)',
               transition: 'all 0.2s ease',
             }}
           >
             {CHEVRON_RIGHT}
           </button>
 
-          {/* Floating High-Resolution Certificate Document Canvas */}
+          {/* ── CENTRAL FLOATING CONTAINER (Scaled to fit viewport perfectly) ── */}
           <div
             onClick={(e) => e.stopPropagation()}
             style={{
               position: 'relative',
-              width: '100%',
-              maxWidth: '860px',
-              height: 'calc(82vh - 40px)',
+              width: 'min(90vw, 580px)',
               display: 'flex',
+              flexDirection: 'column',
               alignItems: 'center',
-              justifyContent: 'center',
               zIndex: 10,
-              filter: 'drop-shadow(0 20px 50px rgba(0, 0, 0, 0.5))',
             }}
           >
-            {open.asset ? (
-              <Image
-                src={open.asset}
-                alt={`${open.code} - ${open.name} official certificate document`}
-                fill
-                priority
-                sizes="(max-width: 1200px) 95vw, 860px"
-                style={{
-                  objectFit: 'contain',
-                  borderRadius: '4px',
-                }}
-              />
-            ) : null}
-          </div>
-
-          {/* Floating Frosted Bottom Caption Bar (Neutral Glass) */}
-          <div
-            onClick={(e) => e.stopPropagation()}
-            style={{
-              position: 'fixed',
-              bottom: '1.25rem',
-              left: '50%',
-              transform: 'translateX(-50%)',
-              zIndex: 30,
-              width: 'min(92vw, 860px)',
-              background: 'rgba(15, 23, 42, 0.85)',
-              backdropFilter: 'blur(16px)',
-              WebkitBackdropFilter: 'blur(16px)',
-              border: '1px solid rgba(255, 255, 255, 0.2)',
-              borderRadius: '14px',
-              padding: '0.75rem 1.4rem',
-              boxShadow: '0 16px 40px rgba(0, 0, 0, 0.4)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              gap: '1rem',
-            }}
-          >
-            <div style={{ flex: '1 1 auto', minWidth: 0 }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '0.15rem' }}>
-                <span
+            {/* High-Resolution Certificate Document Canvas (Height bounded so it never clips) */}
+            <div
+              style={{
+                position: 'relative',
+                width: '100%',
+                height: 'min(62vh, 480px)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                filter: 'drop-shadow(0 16px 40px rgba(0, 0, 0, 0.55))',
+              }}
+            >
+              {open.asset ? (
+                <Image
+                  src={open.asset}
+                  alt={`${open.code} - ${open.name} official certificate document`}
+                  fill
+                  priority
+                  sizes="(max-width: 768px) 90vw, 580px"
                   style={{
-                    background: 'rgba(255, 255, 255, 0.15)',
-                    color: '#FFFFFF',
-                    border: '1px solid rgba(255, 255, 255, 0.3)',
-                    fontSize: '0.65rem',
-                    fontWeight: 800,
-                    padding: '0.15rem 0.5rem',
+                    objectFit: 'contain',
                     borderRadius: '4px',
-                    letterSpacing: '0.05em',
-                    textTransform: 'uppercase',
                   }}
-                >
-                  {open.code}
-                </span>
-                <h3
+                />
+              ) : null}
+            </div>
+
+            {/* Floating Frosted Bottom Caption Bar (Compact & fits screen cleanly) */}
+            <div
+              style={{
+                marginTop: '0.75rem',
+                width: '100%',
+                background: 'rgba(15, 23, 42, 0.88)',
+                backdropFilter: 'blur(16px)',
+                WebkitBackdropFilter: 'blur(16px)',
+                border: '1px solid rgba(255, 255, 255, 0.2)',
+                borderRadius: '12px',
+                padding: '0.6rem 1rem',
+                boxShadow: '0 12px 30px rgba(0, 0, 0, 0.4)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                gap: '0.75rem',
+              }}
+            >
+              <div style={{ flex: '1 1 auto', minWidth: 0 }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.15rem' }}>
+                  <span
+                    style={{
+                      background: 'rgba(255, 255, 255, 0.15)',
+                      color: '#FFFFFF',
+                      border: '1px solid rgba(255, 255, 255, 0.3)',
+                      fontSize: '0.625rem',
+                      fontWeight: 800,
+                      padding: '0.12rem 0.45rem',
+                      borderRadius: '4px',
+                      letterSpacing: '0.04em',
+                      textTransform: 'uppercase',
+                    }}
+                  >
+                    {open.code}
+                  </span>
+                  <h3
+                    style={{
+                      fontSize: '0.85rem',
+                      fontWeight: 800,
+                      margin: 0,
+                      color: '#FFFFFF',
+                      whiteSpace: 'nowrap',
+                      overflow: 'hidden',
+                      textOverflow: 'ellipsis',
+                    }}
+                  >
+                    {open.name}
+                  </h3>
+                </div>
+                <p
                   style={{
-                    fontSize: '0.925rem',
-                    fontWeight: 800,
                     margin: 0,
-                    color: '#FFFFFF',
+                    color: 'rgba(255, 255, 255, 0.72)',
+                    fontSize: '0.6875rem',
+                    lineHeight: 1.3,
                     whiteSpace: 'nowrap',
                     overflow: 'hidden',
                     textOverflow: 'ellipsis',
                   }}
                 >
-                  {open.name}
-                </h3>
+                  {open.what}
+                </p>
               </div>
-              <p
-                style={{
-                  margin: 0,
-                  color: 'rgba(255, 255, 255, 0.75)',
-                  fontSize: '0.72rem',
-                  lineHeight: 1.35,
-                  whiteSpace: 'nowrap',
-                  overflow: 'hidden',
-                  textOverflow: 'ellipsis',
-                }}
-              >
-                {open.what}
-              </p>
-            </div>
 
-            {open.certNumber && (
-              <div
-                style={{
-                  flex: '0 0 auto',
-                  background: 'rgba(255, 255, 255, 0.1)',
-                  border: '1px solid rgba(255, 255, 255, 0.2)',
-                  borderRadius: '6px',
-                  padding: '0.35rem 0.75rem',
-                  textAlign: 'right',
-                }}
-              >
-                <div style={{ fontSize: '0.58rem', color: '#CBD5E1', fontWeight: 600, textTransform: 'uppercase' }}>Ref Number</div>
-                <div style={{ fontSize: '0.75rem', fontWeight: 800, color: '#FFFFFF' }}>
-                  {open.certNumber}
+              {open.certNumber && (
+                <div
+                  style={{
+                    flex: '0 0 auto',
+                    background: 'rgba(255, 255, 255, 0.08)',
+                    border: '1px solid rgba(255, 255, 255, 0.15)',
+                    borderRadius: '6px',
+                    padding: '0.25rem 0.6rem',
+                    textAlign: 'right',
+                  }}
+                >
+                  <div style={{ fontSize: '0.52rem', color: '#94A3B8', fontWeight: 600, textTransform: 'uppercase' }}>Ref Number</div>
+                  <div style={{ fontSize: '0.7rem', fontWeight: 800, color: '#FFFFFF' }}>
+                    {open.certNumber}
+                  </div>
                 </div>
-              </div>
-            )}
+              )}
+            </div>
           </div>
         </div>
       )}
