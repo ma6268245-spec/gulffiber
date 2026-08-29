@@ -74,17 +74,28 @@ export default function CompanyPage() {
         {/* ── 02 · WHO WE ARE ───────────────────────────────────────────── */}
         <section className="section-pad" data-sp-section style={{ background: 'var(--white)' }}>
           <div className="container">
-            <div className="sp-split">
-              <div className="sp-anim">
-                <SectionHead
-                  eyebrow="02 · Who We Are"
-                  title="A fibre manufacturer,"
-                  em="not a trading house"
-                />
-                <p className="sp-body" style={{ marginBottom: '1.25rem' }}>
-                  Material is produced on our own extrusion and carding lines, verified in-house and documented before dispatch. That is the difference a procurement team feels when a specification has to hold across repeat orders rather than a single shipment.
-                </p>
-                <p className="sp-body" style={{ marginBottom: '1.75rem', color: 'var(--muted)' }}>
+            <div className="sp-anim">
+              <SectionHead
+                eyebrow="02 · Who We Are"
+                title="A fibre manufacturer,"
+                em="not a trading house"
+                lede="Material is produced on our own extrusion and carding lines, verified in-house and documented before dispatch. That is the difference a procurement team feels when a specification has to hold across repeat orders rather than a single shipment."
+                stacked
+              />
+            </div>
+
+            <div
+              className="sp-anim"
+              style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+                gap: 'clamp(2rem, 4vw, 3.5rem)',
+                alignItems: 'start',
+              }}
+            >
+              {/* Left Column: Specifications & Provenance */}
+              <div>
+                <p className="sp-body" style={{ marginBottom: '1.5rem', color: 'var(--muted)', fontSize: '0.9375rem', lineHeight: 1.7 }}>
                   Our sustainability philosophy pairs recycled post-consumer PET flake with high-tensile processing, diverting plastic waste from landfills and transforming it into commercial-grade fibres for spinning, bedding, automotive, and nonwovens.
                 </p>
                 <SpecRows
@@ -102,45 +113,80 @@ export default function CompanyPage() {
                 </div>
               </div>
 
-              <div className="sp-anim" style={{ display: 'grid', gap: '1.5rem' }}>
-                <div className="sp-panel" style={{ background: 'var(--card-bg)', border: '1px solid var(--border-light)', borderRadius: '20px', padding: '1.75rem' }}>
-                  <h3 style={{ fontSize: '0.8125rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--burg-primary)', marginBottom: '1.25rem' }}>
-                    Industrial Scale & Supply Discipline
-                  </h3>
-                  <div className="sp-grid-2">
-                    <div>
-                      <p className="sp-stat-num" style={{ marginBottom: '0.35rem' }}>
-                        <Counter end={VERIFIED.annualCapacityValue} comma suffix=" MT" />
-                      </p>
-                      <p className="sp-stat-label">Annual production output</p>
-                    </div>
-                    <div>
-                      <p className="sp-stat-num" style={{ marginBottom: '0.35rem' }}>
-                        <Counter end={VERIFIED.customersValue} suffix="+" />
-                      </p>
-                      <p className="sp-stat-label">Industrial customers</p>
-                    </div>
-                    <div style={{ marginTop: '1.5rem' }}>
-                      <p className="sp-stat-num" style={{ marginBottom: '0.35rem' }}>
-                        <Counter end={VERIFIED.workforceValue} suffix="+" />
-                      </p>
-                      <p className="sp-stat-label">Specialist workforce</p>
-                    </div>
-                    <div style={{ marginTop: '1.5rem' }}>
-                      <p className="sp-stat-num" style={{ marginBottom: '0.35rem' }}>
-                        {VERIFIED.denierRange}
-                      </p>
-                      <p className="sp-stat-label">Denier range manufactured</p>
-                    </div>
+              {/* Right Column: Industrial Scale & Supply Discipline Card */}
+              <div
+                style={{
+                  background: 'var(--card-bg)',
+                  border: '1px solid var(--border-light)',
+                  borderRadius: '20px',
+                  padding: 'clamp(1.75rem, 3vw, 2.25rem)',
+                  boxShadow: '0 10px 30px rgba(10, 75, 184, 0.04)',
+                }}
+              >
+                <h3
+                  style={{
+                    fontSize: '0.8125rem',
+                    fontWeight: 800,
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.08em',
+                    color: 'var(--burg-primary)',
+                    marginBottom: '1.75rem',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '0.5rem',
+                  }}
+                >
+                  <span style={{ display: 'inline-block', width: '8px', height: '8px', borderRadius: '50%', background: 'var(--burg-primary)' }} />
+                  Industrial Scale & Supply Discipline
+                </h3>
+
+                <div
+                  style={{
+                    display: 'grid',
+                    gridTemplateColumns: '1fr 1fr',
+                    gap: '1.75rem 1.5rem',
+                  }}
+                >
+                  <div>
+                    <p style={{ fontSize: 'clamp(1.75rem, 2.8vw, 2.25rem)', fontWeight: 900, fontFamily: 'var(--font-sans)', color: 'var(--burg-primary)', lineHeight: 1, margin: '0 0 0.35rem' }}>
+                      <Counter end={VERIFIED.annualCapacityValue} comma suffix=" MT" />
+                    </p>
+                    <p style={{ fontSize: '0.75rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.06em', color: 'var(--ink)', margin: '0 0 0.15rem' }}>
+                      Annual Production
+                    </p>
+                    <span style={{ fontSize: '0.6875rem', color: 'var(--muted)' }}>Extruded & Processed</span>
+                  </div>
+
+                  <div>
+                    <p style={{ fontSize: 'clamp(1.75rem, 2.8vw, 2.25rem)', fontWeight: 900, fontFamily: 'var(--font-sans)', color: 'var(--burg-primary)', lineHeight: 1, margin: '0 0 0.35rem' }}>
+                      <Counter end={VERIFIED.customersValue} suffix="+" />
+                    </p>
+                    <p style={{ fontSize: '0.75rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.06em', color: 'var(--ink)', margin: '0 0 0.15rem' }}>
+                      Industrial Customers
+                    </p>
+                    <span style={{ fontSize: '0.6875rem', color: 'var(--muted)' }}>Spinning & Nonwovens</span>
+                  </div>
+
+                  <div style={{ borderTop: '1px solid var(--border-light)', paddingTop: '1.25rem' }}>
+                    <p style={{ fontSize: 'clamp(1.75rem, 2.8vw, 2.25rem)', fontWeight: 900, fontFamily: 'var(--font-sans)', color: 'var(--burg-primary)', lineHeight: 1, margin: '0 0 0.35rem' }}>
+                      <Counter end={VERIFIED.workforceValue} suffix="+" />
+                    </p>
+                    <p style={{ fontSize: '0.75rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.06em', color: 'var(--ink)', margin: '0 0 0.15rem' }}>
+                      Specialist Workforce
+                    </p>
+                    <span style={{ fontSize: '0.6875rem', color: 'var(--muted)' }}>Engineers & Operators</span>
+                  </div>
+
+                  <div style={{ borderTop: '1px solid var(--border-light)', paddingTop: '1.25rem' }}>
+                    <p style={{ fontSize: 'clamp(1.75rem, 2.8vw, 2.25rem)', fontWeight: 900, fontFamily: 'var(--font-sans)', color: 'var(--burg-primary)', lineHeight: 1, margin: '0 0 0.35rem' }}>
+                      {VERIFIED.denierRange}
+                    </p>
+                    <p style={{ fontSize: '0.75rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.06em', color: 'var(--ink)', margin: '0 0 0.15rem' }}>
+                      Denier Range
+                    </p>
+                    <span style={{ fontSize: '0.6875rem', color: 'var(--muted)' }}>Solid & Conjugate Hollow</span>
                   </div>
                 </div>
-
-                <ScrollProductScene
-                  variant="bundle"
-                  photo="/images/hero-loom.jpg"
-                  photoAlt="Textile machinery running Gulf Fibre material"
-                  caption="Indicative fibre bundle visualization - solid and conjugate polyester staple fibre produced continuously since 1999."
-                />
               </div>
             </div>
           </div>
