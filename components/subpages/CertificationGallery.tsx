@@ -204,42 +204,6 @@ export function CertificationGallery() {
 
   return (
     <>
-      {/* ── INTERACTIVE INSTRUCTION BADGE (Above Wall Container - Never Overlaps Frames) ── */}
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'center',
-          marginBottom: '1.25rem',
-        }}
-      >
-        <div
-          style={{
-            display: 'inline-flex',
-            alignItems: 'center',
-            gap: '0.5rem',
-            background: '#FFFFFF',
-            padding: '0.45rem 1.4rem',
-            borderRadius: '9999px',
-            boxShadow: '0 4px 16px rgba(10, 75, 184, 0.08), 0 1px 3px rgba(0, 0, 0, 0.05)',
-            border: '1px solid rgba(10, 75, 184, 0.18)',
-          }}
-        >
-          <span style={{ fontSize: '0.8rem' }}>🔍</span>
-          <span
-            style={{
-              fontSize: '0.75rem',
-              fontWeight: 800,
-              letterSpacing: '0.08em',
-              textTransform: 'uppercase',
-              color: 'var(--burg-primary, #0A4BB8)',
-              fontFamily: 'var(--font-sans)',
-            }}
-          >
-            Hover over images to verify · Click to examine certificate
-          </span>
-        </div>
-      </div>
-
       {/* ── FULL-BLEED 16:9 REALISTIC EXECUTIVE OFFICE CONTAINER ───────── */}
       <div
         className="executive-office-wall-fullbleed"
@@ -259,6 +223,46 @@ export function CertificationGallery() {
           boxShadow: 'inset 0 20px 40px rgba(0,0,0,0.06), inset 0 -20px 40px rgba(0,0,0,0.08)',
         }}
       >
+        {/* ── INTERACTIVE INSTRUCTION BADGE (Centered on Upper Wall Space) ── */}
+        <div
+          style={{
+            position: 'absolute',
+            top: 'clamp(1rem, 3.8%, 2.25rem)',
+            left: '50%',
+            transform: 'translateX(-50%)',
+            zIndex: 30,
+            pointerEvents: 'none',
+          }}
+        >
+          <div
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '0.5rem',
+              background: 'rgba(255, 255, 255, 0.94)',
+              backdropFilter: 'blur(12px)',
+              WebkitBackdropFilter: 'blur(12px)',
+              padding: '0.45rem 1.4rem',
+              borderRadius: '9999px',
+              boxShadow: '0 8px 24px rgba(7, 20, 46, 0.12), 0 2px 6px rgba(0, 0, 0, 0.04)',
+              border: '1px solid rgba(255, 255, 255, 0.85)',
+            }}
+          >
+            <span style={{ fontSize: '0.8rem' }}>🔍</span>
+            <span
+              style={{
+                fontSize: '0.75rem',
+                fontWeight: 800,
+                letterSpacing: '0.08em',
+                textTransform: 'uppercase',
+                color: 'var(--burg-primary, #0A4BB8)',
+                fontFamily: 'var(--font-sans)',
+              }}
+            >
+              Hover over images to verify · Click to examine certificate
+            </span>
+          </div>
+        </div>
 
         {/* ── INTERACTIVE HOVER & LIGHTBOX HOTSPOTS OVER 3×2 FRAMES ───────── */}
         {ENTRIES.map((c, i) => {

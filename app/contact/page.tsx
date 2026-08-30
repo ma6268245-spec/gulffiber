@@ -151,6 +151,10 @@ export default function ContactPage() {
         {/* ── Enquiry form ──────────────────────────────────────────────── */}
         <section className="section-pad" data-sp-section style={{ background: 'var(--white)' }}>
           <div className="container">
+            <div className="sp-anim" style={{ marginBottom: 'clamp(2rem, 4vh, 3rem)' }}>
+              <SectionHead eyebrow="Enquiry" title="One form," em="specification first" />
+            </div>
+
             <div
               style={{
                 display: 'grid',
@@ -160,7 +164,6 @@ export default function ContactPage() {
               }}
             >
               <div className="sp-anim">
-                <SectionHead eyebrow="Enquiry" title="One form," em="specification first" />
                 <form onSubmit={onSubmit} noValidate>
                   {/* Inquiry path - adapts the message prompt to the desk it routes to */}
                   <fieldset style={{ border: 'none', margin: '0 0 1.75rem', padding: 0 }}>
@@ -265,20 +268,8 @@ export default function ContactPage() {
                 </form>
               </div>
 
-              {/* Right-Hand Information & Google Maps Location Column */}
-              <div className="sp-anim" style={{ display: 'grid', gap: '1.5rem' }}>
-                <div className="sp-panel">
-                  <p className="sp-cat">What happens next</p>
-                  <SpecRows
-                    rows={[
-                      { key: 'Step 01', value: 'We read the specification and confirm whether we can hold it.' },
-                      { key: 'Step 02', value: <>Sampling and pricing against your count within <strong>{VERIFIED.denierRange}</strong>.</> },
-                      { key: 'Step 03', value: <>Packing agreed - standard <strong>{VERIFIED.baleWeight}</strong> moisture-sealed bales or roll wrapping.</> },
-                      { key: 'Step 04', value: 'Export documentation prepared in-house before dispatch.' },
-                    ]}
-                  />
-                </div>
-
+              {/* Right-Hand Information Column */}
+              <div className="sp-anim" style={{ display: 'grid', gap: '1.5rem', alignContent: 'start' }}>
                 {/* Response Commitment Card */}
                 <div
                   style={{
@@ -299,66 +290,17 @@ export default function ContactPage() {
                   </p>
                 </div>
 
-                {/* Google Maps Location Preview Card */}
-                <div
-                  style={{
-                    background: '#FFFFFF',
-                    border: '1px solid var(--border-light, #E2E8F0)',
-                    borderRadius: '16px',
-                    overflow: 'hidden',
-                    boxShadow: '0 8px 24px rgba(7, 20, 46, 0.05)',
-                  }}
-                >
-                  <div style={{ padding: '1rem 1.25rem', borderBottom: '1px solid #F1F5F9' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.25rem' }}>
-                      <span style={{ fontSize: '0.65rem', fontWeight: 800, color: 'var(--burg-primary)', letterSpacing: '0.08em', textTransform: 'uppercase' }}>
-                        Plant Location
-                      </span>
-                      <span style={{ fontSize: '0.65rem', fontWeight: 700, color: '#16A34A', background: '#DCFCE7', padding: '0.15rem 0.5rem', borderRadius: '9999px' }}>
-                        ● Active Facility
-                      </span>
-                    </div>
-                    <h4 style={{ margin: '0 0 0.2rem', fontSize: '0.925rem', fontWeight: 800, color: '#0F172A' }}>
-                      Gulf Fiber Company (Pvt) Limited
-                    </h4>
-                    <p style={{ margin: 0, fontSize: '0.75rem', color: '#64748B' }}>
-                      33-KM, Multan Road, Lahore, Punjab, Pakistan
-                    </p>
-                  </div>
-
-                  {/* Embedded Google Map */}
-                  <div style={{ position: 'relative', width: '100%', height: '220px', background: '#E2E8F0' }}>
-                    <iframe
-                      title="Gulf Fiber Company Location Map"
-                      src="https://maps.google.com/maps?q=33-KM+Multan+Road,+Lahore,+Pakistan&t=&z=13&ie=UTF8&iwloc=&output=embed"
-                      width="100%"
-                      height="100%"
-                      style={{ border: 0 }}
-                      allowFullScreen
-                      loading="lazy"
-                      referrerPolicy="no-referrer-when-downgrade"
-                    />
-                  </div>
-
-                  <div style={{ padding: '0.75rem 1.25rem', background: '#F8FAFC', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                    <span style={{ fontSize: '0.7rem', color: '#64748B' }}>N-5 Highway Industrial Corridor</span>
-                    <a
-                      href="https://www.google.com/maps/search/?api=1&query=33-KM+Multan+Road+Lahore+Pakistan"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      style={{
-                        fontSize: '0.75rem',
-                        fontWeight: 800,
-                        color: 'var(--burg-primary, #0A4BB8)',
-                        textDecoration: 'none',
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: '0.25rem',
-                      }}
-                    >
-                      Open in Google Maps ↗
-                    </a>
-                  </div>
+                {/* Steps Box / What Happens Next */}
+                <div className="sp-panel" style={{ borderRadius: '16px' }}>
+                  <p className="sp-cat">What happens next</p>
+                  <SpecRows
+                    rows={[
+                      { key: 'Step 01', value: 'We read the specification and confirm whether we can hold it.' },
+                      { key: 'Step 02', value: <>Sampling and pricing against your count within <strong>{VERIFIED.denierRange}</strong>.</> },
+                      { key: 'Step 03', value: <>Packing agreed - standard <strong>{VERIFIED.baleWeight}</strong> moisture-sealed bales or roll wrapping.</> },
+                      { key: 'Step 04', value: 'Export documentation prepared in-house before dispatch.' },
+                    ]}
+                  />
                 </div>
               </div>
             </div>
@@ -382,10 +324,11 @@ export default function ContactPage() {
                 display: 'grid',
                 gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
                 gap: '1.5rem',
+                alignItems: 'stretch',
               }}
             >
               {MANAGEMENT.map((m) => (
-                <div className="sp-anim" key={m.id}>
+                <div className="sp-anim" key={m.id} style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
                   <PersonCard person={m} />
                 </div>
               ))}

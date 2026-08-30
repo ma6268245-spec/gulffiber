@@ -54,21 +54,21 @@ export function JourneyChapter() {
           }
         )
 
-        Array.from(list.children).forEach((el, i) => {
-          gsap.fromTo(
-            el,
-            { opacity: 0.38 },
-            {
-              opacity: 1,
-              scrollTrigger: {
-                trigger: el,
-                start: 'top 62%',
-                end: 'bottom 38%',
-                onEnter: () => setActive(i),
-                onEnterBack: () => setActive(i),
+        const steps = Array.from(list.children) as HTMLElement[]
+        steps.forEach((el, i) => {
+          gsap.timeline({
+            scrollTrigger: {
+              trigger: el,
+              start: i === 0 ? 'top 80%' : 'top 48%',
+              end: 'bottom 48%',
+              onEnter: () => setActive(i),
+              onEnterBack: () => setActive(i),
+              onLeaveBack: () => {
+                if (i === 0) setActive(0)
+                else setActive(i - 1)
               },
-            }
-          )
+            },
+          })
         })
       }, listRef.current)
     }
@@ -95,7 +95,7 @@ export function JourneyChapter() {
 
       <ol className="sp-journey__list" ref={listRef}>
         {SERVICE_JOURNEY.map((s, i) => (
-          <li className="sp-journey__step" data-on={i <= active} key={s.id}>
+          <li className="sp-journey__step" data-on={i === active} key={s.id}>
             <span className="sp-journey__step-num">
               Step {String(i + 1).padStart(2, '0')} - of {String(SERVICE_JOURNEY.length).padStart(2, '0')}
             </span>

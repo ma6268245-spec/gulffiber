@@ -5,7 +5,6 @@ import Image from 'next/image'
 import { useRef } from 'react'
 import { PageHero } from '@/components/subpages/PageHero'
 import { PageShell } from '@/components/subpages/PageShell'
-import { ScrollProductScene } from '@/components/subpages/ScrollProductScene'
 import { JourneyChapter } from '@/components/subpages/JourneyChapter'
 import {
   ArrowLink,
@@ -96,15 +95,6 @@ export default function ServicesPage() {
                 </li>
               ))}
             </ul>
-
-            <div className="sp-anim" style={{ marginTop: 'clamp(2.5rem, 5vh, 4rem)' }}>
-              <ScrollProductScene
-                variant="extrusion"
-                photo="/images/workshop-factory.jpg"
-                photoAlt="Production floor at the Gulf Fibre plant"
-                caption="Scroll to draw the filaments down from the spinneret - indicative visualisation of the extrusion stage, not a measured rendering of a grade."
-              />
-            </div>
           </div>
         </section>
 
@@ -160,13 +150,16 @@ export default function ServicesPage() {
         {/* ── What to send ──────────────────────────────────────────────── */}
         <section className="section-pad" data-sp-section>
           <div className="container">
+            <div className="sp-anim" style={{ marginBottom: 'clamp(2rem, 4vh, 3rem)' }}>
+              <SectionHead
+                eyebrow="Specification Intake"
+                title="What we need"
+                em="to quote properly"
+              />
+            </div>
+
             <div className="sp-split">
               <div className="sp-anim">
-                <SectionHead
-                  eyebrow="Specification Intake"
-                  title="What we need"
-                  em="to quote properly"
-                />
                 <SpecRows
                   rows={[
                     { key: 'Denier', value: <>Target count within <strong>{VERIFIED.denierRange}</strong></> },

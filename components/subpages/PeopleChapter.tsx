@@ -126,6 +126,9 @@ export function DirectorFeature() {
           }}
         >
           {DIRECTOR.bio}
+          <span style={{ color: 'var(--burg-primary)', fontStyle: 'normal', marginLeft: '0.15em' }}>
+            &rdquo;
+          </span>
         </blockquote>
 
         <div>
@@ -170,10 +173,16 @@ export function PersonCard({ person }: { person: PersonSlot }) {
         {person.name ? (
           <>
             <h3 className="sp-person__name">{person.name}</h3>
-            <p className="sp-person__role">{person.role}</p>
-            {person.bio && <p className="sp-small" style={{ margin: '0.4rem 0 0' }}>{person.bio}</p>}
+            <p className="sp-person__role" style={{ minHeight: '2.4rem', display: 'flex', alignItems: 'flex-start' }}>
+              {person.role}
+            </p>
+            {person.bio && (
+              <p className="sp-small" style={{ margin: '0.4rem 0 0', flex: 1 }}>
+                {person.bio}
+              </p>
+            )}
             {person.contact && (
-              <div style={{ marginTop: '0.75rem' }}>
+              <div style={{ marginTop: 'auto', paddingTop: '0.85rem' }}>
                 <a
                   href={`tel:${person.contact.replace(/[^\d+]/g, '')}`}
                   className="sp-person-phone-pill"

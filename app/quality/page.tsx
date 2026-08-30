@@ -5,7 +5,6 @@ import Image from 'next/image'
 import { useRef } from 'react'
 import { PageHero } from '@/components/subpages/PageHero'
 import { PageShell } from '@/components/subpages/PageShell'
-import { ScrollProductScene } from '@/components/subpages/ScrollProductScene'
 import {
   ArrowLink,
   Provenance,
@@ -86,15 +85,6 @@ export default function QualityPage() {
                 title="Four checks that"
                 em="decide the bale"
                 lede="Verification is placed where the outcome is still recoverable: before the melt, at the fibre, and before the bale is sealed."
-              />
-            </div>
-
-            <div className="sp-anim" style={{ marginBottom: 'clamp(2.5rem, 5vh, 4rem)' }}>
-              <ScrollProductScene
-                variant="cross"
-                photo="/images/quality-lab.jpg"
-                photoAlt="Fibre being inspected under laboratory conditions at Gulf Fibre"
-                caption="Scroll to lift the measurement wedge out of the fibre cross-section - indicative visualisation of laboratory inspection, not a measured rendering of a grade."
               />
             </div>
 

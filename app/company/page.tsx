@@ -62,7 +62,18 @@ export default function CompanyPage() {
             <Link className="btn-primary" href="/contact">
               Talk to the Export Desk
             </Link>
-            <Link className="btn-secondary" href="/products" style={{ textDecoration: 'none' }}>
+            <Link
+              className="btn-secondary"
+              href="/products"
+              style={{
+                textDecoration: 'none',
+                color: '#FFFFFF',
+                borderColor: 'rgba(255, 255, 255, 0.45)',
+                background: 'rgba(255, 255, 255, 0.1)',
+                backdropFilter: 'blur(12px)',
+                WebkitBackdropFilter: 'blur(12px)',
+              }}
+            >
               View Fibre Catalog →
             </Link>
           </div>
@@ -71,13 +82,12 @@ export default function CompanyPage() {
         {/* ── 02 · WHO WE ARE ───────────────────────────────────────────── */}
         <section className="section-pad" data-sp-section style={{ background: 'var(--white)' }}>
           <div className="container">
-            <div className="sp-anim">
+            <div className="sp-anim" style={{ marginBottom: 'clamp(2rem, 4vh, 3rem)' }}>
               <SectionHead
                 eyebrow="02 · Who We Are"
                 title="A fibre manufacturer,"
                 em="not a trading house"
-                lede="Material is produced on our own extrusion and carding lines, verified in-house and documented before dispatch. That is the difference a procurement team feels when a specification has to hold across repeat orders rather than a single shipment."
-                stacked
+                lede="Direct manufacturer of virgin and recycled polyester staple fibres, operating dedicated extrusion and carding lines in Pakistan since 1999."
               />
             </div>
 
@@ -87,14 +97,11 @@ export default function CompanyPage() {
                 display: 'grid',
                 gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
                 gap: 'clamp(2rem, 4vw, 3.5rem)',
-                alignItems: 'start',
+                alignItems: 'stretch',
               }}
             >
               {/* Left Column: Specifications & Provenance */}
-              <div>
-                <p className="sp-body" style={{ marginBottom: '1.5rem', color: 'var(--muted)', fontSize: '0.9375rem', lineHeight: 1.7 }}>
-                  Our sustainability philosophy pairs recycled post-consumer PET flake with high-tensile processing, diverting plastic waste from landfills and transforming it into commercial-grade fibres for spinning, bedding, automotive, and nonwovens.
-                </p>
+              <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
                 <SpecRows
                   rows={[
                     { key: 'Legal Name', value: <strong>{VERIFIED.legalName}</strong> },
@@ -367,7 +374,6 @@ export default function CompanyPage() {
                 title="Interactive organization"
                 em="tree & leadership"
                 lede="An interactive visualization of Gulf Fibre's corporate hierarchy - from founding executive governance to specialized technical product sales departments. Click any circular profile node to view credentials, material domains, and direct contact details."
-                stacked
               />
             </div>
             <div className="sp-anim">

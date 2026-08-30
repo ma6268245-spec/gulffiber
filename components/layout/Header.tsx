@@ -122,7 +122,8 @@ export function Header() {
           <Link
             href="/"
             onClick={scrollToTop}
-            style={{ display: 'flex', alignItems: 'center', textDecoration: 'none', flexShrink: 0 }}
+            className="nav-brand-logo"
+            aria-label="Gulf Fibre Home"
           >
             <Image
               src="/gulf-fibre-logo.png"
