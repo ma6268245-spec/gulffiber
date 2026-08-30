@@ -277,7 +277,7 @@ export default function ContactPage() {
                             Enquiry Sent
                           </p>
                         </div>
-                        <p className="sp-small" style={{ margin: 0 }}>Thank you - your enquiry has reached our production engineering desk. We reply within 24 business hours.</p>
+                        <p className="sp-small" style={{ margin: 0 }}>Thank you - your enquiry has reached our production engineering desk. We reply within 24 business hours. A confirmation with a copy of your enquiry is on its way to your inbox.</p>
                       </div>
                     )}
                     {status === 'error' && (

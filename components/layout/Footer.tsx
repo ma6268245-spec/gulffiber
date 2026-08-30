@@ -280,7 +280,7 @@ export function Footer() {
               }}
             >
               {nl === 'ok'
-                ? 'Thank you — you are subscribed.'
+                ? 'Thank you — you are subscribed. A confirmation is on its way to your inbox.'
                 : nl === 'error'
                   ? 'Please enter a valid email address.'
                   : ''}

@@ -3,13 +3,13 @@
 import { useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import {
   FALLBACK_ACTION,
   FALLBACK_ANSWER,
   FALLBACK_SUGGESTIONS,
-  GREETING_ANSWER,
-  STARTER_SUGGESTIONS,
   matchIntent,
+  pageContext,
   type ChatAction,
   type ChatCard,
   type ChatSuggestion,
@@ -34,7 +34,11 @@ import {
 interface Message {
   id: string
   sender: 'bot' | 'user'
+  /** What is currently on screen. While streaming, this grows toward `full`. */
   text: string
+  /** The complete answer, kept so the typewriter can be skipped to the end. */
+  full?: string
+  streaming?: boolean
   time: string
   suggestions?: ChatSuggestion[]
   cards?: ChatCard[]
@@ -45,13 +49,34 @@ interface Message {
 const clock = () =>
   new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
 
-function welcome(): Message {
+/* ---------------------------------------------------------------------------
+   TYPEWRITER PACING
+   ---------------------------------------------------------------------------
+   Answers are revealed character by character. The step is sized from the
+   answer's length so a short reply types at one character a tick while the long
+   company overview still lands inside STREAM_MAX_MS - the effect reads as
+   typing without ever making the visitor wait a minute for a paragraph.
+   --------------------------------------------------------------------------- */
+const STREAM_TICK_MS = 16
+const STREAM_MAX_MS = 4200
+
+const streamStep = (length: number) =>
+  Math.max(1, Math.ceil(length / (STREAM_MAX_MS / STREAM_TICK_MS)))
+
+/** Visitors who ask for less motion get the answer whole, with no typing. */
+const prefersReducedMotion = () =>
+  typeof window !== 'undefined' &&
+  typeof window.matchMedia === 'function' &&
+  window.matchMedia('(prefers-reduced-motion: reduce)').matches
+
+function welcome(pathname: string): Message {
+  const ctx = pageContext(pathname)
   return {
     id: 'msg-welcome',
     sender: 'bot',
-    text: GREETING_ANSWER,
+    text: ctx.greeting,
     time: clock(),
-    suggestions: STARTER_SUGGESTIONS,
+    suggestions: ctx.suggestions,
     rating: null,
   }
 }
@@ -133,11 +158,13 @@ const TOP_ICON = (
 )
 
 export function ChatAssistant() {
+  const pathname = usePathname()
+  const ctx = pageContext(pathname)
   const [visible, setVisible] = useState(false)
   const [open, setOpen] = useState(false)
   const [unread, setUnread] = useState(true)
   const [menuOpen, setMenuOpen] = useState(false)
-  const [messages, setMessages] = useState<Message[]>([welcome()])
+  const [messages, setMessages] = useState<Message[]>(() => [welcome(pathname)])
   const [input, setInput] = useState('')
   const [typing, setTyping] = useState(false)
 
@@ -146,6 +173,64 @@ export function ChatAssistant() {
   const inputRef = useRef<HTMLInputElement>(null)
   const containerRef = useRef<HTMLElement>(null)
   const launcherRef = useRef<HTMLDivElement>(null)
+  /* Pending bot reply, so a restart or an unmount cannot deliver a stale one. */
+  const replyTimer = useRef<number | null>(null)
+  /* The running typewriter, cleared the same way. */
+  const streamTimer = useRef<number | null>(null)
+
+  const stopStream = () => {
+    if (streamTimer.current !== null) {
+      window.clearInterval(streamTimer.current)
+      streamTimer.current = null
+    }
+  }
+
+  /** Reveal the rest of a streaming answer at once. */
+  const finishStream = () => {
+    stopStream()
+    setMessages((prev) =>
+      prev.some((m) => m.streaming)
+        ? prev.map((m) => (m.streaming ? { ...m, text: m.full ?? m.text, streaming: false } : m))
+        : prev
+    )
+  }
+
+  /** Type `full` into the message with this id, one step per tick. */
+  const startStream = (id: string, full: string) => {
+    stopStream()
+    const step = streamStep(full.length)
+    let shown = 0
+    streamTimer.current = window.setInterval(() => {
+      shown += step
+      if (shown >= full.length) {
+        stopStream()
+        setMessages((prev) =>
+          prev.map((m) => (m.id === id ? { ...m, text: full, streaming: false } : m))
+        )
+        return
+      }
+      const slice = full.slice(0, shown)
+      setMessages((prev) => prev.map((m) => (m.id === id ? { ...m, text: slice } : m)))
+    }, STREAM_TICK_MS)
+  }
+
+  const cancelPendingReply = () => {
+    if (replyTimer.current !== null) {
+      window.clearTimeout(replyTimer.current)
+      replyTimer.current = null
+    }
+    stopStream()
+    setTyping(false)
+  }
+
+  useEffect(
+    /* Refs only, so nothing can write to a panel that has been unmounted. */
+    () => () => {
+      if (replyTimer.current !== null) window.clearTimeout(replyTimer.current)
+      if (streamTimer.current !== null) window.clearInterval(streamTimer.current)
+    },
+    []
+  )
 
   /* Reveal the launcher after a short scroll, like the homepage widgets. */
   useEffect(() => {
@@ -155,10 +240,12 @@ export function ChatAssistant() {
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
-  /* Keep the newest message in view, but start from the top for the initial welcome message. */
+  /* Keep the newest message in view, but start from the top for the initial welcome message.
+     While a reply is typing, follow it without smooth-scroll so the frames do not queue up. */
   useEffect(() => {
     if (messages.length === 1 && !typing) return;
-    endRef.current?.scrollIntoView({ behavior: 'smooth', block: 'end' })
+    const isStreaming = messages.some((m) => m.streaming)
+    endRef.current?.scrollIntoView({ behavior: isStreaming ? 'auto' : 'smooth', block: 'end' })
   }, [messages, typing, open])
 
   /* Close on Escape; focus the composer when the panel opens. */
@@ -199,6 +286,10 @@ export function ChatAssistant() {
     const text = (raw ?? input).trim()
     if (!text || typing) return
 
+    /* Asking the next question completes whatever is still typing, so an answer
+       is never left half-written above the new one. */
+    finishStream()
+
     setMessages((prev) => [
       ...prev,
       { id: `usr-${Date.now()}`, sender: 'user', text, time: clock() },
@@ -212,15 +303,21 @@ export function ChatAssistant() {
     const action = intent?.action ?? FALLBACK_ACTION
     const cards = intent?.cards
 
-    window.setTimeout(
+    replyTimer.current = window.setTimeout(
       () => {
+        replyTimer.current = null
         setTyping(false)
+
+        const id = `bot-${Date.now()}`
+        const whole = prefersReducedMotion()
         setMessages((prev) => [
           ...prev,
           {
-            id: `bot-${Date.now()}`,
+            id,
             sender: 'bot',
-            text: answer,
+            text: whole ? answer : '',
+            full: answer,
+            streaming: !whole,
             time: clock(),
             suggestions,
             cards,
@@ -228,8 +325,10 @@ export function ChatAssistant() {
             rating: null,
           },
         ])
+        if (!whole) startStream(id, answer)
       },
-      500 + Math.min(answer.length * 4, 700)
+      /* Short "thinking" pause, then the answer types itself in. */
+      380 + Math.min(answer.length, 320)
     )
   }
 
@@ -237,7 +336,9 @@ export function ChatAssistant() {
     setMessages((prev) => prev.map((m) => (m.id === id ? { ...m, rating } : m)))
 
   const reset = () => {
-    setMessages([welcome()])
+    cancelPendingReply()
+    setMessages([welcome(pathname)])
+    setInput('')
     setMenuOpen(false)
     inputRef.current?.focus()
   }
@@ -250,14 +351,14 @@ export function ChatAssistant() {
   return (
     <>
       {/* ── Launcher + back-to-top ─────────────────────────────────────── */}
-      <div className="gf-chat-launch" data-hidden={!visible} data-unread={!open} ref={launcherRef}>
+      <div className="gf-chat-launch" data-hidden={!visible} data-unread={!open && unread} ref={launcherRef}>
         <button
           className="gf-chat-launch__orb"
           onClick={() => {
             setOpen((v) => !v)
             setUnread(false)
           }}
-          aria-label={open ? 'Close the Gulf Fibre assistant' : 'Open the Gulf Fibre assistant'}
+          aria-label={open ? 'Close the Gulf Fibre assistant' : `Open the Gulf Fibre assistant — ${ctx.topic}`}
           aria-expanded={open}
           aria-haspopup="dialog"
         >
@@ -266,7 +367,7 @@ export function ChatAssistant() {
           <span className="gf-chat-launch__status" aria-hidden="true" />
         </button>
         <span className="gf-chat-launch__nudge" aria-hidden="true">
-          Hi! Gulf Fibre Specialist. How can I help? 👋
+          {ctx.nudge}
         </span>
         <button className="gf-chat-top" onClick={scrollTop} aria-label="Back to top">
           {TOP_ICON}
@@ -303,7 +404,7 @@ export function ChatAssistant() {
               <h4 className="gf-chat__who-name">Gulf Fibre Specialist</h4>
               <span className="gf-chat__who-status">
                 <span className="gf-chat__who-status-dot" aria-hidden="true" />
-                Answers from the company record
+                {ctx.topic} · from the company record
               </span>
             </div>
             <div className="gf-chat__head-actions">
@@ -356,10 +457,25 @@ export function ChatAssistant() {
                 </div>
               ) : (
                 <div className="gf-chat__msg gf-chat__msg--bot" key={m.id}>
-                  <div className="gf-chat__bubble">
-                    {m.text}
+                  <div
+                    className="gf-chat__bubble"
+                    data-streaming={m.streaming ? 'true' : undefined}
+                    onClick={m.streaming ? finishStream : undefined}
+                    title={m.streaming ? 'Click to show the whole answer' : undefined}
+                  >
+                    {/* While typing, the growing text is hidden from screen
+                        readers so the live region announces the finished answer
+                        once instead of on every character. */}
+                    {m.streaming ? (
+                      <>
+                        <span aria-hidden="true">{m.text}</span>
+                        <span className="gf-chat__caret" aria-hidden="true" />
+                      </>
+                    ) : (
+                      m.text
+                    )}
 
-                    {m.cards && m.cards.length > 0 && (
+                    {!m.streaming && m.cards && m.cards.length > 0 && (
                       <div className="gf-chat__cards">
                         {m.cards.map((c) =>
                           c.href ? (
@@ -396,7 +512,7 @@ export function ChatAssistant() {
                       </div>
                     )}
 
-                    {m.action && (
+                    {!m.streaming && m.action && (
                       <Link className="gf-chat__action" href={m.action.href} onClick={closeChat}>
                         {m.action.text}
                         {ARROW}
@@ -404,17 +520,23 @@ export function ChatAssistant() {
                     )}
                   </div>
 
-                  {m.suggestions && m.suggestions.length > 0 && (
+                  {!m.streaming && m.suggestions && m.suggestions.length > 0 && (
                     <div className="gf-chat__chips">
                       {m.suggestions.map((s) => (
-                        <button className="gf-chat__chip" key={s.label} onClick={() => send(s.query)}>
+                        <button
+                          className="gf-chat__chip"
+                          key={s.label}
+                          onClick={() => send(s.query)}
+                          disabled={typing}
+                          title={s.query}
+                        >
                           {s.label}
                         </button>
                       ))}
                     </div>
                   )}
 
-                  {m.id !== 'msg-welcome' && (
+                  {!m.streaming && m.id !== 'msg-welcome' && (
                     <div className="gf-chat__rate">
                       <span>Helpful?</span>
                       <span className="gf-chat__rate-group">
@@ -474,12 +596,14 @@ export function ChatAssistant() {
               onChange={(e) => setInput(e.target.value)}
               placeholder="Ask about denier, GRS, samples…"
               autoComplete="off"
+              enterKeyHint="send"
+              maxLength={400}
             />
             <button
               className="gf-chat__send"
               type="submit"
               aria-label="Send message"
-              disabled={!input.trim()}
+              disabled={!input.trim() || typing}
             >
               {SEND_ICON}
             </button>
