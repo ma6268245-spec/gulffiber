@@ -243,6 +243,7 @@ export interface ProductLine {
   verifiedAttributes: { label: string; value: string }[]
   specSlot: string
   image: string | null
+  video?: string | null
   status: DataStatus
 }
 
@@ -271,6 +272,7 @@ export const PRODUCT_LINES: ProductLine[] = [
     specSlot:
       'Specification pending production verification — batch tenacity (cN/dtex), elongation %, crimp count per inch, and oil pick-up (OPU) are confirmed per production lot on the consignment Certificate of Analysis.',
     image: '/images/process-fibre.jpg',
+    video: '/videos/staple-fiber.mp4',
     status: 'VERIFIED',
   },
   {
@@ -299,6 +301,7 @@ export const PRODUCT_LINES: ProductLine[] = [
     specSlot:
       'Technical data sheet required — grade-specific bulk resilience %, compression recovery curves, and hollow ratio percentages are supplied per technical sales inquiry.',
     image: '/images/collection-rolls.jpg',
+    video: '/videos/hollow-fiber.mp4',
     status: 'VERIFIED',
   },
   {
@@ -327,6 +330,7 @@ export const PRODUCT_LINES: ProductLine[] = [
     specSlot:
       'Specification pending production verification — exact GSM range (100–600+ g/m²), roll width (up to 3.2 m), loft thickness (mm), and compression recovery % are engineered to order and confirmed on proforma sheets.',
     image: '/images/sustainability-cotton.jpg',
+    video: '/videos/thermally-bonded-wadding.mp4',
     status: 'VERIFIED',
   },
   {
@@ -355,6 +359,7 @@ export const PRODUCT_LINES: ProductLine[] = [
     specSlot:
       'Technical data sheet required — caliper thickness (mm), weight range (GSM), tensile strength (MD/CD), air permeability, and puncture resistance tables require project-specific laboratory sheet confirmation.',
     image: '/images/workshop-factory.jpg',
+    video: '/videos/non-woven-felt.mp4',
     status: 'VERIFIED',
   },
   {
@@ -382,7 +387,8 @@ export const PRODUCT_LINES: ProductLine[] = [
     ],
     specSlot:
       'Technical data sheet required — fusing temperature window (°C), pressure (bar), dwell time (seconds), base fabric GSM, and post-wash peel strength data are provided per garment making-up specification.',
-    image: null,
+    image: '/images/collection-rolls.jpg',
+    video: '/videos/stitch-bound-interlining.mp4',
     status: 'VERIFIED',
   },
 ]

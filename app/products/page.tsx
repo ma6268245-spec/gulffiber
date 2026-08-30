@@ -5,8 +5,7 @@ import Image from 'next/image'
 import { useRef } from 'react'
 import { PageHero } from '@/components/subpages/PageHero'
 import { PageShell } from '@/components/subpages/PageShell'
-import { ScrollProductScene } from '@/components/subpages/ScrollProductScene'
-import { ProcessScrollChapter } from '@/components/subpages/ProcessScrollChapter'
+import { ProductVideoPlayer } from '@/components/subpages/ProductVideoPlayer'
 import { CompanyVideoScrollStory } from '@/components/company/CompanyVideoScrollStory'
 import {
   ArrowLink,
@@ -18,39 +17,6 @@ import {
 } from '@/components/subpages/Primitives'
 import { useSectionReveal } from '@/components/subpages/useSectionReveal'
 import { COMMERCIAL_TERMS, PRODUCT_LINES, PRODUCT_ROUTES, VERIFIED } from '@/lib/data/company'
-import type { SceneVariant } from '@/components/three/materialScene'
-
-/* ===========================================================================
-   /products - redesigned
-   ---------------------------------------------------------------------------
-   Editorial grammar of the frozen homepage (numbered index rows, hairlines,
-   sapphire eyebrows, 900-weight uppercase headings with Cormorant italic
-   accent) plus the two new layers this page asked for:
-     1. Scroll-driven 3D product visualisations - each product line gets a
-        scene whose material behaviour is scrubbed by scroll (wadding lofts,
-        felt compacts, interlining weaves, staple fibre opens).
-     2. A pinned 3D "how it is made" chapter - the four verified production
-        stages played as one continuous scroll sequence - and the company film.
-   Data discipline is unchanged: every attribute comes from
-   lib/data/company.ts; anything unverified renders as a labelled slot.
-   =========================================================================== */
-
-/** Scroll-scrubbed scene per product line - behaviour each line is known for. */
-const SCENE: Record<string, SceneVariant> = {
-  'psf-regenerated': 'bundle',
-  'psf-virgin': 'bundle',
-  wadding: 'loft',
-  felt: 'felt',
-  interlining: 'weave',
-}
-
-const SCENE_CAPTION: Record<string, string> = {
-  'psf-regenerated': 'Scroll to open the baled bundle and read the crimped cross-section - indicative visualisation, not a measured rendering of a grade.',
-  'psf-virgin': 'Scroll to inspect the conjugate hollow structure and 3D spiral crimp - indicative visualisation of filling loft recovery.',
-  wadding: 'Scroll to loft the wadding - layers gain height and volume, then recover. Indicative visualisation of thermal-bonded behaviour.',
-  felt: 'Scroll to compact the felt - loose fibre interlocks under needling into a dimensionally stable mat. Indicative visualisation.',
-  interlining: 'Scroll to interlace the lattice - warp and weft strands lock into a woven structure. Indicative visualisation.',
-}
 
 export default function ProductsPage() {
   const scope = useRef<HTMLDivElement>(null)
@@ -121,87 +87,369 @@ export default function ProductsPage() {
           </div>
         </section>
 
-        {/* ── Line-by-line deep dives with scroll-driven 3D scenes ──────── */}
+        {/* ── Line-by-line deep dives ───────────────────────────────────── */}
         {PRODUCT_LINES.map((p, i) => (
           <section
             className="section-pad"
             data-sp-section
             id={p.id}
             key={p.id}
-            style={{ background: i % 2 === 0 ? 'var(--ivory)' : 'var(--white)' }}
+            style={{
+              background: i % 2 === 0 ? 'var(--ivory)' : 'var(--white)',
+              borderBottom: '1px solid var(--border-light)',
+            }}
           >
             <div className="container">
-              <div className="sp-deep">
-                <div className="sp-deep__aside sp-anim">
+              {/* Product Header (Full Width) */}
+              <div className="sp-anim" style={{ marginBottom: 'clamp(2rem, 3.5vh, 2.75rem)' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', flexWrap: 'wrap', marginBottom: '0.65rem' }}>
                   <span className="sp-cat">{p.code}</span>
-                  <h2 className="h-section">{p.title}</h2>
-                  <p className="sp-body">{p.positioning}</p>
-                  <SpecRows rows={p.verifiedAttributes.map((a) => ({ key: a.label, value: <strong>{a.value}</strong> }))} />
-                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }} aria-label="Applications">
-                    {p.appliedIn.map((a) => (
-                      <Chip key={a}>{a}</Chip>
-                    ))}
-                  </div>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem', flexWrap: 'wrap' }}>
-                    <ArrowLink href="/contact">Enquire about {p.code}</ArrowLink>
-                    <Provenance status={p.status} />
-                  </div>
+                  <Provenance status={p.status} />
                 </div>
+                <h2 className="h-section" style={{ margin: '0 0 0.5rem', fontSize: 'clamp(2rem, 3.6vw, 2.85rem)', lineHeight: 1.15 }}>
+                  {p.title}
+                </h2>
+                <p style={{ fontSize: '1rem', fontWeight: 700, color: 'var(--burg-primary)', margin: '0 0 0.85rem' }}>
+                  {p.subtitle}
+                </p>
+                <p className="sp-body" style={{ margin: 0, maxWidth: '60rem', lineHeight: 1.7, fontSize: '0.96875rem' }}>
+                  {p.positioning}
+                </p>
+              </div>
 
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
-                  <div className="sp-anim">
-                    <ScrollProductScene
-                      variant={SCENE[p.id] ?? 'bundle'}
-                      photo={p.image ?? '/images/collection-rolls.jpg'}
-                      photoAlt={`${p.title} produced by Gulf Fibre`}
-                      caption={SCENE_CAPTION[p.id]}
-                    />
-                  </div>
-                  
-                  <figure style={{ margin: 0 }} className="sp-anim">
+              {/* 2-Column Balanced Dossier Grid (Alternating Left/Right) */}
+              <div className="sp-deep" style={{ alignItems: 'stretch' }}>
+                {i % 2 === 0 ? (
+                  <>
+                    {/* Information / Specifications (Left) */}
                     <div
+                      className="sp-anim"
                       style={{
-                        position: 'relative',
-                        aspectRatio: '16 / 9',
-                        overflow: 'hidden',
-                        borderRadius: '16px',
+                        background: 'var(--card-bg, #FFFFFF)',
                         border: '1px solid var(--border-light)',
+                        borderRadius: '20px',
+                        padding: 'clamp(1.35rem, 2.2vw, 1.85rem)',
+                        boxShadow: '0 12px 36px rgba(10, 75, 184, 0.04)',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'space-between',
                       }}
                     >
-                      <Image
-                        src={p.image ?? '/images/collection-rolls.jpg'}
-                        alt={`${p.title} at the Gulf Fibre plant`}
-                        fill
-                        sizes="(max-width: 992px) 100vw, 46vw"
-                        style={{ objectFit: 'cover' }}
-                      />
-                    </div>
-                    <figcaption className="sp-small" style={{ marginTop: '0.5rem' }}>
-                      {p.title} — production photograph.
-                    </figcaption>
-                  </figure>
+                      <div>
+                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1rem', borderBottom: '1px solid var(--border-light)', paddingBottom: '0.75rem' }}>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem' }}>
+                            <span style={{ display: 'inline-block', width: '8px', height: '8px', borderRadius: '50%', background: 'var(--burg-primary)' }} />
+                            <span style={{ fontSize: '0.75rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--burg-primary)' }}>
+                              Verified Technical Specifications
+                            </span>
+                          </div>
+                          <span style={{ fontSize: '0.6875rem', fontWeight: 700, color: 'var(--muted)' }}>
+                            Standard Baseline
+                          </span>
+                        </div>
 
-                  <div
-                    className="sp-anim"
-                    style={{
-                      background: 'var(--card-bg, #FFFFFF)',
-                      border: '1px solid var(--border-light)',
-                      borderRadius: '16px',
-                      padding: '1.15rem 1.35rem',
-                      boxShadow: '0 4px 16px rgba(10, 75, 184, 0.04)',
-                    }}
-                  >
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem', marginBottom: '0.35rem' }}>
-                      <span style={{ display: 'inline-block', width: '6px', height: '6px', borderRadius: '50%', background: 'var(--burg-primary)' }} />
-                      <span style={{ fontSize: '0.6875rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--burg-primary)' }}>
-                        Technical Specification & Feasibility
-                      </span>
+                        <SpecRows rows={p.verifiedAttributes.map((a) => ({ key: a.label, value: <strong>{a.value}</strong> }))} />
+
+                        <div style={{ marginTop: '1.25rem' }}>
+                          <p style={{ fontSize: '0.6875rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--muted)', marginBottom: '0.5rem' }}>
+                            Verified Applications
+                          </p>
+                          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.45rem' }} aria-label="Applications">
+                            {p.appliedIn.map((a) => (
+                              <Chip key={a}>{a}</Chip>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+
+                      <div style={{ paddingTop: '1.25rem', marginTop: '1.25rem', borderTop: '1px solid var(--border-light)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '1rem' }}>
+                        <ArrowLink href="/contact">Enquire about {p.code}</ArrowLink>
+                        <span style={{ fontSize: '0.75rem', fontWeight: 600, color: 'var(--muted)' }}>
+                          Batch COA Provided
+                        </span>
+                      </div>
                     </div>
-                    <p style={{ fontSize: '0.8125rem', lineHeight: 1.6, color: 'var(--muted)', margin: 0 }}>
-                      {p.specSlot}
-                    </p>
-                  </div>
-                </div>
+
+                    {/* Media / Video Showcase & Feasibility (Right) */}
+                    <div
+                      className="sp-anim"
+                      style={{
+                        background: 'var(--card-bg, #FFFFFF)',
+                        border: '1px solid var(--border-light)',
+                        borderRadius: '20px',
+                        overflow: 'hidden',
+                        boxShadow: '0 12px 36px rgba(10, 75, 184, 0.04)',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        height: '100%',
+                      }}
+                    >
+                      {/* Photo or Video Player */}
+                      {p.video ? (
+                        <ProductVideoPlayer
+                          src={p.video}
+                          poster={p.image ?? '/images/process-fibre.jpg'}
+                          alt={`${p.title} at the Gulf Fibre plant`}
+                          title={p.title}
+                          code={p.code}
+                        />
+                      ) : (
+                        <div
+                          style={{
+                            position: 'relative',
+                            width: '100%',
+                            flex: 1,
+                            minHeight: '460px',
+                            overflow: 'hidden',
+                            background: '#071738',
+                          }}
+                        >
+                          <Image
+                            src={p.image ?? '/images/collection-rolls.jpg'}
+                            alt={`${p.title} at the Gulf Fibre plant`}
+                            fill
+                            sizes="(max-width: 992px) 100vw, 48vw"
+                            style={{ objectFit: 'cover' }}
+                          />
+                          <div
+                            style={{
+                              position: 'absolute',
+                              top: '1rem',
+                              left: '1rem',
+                              background: 'rgba(10, 17, 40, 0.88)',
+                              backdropFilter: 'blur(8px)',
+                              padding: '0.4rem 0.85rem',
+                              borderRadius: '9999px',
+                              border: '1px solid rgba(255, 255, 255, 0.2)',
+                              fontSize: '0.71875rem',
+                              fontWeight: 800,
+                              letterSpacing: '0.04em',
+                              textTransform: 'uppercase',
+                              color: '#FFFFFF',
+                              display: 'flex',
+                              alignItems: 'center',
+                              gap: '0.45rem',
+                              zIndex: 2,
+                              maxWidth: 'calc(100% - 4rem)',
+                            }}
+                          >
+                            <span style={{ width: '7px', height: '7px', borderRadius: '50%', background: '#22C55E', boxShadow: '0 0 8px #22C55E', display: 'inline-block', flexShrink: 0 }} />
+                            <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{p.title}</span>
+                          </div>
+                        </div>
+                      )}
+
+                      {/* Feasibility Details */}
+                      <div style={{ padding: '1.25rem 1.5rem', display: 'flex', flexDirection: 'column', gap: '1rem', background: 'var(--card-bg)', marginTop: 'auto' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem' }}>
+                            <span style={{ display: 'inline-block', width: '8px', height: '8px', borderRadius: '50%', background: 'var(--burg-primary)' }} />
+                            <span style={{ fontSize: '0.75rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--burg-primary)' }}>
+                              Technical Feasibility & QA Parameters
+                            </span>
+                          </div>
+                          <span style={{ fontSize: '0.6875rem', fontWeight: 800, color: 'var(--ink)', background: 'var(--ivory)', padding: '0.25rem 0.6rem', borderRadius: '6px', border: '1px solid var(--border-light)' }}>
+                            {p.code} Standard
+                          </span>
+                        </div>
+
+                        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.65rem' }}>
+                          <div style={{ background: 'var(--ivory)', padding: '0.75rem 0.85rem', borderRadius: '10px', border: '1px solid var(--border-light)' }}>
+                            <p style={{ fontSize: '0.625rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.06em', color: 'var(--muted)', margin: '0 0 0.15rem' }}>
+                              Standard Baling
+                            </p>
+                            <p style={{ fontSize: '0.8125rem', fontWeight: 800, color: 'var(--ink)', margin: 0 }}>
+                              {VERIFIED.baleWeight}
+                            </p>
+                          </div>
+                          <div style={{ background: 'var(--ivory)', padding: '0.75rem 0.85rem', borderRadius: '10px', border: '1px solid var(--border-light)' }}>
+                            <p style={{ fontSize: '0.625rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.06em', color: 'var(--muted)', margin: '0 0 0.15rem' }}>
+                              Quality Verification
+                            </p>
+                            <p style={{ fontSize: '0.8125rem', fontWeight: 800, color: 'var(--ink)', margin: 0 }}>
+                              100% In-House Tested
+                            </p>
+                          </div>
+                        </div>
+
+                        <div style={{ paddingTop: '0.5rem', borderTop: '1px solid var(--border-light)' }}>
+                          <Link
+                            href="/contact"
+                            className="btn-secondary"
+                            style={{ width: '100%', justifyContent: 'center', textAlign: 'center', fontSize: '0.75rem' }}
+                          >
+                            Request Specification & Sample →
+                          </Link>
+                        </div>
+                      </div>
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    {/* Media / Video Showcase & Feasibility (Left) */}
+                    <div
+                      className="sp-anim"
+                      style={{
+                        background: 'var(--card-bg, #FFFFFF)',
+                        border: '1px solid var(--border-light)',
+                        borderRadius: '20px',
+                        overflow: 'hidden',
+                        boxShadow: '0 12px 36px rgba(10, 75, 184, 0.04)',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        height: '100%',
+                      }}
+                    >
+                      {/* Photo or Video Player */}
+                      {p.video ? (
+                        <ProductVideoPlayer
+                          src={p.video}
+                          poster={p.image ?? '/images/process-fibre.jpg'}
+                          alt={`${p.title} at the Gulf Fibre plant`}
+                          title={p.title}
+                          code={p.code}
+                        />
+                      ) : (
+                        <div
+                          style={{
+                            position: 'relative',
+                            width: '100%',
+                            flex: 1,
+                            minHeight: '460px',
+                            overflow: 'hidden',
+                            background: '#071738',
+                          }}
+                        >
+                          <Image
+                            src={p.image ?? '/images/collection-rolls.jpg'}
+                            alt={`${p.title} at the Gulf Fibre plant`}
+                            fill
+                            sizes="(max-width: 992px) 100vw, 48vw"
+                            style={{ objectFit: 'cover' }}
+                          />
+                          <div
+                            style={{
+                              position: 'absolute',
+                              top: '1rem',
+                              left: '1rem',
+                              background: 'rgba(10, 17, 40, 0.88)',
+                              backdropFilter: 'blur(8px)',
+                              padding: '0.4rem 0.85rem',
+                              borderRadius: '9999px',
+                              border: '1px solid rgba(255, 255, 255, 0.2)',
+                              fontSize: '0.71875rem',
+                              fontWeight: 800,
+                              letterSpacing: '0.04em',
+                              textTransform: 'uppercase',
+                              color: '#FFFFFF',
+                              display: 'flex',
+                              alignItems: 'center',
+                              gap: '0.45rem',
+                              zIndex: 2,
+                              maxWidth: 'calc(100% - 4rem)',
+                            }}
+                          >
+                            <span style={{ width: '7px', height: '7px', borderRadius: '50%', background: '#22C55E', boxShadow: '0 0 8px #22C55E', display: 'inline-block', flexShrink: 0 }} />
+                            <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{p.title}</span>
+                          </div>
+                        </div>
+                      )}
+
+                      {/* Feasibility Details */}
+                      <div style={{ padding: '1.25rem 1.5rem', display: 'flex', flexDirection: 'column', gap: '1rem', background: 'var(--card-bg)', marginTop: 'auto' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem' }}>
+                            <span style={{ display: 'inline-block', width: '8px', height: '8px', borderRadius: '50%', background: 'var(--burg-primary)' }} />
+                            <span style={{ fontSize: '0.75rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--burg-primary)' }}>
+                              Technical Feasibility & QA Parameters
+                            </span>
+                          </div>
+                          <span style={{ fontSize: '0.6875rem', fontWeight: 800, color: 'var(--ink)', background: 'var(--ivory)', padding: '0.25rem 0.6rem', borderRadius: '6px', border: '1px solid var(--border-light)' }}>
+                            {p.code} Standard
+                          </span>
+                        </div>
+
+                        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.65rem' }}>
+                          <div style={{ background: 'var(--ivory)', padding: '0.75rem 0.85rem', borderRadius: '10px', border: '1px solid var(--border-light)' }}>
+                            <p style={{ fontSize: '0.625rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.06em', color: 'var(--muted)', margin: '0 0 0.15rem' }}>
+                              Standard Baling
+                            </p>
+                            <p style={{ fontSize: '0.8125rem', fontWeight: 800, color: 'var(--ink)', margin: 0 }}>
+                              {VERIFIED.baleWeight}
+                            </p>
+                          </div>
+                          <div style={{ background: 'var(--ivory)', padding: '0.75rem 0.85rem', borderRadius: '10px', border: '1px solid var(--border-light)' }}>
+                            <p style={{ fontSize: '0.625rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.06em', color: 'var(--muted)', margin: '0 0 0.15rem' }}>
+                              Quality Verification
+                            </p>
+                            <p style={{ fontSize: '0.8125rem', fontWeight: 800, color: 'var(--ink)', margin: 0 }}>
+                              100% In-House Tested
+                            </p>
+                          </div>
+                        </div>
+
+                        <div style={{ paddingTop: '0.5rem', borderTop: '1px solid var(--border-light)' }}>
+                          <Link
+                            href="/contact"
+                            className="btn-secondary"
+                            style={{ width: '100%', justifyContent: 'center', textAlign: 'center', fontSize: '0.75rem' }}
+                          >
+                            Request Specification & Sample →
+                          </Link>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Information / Specifications (Right) */}
+                    <div
+                      className="sp-anim"
+                      style={{
+                        background: 'var(--card-bg, #FFFFFF)',
+                        border: '1px solid var(--border-light)',
+                        borderRadius: '20px',
+                        padding: 'clamp(1.35rem, 2.2vw, 1.85rem)',
+                        boxShadow: '0 12px 36px rgba(10, 75, 184, 0.04)',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'space-between',
+                      }}
+                    >
+                      <div>
+                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1rem', borderBottom: '1px solid var(--border-light)', paddingBottom: '0.75rem' }}>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem' }}>
+                            <span style={{ display: 'inline-block', width: '8px', height: '8px', borderRadius: '50%', background: 'var(--burg-primary)' }} />
+                            <span style={{ fontSize: '0.75rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--burg-primary)' }}>
+                              Verified Technical Specifications
+                            </span>
+                          </div>
+                          <span style={{ fontSize: '0.6875rem', fontWeight: 700, color: 'var(--muted)' }}>
+                            Standard Baseline
+                          </span>
+                        </div>
+
+                        <SpecRows rows={p.verifiedAttributes.map((a) => ({ key: a.label, value: <strong>{a.value}</strong> }))} />
+
+                        <div style={{ marginTop: '1.25rem' }}>
+                          <p style={{ fontSize: '0.6875rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--muted)', marginBottom: '0.5rem' }}>
+                            Verified Applications
+                          </p>
+                          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.45rem' }} aria-label="Applications">
+                            {p.appliedIn.map((a) => (
+                              <Chip key={a}>{a}</Chip>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+
+                      <div style={{ paddingTop: '1.25rem', marginTop: '1.25rem', borderTop: '1px solid var(--border-light)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '1rem' }}>
+                        <ArrowLink href="/contact">Enquire about {p.code}</ArrowLink>
+                        <span style={{ fontSize: '0.75rem', fontWeight: 600, color: 'var(--muted)' }}>
+                          Batch COA Provided
+                        </span>
+                      </div>
+                    </div>
+                  </>
+                )}
               </div>
 
               {/* Per-line manufacturing route - composed only from this line's
@@ -231,9 +479,6 @@ export default function ProductsPage() {
             </div>
           </section>
         ))}
-
-        {/* ── How it is made - pinned 3D scroll chapter ─────────────────── */}
-        <ProcessScrollChapter photo="/images/process-fibre.jpg" photoAlt="Polyester fibre production at the Gulf Fibre plant" />
 
         {/* ── The floor, on film ────────────────────────────────────────── */}
         <section className="section-pad" data-sp-section style={{ background: 'var(--white)' }}>
