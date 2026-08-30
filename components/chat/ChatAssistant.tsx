@@ -63,9 +63,15 @@ const ARROW = (
 )
 
 const CHAT_ICON = (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-    <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" />
-  </svg>
+  <div style={{ position: 'absolute', inset: 0, borderRadius: '50%', overflow: 'hidden' }}>
+    <Image 
+      src="/images/ai-chat-logo.png" 
+      alt="AI Chat Icon" 
+      fill 
+      sizes="60px"
+      style={{ objectFit: 'cover' }} 
+    />
+  </div>
 )
 
 const CLOSE_ICON = (
@@ -138,6 +144,8 @@ export function ChatAssistant() {
   const logRef = useRef<HTMLDivElement>(null)
   const endRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
+  const containerRef = useRef<HTMLElement>(null)
+  const launcherRef = useRef<HTMLDivElement>(null)
 
   /* Reveal the launcher after a short scroll, like the homepage widgets. */
   useEffect(() => {
@@ -147,8 +155,9 @@ export function ChatAssistant() {
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
-  /* Keep the newest message in view. */
+  /* Keep the newest message in view, but start from the top for the initial welcome message. */
   useEffect(() => {
+    if (messages.length === 1 && !typing) return;
     endRef.current?.scrollIntoView({ behavior: 'smooth', block: 'end' })
   }, [messages, typing, open])
 
@@ -161,9 +170,23 @@ export function ChatAssistant() {
         setMenuOpen(false)
       }
     }
+    const onClickOutside = (e: MouseEvent) => {
+      const target = e.target as Node
+      if (
+        containerRef.current && !containerRef.current.contains(target) &&
+        launcherRef.current && !launcherRef.current.contains(target)
+      ) {
+        setOpen(false)
+        setMenuOpen(false)
+      }
+    }
     window.addEventListener('keydown', onKey)
+    document.addEventListener('mousedown', onClickOutside)
     inputRef.current?.focus()
-    return () => window.removeEventListener('keydown', onKey)
+    return () => {
+      window.removeEventListener('keydown', onKey)
+      document.removeEventListener('mousedown', onClickOutside)
+    }
   }, [open])
 
   const scrollTop = () => {
@@ -227,7 +250,7 @@ export function ChatAssistant() {
   return (
     <>
       {/* ── Launcher + back-to-top ─────────────────────────────────────── */}
-      <div className="gf-chat-launch" data-hidden={!visible} data-unread={unread && !open}>
+      <div className="gf-chat-launch" data-hidden={!visible} data-unread={!open} ref={launcherRef}>
         <button
           className="gf-chat-launch__orb"
           onClick={() => {
@@ -243,7 +266,7 @@ export function ChatAssistant() {
           <span className="gf-chat-launch__status" aria-hidden="true" />
         </button>
         <span className="gf-chat-launch__nudge" aria-hidden="true">
-          Ask us about specs or samples
+          Hi! Gulf Fibre Specialist. How can I help? 👋
         </span>
         <button className="gf-chat-top" onClick={scrollTop} aria-label="Back to top">
           {TOP_ICON}
@@ -255,6 +278,7 @@ export function ChatAssistant() {
         <section
           className="gf-chat"
           role="dialog"
+          ref={containerRef}
           aria-label="Gulf Fibre assistant"
           data-lenis-prevent="true"
           data-lenis-prevent-wheel="true"
@@ -266,11 +290,11 @@ export function ChatAssistant() {
           <header className="gf-chat__head">
             <div className="gf-chat__avatar">
               <Image
-                src="/images/specialist-avatar.jpg"
-                alt="Gulf Fibre technical specialist"
+                src="/images/ai-chat-logo.png"
+                alt="AI Chat Assistant"
                 fill
                 sizes="44px"
-                style={{ objectFit: 'cover' }}
+                style={{ objectFit: 'contain' }}
               />
               <span className="gf-chat__avatar-dot" aria-hidden="true" />
             </div>

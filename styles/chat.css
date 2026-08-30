@@ -29,13 +29,12 @@
   pointer-events: none;
 }
 
-/* ── Launcher orb ────────────────────────────────────────────────────────── */
 .gf-chat-launch__orb {
   position: relative;
   width: 3.75rem;
   height: 3.75rem;
   border-radius: 50%;
-  border: none;
+  border: 3px solid var(--burg-primary);
   padding: 0;
   background: var(--burg-primary);
   color: #fff;
@@ -44,9 +43,11 @@
   align-items: center;
   justify-content: center;
   transition: background 0.25s ease, transform 0.25s var(--ease-out);
+  animation: gf-chat-vibrate 4.5s ease-in-out infinite;
 }
 .gf-chat-launch__orb:hover {
   background: var(--burg-bright);
+  animation-play-state: paused;
   transform: translateY(-2px);
 }
 .gf-chat-launch__orb:focus-visible {
@@ -55,22 +56,35 @@
 }
 .gf-chat-launch__orb svg { width: 1.375rem; height: 1.375rem; }
 
-/* Unread pulse ring - shown until the first open */
-.gf-chat-launch__ring {
+@keyframes gf-chat-vibrate {
+  0%, 85% { transform: rotate(0) scale(1); }
+  87% { transform: rotate(-8deg) scale(1.05); }
+  89% { transform: rotate(8deg) scale(1.05); }
+  91% { transform: rotate(-8deg) scale(1.05); }
+  93% { transform: rotate(8deg) scale(1.05); }
+  95% { transform: rotate(0) scale(1); }
+  100% { transform: rotate(0) scale(1); }
+}
+
+/* Continuous pulse ring wave effect */
+.gf-chat-launch__ring,
+.gf-chat-launch__ring::after {
+  content: '';
   position: absolute;
-  inset: -4px;
+  inset: -2px;
   border-radius: 50%;
-  border: 1.5px solid var(--burg-primary);
-  opacity: 0;
+  border: 2px solid var(--burg-primary);
   pointer-events: none;
+  animation: gf-chat-ripple 1.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  opacity: 0;
 }
-.gf-chat-launch[data-unread='true'] .gf-chat-launch__ring {
-  animation: gf-chat-ring 2.4s ease-out infinite;
+.gf-chat-launch__ring::after {
+  inset: -2px;
+  animation-delay: 0.75s;
 }
-@keyframes gf-chat-ring {
-  0% { transform: scale(0.92); opacity: 0.7; }
-  70% { transform: scale(1.28); opacity: 0; }
-  100% { transform: scale(1.28); opacity: 0; }
+@keyframes gf-chat-ripple {
+  0% { transform: scale(1); opacity: 0.8; border-width: 2px; }
+  100% { transform: scale(1.6); opacity: 0; border-width: 0px; }
 }
 
 .gf-chat-launch__status {
@@ -105,7 +119,14 @@
   pointer-events: none;
   transition: opacity 0.4s ease 0.2s;
 }
-.gf-chat-launch[data-unread='true'] .gf-chat-launch__nudge { opacity: 1; }
+.gf-chat-launch[data-unread='true'] .gf-chat-launch__nudge { 
+  opacity: 1; 
+  animation: gf-chat-nudge-float 3s ease-in-out infinite;
+}
+@keyframes gf-chat-nudge-float {
+  0%, 100% { transform: translateY(-50%); }
+  50% { transform: translateY(calc(-50% - 4px)); }
+}
 
 /* ── Back to top ─────────────────────────────────────────────────────────── */
 .gf-chat-top {
@@ -130,7 +151,7 @@
   right: clamp(1rem, 2.5vw, 2.5rem);
   bottom: clamp(5.5rem, 8vh, 6.5rem);
   width: clamp(335px, 92vw, 400px);
-  max-height: min(600px, calc(100dvh - 7.5rem));
+  max-height: min(480px, calc(100dvh - 11rem));
   z-index: 9000;
   display: flex;
   flex-direction: column;
@@ -158,6 +179,7 @@
   padding: 1rem 1.15rem 1rem 1.25rem;
   background: var(--burg-dark);
   color: #fff;
+  flex-shrink: 0;
 }
 .gf-chat__head::after {
   /* Hairline woven texture kept to a whisper, like the homepage dark bands */
@@ -290,6 +312,7 @@
 /* ── Messages ────────────────────────────────────────────────────────────── */
 .gf-chat__log {
   flex: 1;
+  min-height: 0;
   overflow-y: auto;
   overscroll-behavior: contain;
   touch-action: pan-y;
@@ -453,6 +476,7 @@
   padding: 0.85rem 0.9rem 0.95rem 1.15rem;
   border-top: 1px solid var(--border-light);
   background: var(--card-bg);
+  flex-shrink: 0;
 }
 .gf-chat__input {
   flex: 1;
@@ -497,6 +521,7 @@
   border-top: 1px solid var(--border-light);
   font-size: 0.5625rem;
   font-weight: 700;
+  flex-shrink: 0;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--muted);
