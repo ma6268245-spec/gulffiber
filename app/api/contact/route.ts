@@ -42,7 +42,7 @@ export async function POST(request: Request) {
 
   const apiKey = process.env.RESEND_API_KEY
   const to = process.env.CONTACT_TO_EMAIL
-  const from = process.env.CONTACT_FROM_EMAIL || 'Gulf Fibre Website <onboarding@resend.dev>'
+  const from = process.env.CONTACT_FROM_EMAIL || 'Gulf Fiber Website <onboarding@resend.dev>'
 
   if (!apiKey || !to) {
     console.error('[contact] Missing RESEND_API_KEY or CONTACT_TO_EMAIL env var.')
@@ -66,7 +66,7 @@ export async function POST(request: Request) {
   const html = `
   <div style="font-family:Arial,Helvetica,sans-serif;max-width:640px;margin:0 auto;color:#0A1128">
     <h2 style="color:#0A4BB8;margin:0 0 4px">New website enquiry</h2>
-    <p style="margin:0 0 16px;color:#475569;font-size:13px">Submitted via the Gulf Fibre contact form</p>
+    <p style="margin:0 0 16px;color:#475569;font-size:13px">Submitted via the Gulf Fiber contact form</p>
     <table style="width:100%;border-collapse:collapse;font-size:14px">
       ${rows
         .map(

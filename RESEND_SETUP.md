@@ -16,7 +16,7 @@ Resend API key after `RESEND_API_KEY=`:
 ```
 RESEND_API_KEY=re_xxxxxxxxxxxxxxxxxxxxxxxx
 CONTACT_TO_EMAIL=gulffiber@gmail.com
-CONTACT_FROM_EMAIL="Gulf Fibre <noreply@gulffiber.co>"
+CONTACT_FROM_EMAIL="Gulf Fiber <noreply@gulffiber.co>"
 NEWSLETTER_TO_EMAIL=
 ```
 
