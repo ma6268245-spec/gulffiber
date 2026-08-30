@@ -7,7 +7,7 @@ import { PageShell } from '@/components/subpages/PageShell'
 import { SectionHead, SpecRows } from '@/components/subpages/Primitives'
 import { PersonCard } from '@/components/subpages/PeopleChapter'
 import { useSectionReveal } from '@/components/subpages/useSectionReveal'
-import { MANAGEMENT, PRODUCT_LINES, RFQ_ENDPOINT_NOTE, VERIFIED } from '@/lib/data/company'
+import { MANAGEMENT, PRODUCT_LINES, VERIFIED } from '@/lib/data/company'
 
 type Fields = {
   company: string
@@ -58,8 +58,8 @@ type IntentId = (typeof INTENTS)[number]['id']
  * Real channels render from CONTACT_SLOTS the moment they are filled in one
  * place; until then each renders as a labelled slot saying what to supply.
  *
- * The form has no server destination yet (see RFQ_ENDPOINT_NOTE), so it
- * validates in the browser and then says plainly that the submission is held.
+ * The form validates in the browser and then POSTs to /api/contact, which
+ * sends the enquiry through Resend. Success and failure are reported inline.
  */
 export default function ContactPage() {
   const scope = useRef<HTMLDivElement>(null)
@@ -67,7 +67,7 @@ export default function ContactPage() {
 
   const [v, setV] = useState<Fields>(EMPTY)
   const [errors, setErrors] = useState<Partial<Record<keyof Fields, string>>>({})
-  const [held, setHeld] = useState(false)
+  const [status, setStatus] = useState<'idle' | 'sending' | 'ok' | 'error'>('idle')
   const [intent, setIntent] = useState<IntentId>('quotation')
 
   const intentMeta = INTENTS.find((i) => i.id === intent) ?? INTENTS[0]
@@ -88,10 +88,26 @@ export default function ContactPage() {
     return Object.keys(next).length === 0
   }
 
-  const onSubmit = (e: React.FormEvent) => {
+  const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    setHeld(false)
-    if (validate()) setHeld(true)
+    if (status === 'sending') return
+    if (!validate()) {
+      setStatus('idle')
+      return
+    }
+    setStatus('sending')
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ...v, intent }),
+      })
+      if (!res.ok) throw new Error('request failed')
+      setStatus('ok')
+      setV(EMPTY)
+    } catch {
+      setStatus('error')
+    }
   }
 
   const field = (
@@ -247,21 +263,32 @@ export default function ContactPage() {
                   </div>
 
                   <div style={{ marginTop: '2rem' }}>
-                    <button type="submit" className="btn-primary">
-                      Submit enquiry
+                    <button type="submit" className="btn-primary" disabled={status === 'sending'}>
+                      {status === 'sending' ? 'Submitting…' : 'Submit enquiry'}
                     </button>
                   </div>
 
                   <div aria-live="polite">
-                    {held && (
+                    {status === 'ok' && (
                       <div className="sp-form-note" style={{ marginTop: '1.5rem', background: 'rgba(10, 75, 184, 0.05)', border: '1px solid rgba(10, 75, 184, 0.25)', borderRadius: '8px', padding: '1.25rem' }}>
                         <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.4rem' }}>
                           <span style={{ display: 'inline-flex', width: '1.25rem', height: '1.25rem', borderRadius: '50%', background: 'var(--accent-green)', color: '#fff', alignItems: 'center', justifyContent: 'center', fontSize: '0.75rem', fontWeight: 900 }}>✓</span>
                           <p className="sp-slot-title" style={{ margin: 0, color: 'var(--burg-primary)' }}>
-                            Enquiry Validated
+                            Enquiry Sent
                           </p>
                         </div>
-                        <p className="sp-small" style={{ margin: 0 }}>{RFQ_ENDPOINT_NOTE}</p>
+                        <p className="sp-small" style={{ margin: 0 }}>Thank you - your enquiry has reached our production engineering desk. We reply within 24 business hours.</p>
+                      </div>
+                    )}
+                    {status === 'error' && (
+                      <div className="sp-form-note" style={{ marginTop: '1.5rem', background: 'rgba(180, 35, 24, 0.05)', border: '1px solid rgba(180, 35, 24, 0.25)', borderRadius: '8px', padding: '1.25rem' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.4rem' }}>
+                          <span style={{ display: 'inline-flex', width: '1.25rem', height: '1.25rem', borderRadius: '50%', background: '#B42318', color: '#fff', alignItems: 'center', justifyContent: 'center', fontSize: '0.75rem', fontWeight: 900 }}>!</span>
+                          <p className="sp-slot-title" style={{ margin: 0, color: '#B42318' }}>
+                            Could Not Send
+                          </p>
+                        </div>
+                        <p className="sp-small" style={{ margin: 0 }}>Something went wrong sending your enquiry. Please try again in a moment.</p>
                       </div>
                     )}
                   </div>

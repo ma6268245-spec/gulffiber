@@ -1,5 +1,6 @@
 'use client'
 
+import { useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 
@@ -22,6 +23,31 @@ const QUICKLINKS = [
 ]
 
 export function Footer() {
+  const [email, setEmail] = useState('')
+  const [nl, setNl] = useState<'idle' | 'sending' | 'ok' | 'error'>('idle')
+
+  const subscribe = async (e: React.FormEvent) => {
+    e.preventDefault()
+    if (nl === 'sending') return
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email.trim())) {
+      setNl('error')
+      return
+    }
+    setNl('sending')
+    try {
+      const res = await fetch('/api/newsletter', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: email.trim() }),
+      })
+      if (!res.ok) throw new Error('request failed')
+      setNl('ok')
+      setEmail('')
+    } catch {
+      setNl('error')
+    }
+  }
+
   return (
     <footer
       style={{
@@ -195,12 +221,18 @@ export function Footer() {
               Premium fibres into high-quality textiles that define excellence.
             </p>
             <form
-              onSubmit={(e) => e.preventDefault()}
+              onSubmit={subscribe}
               style={{ display: 'flex', gap: '0', marginBottom: '1rem' }}
             >
               <input
                 type="email"
                 placeholder="Email Address"
+                aria-label="Email Address"
+                value={email}
+                onChange={(e) => {
+                  setEmail(e.target.value)
+                  if (nl !== 'idle') setNl('idle')
+                }}
                 style={{
                   flex: 1,
                   padding: '0.75rem 1rem',
@@ -215,6 +247,7 @@ export function Footer() {
               />
               <button
                 type="submit"
+                disabled={nl === 'sending'}
                 style={{
                   padding: '0.75rem 1rem',
                   background: 'var(--burg-primary)',
@@ -230,6 +263,28 @@ export function Footer() {
                 </svg>
               </button>
             </form>
+            <p
+              aria-live="polite"
+              style={{
+                fontSize: '0.75rem',
+                lineHeight: 1.5,
+                minHeight: '1.05rem',
+                marginTop: '-0.5rem',
+                marginBottom: '1rem',
+                color:
+                  nl === 'ok'
+                    ? 'var(--burg-primary)'
+                    : nl === 'error'
+                      ? '#ff9b9b'
+                      : 'rgba(255,255,255,0.5)',
+              }}
+            >
+              {nl === 'ok'
+                ? 'Thank you — you are subscribed.'
+                : nl === 'error'
+                  ? 'Please enter a valid email address.'
+                  : ''}
+            </p>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.375rem' }}>
               {[1,2,3,4].map(i => (
                 <svg key={i} width="12" height="12" viewBox="0 0 24 24" fill="var(--burg-primary)">
