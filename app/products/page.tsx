@@ -46,7 +46,7 @@ const SCENE: Record<string, SceneVariant> = {
 
 const SCENE_CAPTION: Record<string, string> = {
   'psf-regenerated': 'Scroll to open the baled bundle and read the crimped cross-section - indicative visualisation, not a measured rendering of a grade.',
-  'psf-virgin': 'Scroll to open the baled bundle and read the crimped cross-section - indicative visualisation, not a measured rendering of a grade.',
+  'psf-virgin': 'Scroll to inspect the conjugate hollow structure and 3D spiral crimp - indicative visualisation of filling loft recovery.',
   wadding: 'Scroll to loft the wadding - layers gain height and volume, then recover. Indicative visualisation of thermal-bonded behaviour.',
   felt: 'Scroll to compact the felt - loose fibre interlocks under needling into a dimensionally stable mat. Indicative visualisation.',
   interlining: 'Scroll to interlace the lattice - warp and weft strands lock into a woven structure. Indicative visualisation.',
@@ -62,7 +62,7 @@ export default function ProductsPage() {
         <PageHero
           eyebrow="Product Portfolio"
           lines={[{ text: 'Five lines,' }, { text: 'one specification' }, { text: 'discipline', serif: true }]}
-          lede={`Regenerated and virgin staple fibre (${VERIFIED.denierRange}), high-loft thermal-bonded wadding, needle-punched technical felt, and fusible garment interlinings — engineered to the precise specification of the receiving operation.`}
+          lede={`Regenerated solid and hollow staple fibre (${VERIFIED.denierRange}), high-loft thermal-bonded wadding, needle-punched technical felt, and fusible garment interlinings — engineered to the precise specification of the receiving operation.`}
           meta={[
             { label: 'Denier range', value: VERIFIED.denierRange },
             { label: 'Annual capacity', value: VERIFIED.annualCapacity },
@@ -148,7 +148,7 @@ export default function ProductsPage() {
                   </div>
                 </div>
 
-                <div style={{ display: 'grid', gap: '1.5rem' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
                   <div className="sp-anim">
                     <ScrollProductScene
                       variant={SCENE[p.id] ?? 'bundle'}
@@ -157,43 +157,57 @@ export default function ProductsPage() {
                       caption={SCENE_CAPTION[p.id]}
                     />
                   </div>
-                  {p.image ? (
-                    <figure style={{ margin: 0 }} className="sp-anim">
-                      <div
-                        style={{
-                          position: 'relative',
-                          aspectRatio: '16 / 9',
-                          overflow: 'hidden',
-                          border: '1px solid var(--border-light)',
-                        }}
-                      >
-                        <Image
-                          src={p.image}
-                          alt={`${p.title} at the Gulf Fibre plant`}
-                          fill
-                          sizes="(max-width: 992px) 100vw, 46vw"
-                          style={{ objectFit: 'cover' }}
-                        />
-                      </div>
-                      <figcaption className="sp-small" style={{ marginTop: '0.6rem' }}>
-                        {p.title} - production photograph.
-                      </figcaption>
-                    </figure>
-                  ) : (
-                    <DataSlot
-                      title={`${p.title} - photograph required`}
-                      note={`${p.subtitle}. No image of this line exists in the repository, so none is shown. Supply a production photograph and this tile matches the others.`}
-                      minHeight="12rem"
-                    />
-                  )}
-                  <DataSlot title="Technical data sheet" note={p.specSlot} minHeight="8rem" />
+                  
+                  <figure style={{ margin: 0 }} className="sp-anim">
+                    <div
+                      style={{
+                        position: 'relative',
+                        aspectRatio: '16 / 9',
+                        overflow: 'hidden',
+                        borderRadius: '16px',
+                        border: '1px solid var(--border-light)',
+                      }}
+                    >
+                      <Image
+                        src={p.image ?? '/images/collection-rolls.jpg'}
+                        alt={`${p.title} at the Gulf Fibre plant`}
+                        fill
+                        sizes="(max-width: 992px) 100vw, 46vw"
+                        style={{ objectFit: 'cover' }}
+                      />
+                    </div>
+                    <figcaption className="sp-small" style={{ marginTop: '0.5rem' }}>
+                      {p.title} — production photograph.
+                    </figcaption>
+                  </figure>
+
+                  <div
+                    className="sp-anim"
+                    style={{
+                      background: 'var(--card-bg, #FFFFFF)',
+                      border: '1px solid var(--border-light)',
+                      borderRadius: '16px',
+                      padding: '1.15rem 1.35rem',
+                      boxShadow: '0 4px 16px rgba(10, 75, 184, 0.04)',
+                    }}
+                  >
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem', marginBottom: '0.35rem' }}>
+                      <span style={{ display: 'inline-block', width: '6px', height: '6px', borderRadius: '50%', background: 'var(--burg-primary)' }} />
+                      <span style={{ fontSize: '0.6875rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--burg-primary)' }}>
+                        Technical Specification & Feasibility
+                      </span>
+                    </div>
+                    <p style={{ fontSize: '0.8125rem', lineHeight: 1.6, color: 'var(--muted)', margin: 0 }}>
+                      {p.specSlot}
+                    </p>
+                  </div>
                 </div>
               </div>
 
               {/* Per-line manufacturing route - composed only from this line's
                   verified construction and the published production sequence. */}
-              <div className="sp-route sp-anim" style={{ marginTop: 'clamp(2.5rem, 5vh, 4rem)' }}>
-                <p className="sp-cat" style={{ marginBottom: '1rem' }}>
+              <div className="sp-route sp-anim" style={{ marginTop: 'clamp(2rem, 4vh, 3rem)', paddingTop: 'clamp(1.5rem, 3vh, 2.25rem)' }}>
+                <p className="sp-cat" style={{ marginBottom: '1.25rem', fontSize: '0.875rem', letterSpacing: '0.1em' }}>
                   The route to {p.code} - how this line is made
                 </p>
                 <ol className="sp-route__list">
@@ -209,7 +223,7 @@ export default function ProductsPage() {
                     </li>
                   ))}
                 </ol>
-                <p className="sp-small" style={{ marginTop: '1rem' }}>
+                <p className="sp-small" style={{ marginTop: '1.25rem', fontSize: '0.8125rem', lineHeight: 1.6 }}>
                   Route assembled from the line&rsquo;s verified construction and the published production sequence -
                   per-grade parameters are order-specific and not published from a standing table.
                 </p>
@@ -247,6 +261,7 @@ export default function ProductsPage() {
                 title="How it ships"
                 em="once it is agreed"
                 lede="Packing, documentation and loading are handled in-house, which is what keeps a specification intact between our floor and your intake."
+                dark
               />
             </div>
             <div className="sp-anim">

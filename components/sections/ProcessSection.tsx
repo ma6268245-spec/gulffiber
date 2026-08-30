@@ -1,11 +1,24 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 
 export function ProcessSection() {
   const sectionRef = useRef<HTMLElement>(null)
+  const videoRef = useRef<HTMLVideoElement>(null)
+  const [isPlaying, setIsPlaying] = useState(true)
+
+  const togglePlay = () => {
+    if (!videoRef.current) return
+    if (videoRef.current.paused) {
+      videoRef.current.play()
+      setIsPlaying(true)
+    } else {
+      videoRef.current.pause()
+      setIsPlaying(false)
+    }
+  }
 
   useEffect(() => {
     let ctx: { revert: () => void } | undefined;
@@ -59,7 +72,7 @@ export function ProcessSection() {
             alignItems: 'center',
           }}
         >
-          {/* Left: Video thumbnail */}
+          {/* Left: Video container */}
           <div style={{ position: 'relative' }}>
             <div
               className="proc-img-wrap"
@@ -67,20 +80,36 @@ export function ProcessSection() {
                 position: 'relative',
                 height: 'clamp(28rem, 55vh, 48rem)',
                 overflow: 'hidden',
+                background: '#040814',
               }}
             >
-              <Image
-                src="/images/process-fibre.jpg"
-                alt="Advanced textile processing"
-                fill
-                style={{ objectFit: 'cover', objectPosition: 'center' }}
+              <video
+                ref={videoRef}
+                src="/videos/product-hero.mp4"
+                poster="/images/process-fibre.jpg"
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload="metadata"
+                onPlay={() => setIsPlaying(true)}
+                onPause={() => setIsPlaying(false)}
+                style={{
+                  position: 'absolute',
+                  inset: 0,
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'cover',
+                  objectPosition: 'center',
+                }}
               />
               {/* Dark overlay */}
-              <div style={{ position: 'absolute', inset: 0, background: 'rgba(36,0,3,0.5)' }} />
+              <div style={{ position: 'absolute', inset: 0, background: 'rgba(10, 17, 40, 0.35)', pointerEvents: 'none' }} />
             </div>
-            {/* Play button */}
+            {/* Play/Pause toggle button */}
             <button
-              aria-label="Play video"
+              onClick={togglePlay}
+              aria-label={isPlaying ? 'Pause video' : 'Play video'}
               style={{
                 position: 'absolute',
                 top: '50%',
@@ -96,22 +125,33 @@ export function ProcessSection() {
                 alignItems: 'center',
                 justifyContent: 'center',
                 color: 'var(--white)',
-                transition: 'transform 0.3s ease, background 0.3s',
+                transition: 'transform 0.3s ease, background 0.3s, opacity 0.3s',
+                opacity: isPlaying ? 0.85 : 1,
+                boxShadow: '0 8px 24px rgba(10, 75, 184, 0.4)',
               }}
               onMouseEnter={(e) => {
                 const btn = e.currentTarget
                 btn.style.transform = 'translate(-50%, -50%) scale(1.12)'
                 btn.style.background = 'var(--burg-bright)'
+                btn.style.opacity = '1'
               }}
               onMouseLeave={(e) => {
                 const btn = e.currentTarget
                 btn.style.transform = 'translate(-50%, -50%) scale(1)'
                 btn.style.background = 'var(--burg-primary)'
+                btn.style.opacity = isPlaying ? '0.85' : '1'
               }}
             >
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
-                <polygon points="5 3 19 12 5 21 5 3" />
-              </svg>
+              {isPlaying ? (
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                  <rect x="6" y="4" width="4" height="16" rx="1" />
+                  <rect x="14" y="4" width="4" height="16" rx="1" />
+                </svg>
+              ) : (
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+                  <polygon points="5 3 19 12 5 21 5 3" />
+                </svg>
+              )}
             </button>
           </div>
 

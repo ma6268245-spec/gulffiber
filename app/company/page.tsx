@@ -87,7 +87,7 @@ export default function CompanyPage() {
                 eyebrow="02 · Who We Are"
                 title="A fibre manufacturer,"
                 em="not a trading house"
-                lede="Direct manufacturer of virgin and recycled polyester staple fibres, operating dedicated extrusion and carding lines in Pakistan since 1999."
+                lede="Direct manufacturer of high-tenacity and recycled polyester staple fibres, operating dedicated extrusion and carding lines in Pakistan since 1999."
               />
             </div>
 
@@ -107,7 +107,7 @@ export default function CompanyPage() {
                     { key: 'Legal Name', value: <strong>{VERIFIED.legalName}</strong> },
                     { key: 'Headquarters & Plant', value: <strong>{VERIFIED.country}</strong> },
                     { key: 'Founding Year', value: <strong>{String(VERIFIED.established)} (25+ Years)</strong> },
-                    { key: 'Core Materials', value: <strong>Recycled & Virgin Polyester Fibres</strong> },
+                    { key: 'Core Materials', value: <strong>Recycled & Staple Polyester Fibres</strong> },
                     { key: 'Registrations', value: <strong>{VERIFIED.certificationCount} Official Licenses</strong> },
                   ]}
                 />
@@ -220,7 +220,7 @@ export default function CompanyPage() {
                 marginTop: '1.5rem',
               }}
             >
-              {/* Product 1: Staple Fibre */}
+              {/* Product 1: Staple & Hollow Fibre */}
               <div
                 style={{
                   background: 'var(--card-bg)',
@@ -236,26 +236,26 @@ export default function CompanyPage() {
               >
                 <div>
                   <span style={{ fontSize: '0.6875rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--burg-primary)', background: 'rgba(10, 75, 184, 0.08)', padding: '0.3rem 0.75rem', borderRadius: '9999px', display: 'inline-block', marginBottom: '1rem' }}>
-                    01 · Core Spinning Material
+                    01 · Core Spinning & Filling Fibres
                   </span>
                   <h3 style={{ fontSize: '1.35rem', fontWeight: 900, fontFamily: 'var(--font-sans)', textTransform: 'uppercase', color: 'var(--ink)', margin: '0 0 0.65rem' }}>
-                    Staple Fibre
+                    Staple & Hollow Fibre
                   </h3>
                   <p style={{ fontSize: '0.875rem', lineHeight: 1.6, color: 'var(--muted)', margin: '0 0 1.25rem' }}>
-                    Polyester staple fibre (PSF) and recycled fibre engineered for high-speed yarn spinning and blending. High tensile strength and consistent staple length.
+                    Polyester staple fibre (PSF) and conjugate hollow fibres engineered for high-speed yarn spinning, textile blending, and premium cushioning resilience.
                   </p>
                   <ul style={{ listStyle: 'none', padding: 0, margin: '0 0 1.5rem', display: 'flex', flexDirection: 'column', gap: '0.45rem', fontSize: '0.8125rem', color: 'var(--ink)' }}>
-                    <li>✔ <strong>1.5D to 15D</strong> Denier range</li>
+                    <li>✔ <strong>1.5D to 15D</strong> Solid & Hollow conjugate deniers</li>
                     <li>✔ <strong>32mm to 64mm</strong> Cut length options</li>
-                    <li>✔ Raw White, Optical Bright & Dope Dyed</li>
+                    <li>✔ Siliconized, Non-Siliconized & Dope Dyed</li>
                   </ul>
                 </div>
-                <Link href="/products" className="btn-secondary" style={{ textAlign: 'center', justifyContent: 'center', width: '100%' }}>
-                  Staple Fibre Specs →
+                <Link href="/products#psf-regenerated" className="btn-secondary" style={{ textAlign: 'center', justifyContent: 'center', width: '100%' }}>
+                  Staple & Hollow Specs →
                 </Link>
               </div>
 
-              {/* Product 2: Hollow Fibre & Wadding */}
+              {/* Product 2: Thermal-Bonded Wadding */}
               <div
                 style={{
                   background: 'var(--card-bg)',
@@ -271,22 +271,22 @@ export default function CompanyPage() {
               >
                 <div>
                   <span style={{ fontSize: '0.6875rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--burg-primary)', background: 'rgba(10, 75, 184, 0.08)', padding: '0.3rem 0.75rem', borderRadius: '9999px', display: 'inline-block', marginBottom: '1rem' }}>
-                    02 · Filling & Insulation
+                    02 · Thermal Insulation
                   </span>
                   <h3 style={{ fontSize: '1.35rem', fontWeight: 900, fontFamily: 'var(--font-sans)', textTransform: 'uppercase', color: 'var(--ink)', margin: '0 0 0.65rem' }}>
-                    Hollow Fibre & Wadding
+                    Thermal-Bonded Wadding
                   </h3>
                   <p style={{ fontSize: '0.875rem', lineHeight: 1.6, color: 'var(--muted)', margin: '0 0 1.25rem' }}>
-                    Conjugate hollow fibres and thermal bonded polyester wadding providing superior loft, soft hand-feel, and instant rebound resilience.
+                    High-loft thermal-bonded polyester wadding sheets and rolls engineered for bedding, upholstery, and garment thermal insulation.
                   </p>
                   <ul style={{ listStyle: 'none', padding: 0, margin: '0 0 1.5rem', display: 'flex', flexDirection: 'column', gap: '0.45rem', fontSize: '0.8125rem', color: 'var(--ink)' }}>
-                    <li>✔ <strong>Siliconized & Non-Siliconized</strong></li>
-                    <li>✔ Thermal-bonded wadding sheets & rolls</li>
-                    <li>✔ Pillows, quilts, upholstery & garment fill</li>
+                    <li>✔ <strong>High-loft batting & roll wadding</strong></li>
+                    <li>✔ <strong>100 to 600+ GSM</strong> customizable weights</li>
+                    <li>✔ Pillows, quilts, mattresses & garment fill</li>
                   </ul>
                 </div>
-                <Link href="/products" className="btn-secondary" style={{ textAlign: 'center', justifyContent: 'center', width: '100%' }}>
-                  Hollow Fibre Specs →
+                <Link href="/products#wadding" className="btn-secondary" style={{ textAlign: 'center', justifyContent: 'center', width: '100%' }}>
+                  Wadding Specs →
                 </Link>
               </div>
 
@@ -320,7 +320,7 @@ export default function CompanyPage() {
                     <li>✔ Automotive acoustic & thermal barriers</li>
                   </ul>
                 </div>
-                <Link href="/products" className="btn-secondary" style={{ textAlign: 'center', justifyContent: 'center', width: '100%' }}>
+                <Link href="/products#felt" className="btn-secondary" style={{ textAlign: 'center', justifyContent: 'center', width: '100%' }}>
                   Nonwovens Specs →
                 </Link>
               </div>

@@ -4,7 +4,7 @@ import '@/styles/subpage.css'
 export const metadata: Metadata = {
   title: 'Manufacturing & Services - Gulf Fibre Company (PVT) Limited',
   description:
-    'Custom denier and cut-length specification, in-house testing, 280 kg moisture-sealed baling, and export documentation prepared in-house.',
+    'Custom denier and cut-length specification, in-house testing, 200–300 kg moisture-sealed baling, and export documentation prepared in-house.',
 }
 
 /**

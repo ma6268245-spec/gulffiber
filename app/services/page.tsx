@@ -38,7 +38,7 @@ export default function ServicesPage() {
         <PageHero
           eyebrow="Manufacturing & Services"
           lines={[{ text: 'Built to your' }, { text: 'specification,' }, { text: 'not to a catalogue', serif: true }]}
-          lede="Denier, cut length, crimp and finish are set by the order rather than by a standing range - then verified in-house, sealed at 280 kg and documented for export before it leaves the floor."
+          lede="Denier, cut length, crimp and finish are set by the order rather than by a standing range - then verified in-house, sealed at 200–300 kg and documented for export before it leaves the floor."
           meta={[
             { label: 'Annual capacity', value: VERIFIED.annualCapacity },
             { label: 'Denier range', value: VERIFIED.denierRange },
@@ -165,7 +165,7 @@ export default function ServicesPage() {
                     { key: 'Denier', value: <>Target count within <strong>{VERIFIED.denierRange}</strong></> },
                     { key: 'Cut length', value: 'Set per order rather than from a standing range' },
                     { key: 'Crimp & finish', value: 'Crimp frequency and finish chemistry to your process' },
-                    { key: 'Feedstock', value: <>Recycled (<strong>{VERIFIED.recycledInput}</strong>) or virgin polymer</> },
+                    { key: 'Feedstock', value: <>Recycled (<strong>{VERIFIED.recycledInput}</strong>) or prime polymer</> },
                     { key: 'Volume & destination', value: 'Quantity and delivery country, for packing and documentation' },
                   ]}
                 />

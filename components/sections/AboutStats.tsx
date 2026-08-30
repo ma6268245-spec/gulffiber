@@ -34,7 +34,8 @@ export function AboutStats() {
       ref={sectionRef}
       style={{
         background: 'var(--ivory)',
-        paddingBlock: 'clamp(4rem, 8vh, 7rem)',
+        paddingTop: 'clamp(0.5rem, 1.5vh, 1rem)',
+        paddingBottom: 'clamp(3.5rem, 7vh, 6rem)',
       }}
     >
       <div className="container">

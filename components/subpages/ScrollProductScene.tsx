@@ -27,7 +27,7 @@ const STAGE_COPY: Record<string, { label: string; note: string }[]> = {
     { label: 'Recovery', note: 'Structure springs back under load' },
   ],
   felt: [
-    { label: 'Fibre cloud', note: 'Loose recycled and virgin fibre' },
+    { label: 'Fibre cloud', note: 'Loose recycled and prime fibre' },
     { label: 'Needling', note: 'Barbed needles interlock the structure' },
     { label: 'Compacted', note: 'A dimensionally stable mat' },
   ],
@@ -70,24 +70,28 @@ export function ScrollProductScene({
       const gsap = await getGsap()
       if (cancelled || !wrapRef.current) return
 
+      // Use surrounding section for a wider, natural scroll tracking window
+      const triggerEl = wrapRef.current.closest('section') || wrapRef.current
+
       ctx = gsap.context(() => {
         const proxy = { p: 0 }
         gsap.to(proxy, {
           p: 1,
           ease: 'none',
           scrollTrigger: {
-            trigger: wrapRef.current,
-            start: 'top 75%',
-            end: 'bottom 35%',
-            scrub: 0.6,
+            trigger: triggerEl,
+            start: 'top 70%',
+            end: 'bottom 30%',
+            scrub: 0.8,
             onUpdate: (self: { progress: number }) => {
-              setProgress(self.progress)
-              const s = self.progress < 0.4 ? 0 : self.progress < 0.75 ? 1 : 2
-              setStage((prev) => (prev === s ? prev : s))
+              const p = Math.max(0, Math.min(1, self.progress))
+              setProgress(p)
+              const s = p < 0.33 ? 0 : p < 0.66 ? 1 : 2
+              setStage(s)
             },
           },
         })
-      }, wrapRef.current)
+      }, triggerEl)
     }
 
     run()
@@ -98,6 +102,12 @@ export function ScrollProductScene({
   }, [])
 
   const stages = STAGE_COPY[variant] ?? []
+
+  const handleStageSelect = (i: number) => {
+    setStage(i)
+    const targetProgress = i === 0 ? 0.05 : i === 1 ? 0.5 : 0.95
+    setProgress(targetProgress)
+  }
 
   return (
     <div ref={wrapRef} className="sp-scene" style={{ minHeight: height }}>
@@ -121,9 +131,24 @@ export function ScrollProductScene({
       </div>
 
       {stages.length > 0 && (
-        <ol className="sp-scene__stages" aria-hidden="true">
+        <ol className="sp-scene__stages">
           {stages.map((s, i) => (
-            <li className="sp-scene__stage" data-on={i === stage} key={s.label}>
+            <li
+              className="sp-scene__stage"
+              data-on={i === stage}
+              key={s.label}
+              onClick={() => handleStageSelect(i)}
+              style={{ cursor: 'pointer' }}
+              role="button"
+              tabIndex={0}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  e.preventDefault()
+                  handleStageSelect(i)
+                }
+              }}
+              aria-label={`View stage: ${s.label} - ${s.note}`}
+            >
               <span className="sp-scene__stage-label">{s.label}</span>
               <span className="sp-scene__stage-note">{s.note}</span>
             </li>

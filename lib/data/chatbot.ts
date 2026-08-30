@@ -103,7 +103,7 @@ export const CHAT_INTENTS: ChatIntent[] = [
       `We manufacture five verified product lines: ${lineList}. The staple fibre range spans ${VERIFIED.denierRange}, from fine-count spinning to ultra-coarse industrial batting. Tap a card for the line's verified attributes.`,
     cards: PRODUCT_CARDS,
     suggestions: [
-      { label: 'Compare recycled vs virgin fibre', query: 'Compare recycled and virgin staple fibre' },
+      { label: 'Compare recycled vs prime PSF', query: 'Compare recycled and prime staple fibre' },
       { label: 'Tell me about certifications', query: 'What certifications do you hold?' },
     ],
     action: { text: 'Browse the product pages', href: '/products' },
@@ -128,11 +128,11 @@ export const CHAT_INTENTS: ChatIntent[] = [
     id: 'compare',
     keywords: [
       'compare', 'comparison', 'difference', 'differences', 'versus', ' vs ',
-      'which product', 'which one', 'better', 'recycled or virgin',
-      'regenerated or virgin',
+      'which product', 'which one', 'better', 'recycled or prime',
+      'regenerated or prime',
     ],
     answer: () =>
-      'The comparison the record supports is recycled versus virgin staple fibre: both span the full 1.2D-60D range and both run the same four-stage sequence - they differ in feedstock and in what you can claim downstream. GRS chain of custody applies to the regenerated line; prime-polymer processing behaviour and colour consistency are why the virgin line is specified. Deeper comparisons between specific grades are order questions, so they go to the enquiry desk rather than being improvised here.',
+      'The comparison the record supports is recycled versus prime staple fibre: both span the full 1.2D-60D range and both run the same four-stage sequence - they differ in feedstock and in what you can claim downstream. GRS chain of custody applies to the regenerated line; prime-polymer processing behaviour and colour consistency are why the prime line is specified. Deeper comparisons between specific grades are order questions, so they go to the enquiry desk rather than being improvised here.',
     cards: COMPARE_CARDS,
     suggestions: [
       { label: 'How is recycled content verified?', query: 'How is recycled content verified?' },
@@ -330,7 +330,7 @@ export const CHAT_INTENTS: ChatIntent[] = [
     },
     cards: PRODUCT_CARDS,
     suggestions: [
-      { label: 'Compare recycled vs virgin PSF', query: 'Compare recycled and virgin PSF' },
+      { label: 'Compare recycled vs prime PSF', query: 'Compare recycled and prime PSF' },
       { label: 'Open the enquiry form', query: 'How do I request a quote?' },
     ],
     action: { text: 'See the product lines', href: '/products' },

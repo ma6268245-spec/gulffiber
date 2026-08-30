@@ -44,7 +44,7 @@ export const GULF_FIBRE_DATA: CompanyData = {
     { value: '250+', label: 'Workforce / Employees', status: 'VERIFIED' },
   ],
   productCategories: [
-    { id: '01', title: 'Polyester Staple Fibre', subtitle: 'Virgin & Recycled · 1.2D–60D', status: 'VERIFIED' },
+    { id: '01', title: 'Polyester Staple Fibre', subtitle: 'Solid & Hollow · 1.2D–60D', status: 'VERIFIED' },
     { id: '02', title: 'Wadding & Thermal Infill', subtitle: 'High-loft · Thermal bonding', status: 'VERIFIED' },
     { id: '03', title: 'Felt & Non-Woven Materials', subtitle: 'Needle-punched · All weights', status: 'VERIFIED' },
     { id: '04', title: 'Linings & Fusing Materials', subtitle: 'Woven & non-woven interlinings', status: 'VERIFIED' },
@@ -52,7 +52,7 @@ export const GULF_FIBRE_DATA: CompanyData = {
   capabilities: [
     { title: 'Custom Specifications', description: 'Tailored denier, cut length, crimp frequency, and finish chemistry.', status: 'VERIFIED' },
     { title: 'Quality & Testing', description: 'In-house testing, tensile analysis, moisture verification, and COA documentation.', status: 'VERIFIED' },
-    { title: 'Packaging & Handling', description: 'Moisture-sealed baling (280kg standard) and protective roll wrapping.', status: 'VERIFIED' },
+    { title: 'Packaging & Handling', description: 'Moisture-sealed baling (200–300 kg standard) and protective roll wrapping.', status: 'VERIFIED' },
     { title: 'Export & Logistics', description: 'Full export documentation, container loading, and dedicated shipping coordination.', status: 'VERIFIED' },
   ],
   certifications: [
@@ -111,7 +111,7 @@ export const VERIFIED = {
   denierRange: '1.2D - 60D',
   denierMin: 1.2,
   denierMax: 60,
-  baleWeight: '280 kg',
+  baleWeight: '200–300 kg',
   recycledInput: '100% post-consumer PET',
 } as const
 
@@ -127,7 +127,7 @@ export const PROCESS_STAGES: {
       id: 'ST-01',
       title: 'Polymer Sorting & Flake Refining',
       summary:
-        'Incoming post-consumer PET and virgin polymer are sorted, washed and refined to a consistent flake feedstock before any melt stage begins.',
+        'Incoming post-consumer PET and clean polymer are sorted, washed and refined to a consistent flake feedstock before any melt stage begins.',
       status: 'VERIFIED',
       source: 'Homepage ProcessSection',
     },
@@ -275,27 +275,29 @@ export const PRODUCT_LINES: ProductLine[] = [
   },
   {
     id: 'psf-virgin',
-    code: 'PSF-V',
-    title: 'Virgin Polyester Staple Fibre',
-    subtitle: 'Prime polymer feedstock · Pure PTA & MEG',
+    code: 'PSF-H',
+    title: 'Regenerated Polyester Hollow Fibre',
+    subtitle: 'Conjugate hollow infill · Siliconized & non-siliconized',
     positioning:
-      'High-purity virgin polyester staple fibre produced directly from prime PTA (Purified Terephthalic Acid) and MEG (Monoethylene Glycol) feedstock. Engineered for fine-count spinning, apparel textiles, and high-tenacity industrial applications requiring exceptional tensile uniformity, optical brightness, and dye uptake consistency.',
+      'High-resilience regenerated polyester hollow fibre engineered with a continuous hollow cross-section and permanent three-dimensional helical crimp. Manufactured from sorted post-consumer PET under verified GRS chain of custody for exceptional loft recovery, thermal air retention, and down-like softness in pillows, quilts, cushions, and winter garment insulation.',
     appliedIn: [
-      'Fine-count yarn spinning',
-      'Apparel & garment textiles',
-      'Polyester-cotton (PC) blended yarns',
-      'High-tenacity industrial fabrics',
+      'Pillows, duvets & luxury bedding',
+      'Sofa cushions & upholstered furniture',
+      'Winter outerwear & quilted jackets',
+      'Plush toys & craft stuffing infill',
+      'High-loft thermal wadding blends',
+      'Mattress toppers & sleep surfaces',
     ],
     verifiedAttributes: [
-      { label: 'Fibre category', value: 'Virgin polyester staple fibre' },
-      { label: 'Feedstock origin', value: 'Prime PTA & MEG polymerization' },
-      { label: 'Denier range', value: '1.2D – 15D (spinning & industrial counts)' },
-      { label: 'Cut length', value: '32 mm – 76 mm (grade-dependent)' },
-      { label: 'Lustre options', value: 'Semi-dull / bright / super-white' },
+      { label: 'Fibre category', value: 'Regenerated polyester hollow fibre' },
+      { label: 'Cross-section profile', value: 'Conjugate hollow (helical 3D crimp)' },
+      { label: 'Surface finish', value: 'Siliconized (slick hand-feel) / Non-siliconized' },
+      { label: 'Denier range', value: '3D – 15D (filling & batting counts)' },
+      { label: 'Cut length', value: '32 mm – 64 mm (grade-dependent)' },
       { label: 'Substance safety', value: 'OEKO-TEX Standard 100 (Class I safe)' },
     ],
     specSlot:
-      'Technical data sheet required — grade-specific tensile modulus, thermal shrinkage tables, and optical whiteness indexes are supplied per technical sales inquiry.',
+      'Technical data sheet required — grade-specific bulk resilience %, compression recovery curves, and hollow ratio percentages are supplied per technical sales inquiry.',
     image: '/images/collection-rolls.jpg',
     status: 'VERIFIED',
   },
@@ -347,7 +349,7 @@ export const PRODUCT_LINES: ProductLine[] = [
       { label: 'Structural profile', value: 'Dense, cohesive, isotropic fibre matrix' },
       { label: 'Mechanical strength', value: 'High tear resistance & dimensional stability' },
       { label: 'Permeability', value: 'Engineered porosity for filtration & air passage' },
-      { label: 'Feedstock options', value: '100% GRS recycled or prime virgin PET' },
+      { label: 'Feedstock options', value: '100% GRS recycled or prime PET' },
       { label: 'Custom variants', value: 'Heat-calendered / optional adhesive backing' },
     ],
     specSlot:
@@ -498,7 +500,7 @@ export const MILESTONES: CompanyMilestone[] = [
     category: 'Operating Scale',
     title: '15,000+ T Annual Capacity & 100+ Industrial Partners',
     body:
-      'Today, Gulf Fibre operates 15,000+ T of annual production capacity with 250+ skilled staff, delivering consistent virgin and recycled synthetic materials to leading industrial clients.',
+      'Today, Gulf Fibre operates 15,000+ T of annual production capacity with 250+ skilled staff, delivering consistent high-tenacity and recycled synthetic materials to leading industrial clients.',
     metric: '15,000+ T Annual Output',
     image: '/images/process-fibre.jpg',
     status: 'VERIFIED',
@@ -632,7 +634,7 @@ export const MANAGEMENT: PersonSlot[] = [
     placeholderKey: 'manager-placeholder-02',
     name: 'Ehsan Afzal',
     role: 'Sales for Staple & Hollow Polyester Fiber',
-    bio: 'Technical sales lead specializing in regenerated & virgin staple fibre and hollow conjugate polyester specifications for spinning and filling applications.',
+    bio: 'Technical sales lead specializing in regenerated staple fibre and hollow conjugate polyester specifications for spinning and filling applications.',
     contact: '+92 334 7804900',
     portrait: '/images/team/ehsan-afzal.jpg',
     status: 'VERIFIED',
@@ -766,13 +768,13 @@ export const ORG_TREE_DATA: OrgNode[] = [
     parentId: 'org-cofounder',
     portrait: '/images/team/ehsan-afzal.jpg',
     contact: '+92 334 7804900',
-    bio: 'Heading technical sales accounts for regenerated and virgin polyester staple fibre (1.2D to 60D) as well as siliconized and hollow conjugate fibre across textile spinning mills and filling converters.',
+    bio: 'Heading technical sales accounts for regenerated polyester staple fibre (1.2D to 60D) as well as siliconized and hollow conjugate fibre across textile spinning mills and filling converters.',
     responsibilities: [
       'Spinning Mill & Filling Converter Client Accounts',
       'Custom Denier, Cut-Length & Crimp Formulations',
       'Order Verification & Dispatch Logistics',
     ],
-    specialties: ['Regenerated & Virgin PSF', 'Hollow Conjugate Fibre', 'Spinning Mill Specifications'],
+    specialties: ['Regenerated PSF', 'Hollow Conjugate Fibre', 'Spinning Mill Specifications'],
     experience: 'Commercial Technical Sales Lead',
   },
   {
@@ -874,33 +876,33 @@ export const PRODUCT_ROUTES: Record<string, RouteStation[]> = {
   ],
   'psf-virgin': [
     {
-      label: 'Prime PTA & MEG feedstock',
+      label: 'Decontaminated post-consumer feedstock',
       detail:
-        'Pure PTA and MEG polymer feedstock ensure uniform intrinsic viscosity, high optical clarity, and consistent melt-flow indexes.',
+        'Selected post-consumer PET flake is hot-washed, optical-sorted, and decontaminated under verified GRS chain of custody for high-purity spinning.',
       status: 'VERIFIED',
     },
     {
-      label: 'High-precision melt spinning',
+      label: 'Hollow profile melt extrusion',
       detail:
-        'Molten polymer is extruded through high-density spinnerets and laminar-quenched into uniform filament bundles.',
+        'Molten polymer is extruded through specialized circular-aperture spinnerets to form continuous hollow filaments with internal thermal air channels.',
       status: 'VERIFIED',
     },
     {
-      label: 'Drawing & molecular orientation',
+      label: 'Differential drafting & helical crimp',
       detail:
-        'High-ratio drawing develops high tensile tenacity, low thermal shrinkage, and precise elongation for fine-count spinning performance.',
+        'Bicomponent drafting develops three-dimensional helical spiral crimp, imparting permanent spring-like resilience and high loft recovery.',
       status: 'VERIFIED',
     },
     {
-      label: 'Crimping & antistatic spin-finish',
+      label: 'Siliconization & thermal curing',
       detail:
-        'Filaments receive controlled mechanical crimp and antistatic finish chemistry optimized for high-speed yarn carding and spinning frames.',
+        'Tailored silicone micro-emulsion finish is applied and heat-cured in relaxing chambers to create an ultra-soft, slick, down-like hand-feel.',
       status: 'VERIFIED',
     },
     {
       label: 'Precision cutting & moisture baling',
       detail:
-        `Cut to uniform staple length (32–76 mm) and packed into ${VERIFIED.baleWeight} moisture-sealed bales with full batch Certificate of Analysis.`,
+        `Cut to uniform staple length (32–64 mm) and packed into ${VERIFIED.baleWeight} moisture-sealed bales with full batch Certificate of Analysis.`,
       status: 'VERIFIED',
     },
   ],
@@ -908,7 +910,7 @@ export const PRODUCT_ROUTES: Record<string, RouteStation[]> = {
     {
       label: 'Fibre opening & precision blending',
       detail:
-        'Virgin/recycled polyester staple fibres and low-melt bicomponent bonding fibres are pneumatically opened and metered in exact ratios.',
+        'Selected polyester staple fibres and low-melt bicomponent bonding fibres are pneumatically opened and metered in exact ratios.',
       status: 'VERIFIED',
     },
     {
@@ -940,7 +942,7 @@ export const PRODUCT_ROUTES: Record<string, RouteStation[]> = {
     {
       label: 'Fibre selection & carding',
       detail:
-        'Selected GRS recycled or prime virgin polyester fibres are opened and carded into a homogeneous multi-directional fibre batt.',
+        'Selected GRS recycled or prime polyester fibres are opened and carded into a homogeneous multi-directional fibre batt.',
       status: 'VERIFIED',
     },
     {
@@ -1122,7 +1124,7 @@ export const SUSTAINABILITY_LOOP: {
 
 /** Shipping / commercial terms that are verified by GULF_FIBRE_DATA. */
 export const COMMERCIAL_TERMS: { label: string; value: string; status: DataStatus }[] = [
-  { label: 'Standard baling', value: '280 kg, moisture-sealed with high-tensile strapping', status: 'VERIFIED' },
+  { label: 'Standard baling', value: '200–300 kg, moisture-sealed with high-tensile strapping', status: 'VERIFIED' },
   { label: 'Roll goods packaging', value: 'Heavy-duty protective poly-wrapping (wadding, felt & interlinings)', status: 'VERIFIED' },
   { label: 'Export logistics', value: 'FCL container loading coordinated from Lahore plant to Karachi ports', status: 'VERIFIED' },
   { label: 'Consignment documentation', value: 'In-house export documentation & consignment Certificate of Analysis (COA)', status: 'VERIFIED' },

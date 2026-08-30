@@ -88,16 +88,23 @@ export function AdvantagesSection() {
   }, [])
 
   return (
-    <section ref={sectionRef} className="section-pad" style={{ background: 'var(--ivory)' }}>
+    <section
+      ref={sectionRef}
+      style={{
+        background: 'var(--ivory)',
+        paddingTop: 'clamp(3.5rem, 7vh, 6rem)',
+        paddingBottom: 'clamp(1.5rem, 2.5vh, 2.5rem)',
+      }}
+    >
       <div className="container">
         {/* Header */}
         <div
           style={{
             display: 'grid',
             gridTemplateColumns: '1fr 1fr',
-            gap: '4rem',
+            gap: 'clamp(1.5rem, 3vw, 3.5rem)',
             alignItems: 'end',
-            marginBottom: '4rem',
+            marginBottom: 'clamp(2rem, 4vh, 3rem)',
           }}
         >
           <div>

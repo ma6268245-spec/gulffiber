@@ -9,7 +9,7 @@ import { GALLERY_CATEGORIES, GALLERY_ITEMS } from '@/lib/data/gallery'
    no invented deniers, capacities, destinations or claims. */
 const SEARCH_DATABASE = [
   { title: 'Recycled Polyester Staple Fibre', category: 'Product', href: '/products#psf-regenerated', tag: 'GRS', desc: '100% post-consumer PET regenerated into staple fibre under GRS chain of custody.' },
-  { title: 'Virgin Polyester Staple Fibre', category: 'Product', href: '/products#psf-virgin', tag: 'PSF', desc: 'Virgin fibre across the denier range for spinning, filling and industrial applications.' },
+  { title: 'Regenerated Polyester Hollow Fibre', category: 'Product', href: '/products#psf-virgin', tag: 'HCS', desc: 'Siliconized and non-siliconized conjugate hollow fibre for bedding, upholstery and thermal insulation.' },
   { title: 'High-Loft Wadding', category: 'Product', href: '/products#wadding', tag: 'Bonded', desc: 'High-loft, thermally bonded wadding for bedding, furniture and insulation.' },
   { title: 'Needle-Punched Felt', category: 'Product', href: '/products#felt', tag: 'Nonwoven', desc: 'Needle-punched technical felts for automotive, acoustic and industrial uses.' },
   { title: 'Interlining Materials', category: 'Product', href: '/products#interlining', tag: 'Woven', desc: 'Woven and non-woven interlining goods for garment tailoring.' },
