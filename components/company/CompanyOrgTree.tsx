@@ -684,8 +684,8 @@ export function CompanyOrgTree() {
           to { opacity: 1; }
         }
         @keyframes cardSlideIn {
-          from { opacity: 0; transform: scale(0.96) translateX(30px); }
-          to { opacity: 1; transform: scale(1) translateX(0); }
+          from { opacity: 0; transform: translateY(-50%) scale(0.95) translateX(30px); }
+          to { opacity: 1; transform: translateY(-50%) scale(1) translateX(0); }
         }
         @keyframes sheetSlideUp {
           from { opacity: 0; transform: translateY(40px); }
@@ -698,15 +698,15 @@ export function CompanyOrgTree() {
           background: rgba(4, 15, 38, 0.4);
           backdrop-filter: blur(4px);
           -webkit-backdrop-filter: blur(4px);
-          display: flex;
-          align-items: center;
-          justifyContent: flex-end;
-          padding-right: clamp(1.5rem, 5vw, 4rem);
           animation: fadeIn 0.2s ease forwards;
         }
         .org-profile-drawer {
-          position: relative;
-          width: min(400px, calc(100vw - 2rem));
+          position: fixed;
+          top: 50%;
+          right: clamp(1.5rem, 5vw, 4rem);
+          left: auto;
+          transform: translateY(-50%);
+          width: min(400px, calc(100vw - 3rem));
           max-height: min(640px, calc(100vh - 4rem));
           background: var(--card-bg, #FFFFFF);
           border-radius: 20px;
@@ -716,6 +716,7 @@ export function CompanyOrgTree() {
           flex-direction: column;
           overflow: hidden;
           animation: cardSlideIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+          z-index: 10000000;
         }
         .org-fork-desktop {
           position: relative;
