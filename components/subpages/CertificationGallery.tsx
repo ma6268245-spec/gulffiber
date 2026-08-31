@@ -205,15 +205,14 @@ export function CertificationGallery() {
   return (
     <>
       {/* ── WALL OUTER WRAPPER (CROPPED / CUT ON TABLET & MOBILE) ── */}
+      {/* ── WALL OUTER WRAPPER (FULL-WIDTH STRETCH ACROSS DEVICES) ── */}
       <div
         className="cert-wall-wrapper"
         style={{
           position: 'relative',
           width: '100%',
-          maxWidth: '1280px',
           margin: '0 auto',
           overflow: 'hidden',
-          borderRadius: '20px',
           boxShadow: '0 20px 50px rgba(10, 75, 184, 0.08), 0 4px 16px rgba(0, 0, 0, 0.06)',
           border: '1px solid var(--border-light)',
         }}
@@ -261,12 +260,12 @@ export function CertificationGallery() {
                 fontFamily: 'var(--font-sans)',
               }}
             >
-              Hover over frames to verify · Click to examine certificate
+              Hover over frames to zoom in · Click to examine certificate
             </span>
             <span
-              className="cert-instruction-text-mobile"
+              className="cert-instruction-text-tablet"
               style={{
-                fontSize: '0.6875rem',
+                fontSize: '0.7rem',
                 fontWeight: 800,
                 letterSpacing: '0.06em',
                 textTransform: 'uppercase',
@@ -274,7 +273,20 @@ export function CertificationGallery() {
                 fontFamily: 'var(--font-sans)',
               }}
             >
-              Click to verify
+              Tap any certificate to zoom in & verify
+            </span>
+            <span
+              className="cert-instruction-text-mobile"
+              style={{
+                fontSize: '0.65rem',
+                fontWeight: 800,
+                letterSpacing: '0.05em',
+                textTransform: 'uppercase',
+                color: 'var(--burg-primary, #0A4BB8)',
+                fontFamily: 'var(--font-sans)',
+              }}
+            >
+              Tap certificate to zoom & verify
             </span>
           </div>
         </div>
@@ -467,7 +479,8 @@ export function CertificationGallery() {
                   className="cert-wall-tooltip"
                   style={{
                     position: 'absolute',
-                    top: 'calc(100% + 12px)',
+                    top: i >= 3 ? 'auto' : 'calc(100% + 12px)',
+                    bottom: i >= 3 ? 'calc(100% + 12px)' : 'auto',
                     left: '50%',
                     transform: isHovered
                       ? 'translateX(-50%) translateY(0)'
@@ -475,11 +488,11 @@ export function CertificationGallery() {
                     opacity: isHovered ? 1 : 0,
                     pointerEvents: isHovered ? 'auto' : 'none',
                     zIndex: 120,
-                    width: '260px',
+                    width: '240px',
                     background: 'rgba(255, 255, 255, 0.98)',
                     backdropFilter: 'blur(12px)',
                     borderRadius: '10px',
-                    padding: '0.75rem 0.9rem',
+                    padding: '0.65rem 0.8rem',
                     boxShadow: '0 20px 40px rgba(0, 0, 0, 0.3), 0 2px 6px rgba(0,0,0,0.08)',
                     border: '1px solid rgba(10, 75, 184, 0.25)',
                     transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
@@ -512,28 +525,27 @@ export function CertificationGallery() {
         </div>
       </div>
 
-      {/* ── FULL-SCREEN PORTAL LIGHTBOX (Mounted to document.body to break out of stacking context) ── */}
+      {/* ── HIGH-RESOLUTION INSPECTION LIGHTBOX MODAL ────────────────── */}
       {mounted && open && typeof document !== 'undefined'
         ? createPortal(
           <div
-            className="sp-lightbox"
+            onClick={() => setOpenIdx(null)}
             role="dialog"
             aria-modal="true"
-            aria-label={`${open.code} certificate`}
-            onClick={() => setOpenIdx(null)}
+            aria-label={`${open.name} High Resolution Certificate Verification`}
             style={{
               position: 'fixed',
               inset: 0,
-              zIndex: 99999999,
-              background: 'rgba(0, 0, 0, 0.45)',
-              backdropFilter: 'blur(10px)',
-              WebkitBackdropFilter: 'blur(10px)',
+              zIndex: 999999,
+              background: 'rgba(4, 15, 38, 0.94)',
+              backdropFilter: 'blur(16px)',
+              WebkitBackdropFilter: 'blur(16px)',
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',
-              justifyContent: 'space-between',
-              padding: 'clamp(0.75rem, 1.5vh, 1.25rem)',
-              overflow: 'hidden',
+              justifyContent: 'center',
+              padding: 'clamp(0.75rem, 3vw, 2rem)',
+              animation: 'fadeIn 0.2s ease forwards',
             }}
           >
             {/* Top Floating Controls Bar */}
