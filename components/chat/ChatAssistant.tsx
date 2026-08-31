@@ -5,9 +5,11 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import {
+  CHIP,
   FALLBACK_ACTION,
   FALLBACK_ANSWER,
   FALLBACK_SUGGESTIONS,
+  intentCards,
   matchIntent,
   pageContext,
   type ChatAction,
@@ -130,6 +132,13 @@ const MAIL_ICON = (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
     <rect x="2" y="4" width="20" height="16" rx="3" />
     <path d="m3 7 9 6 9-6" />
+  </svg>
+)
+
+const PHONE_ICON = (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <path d="M15.05 5A5 5 0 0 1 19 8.95M15.05 1A9 9 0 0 1 23 8.94" />
+    <path d="M13.7 16.29a11 11 0 0 1-6-6l1.6-1.6a1.5 1.5 0 0 0 .36-1.53l-.9-2.7A1.5 1.5 0 0 0 7.34 3.4H4.2A1.5 1.5 0 0 0 2.7 5.06 18.5 18.5 0 0 0 19 21.3a1.5 1.5 0 0 0 1.6-1.5v-3.13a1.5 1.5 0 0 0-1.03-1.43l-2.7-.9a1.5 1.5 0 0 0-1.53.37Z" />
   </svg>
 )
 
@@ -303,7 +312,9 @@ export function ChatAssistant() {
     const answer = intent?.answer(text) ?? FALLBACK_ANSWER
     const suggestions = intent?.suggestions ?? FALLBACK_SUGGESTIONS
     const action = intent?.action ?? FALLBACK_ACTION
-    const cards = intent?.cards
+    /* Cards can depend on the question - a contact answer shows the one desk
+       that was asked about - so they are resolved against this message. */
+    const cards = intentCards(intent, text)
 
     replyTimer.current = window.setTimeout(
       () => {
@@ -421,6 +432,16 @@ export function ChatAssistant() {
 
               {menuOpen && (
                 <div className="gf-chat__menu" role="menu">
+                  <button
+                    onClick={() => {
+                      setMenuOpen(false)
+                      send(CHIP.contacts.query)
+                    }}
+                    role="menuitem"
+                  >
+                    {PHONE_ICON}
+                    Contact directory
+                  </button>
                   <button onClick={reset} role="menuitem">
                     {RESET_ICON}
                     Restart conversation
@@ -475,38 +496,87 @@ export function ChatAssistant() {
 
                     {!m.streaming && m.cards && m.cards.length > 0 && (
                       <div className="gf-chat__cards">
-                        {m.cards.map((c) =>
-                          c.href ? (
-                            <Link className="gf-chat__card" href={c.href} key={c.code} onClick={closeChat}>
+                        {m.cards.map((c) => {
+                          const body = (
+                            <>
                               <span className="gf-chat__card-code">{c.code}</span>
                               <span className="gf-chat__card-title">{c.title}</span>
                               <dl className="gf-chat__card-rows">
                                 {c.rows.map((r) => (
-                                  <div className="gf-chat__card-row" key={r.label}>
+                                  <div
+                                    className="gf-chat__card-row"
+                                    data-group={r.group}
+                                    key={r.label}
+                                  >
                                     <dt>{r.label}</dt>
                                     <dd>{r.value}</dd>
                                   </div>
                                 ))}
                               </dl>
+                            </>
+                          )
+                          /* Desk and product cards now share one list, so the key
+                             takes the title too - two desks can sit under the
+                             same department code. */
+                          const key = `${c.code}-${c.title}`
+
+                          /* A card that carries a dial holds its own links, so it
+                             stays a plain container and the page link joins the
+                             action row - an anchor cannot nest anchors. */
+                          if (c.tel || c.mail) {
+                            return (
+                              <div className="gf-chat__card" data-kind={c.kind} key={key}>
+                                {body}
+                                <div className="gf-chat__card-actions">
+                                  {c.tel && (
+                                    <a
+                                      className="gf-chat__card-act"
+                                      href={`tel:${c.tel}`}
+                                      aria-label={`Call ${c.title}`}
+                                    >
+                                      {PHONE_ICON}
+                                      Call
+                                    </a>
+                                  )}
+                                  {c.mail && (
+                                    <a
+                                      className="gf-chat__card-act"
+                                      href={`mailto:${c.mail}`}
+                                      aria-label={`Email ${c.title}`}
+                                    >
+                                      {MAIL_ICON}
+                                      Email
+                                    </a>
+                                  )}
+                                  {c.href && (
+                                    <Link
+                                      className="gf-chat__card-act"
+                                      data-variant="go"
+                                      href={c.href}
+                                      onClick={closeChat}
+                                    >
+                                      Details
+                                      {ARROW}
+                                    </Link>
+                                  )}
+                                </div>
+                              </div>
+                            )
+                          }
+
+                          return c.href ? (
+                            <Link className="gf-chat__card" href={c.href} key={key} onClick={closeChat}>
+                              {body}
                               <span className="gf-chat__card-go" aria-hidden="true">
                                 {ARROW}
                               </span>
                             </Link>
                           ) : (
-                            <div className="gf-chat__card" key={c.code}>
-                              <span className="gf-chat__card-code">{c.code}</span>
-                              <span className="gf-chat__card-title">{c.title}</span>
-                              <dl className="gf-chat__card-rows">
-                                {c.rows.map((r) => (
-                                  <div className="gf-chat__card-row" key={r.label}>
-                                    <dt>{r.label}</dt>
-                                    <dd>{r.value}</dd>
-                                  </div>
-                                ))}
-                              </dl>
+                            <div className="gf-chat__card" key={key}>
+                              {body}
                             </div>
                           )
-                        )}
+                        })}
                       </div>
                     )}
 
