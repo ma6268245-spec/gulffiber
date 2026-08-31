@@ -453,10 +453,63 @@ export interface ContactEmail {
 }
 
 /**
+ * The five enquiry types the contact form offers, keyed by the `intent` id it
+ * posts. The ids are duplicated here rather than imported: `INTENTS` lives in
+ * app/contact/page.tsx, which is a client component, and pulling that into a
+ * server-only email module would drag the whole page in with it.
+ *
+ * `subject` is what the sender sees in their inbox — a generic "thank you" gives
+ * them no way to tell a quotation acknowledgement from a sample one, or to find
+ * it again later, so each type names itself. `received` is written with a plain
+ * apostrophe so the text/plain alternative can use it as-is; the HTML curls it.
+ */
+const ENQUIRY_KINDS: Record<string, { label: string; subject: string; received: string }> = {
+  quotation: {
+    label: 'Quotation request',
+    subject: 'We have your quotation request — Gulf Fiber',
+    received: "We've received your quotation request",
+  },
+  sample: {
+    label: 'Sample request',
+    subject: 'We have your sample request — Gulf Fiber',
+    received: "We've received your sample request",
+  },
+  technical: {
+    label: 'Technical question',
+    subject: 'We have your technical question — Gulf Fiber',
+    received: "We've received your technical question",
+  },
+  product: {
+    label: 'Product enquiry',
+    subject: 'We have your product enquiry — Gulf Fiber',
+    received: "We've received your product enquiry",
+  },
+  general: {
+    label: 'General enquiry',
+    subject: 'We have your enquiry — Gulf Fiber',
+    received: "We've received your enquiry",
+  },
+}
+
+const enquiryKind = (intent?: string) => ENQUIRY_KINDS[(intent || '').trim()] ?? ENQUIRY_KINDS.general
+
+/**
  * Acknowledgement sent to whoever submitted the contact / enquiry form once the
  * submission has gone through. `origin` is the public site origin.
+ *
+ * `data` is the enquiry as submitted, echoed back as a receipt: the sender can
+ * see that the details actually arrived, and which ones, without waiting for a
+ * human reply. It is a stranger's own text coming back to their own inbox, but
+ * it is still escaped — nothing typed into the form reaches the markup raw.
  */
-export function contactAcknowledgementEmail({ origin }: { origin: string }): ContactEmail {
+export function contactAcknowledgementEmail({
+  origin,
+  data,
+}: {
+  origin: string
+  data?: EnquiryFields
+}): ContactEmail {
+  const kind = enquiryKind(data?.intent)
   const steps = NEXT_STEPS.map(
     (s, i) => `<td class="col" width="32%" valign="top" style="width:32%;background:${TINT};border:1px solid ${BORDER};border-radius:12px;">
                   <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr>
@@ -472,6 +525,46 @@ export function contactAcknowledgementEmail({ origin }: { origin: string }): Con
                 </td>`,
   ).join(`\n                ${GUTTER}\n                `)
 
+  /* Only the fields they actually filled. The owner's triage grid wants every
+     row present so the layout never shifts between enquiries; a customer receipt
+     with half its rows collapsed to an em dash just reads like something went
+     wrong. */
+  const rows = [
+    { label: 'Enquiry type', value: kind.label },
+    { label: 'Company', value: data?.company || '' },
+    { label: 'Destination country', value: data?.country || '' },
+    { label: 'Product line', value: data?.line || '' },
+    { label: 'Denier / cut length', value: data?.denier || '' },
+    { label: 'Volume', value: data?.volume || '' },
+  ].filter((r) => r.value.trim() !== '')
+
+  /* Their own words, quoted back. Skipped when the caller passed no data (the
+     signature keeps it optional), never rendered empty. */
+  const quoted = !data?.message?.trim()
+    ? ''
+    : `
+        <tr>
+          <td class="px" style="padding:22px 28px 0;background:#FFFFFF;">
+            ${sectionLabel('Your message')}
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:separate;border-spacing:0;"><tr>
+              <td style="padding:16px 18px;background:${TINT};border-left:3px solid ${BLUE};border-radius:0 8px 8px 0;font-family:${F};font-size:14px;line-height:1.7;color:${NAVY};">${escLines(data.message)}</td>
+            </tr></table>
+          </td>
+        </tr>`
+
+  const receipt = !data
+    ? ''
+    : `
+        <!-- receipt: the enquiry as it reached us -->
+        <tr>
+          <td class="px" style="padding:28px 28px 0;background:#FFFFFF;">
+            ${sectionLabel('What reached us')}
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border:1px solid ${BORDER};border-radius:10px;">
+              ${rows.map((r, i) => dataRow(r.label, r.value, { tint: i % 2 === 0 })).join('')}
+            </table>
+          </td>
+        </tr>${quoted}`
+
   const body = `<!-- hero -->
         <tr>
           <td class="px" style="padding:30px 28px 0;background:#FFFFFF;">
@@ -482,13 +575,13 @@ export function contactAcknowledgementEmail({ origin }: { origin: string }): Con
                 </td></tr></table>
                 <h1 class="h1" style="margin:0 0 16px;font-family:${F};font-size:26px;font-weight:700;line-height:1.28;color:${NAVY};">Thank You for <span style="color:${BLUE};">Reaching Out!</span></h1>
                 ${greenRule()}
-                <p style="margin:22px 0 12px;font-family:${F};font-size:15px;font-weight:600;line-height:1.6;color:${NAVY};">We&rsquo;ve received your message and our team will get back to you shortly.</p>
+                <p style="margin:22px 0 12px;font-family:${F};font-size:15px;font-weight:600;line-height:1.6;color:${NAVY};">${kind.received.replace("'", '&rsquo;')} and our team will get back to you shortly.</p>
                 <p style="margin:0;font-family:${F};font-size:14px;line-height:1.75;color:${TEXT};">In the meantime, feel free to explore our products or learn more about how we can support your business.</p>
               </td>
             </tr></table>
           </td>
         </tr>
-
+${receipt}
         <!-- what happens next -->
         <tr>
           <td class="px" style="padding:28px 28px 0;background:#FFFFFF;">
@@ -531,19 +624,28 @@ export function contactAcknowledgementEmail({ origin }: { origin: string }): Con
         </tr>`
 
   const html = shell({
-    title: 'Thank You for Reaching Out — Gulf Fiber',
-    preheader: "We've received your message and our team will get back to you shortly.",
+    title: `${kind.subject}`,
+    preheader: `${kind.received} and our team will get back to you shortly.`,
     origin,
     body,
   })
 
+  /* The same receipt, as plain text, for clients that show the alternative. */
+  const receiptText = !data
+    ? ''
+    : `WHAT REACHED US
+
+${rows.map((r) => `${r.label}: ${r.value}`).join('\n')}
+${data.message?.trim() ? `\nYOUR MESSAGE\n${data.message.trim()}\n` : ''}
+`
+
   const text = `THANK YOU FOR REACHING OUT!
 
-We've received your message and our team will get back to you shortly.
+${kind.received} and our team will get back to you shortly.
 
 In the meantime, feel free to explore our products or learn more about how we can support your business.
 
-WHAT HAPPENS NEXT?
+${receiptText}WHAT HAPPENS NEXT?
 
 Step 1 - Message Received
 We've received your enquiry successfully.
@@ -571,7 +673,7 @@ ${WEBSITE}
 
 (c) ${COMPANY}. All Rights Reserved.`
 
-  return { subject: 'Thank you for reaching out to Gulf Fiber', html, text }
+  return { subject: kind.subject, html, text }
 }
 
 /* ===========================================================================

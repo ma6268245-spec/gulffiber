@@ -50,8 +50,10 @@ export async function POST(request: Request) {
   /* ---- Enquiry notification to the desk ---- */
   const notification = enquiryNotificationEmail({ origin, data: d })
 
-  /* ---- Acknowledgement to the sender: we have it, someone will reply ---- */
-  const ack = contactAcknowledgementEmail({ origin })
+  /* ---- Acknowledgement to the sender: we have it, someone will reply ----
+     The enquiry goes with it so the subject line names what they sent and the
+     body echoes the details back as a receipt. */
+  const ack = contactAcknowledgementEmail({ origin, data: d })
 
   try {
     const resend = new Resend(apiKey)
