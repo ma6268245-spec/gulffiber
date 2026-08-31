@@ -1,5 +1,6 @@
 import { Resend } from 'resend'
 import { z } from 'zod'
+import { contactAcknowledgementEmail, siteOrigin } from '@/lib/email/templates'
 
 // The Resend SDK requires the Node.js runtime (not Edge), and this route must
 // never be cached / prerendered.
@@ -83,56 +84,7 @@ export async function POST(request: Request) {
   const subject = `New enquiry — ${d.company} (${d.intent || 'general'})`
 
   /* ---- Acknowledgement to the sender: we have it, someone will reply ---- */
-  const ackRows = rows.filter(([k]) => k !== 'Email')
-
-  const ackHtml = `
-  <div style="font-family:Arial,Helvetica,sans-serif;max-width:640px;margin:0 auto;color:#0A1128">
-    <h2 style="color:#0A4BB8;margin:0 0 4px">Thanks for reaching out</h2>
-    <p style="margin:0 0 20px;color:#475569;font-size:13px">Gulf Fiber · polyester fibre manufacturing</p>
-
-    <p style="font-size:15px;line-height:1.65;margin:0 0 16px">
-      Dear ${esc(d.person)}, thank you for contacting Gulf Fiber. Your enquiry has reached our
-      production engineering desk and our team will contact you shortly — we reply within
-      24 business hours.
-    </p>
-    <p style="font-size:15px;line-height:1.65;margin:0 0 20px">
-      For your records, this is what we received from you. If anything here is wrong, or you have a
-      specification, drawing or sample detail to add, simply reply to this email and it reaches the
-      same desk.
-    </p>
-
-    <table style="width:100%;border-collapse:collapse;font-size:14px">
-      ${ackRows
-        .map(
-          ([k, v]) =>
-            `<tr><td style="padding:8px 12px;border:1px solid #E2E8F0;background:#F8FAFC;font-weight:700;width:190px">${esc(
-              k,
-            )}</td><td style="padding:8px 12px;border:1px solid #E2E8F0">${esc(v)}</td></tr>`,
-        )
-        .join('')}
-    </table>
-    <h3 style="color:#0A4BB8;margin:20px 0 6px">Your message</h3>
-    <p style="white-space:pre-wrap;line-height:1.6;margin:0 0 24px">${esc(d.message)}</p>
-
-    <p style="font-size:15px;line-height:1.65;margin:0;padding-top:16px;border-top:1px solid #E2E8F0">
-      Kind regards,<br />
-      <strong style="color:#0A4BB8">Gulf Fiber</strong>
-    </p>
-  </div>`
-
-  const ackText = `Thanks for reaching out
-
-Dear ${d.person}, thank you for contacting Gulf Fiber. Your enquiry has reached our production engineering desk and our team will contact you shortly - we reply within 24 business hours.
-
-For your records, this is what we received from you. If anything here is wrong, or you have a specification, drawing or sample detail to add, simply reply to this email and it reaches the same desk.
-
-${ackRows.map(([k, v]) => `${k}: ${v}`).join('\n')}
-
-Your message:
-${d.message}
-
-Kind regards,
-Gulf Fiber`
+  const ack = contactAcknowledgementEmail({ origin: siteOrigin(request) })
 
   try {
     const resend = new Resend(apiKey)
@@ -145,9 +97,9 @@ Gulf Fiber`
         from,
         to: d.email,
         replyTo: to,
-        subject: 'Thanks for reaching out to Gulf Fiber',
-        html: ackHtml,
-        text: ackText,
+        subject: ack.subject,
+        html: ack.html,
+        text: ack.text,
       }),
     ])
 
