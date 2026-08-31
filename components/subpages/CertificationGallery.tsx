@@ -249,49 +249,15 @@ export function CertificationGallery() {
             }}
           >
             <span style={{ fontSize: '0.78rem' }}>🔍</span>
-            <span
-              className="cert-instruction-text-desktop"
-              style={{
-                fontSize: '0.75rem',
-                fontWeight: 800,
-                letterSpacing: '0.08em',
-                textTransform: 'uppercase',
-                color: 'var(--burg-primary, #0A4BB8)',
-                fontFamily: 'var(--font-sans)',
-              }}
-            >
+            <span className="cert-badge-desktop">
               Hover over frames to zoom in · Click to examine certificate
             </span>
-            <span
-              className="cert-instruction-text-tablet"
-              style={{
-                fontSize: '0.7rem',
-                fontWeight: 800,
-                letterSpacing: '0.06em',
-                textTransform: 'uppercase',
-                color: 'var(--burg-primary, #0A4BB8)',
-                fontFamily: 'var(--font-sans)',
-              }}
-            >
-              Tap any certificate to zoom in & verify
-            </span>
-            <span
-              className="cert-instruction-text-mobile"
-              style={{
-                fontSize: '0.65rem',
-                fontWeight: 800,
-                letterSpacing: '0.05em',
-                textTransform: 'uppercase',
-                color: 'var(--burg-primary, #0A4BB8)',
-                fontFamily: 'var(--font-sans)',
-              }}
-            >
-              Tap certificate to zoom & verify
+            <span className="cert-badge-mobile">
+              Tap any certificate to verify
             </span>
           </div>
         </div>
 
-        {/* ── 16:9 REALISTIC EXECUTIVE OFFICE INNER WALL ───────── */}
         <div
           className="executive-office-wall-fullbleed"
           style={{
@@ -305,7 +271,6 @@ export function CertificationGallery() {
             transition: 'transform 0.4s ease',
           }}
         >
-          {/* ── INTERACTIVE HOVER & LIGHTBOX HOTSPOTS OVER 3×2 FRAMES ───────── */}
           {ENTRIES.map((c, i) => {
             const isHovered = hoveredIdx === i
 
@@ -321,7 +286,6 @@ export function CertificationGallery() {
                   zIndex: isHovered ? 100 : 10,
                 }}
               >
-                {/* Interactive Frame Button */}
                 <button
                   type="button"
                   onClick={() => {
@@ -357,7 +321,6 @@ export function CertificationGallery() {
                     boxShadow: isHovered ? '0 32px 64px rgba(0, 0, 0, 0.5), 0 12px 24px rgba(0,0,0,0.3)' : 'none',
                   }}
                 >
-                  {/* When hovered, render high-res original scan in sharp wood frame overlay */}
                   {isHovered && (
                     <div
                       style={{
@@ -406,14 +369,6 @@ export function CertificationGallery() {
                             <div
                               style={{
                                 position: 'absolute',
-                                inset: 0,
-                                background: 'linear-gradient(135deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0.06) 40%, transparent 60%)',
-                                pointerEvents: 'none',
-                              }}
-                            />
-                            <div
-                              style={{
-                                position: 'absolute',
                                 bottom: '3px',
                                 right: '3px',
                                 background: '#0A4BB8',
@@ -433,7 +388,6 @@ export function CertificationGallery() {
                             </div>
                           </div>
 
-                          {/* Engraved Brass Plaque with clean wrapping so full name is NEVER cut off */}
                           <div
                             style={{
                               marginTop: '2px',
@@ -474,7 +428,6 @@ export function CertificationGallery() {
                   )}
                 </button>
 
-                {/* Verified Specs Tooltip on Hover */}
                 <div
                   className="cert-wall-tooltip"
                   style={{
@@ -488,11 +441,11 @@ export function CertificationGallery() {
                     opacity: isHovered ? 1 : 0,
                     pointerEvents: isHovered ? 'auto' : 'none',
                     zIndex: 120,
-                    width: '240px',
+                    width: '230px',
                     background: 'rgba(255, 255, 255, 0.98)',
                     backdropFilter: 'blur(12px)',
                     borderRadius: '10px',
-                    padding: '0.65rem 0.8rem',
+                    padding: '0.6rem 0.75rem',
                     boxShadow: '0 20px 40px rgba(0, 0, 0, 0.3), 0 2px 6px rgba(0,0,0,0.08)',
                     border: '1px solid rgba(10, 75, 184, 0.25)',
                     transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
@@ -525,7 +478,6 @@ export function CertificationGallery() {
         </div>
       </div>
 
-      {/* ── HIGH-RESOLUTION INSPECTION LIGHTBOX MODAL ────────────────── */}
       {mounted && open && typeof document !== 'undefined'
         ? createPortal(
           <div
@@ -548,83 +500,12 @@ export function CertificationGallery() {
               animation: 'fadeIn 0.2s ease forwards',
             }}
           >
-            {/* Top Floating Controls Bar */}
-            <div
-              style={{
-                width: '100%',
-                maxWidth: '1200px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-                zIndex: 30,
-                pointerEvents: 'none',
-              }}
-            >
-              {/* Document Pill */}
-              <div
-                style={{
-                  background: 'rgba(15, 23, 42, 0.85)',
-                  color: '#FFFFFF',
-                  fontSize: '0.75rem',
-                  fontWeight: 700,
-                  padding: '0.35rem 0.95rem',
-                  borderRadius: '9999px',
-                  backdropFilter: 'blur(12px)',
-                  WebkitBackdropFilter: 'blur(12px)',
-                  border: '1px solid rgba(255, 255, 255, 0.25)',
-                  boxShadow: '0 4px 16px rgba(0, 0, 0, 0.3)',
-                  pointerEvents: 'auto',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '0.45rem',
-                }}
-              >
-                <span style={{ color: '#60A5FA', fontWeight: 800 }}>{open.code}</span>
-                <span style={{ opacity: 0.4 }}>·</span>
-                <span style={{ color: '#E2E8F0' }}>Document {openIdx! + 1} of {ENTRIES.length}</span>
-              </div>
-
-              {/* Close Button */}
-              <button
-                ref={closeRef}
-                type="button"
-                className="sp-lightbox__close"
-                onClick={() => setOpenIdx(null)}
-                aria-label="Close document view"
-                style={{
-                  background: 'rgba(15, 23, 42, 0.85)',
-                  color: '#FFFFFF',
-                  border: '1px solid rgba(255, 255, 255, 0.3)',
-                  borderRadius: '50%',
-                  width: '38px',
-                  height: '38px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  cursor: 'pointer',
-                  pointerEvents: 'auto',
-                  backdropFilter: 'blur(12px)',
-                  WebkitBackdropFilter: 'blur(12px)',
-                  boxShadow: '0 4px 16px rgba(0, 0, 0, 0.3)',
-                  transition: 'all 0.2s ease',
-                }}
-              >
-                {CLOSE}
-              </button>
-            </div>
-
-            {/* Floating Left Arrow */}
             <button
               type="button"
               onClick={goPrev}
               aria-label="Previous Certificate"
               style={{
                 position: 'fixed',
-                left: 'clamp(0.5rem, 1.5vw, 1.5rem)',
-                top: '50%',
-                transform: 'translateY(-50%)',
-                zIndex: 25,
-                background: 'rgba(15, 23, 42, 0.75)',
                 color: '#FFFFFF',
                 border: '1px solid rgba(255, 255, 255, 0.25)',
                 borderRadius: '50%',
@@ -775,28 +656,57 @@ export function CertificationGallery() {
 
       <style>{`
         .cert-wall-wrapper {
-          aspect-ratio: 16 / 9;
+          width: 100%;
+          max-width: 100%;
+          aspect-ratio: 16 / 9.5;
+          border-radius: 20px;
         }
-        .cert-instruction-text-desktop {
-          display: inline;
+        .executive-office-wall-fullbleed {
+          transform: scale(1.36) translateY(5.5%);
+          transform-origin: 50% 36%;
         }
-        .cert-instruction-text-mobile {
-          display: none;
+        .cert-badge-desktop {
+          display: inline !important;
+          font-size: 0.75rem;
+          font-weight: 800;
+          letter-spacing: 0.08em;
+          text-transform: uppercase;
+          color: var(--burg-primary, #0A4BB8);
+          font-family: var(--font-sans);
+        }
+        .cert-badge-mobile {
+          display: none !important;
+          font-size: 0.6875rem;
+          font-weight: 800;
+          letter-spacing: 0.06em;
+          text-transform: uppercase;
+          color: var(--burg-primary, #0A4BB8);
+          font-family: var(--font-sans);
+        }
+        .cert-wall-tooltip {
+          width: 230px !important;
+          padding: 0.6rem 0.75rem !important;
         }
         @media (max-width: 992px) {
-          .cert-instruction-text-desktop {
+          .cert-badge-desktop {
             display: none !important;
           }
-          .cert-instruction-text-mobile {
+          .cert-badge-mobile {
             display: inline !important;
           }
           .cert-wall-wrapper {
+            margin-left: calc(-1 * var(--container-pad, 1.25rem)) !important;
+            margin-right: calc(-1 * var(--container-pad, 1.25rem)) !important;
+            width: calc(100% + 2 * var(--container-pad, 1.25rem)) !important;
+            max-width: 100vw !important;
             aspect-ratio: 16 / 11 !important;
-            border-radius: 14px !important;
+            border-radius: 0 !important;
+            border-left: none !important;
+            border-right: none !important;
           }
           .executive-office-wall-fullbleed {
-            transform: scale(1.24) translateY(4%) !important;
-            transform-origin: top center !important;
+            transform: scale(1.5) translateY(7%) !important;
+            transform-origin: 50% 36% !important;
           }
           .cert-wall-tooltip {
             display: none !important;
@@ -804,12 +714,18 @@ export function CertificationGallery() {
         }
         @media (max-width: 600px) {
           .cert-wall-wrapper {
-            aspect-ratio: 4 / 3 !important;
-            border-radius: 12px !important;
+            margin-left: calc(-1 * var(--container-pad, 1rem)) !important;
+            margin-right: calc(-1 * var(--container-pad, 1rem)) !important;
+            width: calc(100% + 2 * var(--container-pad, 1rem)) !important;
+            max-width: 100vw !important;
+            aspect-ratio: 1 / 1 !important;
+            border-radius: 0 !important;
+            border-left: none !important;
+            border-right: none !important;
           }
           .executive-office-wall-fullbleed {
-            transform: scale(1.48) translateY(6%) !important;
-            transform-origin: top center !important;
+            transform: scale(2.05) translateY(10%) !important;
+            transform-origin: 50% 36% !important;
           }
           .cert-instruction-badge {
             padding: 0.3rem 0.75rem !important;
