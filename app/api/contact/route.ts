@@ -1,6 +1,6 @@
 import { Resend } from 'resend'
 import { z } from 'zod'
-import { contactAcknowledgementEmail, siteOrigin } from '@/lib/email/templates'
+import { contactAcknowledgementEmail, enquiryNotificationEmail, siteOrigin } from '@/lib/email/templates'
 
 // The Resend SDK requires the Node.js runtime (not Edge), and this route must
 // never be cached / prerendered.
@@ -22,10 +22,6 @@ const Schema = z.object({
   message: z.string().trim().min(1),
   intent: z.string().trim().optional(),
 })
-
-/** Escape user input before it goes into the HTML email body. */
-const esc = (s: string) =>
-  s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
 
 export async function POST(request: Request) {
   let body: unknown
@@ -49,42 +45,13 @@ export async function POST(request: Request) {
     console.error('[contact] Missing RESEND_API_KEY or CONTACT_TO_EMAIL env var.')
     return Response.json({ ok: false, error: 'Email is not configured yet.' }, { status: 500 })
   }
-  const rows: [string, string][] = [
-    ['Enquiry type', d.intent || 'general'],
-    ['Company', d.company],
-    ['Contact name', d.person],
-    ['Email', d.email],
-    ['Phone', d.phone || '—'],
-    ['Destination country', d.country],
-    ['Product line', d.line || '—'],
-    ['Denier / cut length', d.denier || '—'],
-    ['Volume', d.volume || '—'],
-  ]
+  const origin = siteOrigin(request)
 
-  const text = `${rows.map(([k, v]) => `${k}: ${v}`).join('\n')}\n\nMessage:\n${d.message}`
-
-  const html = `
-  <div style="font-family:Arial,Helvetica,sans-serif;max-width:640px;margin:0 auto;color:#0A1128">
-    <h2 style="color:#0A4BB8;margin:0 0 4px">New website enquiry</h2>
-    <p style="margin:0 0 16px;color:#475569;font-size:13px">Submitted via the Gulf Fiber contact form</p>
-    <table style="width:100%;border-collapse:collapse;font-size:14px">
-      ${rows
-        .map(
-          ([k, v]) =>
-            `<tr><td style="padding:8px 12px;border:1px solid #E2E8F0;background:#F8FAFC;font-weight:700;width:190px">${esc(
-              k,
-            )}</td><td style="padding:8px 12px;border:1px solid #E2E8F0">${esc(v)}</td></tr>`,
-        )
-        .join('')}
-    </table>
-    <h3 style="color:#0A4BB8;margin:20px 0 6px">Message</h3>
-    <p style="white-space:pre-wrap;line-height:1.6;margin:0">${esc(d.message)}</p>
-  </div>`
-
-  const subject = `New enquiry — ${d.company} (${d.intent || 'general'})`
+  /* ---- Enquiry notification to the desk ---- */
+  const notification = enquiryNotificationEmail({ origin, data: d })
 
   /* ---- Acknowledgement to the sender: we have it, someone will reply ---- */
-  const ack = contactAcknowledgementEmail({ origin: siteOrigin(request) })
+  const ack = contactAcknowledgementEmail({ origin })
 
   try {
     const resend = new Resend(apiKey)
@@ -92,7 +59,7 @@ export async function POST(request: Request) {
     /* Both are sent; the internal enquiry decides the response, so a failed
        acknowledgement never loses the enquiry itself. */
     const [notified, acknowledged] = await Promise.allSettled([
-      resend.emails.send({ from, to, replyTo: d.email, subject, html, text }),
+      resend.emails.send({ from, to, replyTo: d.email, subject: notification.subject, html: notification.html, text: notification.text }),
       resend.emails.send({
         from,
         to: d.email,
