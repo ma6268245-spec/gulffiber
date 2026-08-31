@@ -28,6 +28,7 @@ export function TrustBanner() {
   return (
     <section
       ref={sectionRef}
+      className="tb-section"
       style={{
         background: 'var(--burg-primary)',
         position: 'relative',
@@ -264,8 +265,15 @@ export function TrustBanner() {
 
       <style>{`
         @media (max-width: 900px) {
-          section { grid-template-columns: 1fr !important; min-height: auto !important; }
-          section > div:last-child { min-height: 50vh; }
+          .tb-section { grid-template-columns: 1fr !important; min-height: auto !important; }
+          .tb-section > div:nth-child(3) { min-height: 45vh; }
+        }
+        @media (max-width: 576px) {
+          .tb-section > div:nth-child(3) { min-height: 35vh; }
+          .tb-thumbs { display: none !important; }
+        }
+        @media (max-width: 900px) and (orientation: landscape) {
+          .tb-section > div:nth-child(3) { min-height: 50vw; }
         }
       `}</style>
     </section>

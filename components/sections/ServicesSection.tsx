@@ -327,6 +327,15 @@ export function ServicesSection() {
             height: 1rem !important;
           }
         }
+        @media (max-width: 480px) {
+          .srv-row {
+            grid-template-columns: 1fr auto !important;
+            gap: 0.75rem !important;
+          }
+          .srv-row > span:first-child {
+            display: none !important;
+          }
+        }
       `}</style>
     </section>
   )

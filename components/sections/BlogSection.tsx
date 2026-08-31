@@ -249,6 +249,9 @@ export function BlogSection() {
           .blog-grid { grid-template-columns: 1fr !important; }
           .blog-card { height: 22rem !important; min-height: 22rem !important; }
         }
+        @media (max-width: 480px) {
+          .blog-card { height: 18rem !important; min-height: 18rem !important; }
+        }
       `}</style>
     </section>
   )

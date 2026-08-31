@@ -261,13 +261,14 @@ export function ProductCollection() {
             grid-template-columns: 1fr 1fr !important;
             grid-template-rows: auto !important;
           }
-          .coll-tile { height: 20rem; }
+          .coll-tile { min-height: clamp(14rem, 35vw, 20rem); height: auto; }
           .coll-tile:first-child { grid-row: span 1 !important; }
         }
         @media (max-width: 600px) {
           .coll-grid {
             grid-template-columns: 1fr !important;
           }
+          .coll-tile { min-height: 16rem; }
         }
       `}</style>
     </section>

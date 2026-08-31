@@ -34,7 +34,7 @@ export default function GalleryPage() {
         <PageHero
           eyebrow="The Visual Archive"
           lines={[{ text: 'What the company' }, { text: 'actually' }, { text: 'looks like', serif: true }]}
-          lede="Seven categories, one discipline: only photographs that exist in the record are shown. Where an image is outstanding, the frame says so - this archive is completed by the company, never invented for it."
+          lede="Explore the authentic visual archive of Gulf Fibre: plant facilities, extrusion and spinning lines, heavy machinery, materials, finished product lines, and rooftop solar installations."
           meta={[
             { label: 'Categories', value: String(GALLERY_CATEGORIES.length - 1) },
             { label: 'Archive entries', value: String(GALLERY_ITEMS.length) },
@@ -43,8 +43,8 @@ export default function GalleryPage() {
           ]}
           aside={
             <Image
-              src="/images/workshop-factory.jpg"
-              alt="Production floor at the Gulf Fibre plant"
+              src="/images/Gallery/22.jpeg"
+              alt="Main production floor and drawing line at the Gulf Fibre plant"
               fill
               priority
               sizes="(max-width: 992px) 100vw, 48vw"
@@ -53,7 +53,7 @@ export default function GalleryPage() {
           }
         >
           <Link className="btn-primary" href="/contact">
-            Supply archive photographs
+            Request a sample
           </Link>
         </PageHero>
 

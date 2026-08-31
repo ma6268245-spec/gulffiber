@@ -122,6 +122,7 @@ export function HeroSection() {
   return (
     <section
       ref={sectionRef}
+      className="hero-section"
       style={{
         background: 'var(--ivory)',
         minHeight: '100vh',
@@ -260,7 +261,7 @@ export function HeroSection() {
         </div>
 
         {/* Stats */}
-        <div style={{ display: 'flex', gap: '0', borderTop: '1px solid var(--border-light)', paddingTop: '1.25rem' }}>
+        <div className="hero-stats-row" style={{ display: 'flex', flexWrap: 'wrap', gap: '0', borderTop: '1px solid var(--border-light)', paddingTop: '1.25rem' }}>
           {[
             { num: '15,000 T', label: 'Yearly Production' },
             { num: '350+', label: 'Customers Served' },
@@ -392,13 +393,13 @@ export function HeroSection() {
 
       <style>{`
         @media (max-width: 992px) {
-          section {
+          .hero-section {
             grid-template-columns: 1fr !important;
             min-height: auto !important;
           }
-          section > div:last-child {
-            min-height: 55vh !important;
-            height: 55vh !important;
+          .hero-section > div:last-child {
+            min-height: 50vh !important;
+            height: 50vh !important;
           }
           .hero-card-offer {
             bottom: 1.5rem !important;
@@ -407,9 +408,35 @@ export function HeroSection() {
           }
         }
         @media (max-width: 576px) {
+          .hero-section > div:last-child {
+            min-height: 40vh !important;
+            height: 40vh !important;
+          }
           .hero-card-offer {
             bottom: 1rem !important;
-            left: 1rem !important;
+            right: 1rem !important;
+          }
+        }
+        @media (max-width: 480px) {
+          .hero-stats-row {
+            gap: 1rem 0 !important;
+          }
+          .hero-stats-row .hero-stat {
+            flex: 0 0 50% !important;
+            min-width: 0 !important;
+          }
+          .hero-stats-row .hero-stat:nth-child(2) {
+            border-right: none !important;
+          }
+          .hero-stats-row .hero-stat:nth-child(3) {
+            border-right: 1px solid var(--border-light) !important;
+            padding-inline-start: 0 !important;
+          }
+        }
+        @media (max-width: 992px) and (orientation: landscape) {
+          .hero-section > div:last-child {
+            min-height: 60vw !important;
+            height: auto !important;
           }
         }
       `}</style>

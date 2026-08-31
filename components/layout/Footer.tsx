@@ -19,6 +19,7 @@ const QUICKLINKS = [
   { label: 'Sustainability', href: '/sustainability' },
   { label: 'Quality', href: '/quality' },
   { label: 'Gallery', href: '/gallery' },
+  { label: 'Terms & Copyright', href: '/terms' },
   { label: 'Contact', href: '/contact' },
 ]
 
@@ -306,13 +307,27 @@ export function Footer() {
             alignItems: 'center',
             justifyContent: 'center',
             padding: '1.5rem 0',
-            gap: '0.5rem',
+            gap: '0.85rem',
+            flexWrap: 'wrap',
           }}
         >
-          <p style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.35)', textAlign: 'center' }}>
+          <p style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.45)', textAlign: 'center', margin: 0 }}>
             © Copyright {new Date().getFullYear()}. All rights reserved.{' '}
-            <strong style={{ color: 'rgba(255,255,255,0.5)' }}>Gulf Fibre Company (PVT) Limited</strong>
+            <strong style={{ color: 'rgba(255,255,255,0.7)' }}>Gulf Fibre Company (PVT) Limited</strong>
           </p>
+          <span style={{ color: 'rgba(255,255,255,0.25)', fontSize: '0.75rem' }}>·</span>
+          <Link
+            href="/terms"
+            style={{
+              fontSize: '0.75rem',
+              color: 'rgba(255,255,255,0.6)',
+              textDecoration: 'underline',
+              textUnderlineOffset: '3px',
+              transition: 'color 0.2s',
+            }}
+          >
+            Terms & Conditions · Copyright Notice
+          </Link>
         </div>
       </div>
     </footer>

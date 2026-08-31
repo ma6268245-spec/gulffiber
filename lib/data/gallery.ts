@@ -3,48 +3,34 @@ import type { DataStatus } from '@/lib/data/company'
 /* ===========================================================================
    GALLERY ARCHIVE (/gallery)
    ---------------------------------------------------------------------------
-   The visual archive of Gulf Fibre - factory, materials, manufacturing,
-   products, quality, people and sustainability. Every item with an `image`
-   points at a real photograph in /public/images; items whose image is null
-   render as labelled placeholder frames so the client can drop the real
-   photograph in later without restructuring the page.
-
-   Provenance rules as everywhere else: `image: null` + CONTENT_REQUIRED means
-   the asset does not exist in this repository yet. Nothing is faked - no
-   stock photography, no generated "employees", no invented events.
+   The visual archive of Gulf Fibre - factory, manufacturing, products,
+   and sustainability. Every entry maps directly to an authentic photograph
+   from the /public/images/Gallery directory.
    =========================================================================== */
 
 export type GalleryCategoryId =
   | 'factory'
-  | 'materials'
   | 'manufacturing'
   | 'products'
-  | 'quality'
-  | 'people'
   | 'sustainability'
 
 export const GALLERY_CATEGORIES: { id: GalleryCategoryId | 'all'; label: string; blurb: string }[] = [
-  { id: 'all', label: 'The Archive', blurb: 'Everything the record holds, and the frames waiting to be filled.' },
-  { id: 'factory', label: 'Factory', blurb: 'The plant environment Gulf Fibre manufactures in.' },
-  { id: 'materials', label: 'Materials', blurb: 'Fibre, felt, wadding, nonwoven and woven materials.' },
-  { id: 'manufacturing', label: 'Manufacturing', blurb: 'Extrusion, fibre formation, finishing and packaging.' },
-  { id: 'products', label: 'Products', blurb: 'Finished material - rolls, bales and goods ready to ship.' },
-  { id: 'quality', label: 'Quality', blurb: 'Laboratory, testing, inspection and certificates.' },
-  { id: 'people', label: 'People', blurb: 'Director, founders, management and team - awaiting approved portraits.' },
-  { id: 'sustainability', label: 'Sustainability', blurb: 'Recycled feedstock and the GRS material journey.' },
+  { id: 'all', label: 'All Photos', blurb: 'Complete visual archive of Gulf Fibre plant facilities, machinery, and products.' },
+  { id: 'factory', label: 'Factory & Plant', blurb: 'Plant facilities, administrative buildings, aerial campus views, and logistics.' },
+  { id: 'manufacturing', label: 'Manufacturing', blurb: 'Extrusion spinnerets, drawing stands, crimpers, needle looms, and slitter rewinders.' },
+  { id: 'products', label: 'Products', blurb: 'Staple fibres, conjugated hollow fibres, thermal wadding, felt rolls, interlinings, and fusion paper.' },
+  { id: 'sustainability', label: 'Sustainability', blurb: 'Rooftop solar energy generation arrays and clean green plant operations.' },
 ]
 
 export interface GalleryItem {
   id: string
   title: string
   category: GalleryCategoryId
-  /** Path in /public, or null while the photograph is outstanding. */
+  /** Path in /public */
   image: string | null
   description: string
-  /** Only set when a real photograph exists; describes what is actually shown. */
   alt: string
   tags: string[]
-  /** Verified year, if any. Never invented. */
   year?: string
   relatedProduct?: string
   relatedPage?: string
@@ -52,268 +38,378 @@ export interface GalleryItem {
 }
 
 export const GALLERY_ITEMS: GalleryItem[] = [
-  /* ── Factory ─────────────────────────────────────────────────────────── */
+  /* ── Factory & Plant ─────────────────────────────────────────────────── */
   {
-    id: 'g-factory-floor',
-    title: 'The production floor',
+    id: 'g-factory-compound',
+    title: 'Plant Complex & Factory Compound',
     category: 'factory',
-    image: '/images/workshop-factory.jpg',
-    alt: 'Production floor at the Gulf Fibre plant',
+    image: '/images/Gallery/1.jpeg',
+    alt: 'Gulf Fibre industrial plant complex and factory buildings',
     description:
-      'The plant environment material is manufactured in - the same floor every consignment ships from, verified in-house before dispatch.',
-    tags: ['plant', 'floor'],
+      'Exterior view of the Gulf Fibre manufacturing facility in Faisalabad, showing the production sheds and processing infrastructure.',
+    tags: ['plant', 'compound', 'facility', 'industrial'],
     relatedPage: '/company',
     status: 'VERIFIED',
   },
   {
-    id: 'g-factory-loom',
-    title: 'Machinery in operation',
+    id: 'g-factory-tower',
+    title: 'Extrusion Tower & Feedstock Facility',
     category: 'factory',
-    image: '/images/hero-loom.jpg',
-    alt: 'Textile machinery running Gulf Fibre material',
-    description: 'Conversion machinery running Gulf Fibre material - the industrial context behind every product line.',
-    tags: ['machinery', 'loom'],
+    image: '/images/Gallery/2.jpeg',
+    alt: 'Main factory extrusion tower and feedstock processing facility',
+    description:
+      'The multi-tier vertical extrusion tower and feedstock warehouse where raw post-consumer PET enters the production sequence.',
+    tags: ['tower', 'extrusion', 'facility', 'feedstock'],
     relatedPage: '/company',
     status: 'VERIFIED',
   },
   {
-    id: 'g-factory-wide',
-    title: 'Plant wide shot',
+    id: 'g-factory-aerial',
+    title: 'Aerial View of Plant Campus',
     category: 'factory',
-    image: null,
-    alt: '',
-    description: 'A wide establishing photograph of the plant belongs here. Supply the shot and the frame becomes it.',
-    tags: ['plant', 'wide'],
-    status: 'CONTENT_REQUIRED',
+    image: '/images/Gallery/14.jpeg',
+    alt: 'Elevated view of Gulf Fibre factory campus, yards and logistics',
+    description:
+      'Overhead perspective of the plant compound showing production halls, material staging yards, logistics fleet and solar arrays.',
+    tags: ['aerial', 'campus', 'logistics', 'overview'],
+    relatedPage: '/company',
+    status: 'VERIFIED',
+  },
+  {
+    id: 'g-factory-gate',
+    title: 'Corporate Entrance & Main Gate',
+    category: 'factory',
+    image: '/images/Gallery/16.jpeg',
+    alt: 'Gulf Fiber Company (Pvt) Ltd corporate entrance and plant gate',
+    description:
+      'Main gate and official entrance of Gulf Fiber Company (PVT) Limited on 32-KM Sheikhupura Road, Faisalabad.',
+    tags: ['entrance', 'gate', 'corporate', 'landmark'],
+    relatedPage: '/contact',
+    status: 'VERIFIED',
+  },
+  {
+    id: 'g-factory-grounds',
+    title: 'Plant Grounds & Transport Logistics',
+    category: 'factory',
+    image: '/images/Gallery/17.jpeg',
+    alt: 'Factory vehicle parking and material transport grounds',
+    description:
+      'Covered transport and logistics facilities within the factory premises for swift consignment dispatches and operations support.',
+    tags: ['grounds', 'logistics', 'transport', 'facility'],
+    relatedPage: '/company',
+    status: 'VERIFIED',
+  },
+  {
+    id: 'g-factory-admin',
+    title: 'Administration & Management Block',
+    category: 'factory',
+    image: '/images/Gallery/18.jpeg',
+    alt: 'Administration and executive office building at the plant',
+    description:
+      'The on-site executive administrative office block housing plant engineering, quality compliance and operations management.',
+    tags: ['admin', 'office', 'management', 'facility'],
+    relatedPage: '/company',
+    status: 'VERIFIED',
   },
 
-  /* ── Materials ───────────────────────────────────────────────────────── */
+  /* ── Manufacturing & Machinery ────────────────────────────────────────── */
   {
-    id: 'g-material-fibre',
-    title: 'Polyester staple fibre',
-    category: 'materials',
-    image: '/images/sustainability-cotton.jpg',
-    alt: 'Regenerated polyester staple fibre produced by Gulf Fibre',
+    id: 'g-mfg-spooling',
+    title: 'Precision Filament Spooling & Beaming',
+    category: 'manufacturing',
+    image: '/images/Gallery/3.jpeg',
+    alt: 'High-precision yarn spooling and beaming equipment',
     description:
-      'Staple fibre across the 1.2D - 60D range - the material every other line is built from, from fine-count spinning to industrial batting.',
-    tags: ['psf', 'fibre', 'regenerated'],
+      'Multi-drum winding and beaming unit maintaining uniform tension across thousands of continuous synthetic filaments.',
+    tags: ['spooling', 'beaming', 'winding', 'filaments'],
+    relatedPage: '/services',
+    status: 'VERIFIED',
+  },
+  {
+    id: 'g-mfg-warping',
+    title: 'Parallel Thread Warping Machine',
+    category: 'manufacturing',
+    image: '/images/Gallery/4.jpeg',
+    alt: 'Precision yarn thread warping and alignment machinery',
+    description:
+      'Parallel warp thread distribution system ensuring zero entanglement and strict tension control prior to downstream bonding.',
+    tags: ['warping', 'alignment', 'threads', 'tension'],
+    relatedPage: '/services',
+    status: 'VERIFIED',
+  },
+  {
+    id: 'g-mfg-felt-line',
+    title: 'Needle-Punched Felt Production Line',
+    category: 'manufacturing',
+    image: '/images/Gallery/5.jpeg',
+    alt: 'Heavy industrial needle-punching line for technical felt',
+    description:
+      'Automated needle-loom batt consolidator transforming cross-lapped carded webs into high-density technical felts.',
+    tags: ['needle-punch', 'felt', 'machinery', 'nonwoven'],
+    relatedProduct: 'felt',
+    relatedPage: '/products',
+    status: 'VERIFIED',
+  },
+  {
+    id: 'g-mfg-tow-cutter',
+    title: 'Tow Drawing & Rotary Cutter Unit',
+    category: 'manufacturing',
+    image: '/images/Gallery/6.jpeg',
+    alt: 'Continuous tow drawing, crimping and rotary cutting unit',
+    description:
+      'High-speed rotary cutter converting continuous crimped tow bands into precision cut lengths (32mm to 102mm) before baling.',
+    tags: ['cutting', 'crimping', 'staple-fibre', 'baling'],
+    relatedPage: '/services',
+    status: 'VERIFIED',
+  },
+  {
+    id: 'g-mfg-drafting-stands',
+    title: 'Continuous Drafting & Drawing Stands',
+    category: 'manufacturing',
+    image: '/images/Gallery/7.jpeg',
+    alt: 'Multi-roll drawing stands and heat setting rolls',
+    description:
+      'Multi-stage draw roll godets orienting molecular polymer chains under precise temperature zones for maximum tensile strength.',
+    tags: ['drafting', 'drawing', 'godets', 'tenacity'],
+    relatedPage: '/services',
+    status: 'VERIFIED',
+  },
+  {
+    id: 'g-mfg-hydro-thermal',
+    title: 'Hydro-Thermal Stretching & Steam Annealing',
+    category: 'manufacturing',
+    image: '/images/Gallery/8.jpeg',
+    alt: 'Steam heat-setting and hydro-thermal tow drawing line',
+    description:
+      'Controlled steam relaxation and thermal annealing line eliminating internal stresses and fixing three-dimensional crimp.',
+    tags: ['steam', 'heat-setting', 'annealing', 'crimp'],
+    relatedPage: '/services',
+    status: 'VERIFIED',
+  },
+  {
+    id: 'g-mfg-drive-conveyor',
+    title: 'Extrusion Drive System & Conveyor',
+    category: 'manufacturing',
+    image: '/images/Gallery/9.jpeg',
+    alt: 'Heavy motor drives and extrusion line conveyor system',
+    description:
+      'Synchronized variable-frequency drive motors and thermal transport conveyor regulating throughput across the melt sequence.',
+    tags: ['drive', 'motors', 'conveyor', 'extrusion'],
+    relatedPage: '/services',
+    status: 'VERIFIED',
+  },
+  {
+    id: 'g-mfg-spinneret-line',
+    title: 'Multi-Spinneret Extrusion & Quench Line',
+    category: 'manufacturing',
+    image: '/images/Gallery/10.jpeg',
+    alt: 'Multi-position spinneret extrusion and water quenching line',
+    description:
+      'Multi-position spinning manifold delivering metered molten polymer into water-quenched filament tows with uniform denier.',
+    tags: ['spinneret', 'quenching', 'extrusion', 'filaments'],
+    relatedPage: '/services',
+    status: 'VERIFIED',
+  },
+  {
+    id: 'g-mfg-spinneret-pack',
+    title: 'High-Temperature Spinneret Extrusion Pack',
+    category: 'manufacturing',
+    image: '/images/Gallery/12.jpeg',
+    alt: 'Illuminated circular spinneret plate extruding molten polyester filaments',
+    description:
+      'Close-up of molten polyester micro-filaments emerging under pressure through micro-metered spinneret orifices.',
+    tags: ['spinneret', 'micro-filaments', 'polymer', 'extrusion'],
+    relatedPage: '/services',
+    status: 'VERIFIED',
+  },
+  {
+    id: 'g-mfg-extruder-line',
+    title: 'Heavy Industrial Melt Extruder Line',
+    category: 'manufacturing',
+    image: '/images/Gallery/13.jpeg',
+    alt: 'Industrial heavy melt extruder and thermocontrol drives',
+    description:
+      'Multi-zone temperature controlled screw extruders liquefying recycled PET flakes with filtration and degassing systems.',
+    tags: ['extruder', 'melt', 'thermal-zones', 'screw'],
+    relatedPage: '/services',
+    status: 'VERIFIED',
+  },
+  {
+    id: 'g-mfg-tow-coilers',
+    title: 'Tow Can Coilers & Accumulators',
+    category: 'manufacturing',
+    image: '/images/Gallery/19.jpeg',
+    alt: 'Fibre tow collection cans receiving continuous filament bands',
+    description:
+      'Rotating collection cans collecting quenched undrawn tow bands for tensionless buffering before combined drafting.',
+    tags: ['coilers', 'cans', 'tow-buffer', 'spinning'],
+    relatedPage: '/services',
+    status: 'VERIFIED',
+  },
+  {
+    id: 'g-mfg-crimper-conveyor',
+    title: 'Mechanical Stuffer Box Crimper',
+    category: 'manufacturing',
+    image: '/images/Gallery/20.jpeg',
+    alt: 'Mechanical stuffer-box crimper and tow discharge conveyor',
+    description:
+      'Positive-nip mechanical stuffer-box crimper imparting high-resilience 3D crimp geometry across the heavy tow band.',
+    tags: ['crimper', 'stuffer-box', 'elasticity', 'texturizing'],
+    relatedPage: '/services',
+    status: 'VERIFIED',
+  },
+  {
+    id: 'g-mfg-stitch-line',
+    title: 'Stitch-Bonding & Interlining Machinery',
+    category: 'manufacturing',
+    image: '/images/Gallery/21.jpeg',
+    alt: 'Stitch-bonding warp machine inserting yarn into fibrous batt',
+    description:
+      'Multi-bar warp stitch-bonding machine reinforcing nonwoven batt structures for high-performance apparel interlinings.',
+    tags: ['stitch-bonding', 'interlining', 'warp', 'textiles'],
+    relatedProduct: 'interlining',
+    relatedPage: '/products',
+    status: 'VERIFIED',
+  },
+  {
+    id: 'g-mfg-floor-overview',
+    title: 'Main Production Floor & Drawing Line',
+    category: 'manufacturing',
+    image: '/images/Gallery/22.jpeg',
+    alt: 'Wide panorama of staple fibre manufacturing floor and draw line',
+    description:
+      'Full operational view of the primary fibre production hall, showcasing continuous draw stands, can arrays, and ventilation systems.',
+    tags: ['floor', 'production-line', 'hall', 'capacity'],
+    relatedPage: '/company',
+    status: 'VERIFIED',
+  },
+  {
+    id: 'g-mfg-slitter-rewinder',
+    title: 'High-Precision Slitter Rewinder Unit',
+    category: 'manufacturing',
+    image: '/images/Gallery/23.jpeg',
+    alt: 'Industrial slitter rewinder machine for nonwoven fabric rolls',
+    description:
+      'Automated PLC-controlled slitter rewinder delivering custom roll widths, edge trimming, and tight roll tension for wadding and felt.',
+    tags: ['slitter', 'rewinder', 'rolls', 'converting'],
+    relatedPage: '/services',
+    status: 'VERIFIED',
+  },
+  {
+    id: 'g-mfg-needle-loom',
+    title: 'High-Speed Needle-Punching Web Loom',
+    category: 'manufacturing',
+    image: '/images/Gallery/24.jpeg',
+    alt: 'High-speed industrial needle-punching board and bonding zone',
+    description:
+      'Heavy-duty reciprocal needle board mechanically interlocking fibres at thousands of penetrations per square centimetre.',
+    tags: ['needle-loom', 'bonding', 'mechanical', 'felt'],
+    relatedPage: '/services',
+    status: 'VERIFIED',
+  },
+
+  /* ── Products & Materials ─────────────────────────────────────────────── */
+  {
+    id: 'g-mat-filament-strands',
+    title: 'Continuous Polyester Filament Tow',
+    category: 'products',
+    image: '/images/Gallery/11.jpeg',
+    alt: 'Hand inspection of extruded fine polyester filament strands',
+    description:
+      'Tactile quality verification of fine filament tows immediately after spinneret discharge to confirm denier uniformity.',
+    tags: ['filaments', 'inspection', 'denier', 'tow', 'products'],
+    relatedPage: '/products',
+    status: 'VERIFIED',
+  },
+  {
+    id: 'g-mat-hollow-fiber',
+    title: 'Conjugated Hollow Siliconized Fiber',
+    category: 'products',
+    image: '/images/Gallery/Hollow FIber.jpeg',
+    alt: 'Conjugate hollow siliconized polyester staple fibre cluster',
+    description:
+      'High-resilience 3D crimp hollow fiber with siliconized surface finish for superior loft, recovery, and thermal insulation.',
+    tags: ['hollow-fiber', 'siliconized', 'hcs', 'loft', 'products'],
+    relatedProduct: 'psf-virgin',
+    relatedPage: '/products',
+    status: 'VERIFIED',
+  },
+  {
+    id: 'g-mat-staple-fiber',
+    title: 'Dope-Dyed Polyester Staple Fiber',
+    category: 'products',
+    image: '/images/Gallery/Staple Fiber.jpeg',
+    alt: 'Vibrant blue dope-dyed polyester staple fiber sample',
+    description:
+      'Precision dope-dyed staple fiber with permanent colorfastness across 1.2D to 60D denier specifications for spinning and nonwovens.',
+    tags: ['staple-fiber', 'dope-dyed', 'colorfast', 'psf', 'products'],
     relatedProduct: 'psf-regenerated',
     relatedPage: '/products',
     status: 'VERIFIED',
   },
   {
-    id: 'g-material-wadding',
-    title: 'High-loft wadding',
-    category: 'materials',
-    image: null,
-    alt: '',
-    description: 'A close material shot of the high-loft thermally bonded wadding. No photograph of this line exists in the repository yet.',
-    tags: ['wadding', 'high-loft'],
-    relatedProduct: 'wadding',
-    relatedPage: '/products',
-    status: 'CONTENT_REQUIRED',
-  },
-  {
-    id: 'g-material-felt',
-    title: 'Needle-punched felt',
-    category: 'materials',
-    image: null,
-    alt: '',
-    description: 'A cross-section or surface shot of the needle-punched felt line - awaiting a production photograph.',
-    tags: ['felt', 'nonwoven'],
-    relatedProduct: 'felt',
-    relatedPage: '/products',
-    status: 'CONTENT_REQUIRED',
-  },
-  {
-    id: 'g-material-interlining',
-    title: 'Interlining materials',
-    category: 'materials',
-    image: null,
-    alt: '',
-    description: 'Woven and non-woven interlining goods. The line is verified; its photograph is not yet in the archive.',
-    tags: ['interlining', 'woven'],
+    id: 'g-prod-fusion-paper',
+    title: 'Fusible Interlining & Fusion Paper Roll',
+    category: 'products',
+    image: '/images/Gallery/Fusion Paper.jpeg',
+    alt: 'Roll of white fusible interlining fusion paper',
+    description:
+      'Evenly coated thermo-fusible paper roll engineered for uniform garment bonding, collar stabilization, and tailoring support.',
+    tags: ['fusion-paper', 'interlining', 'garment', 'fusible', 'products'],
     relatedProduct: 'interlining',
     relatedPage: '/products',
-    status: 'CONTENT_REQUIRED',
-  },
-
-  /* ── Manufacturing ───────────────────────────────────────────────────── */
-  {
-    id: 'g-mfg-extrusion',
-    title: 'Extrusion line',
-    category: 'manufacturing',
-    image: '/images/process-fibre.jpg',
-    alt: 'Polyester fibre extrusion and crimping machinery',
-    description:
-      'Stage two of the published sequence: melt extrusion through spinnerets, then drafting and thermomechanical crimping.',
-    tags: ['extrusion', 'spinneret', 'crimping'],
-    relatedPage: '/services',
     status: 'VERIFIED',
   },
   {
-    id: 'g-mfg-baling',
-    title: 'Cutting and baling',
-    category: 'manufacturing',
-    image: null,
-    alt: '',
-    description: 'Rotary cutting and moisture-sealed 200–300 kg baling - the final production stage, awaiting its photograph.',
-    tags: ['cutting', 'baling'],
-    relatedPage: '/services',
-    status: 'CONTENT_REQUIRED',
-  },
-
-  /* ── Products ────────────────────────────────────────────────────────── */
-  {
-    id: 'g-product-rolls',
-    title: 'Finished rolls',
+    id: 'g-prod-stitch-interlining',
+    title: 'Stitch-Bound Interlining Textiles',
     category: 'products',
-    image: '/images/collection-rolls.jpg',
-    alt: 'Rolls of finished Gulf Fibre material in the warehouse',
+    image: '/images/Gallery/Stitch Bound Interlining.jpeg',
+    alt: 'Stacked stitch-bound interlining fabrics in multiple color grades',
     description:
-      'Finished material in protective roll wrapping - how wadding, felt and interlining goods leave the floor.',
-    tags: ['rolls', 'packing'],
+      'Woven-look stitch-bonded reinforcement fabrics in black, white, and navy for suit chest pieces, waistbands, and outerwear.',
+    tags: ['stitch-bound', 'interlining', 'apparel', 'textiles', 'products'],
+    relatedProduct: 'interlining',
     relatedPage: '/products',
     status: 'VERIFIED',
   },
   {
-    id: 'g-product-bales',
-    title: 'Standard bales',
+    id: 'g-prod-wadding',
+    title: 'Thermally Bonded Polyester Wadding',
     category: 'products',
-    image: null,
-    alt: '',
-    description: 'The 200–300 kg moisture-sealed standard bale. Supply the photograph and it anchors this category.',
-    tags: ['bales', 'export-bales'],
+    image: '/images/Gallery/Thermal-Bonded Polyester Wadding.jpeg',
+    alt: 'High-loft white thermal-bonded polyester wadding batting sheet',
+    description:
+      'Low-melt fiber bonded batting sheet offering exceptional thermal retention, hypo-allergenic softness, and wash durability.',
+    tags: ['wadding', 'thermal-bonded', 'bedding', 'batting', 'products'],
+    relatedProduct: 'wadding',
     relatedPage: '/products',
-    status: 'CONTENT_REQUIRED',
+    status: 'VERIFIED',
   },
-
-  /* ── Quality & Certifications ───────────────────────────────────────── */
   {
-    id: 'g-quality-lab',
-    title: 'Laboratory inspection',
-    category: 'quality',
-    image: '/images/quality-lab.jpg',
-    alt: 'Fibre being inspected under laboratory conditions at Gulf Fibre',
+    id: 'g-prod-felt-rolls',
+    title: 'Needle-Punched Non-Woven Felt Rolls',
+    category: 'products',
+    image: '/images/Gallery/non woven felt.jpeg',
+    alt: 'Industrial heavy rolls of grey needle-punched non-woven felt',
     description:
-      'Verification sits where the outcome is recoverable: incoming feedstock, tensile analysis, moisture verification, COA per consignment.',
-    tags: ['lab', 'testing', 'coa'],
-    relatedPage: '/quality',
+      'Heavyweight technical felt rolls manufactured for automotive interior trim, carpet underlay, geo-textiles, and acoustic damping.',
+    tags: ['felt', 'non-woven', 'technical', 'automotive', 'products'],
+    relatedProduct: 'felt',
+    relatedPage: '/products',
     status: 'VERIFIED',
-  },
-  {
-    id: 'g-quality-iso',
-    title: 'ISO 9001:2015 Certificate',
-    category: 'quality',
-    image: '/images/certificates/iso-9001-2015-certificate.jpg',
-    alt: 'ISO 9001:2015 Quality Management Systems Registration Certificate',
-    description: 'Certified under Sustainable Management System Inc. (SMS-MSC-22422) for the manufacturing & export of recycled polyester fiber.',
-    tags: ['iso', 'certificate', 'qms'],
-    relatedPage: '/quality',
-    status: 'VERIFIED',
-  },
-  {
-    id: 'g-quality-grs',
-    title: 'Global Recycled Standard (GRS 4.0)',
-    category: 'quality',
-    image: '/images/certificates/grs-scope-certificate-page1.jpg',
-    alt: 'GRS 4.0 Scope Certificate by Control Union Certifications',
-    description: 'Control Union Scope Certificate CU1068996GRS verifying 100% post-consumer recycled PET flake and chain of custody.',
-    tags: ['grs', 'recycled', 'certificate'],
-    relatedPage: '/sustainability',
-    status: 'VERIFIED',
-  },
-  {
-    id: 'g-quality-oeko',
-    title: 'OEKO-TEX® Standard 100',
-    category: 'quality',
-    image: '/images/certificates/oeko-tex-standard-100-certificate.jpg',
-    alt: 'OEKO-TEX Standard 100 Certificate by AITEX',
-    description: 'Product Class I (Baby Articles) certification confirming zero harmful substances across recycled polyester staple fibres.',
-    tags: ['oeko-tex', 'skin-safe', 'certificate'],
-    relatedPage: '/quality',
-    status: 'VERIFIED',
-  },
-  {
-    id: 'g-quality-epa',
-    title: 'EPA Punjab Environmental Approval',
-    category: 'quality',
-    image: '/images/certificates/epa-punjab-environmental-approval.jpg',
-    alt: 'Government of Punjab EPA Environmental Approval Letter',
-    description: 'Statutory environmental approval from EPA Punjab for PET bottle crushing and recycling plant operations.',
-    tags: ['epa', 'environmental', 'compliance'],
-    relatedPage: '/sustainability',
-    status: 'VERIFIED',
-  },
-  {
-    id: 'g-quality-lcci',
-    title: 'LCCI Membership Certificate',
-    category: 'quality',
-    image: '/images/certificates/lcci-membership-certificate.jpg',
-    alt: 'The Lahore Chamber of Commerce & Industry Membership Certificate',
-    description: 'Registered corporate member firm (No. 52097_C) since 2004, attesting trade and export origin documentation.',
-    tags: ['lcci', 'trade', 'chamber'],
-    relatedPage: '/company',
-    status: 'VERIFIED',
-  },
-
-  /* ── People ──────────────────────────────────────────────────────────── */
-  {
-    id: 'g-people-director',
-    title: 'Muhammad Iftikhar · Founder & Director',
-    category: 'people',
-    image: '/images/team/muhammad-iftikhar.jpg',
-    alt: 'Muhammad Iftikhar - Founder and Director of Gulf Fibre Company',
-    description:
-      'Guiding Gulf Fibre since 1999 with an unwavering commitment to precision manufacturing, sustainability, and industrial scale.',
-    tags: ['director', 'founder', 'leadership'],
-    relatedPage: '/company',
-    status: 'VERIFIED',
-  },
-  {
-    id: 'g-people-founders',
-    title: 'Iftikhar Ali · Co-founder & Operational Director',
-    category: 'people',
-    image: '/images/team/iftikhar-ali.jpg',
-    alt: 'Iftikhar Ali - Co-founder and Operational Director',
-    description: 'Co-founding director overseeing operational discipline, raw material integrity, and plant quality assurance across production lines.',
-    tags: ['cofounder', 'operations', 'leadership'],
-    relatedPage: '/company',
-    status: 'VERIFIED',
-  },
-  {
-    id: 'g-people-team',
-    title: 'The team',
-    category: 'people',
-    image: null,
-    alt: '',
-    description: 'The 250+ workforce behind the specification. Team photography awaits approval.',
-    tags: ['team', 'workforce'],
-    relatedPage: '/company',
-    status: 'CONTENT_REQUIRED',
   },
 
   /* ── Sustainability ──────────────────────────────────────────────────── */
   {
-    id: 'g-sus-feedstock',
-    title: 'Post-consumer feedstock',
+    id: 'g-sus-solar-array',
+    title: 'Factory Rooftop Solar Energy Installation',
     category: 'sustainability',
-    image: null,
-    alt: '',
-    description: 'The 100% post-consumer PET input that starts the GRS-certified route - awaiting its photograph.',
-    tags: ['pet', 'feedstock'],
-    relatedPage: '/sustainability',
-    status: 'CONTENT_REQUIRED',
-  },
-  {
-    id: 'g-sus-fibre',
-    title: 'From flake to fibre',
-    category: 'sustainability',
-    image: '/images/process-fibre.jpg',
-    alt: 'Regenerated fibre produced from post-consumer PET',
+    image: '/images/Gallery/15.jpeg',
+    alt: 'Rooftop solar photovoltaic panels covering factory sheds',
     description:
-      'The regeneration stage: refined flake becomes staple fibre on the same line as the rest of the range, under GRS chain of custody.',
-    tags: ['regeneration', 'grs'],
+      'Industrial photovoltaic solar installation powering manufacturing lines with clean, renewable energy to minimize the plant carbon footprint.',
+    tags: ['solar', 'photovoltaic', 'clean-energy', 'green-plant'],
     relatedPage: '/sustainability',
     status: 'VERIFIED',
   },

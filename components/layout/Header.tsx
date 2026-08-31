@@ -13,6 +13,7 @@ const NAV_LINKS = [
   { label: 'Services', href: '/services' },
   { label: 'Sustainability', href: '/sustainability' },
   { label: 'Quality', href: '/quality' },
+  { label: 'Gallery', href: '/gallery' },
   { label: 'Contact', href: '/contact' },
 ]
 
@@ -198,7 +199,7 @@ export function Header() {
                   textTransform: 'uppercase',
                   color: pathname === link.href ? 'var(--burg-primary)' : 'var(--ink)',
                   textDecoration: 'none',
-                  padding: '0.52rem 1.05rem',
+                  padding: '0.52rem 0.88rem',
                   borderRadius: '9999px',
                   transition: 'color 0.2s ease',
                   whiteSpace: 'nowrap',
@@ -293,7 +294,7 @@ export function Header() {
             <Link
               href="/contact"
               onClick={scrollToTop}
-              className="btn-primary"
+              className="btn-primary header-cta-btn"
               style={{
                 fontSize: '0.8125rem',
                 fontWeight: 800,
@@ -426,10 +427,24 @@ export function Header() {
       <SearchModal isOpen={searchOpen} onClose={() => setSearchOpen(false)} />
 
       <style>{`
-        @media (max-width: 1080px) {
+        @media (max-width: 1140px) {
           .glass-navbar { width: calc(100% - clamp(1.5rem, 4vw, 4rem)) !important; }
           .desktop-nav { display: none !important; }
           .mobile-menu-btn { display: flex !important; }
+        }
+        @media (max-width: 640px) {
+          .header-cta-btn { display: none !important; }
+          .glass-navbar { padding: 0.35rem 0.85rem !important; }
+        }
+        @media (max-width: 400px) {
+          .glass-navbar {
+            width: calc(100% - 1.25rem) !important;
+            padding: 0.3rem 0.65rem !important;
+          }
+          .nav-brand-logo img {
+            height: 2rem !important;
+            width: auto !important;
+          }
         }
       `}</style>
     </>

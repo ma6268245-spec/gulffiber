@@ -19,7 +19,8 @@ const SEARCH_DATABASE = [
   { title: 'GRS - Global Recycled Standard', category: 'Quality', href: '/quality', tag: 'Recycled', desc: 'Scope certificate and chain of custody for recycled material.' },
   { title: 'The Circular Material Journey', category: 'Sustainability', href: '/sustainability', tag: 'Lifecycle', desc: 'The recycled route from post-consumer PET back to fibre - verified facts only.' },
   { title: 'Company Story & Timeline', category: 'Company', href: '/company', tag: 'Since 1999', desc: 'The company history, timeline and leadership - with slots where the record is outstanding.' },
-  { title: 'The Visual Archive', category: 'Gallery', href: '/gallery', tag: 'Archive', desc: 'Factory, materials, manufacturing, products, quality, people and sustainability.' },
+  { title: 'The Visual Archive', category: 'Gallery', href: '/gallery', tag: 'Archive', desc: 'Factory, machinery, manufacturing, products, and sustainability.' },
+  { title: 'Terms & Conditions & Copyright Notice', category: 'Legal', href: '/terms', tag: 'Governance', desc: 'Commercial supply terms, specification tolerances, shipping, warranties, and copyright ownership.' },
   { title: 'Samples, Quotations & Documentation', category: 'Contact', href: '/contact', tag: 'Enquiry', desc: 'Choose an intent and the enquiry reaches the desk that answers it.' },
   /* Archive entries: search reaches straight into the gallery data, so a
      photograph the client adds becomes discoverable with no extra work. */
@@ -106,7 +107,7 @@ export function SearchModal({ isOpen, onClose }: { isOpen: boolean; onClose: () 
             display: 'flex',
             alignItems: 'center',
             gap: '0.75rem',
-            padding: '1.25rem 1.5rem',
+            padding: 'clamp(0.85rem, 2vh, 1.25rem) clamp(1rem, 3vw, 1.5rem)',
             borderBottom: '1px solid var(--border-light)',
           }}
         >
@@ -122,9 +123,10 @@ export function SearchModal({ isOpen, onClose }: { isOpen: boolean; onClose: () 
             placeholder="Search fibres, deniers (1.4D, 7D), GRS certification, specs..."
             style={{
               flex: 1,
+              minWidth: 0,
               border: 'none',
               background: 'transparent',
-              fontSize: '1rem',
+              fontSize: 'clamp(0.875rem, 2vw, 1rem)',
               fontFamily: 'var(--font-sans)',
               color: 'var(--ink)',
               outline: 'none',
@@ -140,6 +142,7 @@ export function SearchModal({ isOpen, onClose }: { isOpen: boolean; onClose: () 
               background: 'rgba(10, 75, 184, 0.1)',
               color: 'var(--burg-primary)',
               border: '1px solid var(--border-light)',
+              flexShrink: 0,
             }}
           >
             ESC
@@ -147,7 +150,7 @@ export function SearchModal({ isOpen, onClose }: { isOpen: boolean; onClose: () 
         </div>
 
         {/* Results List */}
-        <div style={{ maxHeight: '380px', overflowY: 'auto', padding: '0.75rem' }}>
+        <div style={{ maxHeight: 'clamp(240px, 55vh, 420px)', overflowY: 'auto', padding: '0.75rem' }}>
           {filtered.length === 0 ? (
             <div style={{ padding: '2.5rem', textAlign: 'center', color: 'var(--muted)' }}>
               <p style={{ fontWeight: 600, margin: 0 }}>No matching technical specifications found.</p>

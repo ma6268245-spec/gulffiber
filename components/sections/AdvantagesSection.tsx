@@ -99,6 +99,7 @@ export function AdvantagesSection() {
       <div className="container">
         {/* Header */}
         <div
+          className="adv-header-grid"
           style={{
             display: 'grid',
             gridTemplateColumns: '1fr 1fr',
@@ -201,6 +202,9 @@ export function AdvantagesSection() {
       <style>{`
         @media (max-width: 1024px) {
           .adv-grid { grid-template-columns: 1fr 1fr !important; }
+        }
+        @media (max-width: 992px) {
+          .adv-header-grid { grid-template-columns: 1fr !important; }
         }
         @media (max-width: 600px) {
           .adv-grid { grid-template-columns: 1fr !important; }
