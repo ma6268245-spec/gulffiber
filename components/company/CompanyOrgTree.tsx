@@ -339,45 +339,20 @@ export function CompanyOrgTree() {
       {/* ── PORTAL FLOATING PROFILE MODAL ────────────────────────── */}
       {mounted && selectedNode && typeof document !== 'undefined'
         ? createPortal(
-          <div
-            className="org-drawer-backdrop"
-            onClick={() => setSelectedNode(null)}
-            onTouchEnd={() => setSelectedNode(null)}
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby="drawer-person-name"
-            style={{
-              position: 'fixed',
-              inset: 0,
-              zIndex: 9999999,
-              background: 'rgba(4, 15, 38, 0.65)',
-              backdropFilter: 'blur(8px)',
-              WebkitBackdropFilter: 'blur(8px)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              padding: '1rem',
-              animation: 'fadeIn 0.2s ease forwards',
-            }}
-          >
-            <aside
-              ref={drawerRef}
-              className="org-profile-drawer"
-              onClick={(e) => e.stopPropagation()}
-              onTouchEnd={(e) => e.stopPropagation()}
-              style={{
-                position: 'relative',
-                width: 'min(440px, 94vw)',
-                maxHeight: 'min(680px, 86vh)',
-                background: 'var(--card-bg, #FFFFFF)',
-                borderRadius: '24px',
-                border: '1px solid var(--border-light)',
-                boxShadow: '0 24px 64px rgba(0, 0, 0, 0.35), 0 4px 20px rgba(10, 75, 184, 0.15)',
-                display: 'flex',
-                flexDirection: 'column',
-                overflow: 'hidden',
-              }}
+            <div
+              className="org-drawer-backdrop"
+              onClick={() => setSelectedNode(null)}
+              onTouchEnd={() => setSelectedNode(null)}
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="drawer-person-name"
             >
+              <aside
+                ref={drawerRef}
+                className="org-profile-drawer"
+                onClick={(e) => e.stopPropagation()}
+                onTouchEnd={(e) => e.stopPropagation()}
+              >
               {/* Mobile Handle Indicator */}
               <div
                 className="org-mobile-handle"
@@ -708,9 +683,39 @@ export function CompanyOrgTree() {
           from { opacity: 0; }
           to { opacity: 1; }
         }
+        @keyframes cardSlideIn {
+          from { opacity: 0; transform: scale(0.96) translateX(30px); }
+          to { opacity: 1; transform: scale(1) translateX(0); }
+        }
         @keyframes sheetSlideUp {
           from { opacity: 0; transform: translateY(40px); }
           to { opacity: 1; transform: translateY(0); }
+        }
+        .org-drawer-backdrop {
+          position: fixed;
+          inset: 0;
+          z-index: 9999999;
+          background: rgba(4, 15, 38, 0.4);
+          backdrop-filter: blur(4px);
+          -webkit-backdrop-filter: blur(4px);
+          display: flex;
+          align-items: center;
+          justifyContent: flex-end;
+          padding-right: clamp(1.5rem, 5vw, 4rem);
+          animation: fadeIn 0.2s ease forwards;
+        }
+        .org-profile-drawer {
+          position: relative;
+          width: min(400px, calc(100vw - 2rem));
+          max-height: min(640px, calc(100vh - 4rem));
+          background: var(--card-bg, #FFFFFF);
+          border-radius: 20px;
+          border: 1px solid var(--border-light);
+          box-shadow: 0 24px 64px rgba(0, 0, 0, 0.32), 0 4px 16px rgba(10, 75, 184, 0.1);
+          display: flex;
+          flex-direction: column;
+          overflow: hidden;
+          animation: cardSlideIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
         .org-fork-desktop {
           position: relative;
@@ -768,7 +773,7 @@ export function CompanyOrgTree() {
           margin: 0 0 0.25rem;
         }
 
-        @media (max-width: 768px) {
+        @media (max-width: 600px) {
           .org-tree-scroll-viewport {
             padding: 0 !important;
           }
@@ -827,7 +832,10 @@ export function CompanyOrgTree() {
           }
           .org-drawer-backdrop {
             align-items: flex-end !important;
+            justifyContent: center !important;
             padding: 0 !important;
+            background: rgba(4, 15, 38, 0.65) !important;
+            backdrop-filter: blur(8px) !important;
           }
           .org-profile-drawer {
             width: 100vw !important;
