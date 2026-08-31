@@ -51,6 +51,7 @@ export function Footer() {
 
   return (
     <footer
+      id="footer"
       style={{
         background: 'var(--burg-darker)',
         color: 'var(--white)',
@@ -59,17 +60,9 @@ export function Footer() {
     >
       <div className="container">
         {/* Main grid */}
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-            gap: '3rem',
-            paddingBottom: '4rem',
-            borderBottom: '1px solid var(--border-dark)',
-          }}
-        >
+        <div className="footer-main-grid">
           {/* Brand */}
-          <div style={{ gridColumn: 'span 1' }}>
+          <div className="footer-brand">
             <div style={{ background: 'var(--white)', padding: '0.5rem 0.875rem', borderRadius: '4px', display: 'inline-block', marginBottom: '1.25rem' }}>
               <Image
                 src="/gulf-fibre-logo.png"
@@ -124,84 +117,87 @@ export function Footer() {
             </div>
           </div>
 
-          {/* Services */}
-          <div>
-            <p
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '0.5rem',
-                fontFamily: 'var(--font-sans)',
-                fontSize: '0.625rem',
-                fontWeight: 700,
-                letterSpacing: '0.12em',
-                textTransform: 'uppercase',
-                color: 'rgba(255,255,255,0.5)',
-                marginBottom: '1.25rem',
-              }}
-            >
-              <span>★</span> Our Services
-            </p>
-            <ul style={{ listStyle: 'none' }}>
-              {SERVICES.map((s) => (
-                <li key={s} style={{ marginBottom: '0.75rem' }}>
-                  <Link
-                    href="/services"
-                    style={{
-                      fontFamily: 'var(--font-sans)',
-                      fontSize: '0.875rem',
-                      color: 'rgba(255,255,255,0.6)',
-                      textDecoration: 'none',
-                      transition: 'color 0.2s',
-                    }}
-                  >
-                    {s}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
+          {/* Services & Quick Links (Grouped for side-by-side on mobile) */}
+          <div className="footer-links-duo">
+            {/* Services */}
+            <div className="footer-col footer-col-services">
+              <p
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '0.5rem',
+                  fontFamily: 'var(--font-sans)',
+                  fontSize: '0.625rem',
+                  fontWeight: 700,
+                  letterSpacing: '0.12em',
+                  textTransform: 'uppercase',
+                  color: 'rgba(255,255,255,0.5)',
+                  marginBottom: '1.25rem',
+                }}
+              >
+                <span>★</span> Our Services
+              </p>
+              <ul style={{ listStyle: 'none' }}>
+                {SERVICES.map((s) => (
+                  <li key={s} style={{ marginBottom: '0.75rem' }}>
+                    <Link
+                      href="/services"
+                      style={{
+                        fontFamily: 'var(--font-sans)',
+                        fontSize: '0.875rem',
+                        color: 'rgba(255,255,255,0.6)',
+                        textDecoration: 'none',
+                        transition: 'color 0.2s',
+                      }}
+                    >
+                      {s}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
 
-          {/* Quick Links */}
-          <div>
-            <p
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '0.5rem',
-                fontFamily: 'var(--font-sans)',
-                fontSize: '0.625rem',
-                fontWeight: 700,
-                letterSpacing: '0.12em',
-                textTransform: 'uppercase',
-                color: 'rgba(255,255,255,0.5)',
-                marginBottom: '1.25rem',
-              }}
-            >
-              <span>★</span> Quicklinks
-            </p>
-            <ul style={{ listStyle: 'none' }}>
-              {QUICKLINKS.map((l) => (
-                <li key={l.href} style={{ marginBottom: '0.75rem' }}>
-                  <Link
-                    href={l.href}
-                    style={{
-                      fontFamily: 'var(--font-sans)',
-                      fontSize: '0.875rem',
-                      color: 'rgba(255,255,255,0.6)',
-                      textDecoration: 'none',
-                      transition: 'color 0.2s',
-                    }}
-                  >
-                    {l.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
+            {/* Quick Links */}
+            <div className="footer-col footer-col-quicklinks">
+              <p
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '0.5rem',
+                  fontFamily: 'var(--font-sans)',
+                  fontSize: '0.625rem',
+                  fontWeight: 700,
+                  letterSpacing: '0.12em',
+                  textTransform: 'uppercase',
+                  color: 'rgba(255,255,255,0.5)',
+                  marginBottom: '1.25rem',
+                }}
+              >
+                <span>★</span> Quicklinks
+              </p>
+              <ul style={{ listStyle: 'none' }}>
+                {QUICKLINKS.map((l) => (
+                  <li key={l.href} style={{ marginBottom: '0.75rem' }}>
+                    <Link
+                      href={l.href}
+                      style={{
+                        fontFamily: 'var(--font-sans)',
+                        fontSize: '0.875rem',
+                        color: 'rgba(255,255,255,0.6)',
+                        textDecoration: 'none',
+                        transition: 'color 0.2s',
+                      }}
+                    >
+                      {l.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
 
           {/* Newsletter */}
-          <div>
+          <div className="footer-newsletter">
             <p
               style={{
                 display: 'flex',
@@ -330,6 +326,76 @@ export function Footer() {
           </Link>
         </div>
       </div>
+
+      <style>{`
+        .footer-main-grid {
+          display: grid;
+          grid-template-columns: 1.3fr 0.9fr 0.9fr 1.3fr;
+          gap: clamp(2rem, 4vw, 3.5rem);
+          padding-bottom: 4rem;
+          border-bottom: 1px solid var(--border-dark);
+        }
+        .footer-links-duo {
+          display: contents;
+        }
+        @media (max-width: 1024px) {
+          .footer-main-grid {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2.5rem;
+          }
+          .footer-links-duo {
+            display: contents;
+          }
+        }
+        @media (max-width: 640px) {
+          .footer-main-grid {
+            grid-template-columns: 1fr !important;
+            gap: 2.5rem !important;
+          }
+          .footer-brand {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+          }
+          .footer-brand p {
+            text-align: center !important;
+            max-width: 28ch !important;
+          }
+          .footer-brand > div:last-child {
+            justify-content: center;
+          }
+          .footer-links-duo {
+            display: grid !important;
+            grid-template-columns: 1fr 1fr !important;
+            gap: 1.25rem !important;
+            width: 100%;
+          }
+          .footer-col-services,
+          .footer-col-quicklinks {
+            text-align: left;
+          }
+          .footer-newsletter {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+          }
+          .footer-newsletter > p:first-of-type {
+            justify-content: center;
+          }
+          .footer-newsletter p {
+            text-align: center;
+          }
+          .footer-newsletter form {
+            width: 100%;
+            max-width: 340px;
+          }
+          .footer-newsletter > div:last-child {
+            justify-content: center;
+          }
+        }
+      `}</style>
     </footer>
   )
 }

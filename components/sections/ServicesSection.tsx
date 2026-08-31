@@ -80,6 +80,7 @@ export function ServicesSection() {
 
   return (
     <section
+      id="services"
       ref={sectionRef}
       style={{
         background: 'var(--burg-darker)',
@@ -164,6 +165,7 @@ export function ServicesSection() {
             <div
               key={srv.num}
               className="srv-row"
+              onClick={() => setActiveRow((prev) => (prev === i ? null : i))}
               onMouseEnter={() => setActiveRow(i)}
               onMouseLeave={() => setActiveRow(null)}
               style={{
@@ -225,14 +227,15 @@ export function ServicesSection() {
                 </div>
                 <p
                   style={{
-                    fontSize: '0.8125rem',
+                    fontSize: 'clamp(0.8125rem, 1.5vw, 0.875rem)',
                     lineHeight: 1.65,
-                    color: 'rgba(255,255,255,0.45)',
+                    color: 'rgba(255,255,255,0.88)',
                     maxWidth: '55ch',
-                    height: activeRow === i ? '3.5rem' : 0,
+                    maxHeight: activeRow === i ? '12rem' : 0,
                     overflow: 'hidden',
                     opacity: activeRow === i ? 1 : 0,
-                    transition: 'height 0.35s ease, opacity 0.35s ease',
+                    transition: 'max-height 0.35s ease, opacity 0.35s ease, margin-top 0.25s ease',
+                    marginTop: activeRow === i ? '0.5rem' : 0,
                   }}
                 >
                   {srv.desc}
@@ -318,6 +321,11 @@ export function ServicesSection() {
           .srv-row h3 {
             font-size: 1.125rem !important;
           }
+          .srv-row p {
+            font-size: 0.8125rem !important;
+            line-height: 1.6 !important;
+            max-width: 100% !important;
+          }
           .srv-arrow-btn {
             width: 2.25rem !important;
             height: 2.25rem !important;
@@ -334,6 +342,10 @@ export function ServicesSection() {
           }
           .srv-row > span:first-child {
             display: none !important;
+          }
+          .srv-row p {
+            font-size: 0.78125rem !important;
+            line-height: 1.55 !important;
           }
         }
       `}</style>

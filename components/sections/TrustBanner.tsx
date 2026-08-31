@@ -27,6 +27,7 @@ export function TrustBanner() {
 
   return (
     <section
+      id="trust"
       ref={sectionRef}
       className="tb-section"
       style={{
@@ -160,7 +161,7 @@ export function TrustBanner() {
               display: 'inline-flex',
               alignItems: 'center',
               gap: '0.5rem',
-              padding: '0.875rem 1.5rem',
+              padding: '0.875rem 0.5rem',
               background: 'transparent',
               color: 'var(--white)',
               fontFamily: 'var(--font-sans)',
@@ -168,9 +169,9 @@ export function TrustBanner() {
               fontWeight: 700,
               letterSpacing: '0.08em',
               textTransform: 'uppercase',
-              border: '1px solid rgba(255,255,255,0.3)',
+              border: 'none',
               textDecoration: 'none',
-              transition: 'border-color 0.25s',
+              transition: 'opacity 0.25s',
             }}
           >
             DISCOVER MORE

@@ -57,9 +57,10 @@ export function QualityStory() {
   }, [])
 
   return (
-    <section ref={sectionRef} className="section-pad" style={{ background: 'var(--ivory)' }}>
+    <section id="heritage" ref={sectionRef} className="section-pad" style={{ background: 'var(--ivory)' }}>
       <div className="container">
         <div
+          className="qs-grid"
           style={{
             display: 'grid',
             gridTemplateColumns: '1fr 1fr',
@@ -68,7 +69,7 @@ export function QualityStory() {
           }}
         >
           {/* Left: Image + floating badge */}
-          <div style={{ position: 'relative' }}>
+          <div className="qs-media" style={{ position: 'relative' }}>
             <div
               className="qs-img-wrap"
               style={{
@@ -87,6 +88,7 @@ export function QualityStory() {
             </div>
             {/* Floating badge */}
             <div
+              className="qs-badge"
               style={{
                 position: 'absolute',
                 bottom: '2rem',
@@ -158,7 +160,43 @@ export function QualityStory() {
 
       <style>{`
         @media (max-width: 900px) {
-          .qs-grid { grid-template-columns: 1fr !important; }
+          .qs-grid {
+            grid-template-columns: 1fr !important;
+            gap: 2.5rem !important;
+          }
+          .qs-media {
+            order: 2;
+            width: 100% !important;
+          }
+          .qs-content {
+            order: 1;
+            width: 100% !important;
+          }
+          .qs-content p {
+            max-width: 100% !important;
+          }
+          .qs-img-wrap {
+            height: clamp(16rem, 50vw, 24rem) !important;
+          }
+          .qs-badge {
+            right: 1rem !important;
+            bottom: 1rem !important;
+            padding: 1rem 1.35rem !important;
+          }
+        }
+        @media (max-width: 480px) {
+          .qs-img-wrap {
+            height: clamp(13rem, 55vw, 18rem) !important;
+          }
+          .qs-badge {
+            padding: 0.75rem 1rem !important;
+          }
+          .qs-badge > div:first-child {
+            font-size: 1.875rem !important;
+          }
+          .qs-content h2 {
+            font-size: clamp(2rem, 8vw, 2.75rem) !important;
+          }
         }
       `}</style>
     </section>
