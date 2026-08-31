@@ -1,10 +1,12 @@
 import {
   CERTIFICATION_DETAIL,
   COMMERCIAL_TERMS,
+  ORG_TREE_DATA,
   PRODUCT_LINES,
   PROCESS_STAGES,
   SERVICE_CAPABILITIES,
   VERIFIED,
+  type OrgNode,
 } from '@/lib/data/company'
 import { GALLERY_CATEGORIES, GALLERY_ITEMS } from '@/lib/data/gallery'
 
@@ -34,8 +36,15 @@ export interface ChatAction {
 export interface ChatCard {
   code: string
   title: string
-  rows: { label: string; value: string }[]
+  /** `group: 'contact'` marks the handler rows, ruled off from the specs above. */
+  rows: { label: string; value: string; group?: 'contact' }[]
   href?: string
+  /** A direct dial, rendered as a tappable action on the card. */
+  tel?: string
+  /** A mailbox, rendered the same way. */
+  mail?: string
+  /** A person, not a product: the title is a name, so it keeps its own casing. */
+  kind?: 'desk'
 }
 
 export interface ChatIntent {
@@ -44,21 +53,23 @@ export interface ChatIntent {
   keywords: string[]
   /** Receives the visitor's message so discovery intents can react to it. */
   answer: (message?: string) => string
-  /** Optional product / specification cards attached to the answer. */
-  cards?: ChatCard[]
+  /**
+   * Optional product / specification cards attached to the answer. A function
+   * receives the visitor's message, so an intent can show the one desk or line
+   * that was actually asked about instead of the whole list.
+   */
+  cards?: ChatCard[] | ((message?: string) => ChatCard[])
   suggestions?: ChatSuggestion[]
   action?: ChatAction
 }
 
-const lineList = PRODUCT_LINES.map((p) => `${p.title} (${p.code})`).join(', ')
+/** Resolve an intent's cards for one message, whether static or derived. */
+export function intentCards(intent: ChatIntent | null, message: string): ChatCard[] | undefined {
+  if (!intent?.cards) return undefined
+  return typeof intent.cards === 'function' ? intent.cards(message) : intent.cards
+}
 
-/** One card per product line, built from verified attributes only. */
-const PRODUCT_CARDS: ChatCard[] = PRODUCT_LINES.map((p) => ({
-  code: p.code,
-  title: p.title,
-  rows: p.verifiedAttributes.map((a) => ({ label: a.label, value: a.value })),
-  href: `/products#${p.id}`,
-}))
+const lineList = PRODUCT_LINES.map((p) => `${p.title} (${p.code})`).join(', ')
 
 const SPEC_CARD: ChatCard = {
   code: 'SPEC',
@@ -78,16 +89,6 @@ const CERT_CARDS: ChatCard[] = CERTIFICATION_DETAIL.map((c) => ({
   rows: [{ label: 'Scope', value: c.scope }],
   href: '/quality',
 }))
-
-const COMPARE_CARDS: ChatCard[] = ['psf-regenerated', 'psf-virgin'].map((id) => {
-  const p = PRODUCT_LINES.find((l) => l.id === id)!
-  return {
-    code: p.code,
-    title: p.title,
-    rows: p.verifiedAttributes.map((a) => ({ label: a.label, value: a.value })),
-    href: `/products#${p.id}`,
-  }
-})
 
 /* The whole-company briefing behind the "More about us" button: the published
    record in three cards - who the company is, what it manufactures, and the
@@ -125,6 +126,209 @@ const OVERVIEW_CARDS: ChatCard[] = [
 
 export const GREETING_ANSWER = `I am the Gulf Fibre assistant. Ask about our product lines, the ${VERIFIED.denierRange} denier range, certifications, the production sequence or commercial terms.`
 
+/* ===========================================================================
+   CONTACT DIRECTORY & PRODUCT → SALES DESK ROUTING
+   ---------------------------------------------------------------------------
+   Every name, role and direct line below is read from ORG_TREE_DATA - the same
+   record the company page publishes - so there is no second copy of anyone's
+   number to keep in step. SALES_DESKS is the only new fact: which desk owns
+   which product line. It is stated once here and drives every contact answer,
+   so an enquiry about wadding reaches the person who actually handles wadding
+   instead of a general mailbox.
+
+   The general channels are the ones the site's own enquiry emails already send
+   from; nothing here invents a channel that is not in use.
+   =========================================================================== */
+
+export const GENERAL_CONTACT = {
+  mailbox: 'gulffiber@gmail.com',
+  line: '+92 52 111 505 505',
+  /** Digits only, for a tel: href. */
+  lineDial: '+9252111505505',
+} as const
+
+/** Which commercial desk owns which PRODUCT_LINES entries. */
+const SALES_DESKS: { orgId: string; lineIds: string[] }[] = [
+  { orgId: 'org-sales-staple', lineIds: ['psf-regenerated', 'psf-virgin'] },
+  { orgId: 'org-sales-wadding', lineIds: ['wadding', 'interlining'] },
+  { orgId: 'org-sales-felts', lineIds: ['felt'] },
+]
+
+const orgMember = (id: string): OrgNode | undefined => ORG_TREE_DATA.find((n) => n.id === id)
+
+/** The desk that owns a product line, with the lines it covers. */
+const deskForLine = (lineId: string) => {
+  const desk = SALES_DESKS.find((d) => d.lineIds.includes(lineId))
+  const person = desk ? orgMember(desk.orgId) : undefined
+  return desk && person ? { person, lineIds: desk.lineIds } : null
+}
+
+const lineTitle = (id: string) => PRODUCT_LINES.find((p) => p.id === id)?.title ?? id
+
+/** Strip a printed number down to something a tel: href accepts. */
+const dial = (n: string) => n.replace(/[^\d+]/g, '')
+
+const deskCard = (person: OrgNode, lineIds: string[]): ChatCard => ({
+  code: person.department,
+  title: person.name,
+  kind: 'desk',
+  rows: [
+    { label: 'Role', value: person.role },
+    { label: 'Handles', value: lineIds.map(lineTitle).join(' · ') },
+    ...(person.contact ? [{ label: 'Direct line', value: person.contact }] : []),
+  ],
+  tel: person.contact ? dial(person.contact) : undefined,
+})
+
+/** Every product desk, in the order the lines are published. */
+const DESK_CARDS: ChatCard[] = SALES_DESKS.flatMap((d) => {
+  const person = orgMember(d.orgId)
+  return person ? [deskCard(person, d.lineIds)] : []
+})
+
+/* Export and shipping sits outside the product desks, so it is named separately
+   rather than folded into one of them. */
+const EXPORT_CARD: ChatCard[] = (() => {
+  const person = orgMember('org-export-manager')
+  if (!person) return []
+  return [
+    {
+      code: person.department,
+      title: person.name,
+      kind: 'desk',
+      rows: [
+        { label: 'Role', value: person.role },
+        { label: 'Handles', value: 'Export consignments, documentation and customs clearance' },
+        ...(person.contact ? [{ label: 'Direct line', value: person.contact }] : []),
+      ],
+      tel: person.contact ? dial(person.contact) : undefined,
+    },
+  ]
+})()
+
+const GENERAL_CARD: ChatCard = {
+  code: 'ENQUIRY DESK',
+  title: 'General enquiries',
+  kind: 'desk',
+  rows: [
+    { label: 'Email', value: GENERAL_CONTACT.mailbox },
+    { label: 'Telephone', value: GENERAL_CONTACT.line },
+    { label: 'Written enquiry', value: 'Enquiry form on the contact page' },
+  ],
+  tel: GENERAL_CONTACT.lineDial,
+  mail: GENERAL_CONTACT.mailbox,
+}
+
+/** The whole directory: product desks, then export, then the general channels. */
+const CONTACT_CARDS: ChatCard[] = [...DESK_CARDS, ...EXPORT_CARD, GENERAL_CARD]
+
+/* ---------------------------------------------------------------------------
+   PRODUCT CARDS
+   ---------------------------------------------------------------------------
+   Built here, below the desks, because every product card closes with the person
+   who handles that line: ask about staple fibre and Ehsan Afzal's direct dial
+   arrives under the specification, so the answer and the way to act on it are
+   never two separate lookups.
+   --------------------------------------------------------------------------- */
+
+const productCard = (lineId: string): ChatCard => {
+  const p = PRODUCT_LINES.find((l) => l.id === lineId)!
+  const desk = deskForLine(lineId)
+  return {
+    code: p.code,
+    title: p.title,
+    rows: [
+      ...p.verifiedAttributes.map((a) => ({ label: a.label, value: a.value })),
+      ...(desk
+        ? [
+            { label: 'Handled by', value: desk.person.name, group: 'contact' as const },
+            ...(desk.person.contact
+              ? [{ label: 'Direct line', value: desk.person.contact, group: 'contact' as const }]
+              : []),
+          ]
+        : []),
+    ],
+    href: `/products#${p.id}`,
+    tel: desk?.person.contact ? dial(desk.person.contact) : undefined,
+  }
+}
+
+/** One card per product line: verified attributes, then the desk that owns it. */
+const PRODUCT_CARDS: ChatCard[] = PRODUCT_LINES.map((p) => productCard(p.id))
+
+const COMPARE_CARDS: ChatCard[] = ['psf-regenerated', 'psf-virgin'].map(productCard)
+
+/* ---------------------------------------------------------------------------
+   WHICH LINE IS THE VISITOR ASKING ABOUT
+   ---------------------------------------------------------------------------
+   Two passes: the material itself (the line's own name, code and trade words),
+   then the application it is used for. Both feed the contact routing and the
+   recommendation intent, so "who handles wadding" and "who do I call about
+   quilts" land on the same desk.
+   --------------------------------------------------------------------------- */
+
+/** Application words → the lines whose published appliedIn covers them. */
+const APPLICATION_HINTS: { words: string[]; lineIds: string[] }[] = [
+  { words: ['quilt', 'duvet', 'pillow', 'bedding', 'mattress', 'comforter'], lineIds: ['wadding'] },
+  { words: ['furniture', 'upholster', 'sofa', 'cushion'], lineIds: ['wadding'] },
+  { words: ['insulat', 'apparel', 'outerwear', 'jacket'], lineIds: ['wadding'] },
+  { words: ['spinning', 'yarn', 'mill', 'ring'], lineIds: ['psf-regenerated', 'psf-virgin'] },
+  { words: ['automotive', 'acoustic', 'sound', 'vehicle', 'headliner'], lineIds: ['felt'] },
+  { words: ['filtration', 'filter'], lineIds: ['felt'] },
+  { words: ['tailor', 'collar', 'waistband', 'formalwear', 'garment'], lineIds: ['interlining'] },
+  { words: ['bag', 'case', 'luggage'], lineIds: ['interlining'] },
+  { words: ['recycled', 'sustainable', 'grs'], lineIds: ['psf-regenerated'] },
+]
+
+/** Material words → the line named. Codes and titles are read from the record. */
+const MATERIAL_HINTS: { words: string[]; lineIds: string[] }[] = [
+  { words: ['staple', 'psf-r', 'regenerated staple'], lineIds: ['psf-regenerated'] },
+  { words: ['hollow', 'conjugate', 'siliconi', 'psf-h', 'infill'], lineIds: ['psf-virgin'] },
+  { words: ['wadding', 'wad ', 'padding', 'high-loft', 'high loft'], lineIds: ['wadding'] },
+  { words: ['felt', 'needle', 'nonwoven', 'non-woven', 'non woven', 'geotextile'], lineIds: ['felt'] },
+  { words: ['interlining', 'lining', 'fusible', 'fusing', 'fusion paper', 'stitch bond', 'stitch-bond'], lineIds: ['interlining'] },
+]
+
+/** Product line ids the message points at, material first then application. */
+function detectLineIds(message: string): string[] {
+  const text = ` ${message.toLowerCase()} `
+  const found = new Set<string>()
+  for (const group of [MATERIAL_HINTS, APPLICATION_HINTS]) {
+    for (const hint of group) {
+      if (hint.words.some((w) => text.includes(w))) hint.lineIds.forEach((id) => found.add(id))
+    }
+  }
+  /* The published codes are unambiguous, so match them directly too. */
+  for (const p of PRODUCT_LINES) {
+    if (text.includes(p.code.toLowerCase())) found.add(p.id)
+  }
+  return PRODUCT_LINES.filter((p) => found.has(p.id)).map((p) => p.id)
+}
+
+/** The desks owning these lines, each named once even if it owns several. */
+function desksForLines(lineIds: string[]) {
+  const seen = new Map<string, { person: OrgNode; lineIds: string[]; asked: string[] }>()
+  for (const id of lineIds) {
+    const desk = deskForLine(id)
+    if (!desk) continue
+    const entry = seen.get(desk.person.id)
+    if (entry) entry.asked.push(id)
+    else seen.set(desk.person.id, { person: desk.person, lineIds: desk.lineIds, asked: [id] })
+  }
+  return [...seen.values()]
+}
+
+/** "Ehsan Afzal (Technical Sales Lead - ...) on +92 ..." for one desk. */
+const deskSentence = (person: OrgNode) =>
+  `${person.name} (${person.role})${person.contact ? ` on ${person.contact}` : ''}`
+
+/** "Ehsan Afzal for staple and hollow fibre; ..." across every product desk. */
+const DESK_SUMMARY = DESK_CARDS.map((c, i) => {
+  const person = orgMember(SALES_DESKS[i].orgId)!
+  return `${person.name} for ${person.department.toLowerCase()}`
+}).join('; ')
+
+
 /* ---------------------------------------------------------------------------
    QUICK-ACTION CHIPS
    ---------------------------------------------------------------------------
@@ -151,10 +355,62 @@ export const CHIP = {
   samples: { label: 'Samples', query: 'Can I request samples?' },
   quote: { label: 'Get a quote', query: 'How do I request a quote?' },
   gallery: { label: 'Gallery', query: 'Show me the gallery' },
+  contacts: { label: 'Contacts', query: 'Contact details for your sales desks' },
+  whoHandles: { label: 'Who handles my line', query: 'Who handles my product line?' },
   more: { label: 'More about us', query: 'Give me a full company overview' },
 } satisfies Record<string, ChatSuggestion>
 
 export const CHAT_INTENTS: ChatIntent[] = [
+  {
+    /* Placed first so that when a message names both a contact and a product
+       ("contact for felt"), the tie resolves to the desk answer - which names
+       the product anyway - rather than to the general product list. */
+    id: 'contacts',
+    keywords: [
+      'contact', 'contacts', 'contact details', 'contact detail', 'contact number',
+      'contact info', 'contact information', 'contact for', 'contact person',
+      'phone', 'phone number', 'mobile number', 'telephone', 'direct line',
+      'email', 'e-mail', 'email address', 'mailbox',
+      'who handles', 'who deals', 'who is handling', 'who looks after',
+      'who to contact', 'whom to contact', 'who do i contact', 'who should i',
+      'who do i', 'who can i', 'person handling',
+      'should i contact', 'get in touch', 'in touch', 'speak to', 'speak with',
+      'talk to', 'sales team', 'sales contact', 'salesperson', 'representative',
+      'reach you', 'reach out', 'directory', 'dealing with',
+    ],
+    answer: (message = '') => {
+      const desks = desksForLines(detectLineIds(message))
+
+      /* A named line gets one person, not a directory. */
+      if (desks.length === 1) {
+        const { person, lineIds, asked } = desks[0]
+        const alsoCovers = lineIds.filter((id) => !asked.includes(id))
+        return `${asked.map(lineTitle).join(' and ')} is handled by ${deskSentence(person)}.${
+          alsoCovers.length > 0
+            ? ` The same desk also covers ${alsoCovers.map(lineTitle).join(' and ')}.`
+            : ''
+        } Tap the card below to dial that desk directly, or send the enquiry form and it reaches the same person in writing.`
+      }
+
+      if (desks.length > 1) {
+        return `Those lines sit with ${desks.length} desks: ${desks
+          .map((d) => `${d.asked.map(lineTitle).join(' and ')} with ${deskSentence(d.person)}`)
+          .join('; and ')}. Tap a card to dial the desk you need.`
+      }
+
+      /* Nothing named, so publish the directory and invite a line. */
+      return `Direct desks, from the published company record: ${DESK_SUMMARY}. Export consignments, documentation and customs clearance go to ${
+        orgMember('org-export-manager')?.name ?? 'the export desk'
+      }. General enquiries reach ${GENERAL_CONTACT.mailbox} or ${GENERAL_CONTACT.line}. Name your product line and I will point you at the one desk that handles it.`
+    },
+    cards: (message = '') => {
+      const desks = desksForLines(detectLineIds(message))
+      if (desks.length === 0) return CONTACT_CARDS
+      return [...desks.map((d) => deskCard(d.person, d.lineIds)), GENERAL_CARD]
+    },
+    suggestions: [CHIP.whoHandles, CHIP.products, CHIP.samples, CHIP.quote],
+    action: { text: 'Open the enquiry form', href: '/contact' },
+  },
   {
     id: 'products',
     keywords: [
@@ -163,10 +419,21 @@ export const CHAT_INTENTS: ChatIntent[] = [
       'interlining', 'lining', 'fusing', 'wadding', 'infill', 'material', 'materials',
       'what do you make', 'what do you sell', 'offer',
     ],
-    answer: () =>
-      `We manufacture five verified product lines: ${lineList}. The staple fibre range spans ${VERIFIED.denierRange}, from fine-count spinning to ultra-coarse industrial batting. Tap a card for the line's verified attributes.`,
-    cards: PRODUCT_CARDS,
-    suggestions: [CHIP.compare, CHIP.specs, CHIP.certifications, CHIP.quote],
+    answer: (message = '') => {
+      const desks = desksForLines(detectLineIds(message))
+      /* When one line is named, close with the desk that handles it. */
+      const routing =
+        desks.length === 1
+          ? ` ${desks[0].asked.map(lineTitle).join(' and ')} is handled by ${deskSentence(desks[0].person)}.`
+          : ''
+      return `We manufacture five verified product lines: ${lineList}. The staple fibre range spans ${VERIFIED.denierRange}, from fine-count spinning to ultra-coarse industrial batting.${routing} Tap a card for the line's verified attributes.`
+    },
+    cards: (message = '') => {
+      const lineIds = detectLineIds(message)
+      const named = PRODUCT_CARDS.filter((c) => lineIds.some((id) => c.href === `/products#${id}`))
+      return named.length > 0 ? named : PRODUCT_CARDS
+    },
+    suggestions: [CHIP.compare, CHIP.specs, CHIP.contacts, CHIP.quote],
     action: { text: 'Browse the product pages', href: '/products' },
   },
   {
@@ -291,8 +558,7 @@ export const CHAT_INTENTS: ChatIntent[] = [
     id: 'quote',
     keywords: [
       'quote', 'quotation', 'price', 'pricing', 'cost', 'rfq', 'order',
-      'buy', 'purchase', 'moq', 'minimum', 'lead time', 'contact', 'email',
-      'phone', 'call', 'reach', 'enquiry', 'inquiry',
+      'buy', 'purchase', 'moq', 'minimum', 'lead time', 'enquiry', 'inquiry',
     ],
     answer: () =>
       `Quotations run through the enquiry form on the contact page. Denier, cut length, volume and destination are enough for a firm answer on feasibility - and if we are not the right plant for your count, we will say so rather than quote for the sake of it.`,
@@ -327,17 +593,6 @@ export const CHAT_INTENTS: ChatIntent[] = [
          each line - the recommendation is only ever a line whose published
          appliedIn actually covers the use case. */
       const text = message.toLowerCase()
-      const APPLICATION_HINTS: { words: string[]; lineIds: string[] }[] = [
-        { words: ['quilt', 'duvet', 'pillow', 'bedding', 'mattress', 'comforter'], lineIds: ['wadding'] },
-        { words: ['furniture', 'upholster', 'sofa', 'cushion'], lineIds: ['wadding'] },
-        { words: ['insulat', 'apparel', 'outerwear', 'jacket'], lineIds: ['wadding'] },
-        { words: ['spinning', 'yarn', 'mill', 'ring'], lineIds: ['psf-regenerated', 'psf-virgin'] },
-        { words: ['automotive', 'acoustic', 'sound', 'vehicle', 'headliner'], lineIds: ['felt'] },
-        { words: ['filtration', 'filter'], lineIds: ['felt'] },
-        { words: ['tailor', 'collar', 'waistband', 'formalwear', 'garment'], lineIds: ['interlining'] },
-        { words: ['bag', 'case', 'luggage'], lineIds: ['interlining'] },
-        { words: ['recycled', 'sustainable', 'grs'], lineIds: ['psf-regenerated'] },
-      ]
       const matched = new Set<string>()
       for (const hint of APPLICATION_HINTS) {
         if (hint.words.some((w) => text.includes(w))) hint.lineIds.forEach((id) => matched.add(id))
@@ -345,16 +600,34 @@ export const CHAT_INTENTS: ChatIntent[] = [
 
       if (matched.size > 0) {
         const lines = PRODUCT_LINES.filter((p) => matched.has(p.id))
+        /* Name the desk that owns the recommendation, so the visitor leaves
+           with a person to call rather than a line to look up. */
+        const desks = desksForLines([...matched])
+        const routing =
+          desks.length === 1
+            ? ` That line is handled by ${deskSentence(desks[0].person)}.`
+            : desks.length > 1
+              ? ` Those lines are handled by ${desks
+                  .map((d) => deskSentence(d.person))
+                  .join('; and ')}.`
+              : ''
         return `Based on the published record, ${lines
           .map((p) => `the ${p.title} (${p.code}) - applied in ${p.appliedIn.map((a) => a.toLowerCase()).join(', ')}`)
-          .join('; and ')}. Order-specific suitability still depends on your specification - the enquiry desk confirms it against your process.`
+          .join('; and ')}.${routing} Order-specific suitability still depends on your specification - the enquiry desk confirms it against your process.`
       }
       return `Tell me the application and I will point at the right line. From the published record: ${PRODUCT_LINES.map(
         (p) => `${p.title} (${p.code}) is applied in ${p.appliedIn.map((a) => a.toLowerCase()).join(', ')}`
       ).join('; ')}.`
     },
-    cards: PRODUCT_CARDS,
-    suggestions: [CHIP.compare, CHIP.specs, CHIP.samples, CHIP.quote],
+    /* When the application resolves to specific lines, show those lines - each
+       card already closes with the desk that handles it; otherwise the whole
+       range. */
+    cards: (message = '') => {
+      const lineIds = detectLineIds(message)
+      const named = PRODUCT_CARDS.filter((c) => lineIds.some((id) => c.href === `/products#${id}`))
+      return named.length > 0 ? named : PRODUCT_CARDS
+    },
+    suggestions: [CHIP.compare, CHIP.specs, CHIP.contacts, CHIP.quote],
     action: { text: 'See the product lines', href: '/products' },
   },
   {
@@ -429,6 +702,7 @@ export const FALLBACK_SUGGESTIONS: ChatSuggestion[] = [
   CHIP.products,
   CHIP.certifications,
   CHIP.process,
+  CHIP.contacts,
   CHIP.more,
   CHIP.quote,
 ]
@@ -441,7 +715,7 @@ export const STARTER_SUGGESTIONS: ChatSuggestion[] = [
   CHIP.certifications,
   CHIP.process,
   CHIP.recommend,
-  CHIP.more,
+  CHIP.contacts,
   CHIP.quote,
 ]
 
@@ -519,43 +793,43 @@ export const PAGE_CONTEXTS: Record<string, PageContext> = {
     topic: 'Products',
     greeting: `Five verified lines — staple fibre, hollow fibre, wadding, felt and interlinings — across the ${VERIFIED.denierRange} denier range. Ask about any line, or how they compare.`,
     nudge: 'Need help choosing a fibre line?',
-    suggestions: [CHIP.compare, CHIP.specs, CHIP.recommend, CHIP.samples, CHIP.more, CHIP.quote],
+    suggestions: [CHIP.compare, CHIP.specs, CHIP.recommend, CHIP.samples, CHIP.contacts, CHIP.quote],
   },
   '/services': {
     topic: 'Process & services',
     nudge: 'Ask about the production sequence.',
     greeting: `Production runs in four stages: ${stageList}. Ask about any stage, quality control, or packing and export.`,
-    suggestions: [CHIP.process, CHIP.quality, CHIP.shipping, CHIP.capacity, CHIP.more, CHIP.quote],
+    suggestions: [CHIP.process, CHIP.quality, CHIP.shipping, CHIP.capacity, CHIP.contacts, CHIP.quote],
   },
   '/company': {
     topic: 'The company',
     nudge: 'Ask about the company record.',
     greeting: `${VERIFIED.legalName} — polyester fibre in ${VERIFIED.country} since ${VERIFIED.established}. ${VERIFIED.annualCapacity} annual capacity, ${VERIFIED.customers} customers, a workforce of ${VERIFIED.workforce}.`,
-    suggestions: [CHIP.capacity, CHIP.products, CHIP.certifications, CHIP.gallery, CHIP.more, CHIP.quote],
+    suggestions: [CHIP.contacts, CHIP.capacity, CHIP.products, CHIP.certifications, CHIP.gallery, CHIP.quote],
   },
   '/sustainability': {
     topic: 'Sustainability',
     nudge: 'Ask how recycled content is verified.',
     greeting: `Regenerated fibre is produced from ${VERIFIED.recycledInput}, tracked under Global Recycled Standard chain of custody — so your recycled-content claim can be substantiated on ours.`,
-    suggestions: [CHIP.recycled, CHIP.certifications, CHIP.compare, CHIP.products, CHIP.more, CHIP.quote],
+    suggestions: [CHIP.recycled, CHIP.certifications, CHIP.compare, CHIP.products, CHIP.contacts, CHIP.quote],
   },
   '/quality': {
     topic: 'Quality & compliance',
     nudge: 'Ask about certifications and testing.',
     greeting: `Registrations held: ${certCodes}. Verification runs at incoming feedstock, at the fibre and before baling, with a Certificate of Analysis per consignment.`,
-    suggestions: [CHIP.certifications, CHIP.quality, CHIP.samples, CHIP.recycled, CHIP.more, CHIP.quote],
+    suggestions: [CHIP.certifications, CHIP.quality, CHIP.samples, CHIP.recycled, CHIP.contacts, CHIP.quote],
   },
   '/gallery': {
     topic: 'Visual archive',
     nudge: 'Ask about the plant or the process.',
     greeting: `${GALLERY_ITEMS.length} photographs across ${galleryCategoryCount} categories, all from the company record. Ask about the plant, the process or the product lines.`,
-    suggestions: [CHIP.process, CHIP.products, CHIP.company, CHIP.certifications, CHIP.more, CHIP.quote],
+    suggestions: [CHIP.process, CHIP.products, CHIP.company, CHIP.certifications, CHIP.contacts, CHIP.quote],
   },
   '/contact': {
     topic: 'Enquiries',
     nudge: 'Not sure what to send? Ask me first.',
-    greeting: 'Denier, cut length, volume and destination are enough for a firm answer on feasibility. Ask me anything before you send the form.',
-    suggestions: [CHIP.quote, CHIP.specs, CHIP.samples, CHIP.shipping, CHIP.terms, CHIP.more],
+    greeting: 'Denier, cut length, volume and destination are enough for a firm answer on feasibility. Ask me anything before you send the form — including which desk handles your line.',
+    suggestions: [CHIP.contacts, CHIP.quote, CHIP.specs, CHIP.samples, CHIP.shipping, CHIP.terms],
   },
 }
 

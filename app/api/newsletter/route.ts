@@ -1,6 +1,6 @@
 import { Resend } from 'resend'
 import { z } from 'zod'
-import { newsletterSubscriptionEmail, siteOrigin } from '@/lib/email/templates'
+import { newsletterNotificationEmail, newsletterSubscriptionEmail, siteOrigin } from '@/lib/email/templates'
 
 // The Resend SDK requires the Node.js runtime (not Edge), and this route must
 // never be cached / prerendered.
@@ -12,10 +12,6 @@ const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/
 const Schema = z.object({
   email: z.string().trim().refine((s) => EMAIL_RE.test(s)),
 })
-
-/** Escape user input before it goes into the HTML email body. */
-const esc = (s: string) =>
-  s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
 
 export async function POST(request: Request) {
   let body: unknown
@@ -43,18 +39,13 @@ export async function POST(request: Request) {
     return Response.json({ ok: false, error: 'Signups are not configured yet.' }, { status: 500 })
   }
 
-  /* ---- 1) Internal notification: a signup landed ---- */
-  const html = `
-  <div style="font-family:Arial,Helvetica,sans-serif;max-width:640px;margin:0 auto;color:#0A1128">
-    <h2 style="color:#0A4BB8;margin:0 0 4px">New newsletter signup</h2>
-    <p style="margin:0 0 16px;color:#475569;font-size:13px">Submitted via the Gulf Fiber website footer</p>
-    <p style="font-size:15px;margin:0"><strong>Email:</strong> ${esc(email)}</p>
-  </div>`
+  const origin = siteOrigin(request)
 
-  const text = `New newsletter signup\n\nEmail: ${email}`
+  /* ---- 1) Internal notification: a signup landed ---- */
+  const notification = newsletterNotificationEmail({ origin, email })
 
   /* ---- 2) Confirmation to the subscriber: you are on the list ---- */
-  const welcome = newsletterSubscriptionEmail({ origin: siteOrigin(request) })
+  const welcome = newsletterSubscriptionEmail({ origin })
 
   try {
     const resend = new Resend(apiKey)
@@ -66,9 +57,9 @@ export async function POST(request: Request) {
         from,
         to,
         replyTo: email,
-        subject: `New newsletter signup — ${email}`,
-        html,
-        text,
+        subject: notification.subject,
+        html: notification.html,
+        text: notification.text,
       }),
       resend.emails.send({
         from,
