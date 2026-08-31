@@ -212,8 +212,8 @@ export function TrustBanner() {
       {/* RIGHT: Cotton plant image */}
       <div style={{ position: 'relative', overflow: 'hidden' }}>
         <Image
-          src="/images/sustainability-cotton.jpg"
-          alt="Cotton plant — symbol of sustainable fibre"
+          src="/images/recycled-polyester-fibre.jpg"
+          alt="Recycled polyester staple fibre — Gulf Fibre Company"
           fill
           className="tb-plant-img"
           style={{

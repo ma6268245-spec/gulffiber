@@ -9,7 +9,8 @@ const ARTICLES = [
     category: 'Technical Guide',
     date: 'Aug 2026',
     title: 'How to Select the Correct Polyester Staple Fibre Denier',
-    img: '/images/sustainability-cotton.jpg',
+    img: '/images/recycled-polyester-fibre.jpg',
+    href: '/products',
     large: true,
   },
   {
@@ -17,6 +18,7 @@ const ARTICLES = [
     date: 'Jul 2026',
     title: 'Understanding Staple Length in Synthetic Fibre Spinning',
     img: '/images/collection-rolls.jpg',
+    href: '/services',
     large: false,
   },
   {
@@ -24,6 +26,7 @@ const ARTICLES = [
     date: 'Jun 2026',
     title: 'What GRS Certification Means for Textile Procurement',
     img: '/images/quality-lab.jpg',
+    href: '/quality',
     large: false,
   },
 ]
@@ -95,8 +98,8 @@ export function BlogSection() {
               <em>Stories</em>
             </h2>
           </div>
-          <Link href="/blog" className="btn-ghost">
-            ALL ARTICLES
+          <Link href="/products" className="btn-ghost">
+            TECHNICAL ARTICLES
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               <path d="M5 12h14M12 5l7 7-7 7" />
             </svg>
@@ -113,13 +116,16 @@ export function BlogSection() {
           }}
         >
           {/* Large article */}
-          <div
+          <Link
+            href={ARTICLES[0].href}
             className="blog-card"
             style={{
               position: 'relative',
               overflow: 'hidden',
               cursor: 'pointer',
               height: '34rem',
+              display: 'block',
+              textDecoration: 'none',
             }}
           >
             <Image
@@ -136,52 +142,77 @@ export function BlogSection() {
               style={{
                 position: 'absolute',
                 inset: 0,
-                background: 'linear-gradient(to top, rgba(20,5,5,0.82) 0%, transparent 50%)',
+                background:
+                  'linear-gradient(to top, rgba(4, 15, 38, 0.94) 0%, rgba(4, 15, 38, 0.7) 48%, rgba(4, 15, 38, 0.15) 100%)',
               }}
             />
-            <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: '2rem' }}>
+            <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: 'clamp(1.25rem, 3vw, 2rem)' }}>
               <div style={{ display: 'flex', gap: '0.75rem', marginBottom: '0.75rem', alignItems: 'center' }}>
                 <span
                   style={{
-                    fontSize: '0.5625rem',
-                    fontWeight: 700,
-                    letterSpacing: '0.1em',
+                    fontSize: '0.625rem',
+                    fontWeight: 800,
+                    letterSpacing: '0.08em',
                     textTransform: 'uppercase',
-                    color: 'var(--burg-primary)',
-                    background: 'rgba(0,112,243,0.2)',
-                    padding: '0.2rem 0.625rem',
+                    color: '#FFFFFF',
+                    background: 'var(--burg-primary)',
+                    padding: '0.25rem 0.65rem',
+                    borderRadius: '2px',
+                    boxShadow: '0 2px 8px rgba(0,0,0,0.35)',
                   }}
                 >
                   {ARTICLES[0].category}
                 </span>
-                <span style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.5)' }}>{ARTICLES[0].date}</span>
+                <span
+                  style={{
+                    fontSize: '0.75rem',
+                    fontWeight: 600,
+                    color: 'rgba(255,255,255,0.85)',
+                    textShadow: '0 1px 4px rgba(0,0,0,0.5)',
+                  }}
+                >
+                  {ARTICLES[0].date}
+                </span>
               </div>
               <h3
                 style={{
                   fontFamily: 'var(--font-sans)',
-                  fontSize: '1.25rem',
+                  fontSize: 'clamp(1.125rem, 2.5vw, 1.35rem)',
                   fontWeight: 800,
-                  color: 'var(--white)',
+                  color: '#FFFFFF',
                   lineHeight: 1.3,
                   marginBottom: '1rem',
+                  textShadow: '0 2px 10px rgba(0,0,0,0.7)',
                 }}
               >
                 {ARTICLES[0].title}
               </h3>
-              <Link href="/blog" className="btn-ghost" style={{ color: 'rgba(255,255,255,0.7)' }}>
+              <span
+                className="btn-ghost"
+                style={{
+                  color: '#FFFFFF',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '0.5rem',
+                  fontSize: '0.75rem',
+                  fontWeight: 700,
+                  letterSpacing: '0.08em',
+                }}
+              >
                 READ MORE
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                   <path d="M5 12h14M12 5l7 7-7 7" />
                 </svg>
-              </Link>
+              </span>
             </div>
-          </div>
+          </Link>
 
           {/* Small articles */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
             {ARTICLES.slice(1).map((article, i) => (
-              <div
+              <Link
                 key={i}
+                href={article.href}
                 className="blog-card"
                 style={{
                   position: 'relative',
@@ -189,6 +220,8 @@ export function BlogSection() {
                   cursor: 'pointer',
                   flex: 1,
                   minHeight: '15rem',
+                  display: 'block',
+                  textDecoration: 'none',
                 }}
               >
                 <Image
@@ -205,39 +238,52 @@ export function BlogSection() {
                   style={{
                     position: 'absolute',
                     inset: 0,
-                    background: 'linear-gradient(to top, rgba(20,5,5,0.8) 0%, transparent 55%)',
+                    background:
+                      'linear-gradient(to top, rgba(4, 15, 38, 0.94) 0%, rgba(4, 15, 38, 0.65) 50%, rgba(4, 15, 38, 0.15) 100%)',
                   }}
                 />
-                <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: '1.5rem' }}>
+                <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: 'clamp(1rem, 2.5vw, 1.5rem)' }}>
                   <div style={{ display: 'flex', gap: '0.75rem', marginBottom: '0.5rem', alignItems: 'center' }}>
                     <span
                       style={{
                         fontSize: '0.5625rem',
-                        fontWeight: 700,
-                        letterSpacing: '0.1em',
+                        fontWeight: 800,
+                        letterSpacing: '0.08em',
                         textTransform: 'uppercase',
-                        color: 'var(--burg-primary)',
-                        background: 'rgba(0,112,243,0.2)',
-                        padding: '0.2rem 0.5rem',
+                        color: '#FFFFFF',
+                        background: 'var(--burg-primary)',
+                        padding: '0.2rem 0.55rem',
+                        borderRadius: '2px',
+                        boxShadow: '0 2px 6px rgba(0,0,0,0.3)',
                       }}
                     >
                       {article.category}
                     </span>
-                    <span style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.5)' }}>{article.date}</span>
+                    <span
+                      style={{
+                        fontSize: '0.75rem',
+                        fontWeight: 600,
+                        color: 'rgba(255,255,255,0.85)',
+                        textShadow: '0 1px 4px rgba(0,0,0,0.5)',
+                      }}
+                    >
+                      {article.date}
+                    </span>
                   </div>
                   <h3
                     style={{
                       fontFamily: 'var(--font-sans)',
                       fontSize: '0.9375rem',
                       fontWeight: 700,
-                      color: 'var(--white)',
+                      color: '#FFFFFF',
                       lineHeight: 1.35,
+                      textShadow: '0 2px 8px rgba(0,0,0,0.7)',
                     }}
                   >
                     {article.title}
                   </h3>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         </div>
@@ -245,14 +291,16 @@ export function BlogSection() {
 
       <style>{`
         .blog-card:hover .blog-img { transform: scale(1.05); }
+        .blog-card * { -webkit-font-smoothing: antialiased; }
         @media (max-width: 900px) {
           .blog-grid { grid-template-columns: 1fr !important; }
           .blog-card { height: 22rem !important; min-height: 22rem !important; }
         }
         @media (max-width: 480px) {
-          .blog-card { height: 18rem !important; min-height: 18rem !important; }
+          .blog-card { height: 20rem !important; min-height: 20rem !important; }
         }
       `}</style>
     </section>
   )
 }
+

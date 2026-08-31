@@ -45,16 +45,7 @@ export default function ServicesPage() {
             { label: 'Standard bale', value: VERIFIED.baleWeight },
             { label: 'Workforce', value: VERIFIED.workforce },
           ]}
-          aside={
-            <Image
-              src="/images/workshop-factory.jpg"
-              alt="Production floor at the Gulf Fibre plant"
-              fill
-              priority
-              sizes="(max-width: 992px) 100vw, 48vw"
-              style={{ objectFit: 'cover' }}
-            />
-          }
+          bgVideo="/videos/services-hero.mp4"
         >
           <Link className="btn-primary" href="/contact">
             Send a specification

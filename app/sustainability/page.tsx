@@ -45,7 +45,7 @@ export default function SustainabilityPage() {
           ]}
           aside={
             <Image
-              src="/images/sustainability-cotton.jpg"
+              src="/images/recycled-polyester-fibre.jpg"
               alt="Regenerated fibre produced by Gulf Fibre"
               fill
               priority

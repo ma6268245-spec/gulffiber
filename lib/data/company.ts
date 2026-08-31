@@ -329,7 +329,7 @@ export const PRODUCT_LINES: ProductLine[] = [
     ],
     specSlot:
       'Specification pending production verification — exact GSM range (100–600+ g/m²), roll width (up to 3.2 m), loft thickness (mm), and compression recovery % are engineered to order and confirmed on proforma sheets.',
-    image: '/images/sustainability-cotton.jpg',
+    image: '/images/recycled-polyester-fibre.jpg',
     video: '/videos/thermally-bonded-wadding.mp4',
     status: 'VERIFIED',
   },
@@ -484,7 +484,7 @@ export const MILESTONES: CompanyMilestone[] = [
     body:
       'Engineered an in-house polymer washing, flake refining, and decontamination line, enabling 100% post-consumer bottle recycling under verified Global Recycled Standard (GRS) chain of custody.',
     metric: 'GRS Certified Chain of Custody',
-    image: '/images/sustainability-cotton.jpg',
+    image: '/images/recycled-polyester-fibre.jpg',
     status: 'VERIFIED',
   },
   {
