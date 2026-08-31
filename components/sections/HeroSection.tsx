@@ -134,6 +134,7 @@ export function HeroSection() {
     >
       {/* LEFT: Content */}
       <div
+        className="hero-content-col"
         style={{
           display: 'flex',
           flexDirection: 'column',
@@ -397,6 +398,9 @@ export function HeroSection() {
             grid-template-columns: 1fr !important;
             min-height: auto !important;
           }
+          .hero-content-col {
+            padding-top: clamp(6.5rem, 15vh, 8.5rem) !important;
+          }
           .hero-section > div:last-child {
             min-height: 50vh !important;
             height: 50vh !important;
@@ -408,6 +412,9 @@ export function HeroSection() {
           }
         }
         @media (max-width: 576px) {
+          .hero-content-col {
+            padding-top: 6.75rem !important;
+          }
           .hero-section > div:last-child {
             min-height: 40vh !important;
             height: 40vh !important;

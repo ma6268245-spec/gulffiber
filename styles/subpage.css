@@ -1221,7 +1221,7 @@
 }
 .sp-root .sp-journey__aside {
   position: sticky;
-  top: clamp(10rem, 22vh, 15rem);
+  top: clamp(6.5rem, 14vh, 8.5rem);
   display: grid;
   gap: 1.15rem;
   padding: 2rem 2.25rem;

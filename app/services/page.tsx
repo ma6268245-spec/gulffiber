@@ -100,7 +100,7 @@ export default function ServicesPage() {
                 lede="Seven steps from your requirement to a delivered, documented consignment - each one a capability the house actually holds, walked here as a single scroll."
               />
             </div>
-            <div className="sp-anim">
+            <div>
               <JourneyChapter />
             </div>
           </div>

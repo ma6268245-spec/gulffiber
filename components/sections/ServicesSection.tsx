@@ -165,14 +165,15 @@ export function ServicesSection() {
             <div
               key={srv.num}
               className="srv-row"
+              data-active={activeRow === i}
               onClick={() => setActiveRow((prev) => (prev === i ? null : i))}
               onMouseEnter={() => setActiveRow(i)}
               onMouseLeave={() => setActiveRow(null)}
               style={{
                 display: 'grid',
-                gridTemplateColumns: '5rem 1fr auto auto',
+                gridTemplateColumns: '4.5rem 1fr auto auto',
                 alignItems: 'center',
-                gap: '2rem',
+                gap: '1.5rem',
                 padding: '1.75rem 0',
                 borderTop: '1px solid var(--border-dark)',
                 cursor: 'pointer',
@@ -182,6 +183,7 @@ export function ServicesSection() {
             >
               {/* Number */}
               <span
+                className="srv-num"
                 style={{
                   fontFamily: 'var(--font-sans)',
                   fontSize: '0.75rem',
@@ -195,37 +197,24 @@ export function ServicesSection() {
               </span>
 
               {/* Content */}
-              <div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '0.25rem' }}>
-                  <h3
-                    style={{
-                      fontFamily: 'var(--font-sans)',
-                      fontSize: 'clamp(1rem, 2.5vw, 1.875rem)',
-                      fontWeight: 900,
-                      letterSpacing: '-0.01em',
-                      textTransform: 'uppercase',
-                      color: activeRow === i ? 'var(--white)' : 'rgba(255,255,255,0.8)',
-                      transition: 'color 0.3s',
-                    }}
-                  >
-                    {srv.title}
-                  </h3>
-                  <span
-                    style={{
-                      fontSize: '0.5625rem',
-                      fontWeight: 700,
-                      letterSpacing: '0.1em',
-                      textTransform: 'uppercase',
-                      background: activeRow === i ? 'var(--burg-primary)' : 'rgba(255,255,255,0.1)',
-                      color: 'var(--white)',
-                      padding: '0.25rem 0.625rem',
-                      transition: 'background 0.3s',
-                    }}
-                  >
-                    {srv.badge}
-                  </span>
-                </div>
+              <div className="srv-content">
+                <h3
+                  className="srv-title"
+                  style={{
+                    fontFamily: 'var(--font-sans)',
+                    fontSize: 'clamp(1rem, 2.2vw, 1.75rem)',
+                    fontWeight: 900,
+                    letterSpacing: '-0.01em',
+                    textTransform: 'uppercase',
+                    color: activeRow === i ? 'var(--white)' : 'rgba(255,255,255,0.85)',
+                    transition: 'color 0.3s',
+                    margin: 0,
+                  }}
+                >
+                  {srv.title}
+                </h3>
                 <p
+                  className="srv-desc"
                   style={{
                     fontSize: 'clamp(0.8125rem, 1.5vw, 0.875rem)',
                     lineHeight: 1.65,
@@ -244,6 +233,7 @@ export function ServicesSection() {
 
               {/* Thumbnail — visible on hover */}
               <div
+                className="srv-thumb"
                 style={{
                   width: '5rem',
                   height: '3.5rem',
@@ -263,43 +253,63 @@ export function ServicesSection() {
                 />
               </div>
 
-              {/* Sleek Refined Arrow Action Button */}
-              <div
-                className="srv-arrow-btn"
-                aria-label={`View details for ${srv.title}`}
-                style={{
-                  width: '3.125rem',
-                  height: '3.125rem',
-                  borderRadius: '50%',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  background: activeRow === i ? '#0066FF' : 'rgba(255, 255, 255, 0.05)',
-                  border: activeRow === i ? '1px solid #0066FF' : '1px solid rgba(255, 255, 255, 0.16)',
-                  color: activeRow === i ? '#FFFFFF' : 'rgba(255, 255, 255, 0.75)',
-                  boxShadow: activeRow === i ? '0 8px 24px rgba(0, 102, 255, 0.35)' : 'none',
-                  transform: activeRow === i ? 'translateX(4px) scale(1.08)' : 'translateX(0)',
-                  transition: 'all 0.28s cubic-bezier(0.16, 1, 0.3, 1)',
-                  flexShrink: 0,
-                }}
-              >
-                <svg
-                  width="18"
-                  height="18"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2.2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
+              {/* Right cluster: Badge + Arrow button */}
+              <div className="srv-right-cluster">
+                <span
+                  className="srv-badge"
                   style={{
-                    transform: activeRow === i ? 'translateX(2px)' : 'translateX(0)',
-                    transition: 'transform 0.28s ease',
+                    fontSize: '0.625rem',
+                    fontWeight: 800,
+                    letterSpacing: '0.08em',
+                    textTransform: 'uppercase',
+                    background: activeRow === i ? 'var(--burg-primary)' : 'rgba(255,255,255,0.08)',
+                    color: 'var(--white)',
+                    padding: '0.35rem 0.75rem',
+                    borderRadius: '4px',
+                    whiteSpace: 'nowrap',
+                    transition: 'all 0.3s',
                   }}
                 >
-                  <path d="M5 12h14" />
-                  <path d="m13 6 6 6-6 6" />
-                </svg>
+                  {srv.badge}
+                </span>
+
+                <div
+                  className="srv-arrow-btn"
+                  aria-label={`View details for ${srv.title}`}
+                  style={{
+                    width: '2.875rem',
+                    height: '2.875rem',
+                    borderRadius: '50%',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    background: activeRow === i ? '#0066FF' : 'rgba(255, 255, 255, 0.05)',
+                    border: activeRow === i ? '1px solid #0066FF' : '1px solid rgba(255, 255, 255, 0.16)',
+                    color: activeRow === i ? '#FFFFFF' : 'rgba(255, 255, 255, 0.75)',
+                    boxShadow: activeRow === i ? '0 8px 24px rgba(0, 102, 255, 0.35)' : 'none',
+                    transform: activeRow === i ? 'translateX(4px) scale(1.08)' : 'translateX(0)',
+                    transition: 'all 0.28s cubic-bezier(0.16, 1, 0.3, 1)',
+                    flexShrink: 0,
+                  }}
+                >
+                  <svg
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2.2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    style={{
+                      transform: activeRow === i ? 'translateX(2px)' : 'translateX(0)',
+                      transition: 'transform 0.28s ease',
+                    }}
+                  >
+                    <path d="M5 12h14" />
+                    <path d="m13 6 6 6-6 6" />
+                  </svg>
+                </div>
               </div>
             </div>
           ))}
@@ -309,22 +319,51 @@ export function ServicesSection() {
       </div>
 
       <style>{`
-        @media (max-width: 768px) {
+        .srv-right-cluster {
+          display: flex;
+          align-items: center;
+          gap: 0.75rem;
+          justify-content: flex-end;
+          flex-shrink: 0;
+        }
+        @media (max-width: 900px) {
           .srv-row {
-            grid-template-columns: 2.5rem 1fr auto !important;
+            grid-template-columns: 2.75rem 1fr auto !important;
             gap: 1rem !important;
-            padding: 1.25rem 0 !important;
+            padding: 1.35rem 0 !important;
           }
-          .srv-row > div:nth-child(3) {
+          .srv-thumb {
             display: none !important;
           }
-          .srv-row h3 {
-            font-size: 1.125rem !important;
+          .srv-title {
+            font-size: 1.15rem !important;
           }
-          .srv-row p {
-            font-size: 0.8125rem !important;
-            line-height: 1.6 !important;
+        }
+        @media (max-width: 600px) {
+          .srv-row {
+            grid-template-columns: 1fr auto !important;
+            gap: 0.85rem !important;
+            padding: 1.15rem 0 !important;
+          }
+          .srv-num {
+            display: none !important;
+          }
+          .srv-title {
+            font-size: 1rem !important;
+          }
+          .srv-desc {
+            font-size: 0.78125rem !important;
+            line-height: 1.55 !important;
             max-width: 100% !important;
+          }
+          .srv-right-cluster {
+            gap: 0.5rem !important;
+          }
+          .srv-badge {
+            font-size: 0.5625rem !important;
+            padding: 0.3rem 0.5rem !important;
+            letter-spacing: 0.05em !important;
+            white-space: nowrap !important;
           }
           .srv-arrow-btn {
             width: 2.25rem !important;
@@ -333,19 +372,6 @@ export function ServicesSection() {
           .srv-arrow-btn svg {
             width: 1rem !important;
             height: 1rem !important;
-          }
-        }
-        @media (max-width: 480px) {
-          .srv-row {
-            grid-template-columns: 1fr auto !important;
-            gap: 0.75rem !important;
-          }
-          .srv-row > span:first-child {
-            display: none !important;
-          }
-          .srv-row p {
-            font-size: 0.78125rem !important;
-            line-height: 1.55 !important;
           }
         }
       `}</style>
