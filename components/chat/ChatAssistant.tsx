@@ -402,10 +402,6 @@ export function ChatAssistant() {
             <div className="gf-chat__who">
               <span className="gf-chat__who-kicker">Talk to</span>
               <h4 className="gf-chat__who-name">Gulf Fibre Specialist</h4>
-              <span className="gf-chat__who-status">
-                <span className="gf-chat__who-status-dot" aria-hidden="true" />
-                {ctx.topic} · from the company record
-              </span>
             </div>
             <div className="gf-chat__head-actions">
               <button
@@ -608,10 +604,6 @@ export function ChatAssistant() {
               {SEND_ICON}
             </button>
           </form>
-
-          <div className="gf-chat__foot">
-            Powered by <strong>Gulf Fibre</strong> · verified company record
-          </div>
         </section>
       )}
     </>
