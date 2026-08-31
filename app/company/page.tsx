@@ -92,10 +92,10 @@ export default function CompanyPage() {
             </div>
 
             <div
-              className="sp-anim"
+              className="sp-anim company-who-we-are-grid"
               style={{
                 display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+                gridTemplateColumns: '1.1fr 0.9fr',
                 gap: 'clamp(2rem, 4vw, 3.5rem)',
                 alignItems: 'stretch',
               }}
@@ -148,47 +148,50 @@ export default function CompanyPage() {
                   style={{
                     display: 'grid',
                     gridTemplateColumns: '1fr 1fr',
-                    gap: '1.75rem 1.5rem',
+                    gap: '1.5rem 1.25rem',
                   }}
                 >
                   <div>
-                    <p style={{ fontSize: 'clamp(1.75rem, 2.8vw, 2.25rem)', fontWeight: 900, fontFamily: 'var(--font-sans)', color: 'var(--burg-primary)', lineHeight: 1, margin: '0 0 0.35rem' }}>
+                    <p style={{ fontSize: 'clamp(1.65rem, 2.5vw, 2.25rem)', fontWeight: 900, fontFamily: 'var(--font-sans)', color: 'var(--burg-primary)', lineHeight: 1, margin: '0 0 0.35rem' }}>
                       <Counter end={VERIFIED.annualCapacityValue} comma suffix=" T" />
                     </p>
                     <p style={{ fontSize: '0.75rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.06em', color: 'var(--ink)', margin: '0 0 0.15rem' }}>
                       Annual Production
                     </p>
-                    <span style={{ fontSize: '0.6875rem', color: 'var(--muted)' }}>Extruded & Processed</span>
+                    <span style={{ fontSize: '0.6875rem', color: 'var(--muted)', display: 'block' }}>Extruded & Processed</span>
                   </div>
 
                   <div>
-                    <p style={{ fontSize: 'clamp(1.75rem, 2.8vw, 2.25rem)', fontWeight: 900, fontFamily: 'var(--font-sans)', color: 'var(--burg-primary)', lineHeight: 1, margin: '0 0 0.35rem' }}>
+                    <p style={{ fontSize: 'clamp(1.65rem, 2.5vw, 2.25rem)', fontWeight: 900, fontFamily: 'var(--font-sans)', color: 'var(--burg-primary)', lineHeight: 1, margin: '0 0 0.35rem' }}>
                       <Counter end={VERIFIED.customersValue} suffix="+" />
                     </p>
                     <p style={{ fontSize: '0.75rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.06em', color: 'var(--ink)', margin: '0 0 0.15rem' }}>
                       Industrial Customers
                     </p>
-                    <span style={{ fontSize: '0.6875rem', color: 'var(--muted)' }}>Spinning & Nonwovens</span>
+                    <span style={{ fontSize: '0.6875rem', color: 'var(--muted)', display: 'block' }}>Spinning & Nonwovens</span>
                   </div>
 
-                  <div style={{ borderTop: '1px solid var(--border-light)', paddingTop: '1.25rem' }}>
-                    <p style={{ fontSize: 'clamp(1.75rem, 2.8vw, 2.25rem)', fontWeight: 900, fontFamily: 'var(--font-sans)', color: 'var(--burg-primary)', lineHeight: 1, margin: '0 0 0.35rem' }}>
+                  {/* Full-width continuous divider line */}
+                  <div style={{ gridColumn: '1 / -1', height: '1px', background: 'var(--border-light)', margin: '0.25rem 0' }} />
+
+                  <div>
+                    <p style={{ fontSize: 'clamp(1.65rem, 2.5vw, 2.25rem)', fontWeight: 900, fontFamily: 'var(--font-sans)', color: 'var(--burg-primary)', lineHeight: 1, margin: '0 0 0.35rem' }}>
                       <Counter end={VERIFIED.workforceValue} suffix="+" />
                     </p>
                     <p style={{ fontSize: '0.75rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.06em', color: 'var(--ink)', margin: '0 0 0.15rem' }}>
                       Specialist Workforce
                     </p>
-                    <span style={{ fontSize: '0.6875rem', color: 'var(--muted)' }}>Engineers & Operators</span>
+                    <span style={{ fontSize: '0.6875rem', color: 'var(--muted)', display: 'block' }}>Engineers & Operators</span>
                   </div>
 
-                  <div style={{ borderTop: '1px solid var(--border-light)', paddingTop: '1.25rem' }}>
-                    <p style={{ fontSize: 'clamp(1.75rem, 2.8vw, 2.25rem)', fontWeight: 900, fontFamily: 'var(--font-sans)', color: 'var(--burg-primary)', lineHeight: 1, margin: '0 0 0.35rem' }}>
+                  <div>
+                    <p style={{ fontSize: 'clamp(1.65rem, 2.5vw, 2.25rem)', fontWeight: 900, fontFamily: 'var(--font-sans)', color: 'var(--burg-primary)', lineHeight: 1, margin: '0 0 0.35rem' }}>
                       {VERIFIED.denierRange}
                     </p>
                     <p style={{ fontSize: '0.75rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.06em', color: 'var(--ink)', margin: '0 0 0.15rem' }}>
                       Denier Range
                     </p>
-                    <span style={{ fontSize: '0.6875rem', color: 'var(--muted)' }}>Solid & Conjugate Hollow</span>
+                    <span style={{ fontSize: '0.6875rem', color: 'var(--muted)', display: 'block' }}>Solid & Conjugate Hollow</span>
                   </div>
                 </div>
               </div>
@@ -544,6 +547,14 @@ export default function CompanyPage() {
           </div>
         </section>
       </div>
+      <style>{`
+        @media (max-width: 992px) {
+          .company-who-we-are-grid {
+            grid-template-columns: 1fr !important;
+            gap: 2.25rem !important;
+          }
+        }
+      `}</style>
     </PageShell>
   )
 }

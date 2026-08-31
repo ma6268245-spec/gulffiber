@@ -278,7 +278,10 @@ export default function ProductsPage() {
                             className="btn-secondary"
                             style={{ width: '100%', justifyContent: 'center', textAlign: 'center', fontSize: '0.75rem' }}
                           >
-                            Request Specification & Sample →
+                            Request Specification & Sample
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                              <path d="M5 12h14M12 5l7 7-7 7" />
+                            </svg>
                           </Link>
                         </div>
                       </div>
@@ -394,7 +397,10 @@ export default function ProductsPage() {
                             className="btn-secondary"
                             style={{ width: '100%', justifyContent: 'center', textAlign: 'center', fontSize: '0.75rem' }}
                           >
-                            Request Specification & Sample →
+                            Request Specification & Sample
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                              <path d="M5 12h14M12 5l7 7-7 7" />
+                            </svg>
                           </Link>
                         </div>
                       </div>

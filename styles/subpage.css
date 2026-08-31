@@ -1383,11 +1383,19 @@
 
 /* ── Responsive: chapters V3 ────────────────────────────────────────────── */
 @media (max-width: 992px) {
-  .sp-root .sp-director { grid-template-columns: minmax(0, 1fr); }
-  .sp-root .sp-director__portrait .sp-person__photo { max-width: 22rem; }
+  .sp-root .sp-director {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2rem;
+  }
+  .sp-root .sp-director__portrait {
+    max-width: 20rem;
+    margin: 0 auto;
+  }
 }
 @media (max-width: 600px) {
-  .sp-root .sp-director__portrait .sp-person__photo { max-width: 100%; }
+  .sp-root .sp-director__portrait {
+    max-width: 100%;
+  }
 }
 
 /* ── Gallery archive ────────────────────────────────────────────────────── */

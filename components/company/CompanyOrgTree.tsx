@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
+import { createPortal } from 'react-dom'
 import Image from 'next/image'
 import {
   ORG_DEPARTMENTS,
@@ -12,7 +13,12 @@ export function CompanyOrgTree() {
   const [activeDept, setActiveDept] = useState<string>('all')
   const [selectedNode, setSelectedNode] = useState<OrgNode | null>(null)
   const [hoveredNodeId, setHoveredNodeId] = useState<string | null>(null)
+  const [mounted, setMounted] = useState(false)
   const drawerRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
 
   // Keyboard escape listener to close drawer
   useEffect(() => {
@@ -137,145 +143,157 @@ export function CompanyOrgTree() {
           }}
         />
 
-        {/* Tree Container */}
+        {/* Tree Container (Responsive on All Devices, Fits Mobile Screens with No Cutoff) */}
         <div
+          className="org-tree-scroll-viewport"
           style={{
             position: 'relative',
             zIndex: 1,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            maxWidth: '1050px',
-            margin: '0 auto',
+            width: '100%',
+            padding: '0.5rem 0',
           }}
         >
-          {/* ── LEVEL 1: FOUNDER & DIRECTOR ── */}
-          {founderNode && (
-            <div className="org-level org-level--1" style={{ position: 'relative', zIndex: 3 }}>
-              <OrgTreeNode
-                node={founderNode}
-                isHighlighted={isNodeActive(founderNode)}
-                isHovered={hoveredNodeId === founderNode.id}
-                isDimmed={hoveredNodeId !== null && hoveredNodeId !== founderNode.id}
-                onHover={setHoveredNodeId}
-                onSelect={setSelectedNode}
-                size="large"
-              />
-            </div>
-          )}
-
-          {/* Vertical Connecting Line 1 -> 2 */}
           <div
-            className="org-connector-vertical"
-            style={{
-              width: '2px',
-              height: 'clamp(1.15rem, 2.2vh, 1.65rem)',
-              background:
-                hoveredNodeId === founderNode?.id || hoveredNodeId === cofounderNode?.id
-                  ? 'var(--burg-bright)'
-                  : 'linear-gradient(to bottom, var(--burg-primary), var(--burg-bright))',
-              transition: 'background 0.3s ease',
-              margin: '0 auto',
-            }}
-          />
-
-          {/* ── LEVEL 2: CO-FOUNDER / OPERATIONAL DIRECTOR ── */}
-          {cofounderNode && (
-            <div className="org-level org-level--2" style={{ position: 'relative', zIndex: 3 }}>
-              <OrgTreeNode
-                node={cofounderNode}
-                isHighlighted={isNodeActive(cofounderNode)}
-                isHovered={hoveredNodeId === cofounderNode.id}
-                isDimmed={hoveredNodeId !== null && hoveredNodeId !== cofounderNode.id}
-                onHover={setHoveredNodeId}
-                onSelect={setSelectedNode}
-                size="medium"
-              />
-            </div>
-          )}
-
-          {/* Vertical Connector 2 -> Fork */}
-          <div
-            className="org-connector-vertical"
-            style={{
-              width: '2px',
-              height: 'clamp(0.9rem, 1.8vh, 1.25rem)',
-              background: 'var(--burg-bright)',
-              margin: '0 auto',
-            }}
-          />
-
-          {/* Desktop Fork & Branching Lines to Level 3 */}
-          <div
-            className="org-fork-desktop"
+            className="org-tree-diagram"
             style={{
               position: 'relative',
-              width: '100%',
-              maxWidth: '980px',
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',
+              maxWidth: '1050px',
+              width: '100%',
+              margin: '0 auto',
+              padding: '0 0.5rem',
             }}
           >
-            {/* Horizontal Branch Line spanning all children */}
+            {/* ── LEVEL 1: FOUNDER & DIRECTOR ── */}
+            {founderNode && (
+              <div className="org-level org-level--1" style={{ position: 'relative', zIndex: 3 }}>
+                <OrgTreeNode
+                  node={founderNode}
+                  isHighlighted={isNodeActive(founderNode)}
+                  isHovered={hoveredNodeId === founderNode.id}
+                  isDimmed={hoveredNodeId !== null && hoveredNodeId !== founderNode.id}
+                  onHover={setHoveredNodeId}
+                  onSelect={setSelectedNode}
+                  size="large"
+                />
+              </div>
+            )}
+
+            {/* Vertical Connecting Line 1 -> 2 */}
             <div
+              className="org-connector-vertical"
               style={{
-                position: 'relative',
-                width: '84%',
-                height: '2px',
+                width: '2px',
+                height: 'clamp(0.85rem, 1.8vh, 1.4rem)',
                 background:
-                  'linear-gradient(90deg, var(--burg-primary) 0%, var(--burg-bright) 50%, var(--burg-primary) 100%)',
+                  hoveredNodeId === founderNode?.id || hoveredNodeId === cofounderNode?.id
+                    ? 'var(--burg-bright)'
+                    : 'linear-gradient(to bottom, var(--burg-primary), var(--burg-bright))',
+                transition: 'background 0.3s ease',
+                margin: '0 auto',
               }}
             />
 
-            {/* Dropdown vertical connectors to each level 3 node */}
-            <div
-              style={{
-                width: '84%',
-                display: 'flex',
-                justifyContent: 'space-between',
-                height: 'clamp(0.85rem, 1.8vh, 1.15rem)',
-              }}
-            >
-              {salesNodes.map((_, idx) => (
-                <div
-                  key={idx}
-                  style={{
-                    width: '2px',
-                    height: '100%',
-                    background:
-                      idx === 0 || idx === salesNodes.length - 1
-                        ? 'var(--burg-primary)'
-                        : 'var(--burg-bright)',
-                  }}
+            {/* ── LEVEL 2: CO-FOUNDER / OPERATIONAL DIRECTOR ── */}
+            {cofounderNode && (
+              <div className="org-level org-level--2" style={{ position: 'relative', zIndex: 3 }}>
+                <OrgTreeNode
+                  node={cofounderNode}
+                  isHighlighted={isNodeActive(cofounderNode)}
+                  isHovered={hoveredNodeId === cofounderNode.id}
+                  isDimmed={hoveredNodeId !== null && hoveredNodeId !== cofounderNode.id}
+                  onHover={setHoveredNodeId}
+                  onSelect={setSelectedNode}
+                  size="medium"
                 />
-              ))}
-            </div>
+              </div>
+            )}
 
-            {/* ── LEVEL 3: DEPARTMENT & SALES LEADS ── */}
+            {/* Vertical Connector 2 -> Fork */}
             <div
-              className="org-level org-level--3"
+              className="org-connector-vertical"
               style={{
-                display: 'grid',
-                gridTemplateColumns: `repeat(${salesNodes.length}, minmax(0, 1fr))`,
-                gap: 'clamp(0.5rem, 1.5vw, 1.25rem)',
+                width: '2px',
+                height: 'clamp(0.65rem, 1.4vh, 1.1rem)',
+                background: 'var(--burg-bright)',
+                margin: '0 auto',
+              }}
+            />
+
+            {/* Fork & Branching Lines to Level 3 */}
+            <div
+              className="org-fork-desktop"
+              style={{
+                position: 'relative',
                 width: '100%',
-                marginTop: '0.15rem',
+                maxWidth: '980px',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
               }}
             >
-              {salesNodes.map((node) => (
-                <div key={node.id} style={{ display: 'flex', justifyContent: 'center' }}>
-                  <OrgTreeNode
-                    node={node}
-                    isHighlighted={isNodeActive(node)}
-                    isHovered={hoveredNodeId === node.id}
-                    isDimmed={hoveredNodeId !== null && hoveredNodeId !== node.id}
-                    onHover={setHoveredNodeId}
-                    onSelect={setSelectedNode}
-                    size="small"
+              {/* Horizontal Branch Line spanning all children */}
+              <div
+                className="org-branch-line"
+                style={{
+                  position: 'relative',
+                  height: '2px',
+                  background:
+                    'linear-gradient(90deg, var(--burg-primary) 0%, var(--burg-bright) 50%, var(--burg-primary) 100%)',
+                }}
+              />
+
+              {/* Dropdown vertical connectors to each level 3 node */}
+              <div
+                className="org-branch-dropdowns"
+                style={{
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  height: 'clamp(0.65rem, 1.4vh, 1rem)',
+                }}
+              >
+                {salesNodes.map((_, idx) => (
+                  <div
+                    key={idx}
+                    style={{
+                      width: '2px',
+                      height: '100%',
+                      background:
+                        idx === 0 || idx === salesNodes.length - 1
+                          ? 'var(--burg-primary)'
+                          : 'var(--burg-bright)',
+                    }}
                   />
-                </div>
-              ))}
+                ))}
+              </div>
+
+              {/* ── LEVEL 3: DEPARTMENT & SALES LEADS ── */}
+              <div
+                className="org-level org-level--3"
+                style={{
+                  display: 'grid',
+                  gridTemplateColumns: `repeat(${salesNodes.length}, minmax(0, 1fr))`,
+                  gap: 'clamp(0.25rem, 1.2vw, 1.25rem)',
+                  width: '100%',
+                  marginTop: '0.15rem',
+                }}
+              >
+                {salesNodes.map((node) => (
+                  <div key={node.id} style={{ display: 'flex', justifyContent: 'center' }}>
+                    <OrgTreeNode
+                      node={node}
+                      isHighlighted={isNodeActive(node)}
+                      isHovered={hoveredNodeId === node.id}
+                      isDimmed={hoveredNodeId !== null && hoveredNodeId !== node.id}
+                      onHover={setHoveredNodeId}
+                      onSelect={setSelectedNode}
+                      size="small"
+                    />
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>
@@ -299,363 +317,390 @@ export function CompanyOrgTree() {
               textTransform: 'uppercase',
               color: 'var(--burg-primary)',
               background: 'rgba(10, 75, 184, 0.05)',
-              padding: '0.3rem 0.85rem',
+              padding: '0.35rem 0.95rem',
               borderRadius: '9999px',
               border: '1px solid rgba(10, 75, 184, 0.12)',
             }}
           >
             <span
               style={{
-                width: '5px',
-                height: '5px',
+                width: '6px',
+                height: '6px',
                 borderRadius: '50%',
                 background: 'var(--burg-primary)',
+                boxShadow: '0 0 8px var(--burg-primary)',
               }}
             />
-            Click any profile node to view credentials & contact details
+            Tap any profile node to view credentials & contact details
           </span>
         </div>
       </div>
 
-      {/* ── SLIDING / FLOATING PROFILE MODAL ────────────────────────── */}
-      {selectedNode && (
-        <>
-          {/* Backdrop Overlay */}
+      {/* ── PORTAL FLOATING PROFILE MODAL ────────────────────────── */}
+      {mounted && selectedNode && typeof document !== 'undefined'
+        ? createPortal(
           <div
+            className="org-drawer-backdrop"
             onClick={() => setSelectedNode(null)}
-            aria-hidden="true"
-            style={{
-              position: 'fixed',
-              inset: 0,
-              zIndex: 999998,
-              background: 'rgba(4, 15, 38, 0.6)',
-              backdropFilter: 'blur(6px)',
-              WebkitBackdropFilter: 'blur(6px)',
-              animation: 'fadeIn 0.25s ease forwards',
-            }}
-          />
-
-          {/* Compact Floating Profile Card */}
-          <aside
-            ref={drawerRef}
+            onTouchEnd={() => setSelectedNode(null)}
+            role="dialog"
+            aria-modal="true"
             aria-labelledby="drawer-person-name"
             style={{
               position: 'fixed',
-              top: '50%',
-              right: 'clamp(1rem, 3.5vw, 3rem)',
-              transform: 'translateY(-50%)',
-              width: 'min(380px, calc(100vw - 2rem))',
-              maxHeight: 'min(640px, calc(100vh - 4rem))',
-              zIndex: 999999,
-              background: 'var(--card-bg)',
-              borderRadius: '20px',
-              border: '1px solid var(--border-light)',
-              boxShadow: '0 24px 64px rgba(0, 0, 0, 0.32), 0 4px 16px rgba(10, 75, 184, 0.1)',
+              inset: 0,
+              zIndex: 9999999,
+              background: 'rgba(4, 15, 38, 0.65)',
+              backdropFilter: 'blur(8px)',
+              WebkitBackdropFilter: 'blur(8px)',
               display: 'flex',
-              flexDirection: 'column',
-              overflow: 'hidden',
-              animation: 'cardSlideIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+              alignItems: 'center',
+              justifyContent: 'center',
+              padding: '1rem',
+              animation: 'fadeIn 0.2s ease forwards',
             }}
           >
-            {/* Card Header with Department & Close Button */}
-            <div
+            <aside
+              ref={drawerRef}
+              className="org-profile-drawer"
+              onClick={(e) => e.stopPropagation()}
+              onTouchEnd={(e) => e.stopPropagation()}
               style={{
+                position: 'relative',
+                width: 'min(440px, 94vw)',
+                maxHeight: 'min(680px, 86vh)',
+                background: 'var(--card-bg, #FFFFFF)',
+                borderRadius: '24px',
+                border: '1px solid var(--border-light)',
+                boxShadow: '0 24px 64px rgba(0, 0, 0, 0.35), 0 4px 20px rgba(10, 75, 184, 0.15)',
                 display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-                padding: '0.85rem 1.15rem',
-                borderBottom: '1px solid var(--border-light)',
-                background: 'var(--card-bg)',
-                flexShrink: 0,
+                flexDirection: 'column',
+                overflow: 'hidden',
               }}
             >
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-                <span
-                  style={{
-                    fontSize: '0.625rem',
-                    fontFamily: 'var(--font-sans)',
-                    fontWeight: 800,
-                    letterSpacing: '0.06em',
-                    textTransform: 'uppercase',
-                    color: 'var(--burg-primary)',
-                    background: 'rgba(10, 75, 184, 0.08)',
-                    padding: '0.2rem 0.55rem',
-                    borderRadius: '9999px',
-                  }}
-                >
-                  {selectedNode.department}
-                </span>
-                <span
-                  style={{
-                    fontSize: '0.625rem',
-                    fontFamily: 'var(--font-sans)',
-                    fontWeight: 700,
-                    color: 'var(--muted)',
-                  }}
-                >
-                  {selectedNode.experience}
-                </span>
-              </div>
+              {/* Mobile Handle Indicator */}
+              <div
+                className="org-mobile-handle"
+                style={{
+                  display: 'none',
+                  width: '40px',
+                  height: '4px',
+                  borderRadius: '2px',
+                  background: 'rgba(0, 0, 0, 0.18)',
+                  margin: '0.6rem auto 0',
+                  flexShrink: 0,
+                }}
+              />
 
-              <button
-                type="button"
-                onClick={() => setSelectedNode(null)}
-                aria-label="Close profile card"
+              {/* Card Header with Department & Close Button */}
+              <div
                 style={{
                   display: 'flex',
                   alignItems: 'center',
-                  justifyContent: 'center',
-                  width: '1.75rem',
-                  height: '1.75rem',
-                  borderRadius: '50%',
-                  background: 'rgba(10, 75, 184, 0.08)',
-                  border: '1px solid var(--border-light)',
-                  color: 'var(--ink)',
-                  cursor: 'pointer',
-                  fontSize: '0.875rem',
-                  fontWeight: 700,
-                  transition: 'all 0.2s ease',
+                  justifyContent: 'space-between',
+                  padding: '0.85rem 1.25rem',
+                  borderBottom: '1px solid var(--border-light)',
+                  background: 'var(--card-bg)',
+                  flexShrink: 0,
                 }}
               >
-                ✕
-              </button>
-            </div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                  <span
+                    style={{
+                      fontSize: '0.625rem',
+                      fontFamily: 'var(--font-sans)',
+                      fontWeight: 800,
+                      letterSpacing: '0.06em',
+                      textTransform: 'uppercase',
+                      color: 'var(--burg-primary)',
+                      background: 'rgba(10, 75, 184, 0.08)',
+                      padding: '0.2rem 0.6rem',
+                      borderRadius: '9999px',
+                    }}
+                  >
+                    {selectedNode.department}
+                  </span>
+                  <span
+                    style={{
+                      fontSize: '0.625rem',
+                      fontFamily: 'var(--font-sans)',
+                      fontWeight: 700,
+                      color: 'var(--muted)',
+                    }}
+                  >
+                    {selectedNode.experience}
+                  </span>
+                </div>
 
-            {/* Scrollable Content Body */}
-            <div style={{ padding: '1.15rem', overflowY: 'auto' }}>
-              {/* Compact Avatar */}
+                <button
+                  type="button"
+                  onClick={() => setSelectedNode(null)}
+                  aria-label="Close profile card"
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    width: '2rem',
+                    height: '2rem',
+                    borderRadius: '50%',
+                    background: 'rgba(10, 75, 184, 0.08)',
+                    border: '1px solid var(--border-light)',
+                    color: 'var(--ink)',
+                    cursor: 'pointer',
+                    fontSize: '0.9rem',
+                    fontWeight: 700,
+                    transition: 'all 0.2s ease',
+                  }}
+                >
+                  ✕
+                </button>
+              </div>
+
+              {/* Scrollable Content Body */}
               <div
+                className="org-drawer-body"
                 style={{
-                  position: 'relative',
-                  width: '84px',
-                  height: '84px',
-                  margin: '0 auto 0.75rem',
-                  borderRadius: '50%',
-                  padding: '3px',
-                  background: 'linear-gradient(135deg, var(--burg-primary) 0%, var(--accent-cyan) 100%)',
-                  boxShadow: '0 8px 20px rgba(10, 75, 184, 0.2)',
+                  padding: '1.25rem 1.25rem 2rem',
+                  overflowY: 'auto',
+                  WebkitOverflowScrolling: 'touch',
+                  flex: 1,
                 }}
               >
+                {/* Compact Avatar */}
                 <div
                   style={{
                     position: 'relative',
-                    width: '100%',
-                    height: '100%',
+                    width: '84px',
+                    height: '84px',
+                    margin: '0 auto 0.75rem',
                     borderRadius: '50%',
-                    overflow: 'hidden',
-                    background: 'var(--burg-darker)',
+                    padding: '3px',
+                    background: 'linear-gradient(135deg, var(--burg-primary) 0%, var(--accent-cyan) 100%)',
+                    boxShadow: '0 8px 20px rgba(10, 75, 184, 0.2)',
                   }}
                 >
-                  <Image
-                    src={selectedNode.portrait}
-                    alt={selectedNode.name}
-                    fill
-                    sizes="90px"
-                    style={{ objectFit: 'cover', objectPosition: 'center 15%' }}
-                    priority
-                  />
-                </div>
-              </div>
-
-              {/* Title & Name */}
-              <div style={{ textAlign: 'center', marginBottom: '0.9rem' }}>
-                <h2
-                  id="drawer-person-name"
-                  style={{
-                    fontFamily: 'var(--font-sans)',
-                    fontSize: '1.15rem',
-                    fontWeight: 900,
-                    letterSpacing: '-0.01em',
-                    textTransform: 'uppercase',
-                    color: 'var(--ink)',
-                    margin: '0 0 0.15rem',
-                  }}
-                >
-                  {selectedNode.name}
-                </h2>
-                <p
-                  style={{
-                    fontFamily: 'var(--font-sans)',
-                    fontSize: '0.75rem',
-                    fontWeight: 700,
-                    color: 'var(--burg-primary)',
-                    margin: 0,
-                    lineHeight: 1.3,
-                  }}
-                >
-                  {selectedNode.role}
-                </p>
-              </div>
-
-              {/* Contact Action Buttons (Compact 2-column) */}
-              {selectedNode.contact && (
-                <div
-                  style={{
-                    display: 'grid',
-                    gridTemplateColumns: '1fr 1fr',
-                    gap: '0.45rem',
-                    marginBottom: '1rem',
-                  }}
-                >
-                  <a
-                    href={`tel:${selectedNode.contact.replace(/[^\d+]/g, '')}`}
-                    className="btn-primary"
+                  <div
                     style={{
-                      justifyContent: 'center',
-                      borderRadius: '8px',
-                      padding: '0.5rem 0.5rem',
-                      fontSize: '0.75rem',
-                      fontWeight: 800,
+                      position: 'relative',
+                      width: '100%',
+                      height: '100%',
+                      borderRadius: '50%',
+                      overflow: 'hidden',
+                      background: 'var(--burg-darker)',
                     }}
                   >
-                    📞 Call
-                  </a>
-                  <a
-                    href={`https://wa.me/${selectedNode.contact.replace(/[^\d]/g, '')}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                    <Image
+                      src={selectedNode.portrait}
+                      alt={selectedNode.name}
+                      fill
+                      sizes="90px"
+                      style={{ objectFit: 'cover', objectPosition: 'center 15%' }}
+                      priority
+                    />
+                  </div>
+                </div>
+
+                {/* Title & Name */}
+                <div style={{ textAlign: 'center', marginBottom: '0.9rem' }}>
+                  <h2
+                    id="drawer-person-name"
                     style={{
-                      display: 'inline-flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      padding: '0.5rem 0.5rem',
-                      borderRadius: '8px',
-                      background: 'rgba(34, 197, 94, 0.1)',
-                      border: '1px solid rgba(34, 197, 94, 0.3)',
-                      color: '#16A34A',
+                      fontFamily: 'var(--font-sans)',
+                      fontSize: '1.15rem',
+                      fontWeight: 900,
+                      letterSpacing: '-0.01em',
+                      textTransform: 'uppercase',
+                      color: 'var(--ink)',
+                      margin: '0 0 0.15rem',
+                    }}
+                  >
+                    {selectedNode.name}
+                  </h2>
+                  <p
+                    style={{
                       fontFamily: 'var(--font-sans)',
                       fontSize: '0.75rem',
-                      fontWeight: 800,
-                      textDecoration: 'none',
-                      transition: 'all 0.2s ease',
+                      fontWeight: 700,
+                      color: 'var(--burg-primary)',
+                      margin: 0,
+                      lineHeight: 1.3,
                     }}
                   >
-                    💬 WhatsApp
-                  </a>
+                    {selectedNode.role}
+                  </p>
                 </div>
-              )}
 
-              {/* Brief Bio */}
-              <div style={{ marginBottom: '0.9rem' }}>
-                <h3
-                  style={{
-                    fontSize: '0.625rem',
-                    fontFamily: 'var(--font-sans)',
-                    fontWeight: 800,
-                    letterSpacing: '0.06em',
-                    textTransform: 'uppercase',
-                    color: 'var(--muted)',
-                    marginBottom: '0.25rem',
-                  }}
-                >
-                  Role Overview
-                </h3>
-                <p
-                  style={{
-                    fontFamily: 'var(--font-sans)',
-                    fontSize: '0.8125rem',
-                    lineHeight: 1.45,
-                    color: 'var(--ink)',
-                    margin: 0,
-                  }}
-                >
-                  {selectedNode.bio}
-                </p>
-              </div>
-
-              {/* Responsibilities */}
-              <div style={{ marginBottom: '0.9rem' }}>
-                <h3
-                  style={{
-                    fontSize: '0.625rem',
-                    fontFamily: 'var(--font-sans)',
-                    fontWeight: 800,
-                    letterSpacing: '0.06em',
-                    textTransform: 'uppercase',
-                    color: 'var(--muted)',
-                    marginBottom: '0.35rem',
-                  }}
-                >
-                  Key Responsibilities
-                </h3>
-                <ul
-                  style={{
-                    listStyle: 'none',
-                    padding: 0,
-                    margin: 0,
-                    display: 'flex',
-                    flexDirection: 'column',
-                    gap: '0.3rem',
-                  }}
-                >
-                  {selectedNode.responsibilities.map((resp, idx) => (
-                    <li
-                      key={idx}
+                {/* Contact Action Buttons (Compact 2-column) */}
+                {selectedNode.contact && (
+                  <div
+                    style={{
+                      display: 'grid',
+                      gridTemplateColumns: '1fr 1fr',
+                      gap: '0.45rem',
+                      marginBottom: '1rem',
+                    }}
+                  >
+                    <a
+                      href={`tel:${selectedNode.contact.replace(/[^\d+]/g, '')}`}
+                      className="btn-primary"
                       style={{
-                        display: 'flex',
-                        alignItems: 'flex-start',
-                        gap: '0.45rem',
+                        justifyContent: 'center',
+                        borderRadius: '8px',
+                        padding: '0.5rem 0.5rem',
                         fontSize: '0.75rem',
-                        lineHeight: 1.35,
-                        color: 'var(--ink)',
+                        fontWeight: 800,
                       }}
                     >
-                      <span
-                        style={{
-                          display: 'inline-block',
-                          width: '4px',
-                          height: '4px',
-                          borderRadius: '50%',
-                          background: 'var(--burg-primary)',
-                          marginTop: '0.35rem',
-                          flexShrink: 0,
-                        }}
-                      />
-                      {resp}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              {/* Specialties */}
-              <div>
-                <h3
-                  style={{
-                    fontSize: '0.625rem',
-                    fontFamily: 'var(--font-sans)',
-                    fontWeight: 800,
-                    letterSpacing: '0.06em',
-                    textTransform: 'uppercase',
-                    color: 'var(--muted)',
-                    marginBottom: '0.35rem',
-                  }}
-                >
-                  Domains & Specialties
-                </h3>
-                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.3rem' }}>
-                  {selectedNode.specialties.map((spec, idx) => (
-                    <span
-                      key={idx}
+                      📞 Call
+                    </a>
+                    <a
+                      href={`https://wa.me/${selectedNode.contact.replace(/[^\d]/g, '')}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
                       style={{
-                        fontSize: '0.65rem',
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        padding: '0.5rem 0.5rem',
+                        borderRadius: '8px',
+                        background: 'rgba(34, 197, 94, 0.1)',
+                        border: '1px solid rgba(34, 197, 94, 0.3)',
+                        color: '#16A34A',
                         fontFamily: 'var(--font-sans)',
-                        fontWeight: 700,
-                        padding: '0.2rem 0.5rem',
-                        borderRadius: '6px',
-                        background: 'rgba(10, 75, 184, 0.06)',
-                        border: '1px solid rgba(10, 75, 184, 0.12)',
-                        color: 'var(--burg-primary)',
+                        fontSize: '0.75rem',
+                        fontWeight: 800,
+                        textDecoration: 'none',
+                        transition: 'all 0.2s ease',
                       }}
                     >
-                      {spec}
-                    </span>
-                  ))}
+                      💬 WhatsApp
+                    </a>
+                  </div>
+                )}
+
+                {/* Brief Bio */}
+                <div style={{ marginBottom: '0.9rem' }}>
+                  <h3
+                    style={{
+                      fontSize: '0.625rem',
+                      fontFamily: 'var(--font-sans)',
+                      fontWeight: 800,
+                      letterSpacing: '0.06em',
+                      textTransform: 'uppercase',
+                      color: 'var(--muted)',
+                      marginBottom: '0.25rem',
+                    }}
+                  >
+                    Role Overview
+                  </h3>
+                  <p
+                    style={{
+                      fontFamily: 'var(--font-sans)',
+                      fontSize: '0.8125rem',
+                      lineHeight: 1.45,
+                      color: 'var(--ink)',
+                      margin: 0,
+                    }}
+                  >
+                    {selectedNode.bio}
+                  </p>
+                </div>
+
+                {/* Responsibilities */}
+                <div style={{ marginBottom: '0.9rem' }}>
+                  <h3
+                    style={{
+                      fontSize: '0.625rem',
+                      fontFamily: 'var(--font-sans)',
+                      fontWeight: 800,
+                      letterSpacing: '0.06em',
+                      textTransform: 'uppercase',
+                      color: 'var(--muted)',
+                      marginBottom: '0.35rem',
+                    }}
+                  >
+                    Key Responsibilities
+                  </h3>
+                  <ul
+                    style={{
+                      listStyle: 'none',
+                      padding: 0,
+                      margin: 0,
+                      display: 'flex',
+                      flexDirection: 'column',
+                      gap: '0.3rem',
+                    }}
+                  >
+                    {selectedNode.responsibilities.map((resp, idx) => (
+                      <li
+                        key={idx}
+                        style={{
+                          display: 'flex',
+                          alignItems: 'flex-start',
+                          gap: '0.45rem',
+                          fontSize: '0.75rem',
+                          lineHeight: 1.35,
+                          color: 'var(--ink)',
+                        }}
+                      >
+                        <span
+                          style={{
+                            display: 'inline-block',
+                            width: '4px',
+                            height: '4px',
+                            borderRadius: '50%',
+                            background: 'var(--burg-primary)',
+                            marginTop: '0.35rem',
+                            flexShrink: 0,
+                          }}
+                        />
+                        {resp}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                {/* Specialties */}
+                <div>
+                  <h3
+                    style={{
+                      fontSize: '0.625rem',
+                      fontFamily: 'var(--font-sans)',
+                      fontWeight: 800,
+                      letterSpacing: '0.06em',
+                      textTransform: 'uppercase',
+                      color: 'var(--muted)',
+                      marginBottom: '0.35rem',
+                    }}
+                  >
+                    Domains & Specialties
+                  </h3>
+                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.3rem' }}>
+                    {selectedNode.specialties.map((spec, idx) => (
+                      <span
+                        key={idx}
+                        style={{
+                          fontSize: '0.65rem',
+                          fontFamily: 'var(--font-sans)',
+                          fontWeight: 700,
+                          padding: '0.2rem 0.5rem',
+                          borderRadius: '6px',
+                          background: 'rgba(10, 75, 184, 0.06)',
+                          border: '1px solid rgba(10, 75, 184, 0.12)',
+                          color: 'var(--burg-primary)',
+                        }}
+                      >
+                        {spec}
+                      </span>
+                    ))}
+                  </div>
                 </div>
               </div>
-            </div>
-          </aside>
-        </>
-      )}
+            </aside>
+          </div>,
+          document.body
+        )
+        : null}
 
       {/* Responsive & Animation Styles */}
       <style>{`
@@ -663,26 +708,139 @@ export function CompanyOrgTree() {
           from { opacity: 0; }
           to { opacity: 1; }
         }
-        @keyframes cardSlideIn {
-          from { opacity: 0; transform: translateY(-50%) scale(0.95) translateX(20px); }
-          to { opacity: 1; transform: translateY(-50%) scale(1) translateX(0); }
+        @keyframes sheetSlideUp {
+          from { opacity: 0; transform: translateY(40px); }
+          to { opacity: 1; transform: translateY(0); }
         }
+        .org-fork-desktop {
+          position: relative;
+          width: 100%;
+          max-width: 980px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+        }
+        .org-tree-diagram {
+          position: relative;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          max-width: 1050px;
+          width: 100%;
+          margin: 0 auto;
+          padding: 0 0.5rem;
+        }
+        .org-branch-line {
+          width: 84%;
+        }
+        .org-branch-dropdowns {
+          width: 84%;
+        }
+        .org-node-avatar--large {
+          width: clamp(68px, 6vw, 82px);
+          height: clamp(68px, 6vw, 82px);
+        }
+        .org-node-avatar--medium {
+          width: clamp(60px, 5.2vw, 74px);
+          height: clamp(60px, 5.2vw, 74px);
+        }
+        .org-node-avatar--small {
+          width: clamp(52px, 4.5vw, 64px);
+          height: clamp(52px, 4.5vw, 64px);
+        }
+        .org-node-card-body {
+          max-width: 220px;
+        }
+        .org-node-name {
+          font-family: var(--font-sans);
+          font-weight: 900;
+          letter-spacing: -0.01em;
+          text-transform: uppercase;
+          color: var(--ink);
+          margin: 0 0 0.15rem;
+          line-height: 1.2;
+        }
+        .org-node-role {
+          font-family: var(--font-sans);
+          font-weight: 700;
+          color: var(--burg-primary);
+          line-height: 1.25;
+          margin: 0 0 0.25rem;
+        }
+
         @media (max-width: 768px) {
-          .org-fork-desktop { display: none !important; }
+          .org-tree-scroll-viewport {
+            padding: 0 !important;
+          }
+          .org-tree-diagram {
+            width: 100% !important;
+            padding: 0 !important;
+          }
+          .org-branch-line {
+            width: 90% !important;
+          }
+          .org-branch-dropdowns {
+            width: 90% !important;
+          }
+          .org-node-avatar--large {
+            width: 48px !important;
+            height: 48px !important;
+            padding: 3px !important;
+            margin-bottom: 0.25rem !important;
+          }
+          .org-node-avatar--medium {
+            width: 42px !important;
+            height: 42px !important;
+            padding: 2.5px !important;
+            margin-bottom: 0.25rem !important;
+          }
+          .org-node-avatar--small {
+            width: 36px !important;
+            height: 36px !important;
+            padding: 2px !important;
+            margin-bottom: 0.2rem !important;
+          }
+          .org-node-card-body {
+            max-width: 100% !important;
+          }
+          .org-node-name {
+            font-size: clamp(0.56rem, 2.2vw, 0.6875rem) !important;
+            line-height: 1.1 !important;
+            margin: 0 0 0.1rem !important;
+            word-break: break-word;
+          }
+          .org-node-role {
+            font-size: clamp(0.48rem, 1.8vw, 0.58rem) !important;
+            line-height: 1.1 !important;
+            margin: 0 !important;
+            word-break: break-word;
+          }
+          .org-node-contact-pill {
+            display: none !important;
+          }
           .org-level--3 {
-            display: flex !important;
-            flex-direction: column !important;
-            gap: 1.5rem !important;
+            gap: 2px !important;
             width: 100% !important;
           }
-          aside {
-            top: auto !important;
-            bottom: 1rem !important;
-            left: 1rem !important;
-            right: 1rem !important;
-            width: calc(100vw - 2rem) !important;
-            max-height: 75vh !important;
-            transform: none !important;
+          .org-tree-node-wrapper {
+            padding: 0.15rem 0.1rem !important;
+          }
+          .org-drawer-backdrop {
+            align-items: flex-end !important;
+            padding: 0 !important;
+          }
+          .org-profile-drawer {
+            width: 100vw !important;
+            max-width: 100vw !important;
+            max-height: 80vh !important;
+            border-radius: 24px 24px 0 0 !important;
+            animation: sheetSlideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
+          }
+          .org-mobile-handle {
+            display: block !important;
+          }
+          .org-drawer-body {
+            padding: 1rem 1.25rem 4.5rem 1.25rem !important;
           }
         }
       `}</style>
@@ -710,22 +868,27 @@ function OrgTreeNode({
   onSelect,
   size = 'medium',
 }: OrgTreeNodeProps) {
-  const avatarSizes = {
-    large: { size: 'clamp(68px, 6vw, 82px)', ring: 2.5 },
-    medium: { size: 'clamp(60px, 5.2vw, 74px)', ring: 2 },
-    small: { size: 'clamp(52px, 4.5vw, 64px)', ring: 1.5 },
+  const avatarRings = {
+    large: 2.5,
+    medium: 2,
+    small: 1.5,
   }
 
-  const { size: dim, ring } = avatarSizes[size]
+  const ring = avatarRings[size]
 
   return (
     <div
       onClick={() => onSelect(node)}
+      onTouchEnd={(e) => {
+        e.preventDefault()
+        onSelect(node)
+      }}
       onMouseEnter={() => onHover(node.id)}
       onMouseLeave={() => onHover(null)}
       tabIndex={0}
       role="button"
       aria-label={`View profile for ${node.name}, ${node.role}`}
+      className="org-tree-node-wrapper"
       style={{
         display: 'flex',
         flexDirection: 'column',
@@ -750,10 +913,9 @@ function OrgTreeNode({
     >
       {/* Circular Profile Avatar */}
       <div
+        className={`org-node-avatar org-node-avatar--${size}`}
         style={{
           position: 'relative',
-          width: dim,
-          height: dim,
           borderRadius: '50%',
           padding: `${ring + 2}px`,
           background: isHovered
@@ -809,29 +971,20 @@ function OrgTreeNode({
       </div>
 
       {/* Name and Designation Card */}
-      <div style={{ maxWidth: '220px' }}>
+      <div className="org-node-card-body">
         <h4
+          className="org-node-name"
           style={{
-            fontFamily: 'var(--font-sans)',
             fontSize: size === 'large' ? '0.9375rem' : size === 'medium' ? '0.875rem' : '0.8125rem',
-            fontWeight: 900,
-            letterSpacing: '-0.01em',
-            textTransform: 'uppercase',
-            color: 'var(--ink)',
-            margin: '0 0 0.15rem',
             transition: 'color 0.2s ease',
           }}
         >
           {node.name}
         </h4>
         <p
+          className="org-node-role"
           style={{
-            fontFamily: 'var(--font-sans)',
             fontSize: '0.6875rem',
-            fontWeight: 700,
-            color: 'var(--burg-primary)',
-            lineHeight: 1.25,
-            margin: '0 0 0.25rem',
           }}
         >
           {node.role}
@@ -839,6 +992,7 @@ function OrgTreeNode({
 
         {node.contact && (
           <span
+            className="org-node-contact-pill"
             style={{
               display: 'inline-flex',
               alignItems: 'center',

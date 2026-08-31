@@ -67,7 +67,7 @@ export function DirectorFeature() {
       className="sp-director"
       style={{
         background: 'var(--card-bg)',
-        padding: 'clamp(1.5rem, 3.5vw, 3rem)',
+        padding: 'clamp(1.75rem, 4vw, 3.25rem)',
         borderRadius: '24px',
         border: '1px solid var(--border-light)',
         boxShadow: '0 12px 40px rgba(10, 75, 184, 0.05)',
@@ -99,13 +99,13 @@ export function DirectorFeature() {
       <div className="sp-director__body">
         <span
           style={{
-            fontSize: '3.5rem',
-            lineHeight: 0.8,
+            fontSize: 'clamp(4.5rem, 9vw, 6.5rem)',
+            lineHeight: 0.6,
             fontFamily: 'var(--font-serif)',
             color: 'var(--burg-primary)',
             display: 'block',
-            marginBottom: '1rem',
-            opacity: 0.85,
+            marginBottom: '0.75rem',
+            opacity: 0.9,
           }}
           aria-hidden="true"
         >
@@ -115,16 +115,13 @@ export function DirectorFeature() {
           style={{
             fontFamily: 'var(--font-serif)',
             fontStyle: 'italic',
-            fontSize: 'clamp(1.35rem, 2.2vw, 1.85rem)',
-            lineHeight: 1.4,
+            fontSize: 'clamp(1.25rem, 2.3vw, 1.85rem)',
+            lineHeight: 1.45,
             color: 'var(--ink)',
             margin: '0 0 1.75rem',
           }}
         >
           {DIRECTOR.bio}
-          <span style={{ color: 'var(--burg-primary)', fontStyle: 'normal', marginLeft: '0.15em' }}>
-            &rdquo;
-          </span>
         </blockquote>
 
         <div>
