@@ -125,6 +125,16 @@ export function ContactStrip() {
           </div>
         </div>
       </div>
+
+      <style>{`
+        @media (max-width: 440px) {
+          .cstrip-content .btn-primary,
+          .cstrip-content .btn-secondary {
+            width: 100% !important;
+            justify-content: center !important;
+          }
+        }
+      `}</style>
     </section>
   )
 }

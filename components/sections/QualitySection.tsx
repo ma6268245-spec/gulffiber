@@ -197,6 +197,13 @@ export function QualitySection() {
         }
         @media (max-width: 600px) {
           .qt-grid { grid-template-columns: 1fr !important; }
+          .qt-img-1 {
+            grid-row: auto !important;
+            min-height: clamp(14rem, 55vw, 22rem) !important;
+          }
+          .qt-img-2 {
+            min-height: 13rem !important;
+          }
         }
       `}</style>
     </section>

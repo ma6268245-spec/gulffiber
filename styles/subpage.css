@@ -926,6 +926,19 @@
   .sp-root .sp-stat + .sp-stat { border-top: 1px solid var(--border-light); padding-top: 1rem; border-inline-start: none; }
   .sp-root .sp-hero-body { padding-top: clamp(5.5rem, 12vh, 7rem); }
 }
+@media (max-width: 375px) {
+  .sp-root .sp-hero-title { font-size: clamp(1.85rem, 9vw, 2.4rem); }
+  .sp-root .sp-lede { font-size: 0.875rem; }
+  .sp-root .sp-stat-num { font-size: clamp(1.65rem, 7vw, 2.25rem); }
+  .sp-root .sp-hero-body { padding-inline: 1rem; }
+  .sp-root .sp-gfilter { gap: 0.35rem; }
+  .sp-root .sp-gfilter__chip { font-size: 0.5625rem; padding: 0.35rem 0.65rem; }
+}
+@media (max-height: 480px) and (orientation: landscape) {
+  .sp-root .sp-hero { min-height: auto; }
+  .sp-root .sp-hero-media { min-height: 80vh; height: 80vh; }
+  .sp-root .sp-hero-body { padding-top: clamp(4rem, 10vh, 5.5rem); }
+}
 
 /* ===========================================================================
    CHAPTER SYSTEM V3 - company documentary, cert gallery, journey, lifecycle
@@ -1433,6 +1446,11 @@
   .sp-glightbox__media { min-height: 16rem; }
   .sp-glightbox__nav--prev { left: 0.5rem; }
   .sp-glightbox__nav--next { right: 0.5rem; }
+}
+@media (max-width: 480px) {
+  .sp-lightbox { padding: 0.5rem; }
+  .sp-glightbox__media { min-height: 13rem; }
+  .sp-lightbox__caption { padding: 1.25rem; }
 }
 .sp-root .sp-dark .sp-gfilter__chip { background: rgba(255, 255, 255, 0.04); border-color: var(--border-dark); color: rgba(255, 255, 255, 0.65); }
 .sp-root .sp-dark .sp-gfilter__chip[data-on='true'] { color: #fff; background: var(--burg-primary); border-color: var(--burg-primary); }

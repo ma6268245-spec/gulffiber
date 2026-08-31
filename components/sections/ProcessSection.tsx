@@ -65,10 +65,11 @@ export function ProcessSection() {
     >
       <div className="container">
         <div
+          className="proc-grid"
           style={{
             display: 'grid',
             gridTemplateColumns: '1fr 1fr',
-            gap: 'clamp(3rem, 6vw, 7rem)',
+            gap: 'clamp(2.5rem, 5vw, 7rem)',
             alignItems: 'center',
           }}
         >
@@ -78,7 +79,7 @@ export function ProcessSection() {
               className="proc-img-wrap"
               style={{
                 position: 'relative',
-                height: 'clamp(28rem, 55vh, 48rem)',
+                height: 'clamp(24rem, 50vh, 48rem)',
                 overflow: 'hidden',
                 background: '#040814',
               }}
@@ -115,8 +116,8 @@ export function ProcessSection() {
                 top: '50%',
                 left: '50%',
                 transform: 'translate(-50%, -50%)',
-                width: '5rem',
-                height: '5rem',
+                width: 'clamp(3.5rem, 8vw, 5rem)',
+                height: 'clamp(3.5rem, 8vw, 5rem)',
                 borderRadius: '50%',
                 background: 'var(--burg-primary)',
                 border: 'none',
@@ -211,7 +212,8 @@ export function ProcessSection() {
             <div
               style={{
                 display: 'flex',
-                gap: '2rem',
+                flexWrap: 'wrap',
+                gap: '1.5rem 2rem',
                 marginBottom: '2.5rem',
                 paddingBottom: '2.5rem',
                 borderBottom: '1px solid var(--border-dark)',
@@ -273,6 +275,23 @@ export function ProcessSection() {
           </div>
         </div>
       </div>
+
+      <style>{`
+        @media (max-width: 900px) {
+          .proc-grid {
+            grid-template-columns: 1fr !important;
+            gap: 2.5rem !important;
+          }
+          .proc-img-wrap {
+            height: clamp(18rem, 50vw, 28rem) !important;
+          }
+        }
+        @media (max-width: 480px) {
+          .proc-img-wrap {
+            height: clamp(14rem, 55vw, 20rem) !important;
+          }
+        }
+      `}</style>
     </section>
   )
 }

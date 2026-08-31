@@ -51,6 +51,7 @@ export function SustainabilitySection() {
       <div className="container">
         {/* Header */}
         <div
+          className="sust-header"
           style={{
             display: 'flex',
             alignItems: 'flex-end',
@@ -205,6 +206,10 @@ export function SustainabilitySection() {
       <style>{`
         @media (max-width: 900px) {
           .sust-cards { grid-template-columns: 1fr !important; }
+        }
+        @media (max-width: 600px) {
+          .sust-header { flex-direction: column !important; align-items: flex-start !important; gap: 1.5rem !important; }
+          .sust-header p { max-width: 100% !important; }
         }
       `}</style>
     </section>

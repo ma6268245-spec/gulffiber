@@ -66,12 +66,8 @@ export function DirectorFeature() {
     <div
       className="sp-director"
       style={{
-        display: 'grid',
-        gridTemplateColumns: 'minmax(280px, 360px) 1fr',
-        gap: 'clamp(2rem, 5vw, 4.5rem)',
-        alignItems: 'center',
         background: 'var(--card-bg)',
-        padding: 'clamp(1.75rem, 3.5vw, 3rem)',
+        padding: 'clamp(1.5rem, 3.5vw, 3rem)',
         borderRadius: '24px',
         border: '1px solid var(--border-light)',
         boxShadow: '0 12px 40px rgba(10, 75, 184, 0.05)',

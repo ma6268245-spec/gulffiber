@@ -139,6 +139,10 @@ export function StatsBar() {
           }
           .stat-col {
             border-right: none !important;
+            padding: 1.5rem 0.5rem !important;
+          }
+          .stat-col > div {
+            white-space: normal !important;
           }
         }
       `}</style>

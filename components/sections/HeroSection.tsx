@@ -433,10 +433,26 @@ export function HeroSection() {
             padding-inline-start: 0 !important;
           }
         }
+        @media (max-width: 360px) {
+          .hero-stat-num {
+            font-size: clamp(1.4rem, 7vw, 1.85rem) !important;
+          }
+          .hero-stat-label {
+            font-size: 0.625rem !important;
+          }
+        }
         @media (max-width: 992px) and (orientation: landscape) {
+          .hero-section {
+            min-height: auto !important;
+          }
           .hero-section > div:last-child {
             min-height: 60vw !important;
             height: auto !important;
+          }
+        }
+        @media (max-height: 480px) and (orientation: landscape) {
+          .hero-section {
+            min-height: auto !important;
           }
         }
       `}</style>

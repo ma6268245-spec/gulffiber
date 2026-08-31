@@ -205,6 +205,9 @@ export function SearchModal({ isOpen, onClose }: { isOpen: boolean; onClose: () 
         [data-theme="dark"] .search-item-row:hover {
           background: rgba(29, 120, 255, 0.15);
         }
+        [data-theme="dark"] .search-modal-card {
+          box-shadow: 0 28px 70px rgba(0, 0, 0, 0.75), inset 0 1px 1px rgba(255, 255, 255, 0.15) !important;
+        }
       `}</style>
     </div>
   )

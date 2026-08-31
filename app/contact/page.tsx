@@ -1,8 +1,6 @@
 'use client'
 
-import Image from 'next/image'
 import { useRef, useState } from 'react'
-import { PageHero } from '@/components/subpages/PageHero'
 import { PageShell } from '@/components/subpages/PageShell'
 import { SectionHead, SpecRows } from '@/components/subpages/Primitives'
 import { PersonCard } from '@/components/subpages/PeopleChapter'
@@ -142,39 +140,29 @@ export default function ContactPage() {
   return (
     <PageShell>
       <div ref={scope}>
-        <PageHero
-          eyebrow="Contact & Enquiries"
-          lines={[{ text: 'Send the' }, { text: 'specification.' }, { text: 'We will answer it', serif: true }]}
-          lede="Denier, cut length, volume and destination are enough for a firm answer on feasibility. Sample requests are handled through the same route."
-          meta={[
-            { label: 'Country', value: VERIFIED.country },
-            { label: 'Established', value: String(VERIFIED.established) },
-            { label: 'Annual capacity', value: VERIFIED.annualCapacity },
-            { label: 'Standard bale', value: VERIFIED.baleWeight },
-          ]}
-          aside={
-            <Image
-              src="/images/process-fibre.jpg"
-              alt="Polyester staple fibre produced by Gulf Fibre"
-              fill
-              priority
-              sizes="(max-width: 992px) 100vw, 48vw"
-              style={{ objectFit: 'cover' }}
-            />
-          }
-        />
-
-        {/* ── Enquiry form ──────────────────────────────────────────────── */}
-        <section className="section-pad" data-sp-section style={{ background: 'var(--white)' }}>
+        {/* ── Enquiry form (Top Section) ─────────────────────────────── */}
+        <section
+          className="section-pad"
+          data-sp-section
+          style={{
+            background: 'var(--white)',
+            paddingTop: 'clamp(6.5rem, 13vh, 9rem)',
+          }}
+        >
           <div className="container">
-            <div className="sp-anim" style={{ marginBottom: 'clamp(2rem, 4vh, 3rem)' }}>
-              <SectionHead eyebrow="Enquiry" title="One form," em="specification first" />
+            <div className="sp-anim" style={{ marginBottom: 'clamp(3rem, 6vh, 4.5rem)' }}>
+              <SectionHead
+                eyebrow="Contact & Enquiries"
+                title="Send the specification,"
+                em="we will answer it"
+                lede="Denier, cut length, volume and destination are enough for a firm answer on feasibility. Sample requests are handled through the same route."
+              />
             </div>
 
             <div
               style={{
                 display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 300px), 1fr))',
                 gap: 'clamp(2rem, 4vw, 3.5rem)',
                 alignItems: 'start',
               }}
@@ -186,7 +174,7 @@ export default function ContactPage() {
                     <legend className="sp-field-label" style={{ marginBottom: '0.75rem' }}>
                       What is this about?
                     </legend>
-                    <div role="radiogroup" aria-label="Inquiry type" style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
+                    <div role="radiogroup" aria-label="Inquiry type" style={{ display: 'flex', flexWrap: 'wrap', gap: '0.4rem' }}>
                       {INTENTS.map((i) => (
                         <button
                           key={i.id}
@@ -196,12 +184,12 @@ export default function ContactPage() {
                           data-on={intent === i.id ? 'true' : undefined}
                           onClick={() => setIntent(i.id)}
                           style={{
-                            padding: '0.45rem 1rem',
+                            padding: '0.4rem clamp(0.65rem, 2vw, 1rem)',
                             cursor: 'pointer',
-                            fontSize: '0.75rem',
+                            fontSize: 'clamp(0.6875rem, 1.8vw, 0.75rem)',
                             fontFamily: 'var(--font-sans)',
                             fontWeight: 800,
-                            letterSpacing: '0.06em',
+                            letterSpacing: '0.05em',
                             textTransform: 'uppercase',
                             borderRadius: '999px',
                             border: intent === i.id ? '1px solid var(--burg-primary)' : '1px solid var(--border-light)',
@@ -263,7 +251,7 @@ export default function ContactPage() {
                   </div>
 
                   <div style={{ marginTop: '2rem' }}>
-                    <button type="submit" className="btn-primary" disabled={status === 'sending'}>
+                    <button type="submit" className="btn-primary contact-submit-btn" disabled={status === 'sending'}>
                       {status === 'sending' ? 'Submitting…' : 'Submit enquiry'}
                     </button>
                   </div>
@@ -379,6 +367,15 @@ export default function ContactPage() {
           </div>
         </section>
       </div>
+
+      <style>{`
+        @media (max-width: 480px) {
+          .contact-submit-btn {
+            width: 100% !important;
+            justify-content: center !important;
+          }
+        }
+      `}</style>
     </PageShell>
   )
 }

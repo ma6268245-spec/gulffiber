@@ -222,8 +222,8 @@ export function TestimonialsSection() {
         @media (max-width: 900px) {
           .test-cards { grid-template-columns: 1fr !important; }
         }
-        @media (max-width: 700px) {
-          .test-cards { grid-template-columns: 1fr !important; }
+        @media (max-width: 480px) {
+          .test-card { padding: 1.5rem 1.25rem !important; }
         }
       `}</style>
     </section>

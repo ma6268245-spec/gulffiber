@@ -321,7 +321,6 @@ export function Header() {
                 border: '1px solid rgba(10, 75, 184, 0.1)',
                 cursor: 'pointer',
                 color: 'var(--ink)',
-                display: 'none',
                 alignItems: 'center',
                 justifyContent: 'center',
               }}
@@ -350,59 +349,77 @@ export function Header() {
               position: 'fixed',
               inset: 0,
               zIndex: 9997,
-              background: 'rgba(4, 15, 38, 0.65)',
-              backdropFilter: 'blur(4px)',
-              WebkitBackdropFilter: 'blur(4px)',
+              background: theme === 'dark' ? 'rgba(3, 8, 20, 0.75)' : 'rgba(7, 20, 46, 0.35)',
+              backdropFilter: 'blur(8px)',
+              WebkitBackdropFilter: 'blur(8px)',
+              animation: 'mobileBackdropIn 0.25s ease-out',
             }}
           />
           <div
+            className="mobile-nav-drawer"
             style={{
               position: 'fixed',
-              top: 'calc(clamp(0.75rem, 1.8vh, 1.25rem) + 4rem)',
+              top: 'calc(clamp(0.75rem, 1.8vh, 1.25rem) + 3.75rem)',
               left: '50%',
               transform: 'translateX(-50%)',
-              width: 'calc(100% - clamp(1.5rem, 4vw, 4rem))',
-              maxWidth: '1120px',
-              maxHeight: 'calc(100vh - 6rem)',
+              width: 'calc(100% - clamp(1.25rem, 4vw, 3.5rem))',
+              maxWidth: '680px',
+              maxHeight: 'min(calc(100dvh - 5.5rem), 540px)',
               overflowY: 'auto',
+              scrollbarWidth: 'none',
               zIndex: 9998,
-              background: 'rgba(4, 15, 38, 0.96)',
-              backdropFilter: 'blur(28px) saturate(180%)',
-              WebkitBackdropFilter: 'blur(28px) saturate(180%)',
-              border: '1px solid rgba(255, 255, 255, 0.15)',
-              boxShadow: '0 20px 50px rgba(0, 0, 0, 0.45)',
+              background: 'var(--glass-card-bg)',
+              backdropFilter: 'blur(32px) saturate(190%)',
+              WebkitBackdropFilter: 'blur(32px) saturate(190%)',
+              border: '1px solid var(--glass-card-border)',
+              boxShadow: theme === 'dark'
+                ? '0 24px 60px rgba(0, 0, 0, 0.65), inset 0 1px 1px rgba(255, 255, 255, 0.15)'
+                : '0 24px 60px rgba(7, 20, 46, 0.16), 0 4px 16px rgba(7, 20, 46, 0.06), inset 0 1px 2px rgba(255, 255, 255, 0.95)',
               borderRadius: '24px',
-              padding: '2rem 1.5rem',
+              padding: 'clamp(1rem, 2.5vh, 1.5rem) clamp(1rem, 3vw, 1.5rem)',
               display: 'flex',
               flexDirection: 'column',
-              gap: '1.25rem',
+              gap: 'clamp(0.35rem, 1.5vh, 0.75rem)',
               alignItems: 'center',
+              animation: 'mobileMenuIn 0.28s cubic-bezier(0.16, 1, 0.3, 1)',
             }}
           >
-            {NAV_LINKS.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                onClick={() => {
-                  setMobileOpen(false)
-                  scrollToTop()
-                }}
-                style={{
-                  fontFamily: 'var(--font-sans)',
-                  fontSize: '1.125rem',
-                  fontWeight: 800,
-                  letterSpacing: '0.04em',
-                  textTransform: 'uppercase',
-                  color: '#FFFFFF',
-                  textDecoration: 'none',
-                  padding: '0.5rem 1.5rem',
-                  borderRadius: '9999px',
-                  transition: 'background 0.2s ease',
-                }}
-              >
-                {link.label}
-              </Link>
-            ))}
+            {NAV_LINKS.map((link) => {
+              const isActive = pathname === link.href
+              return (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  onClick={() => {
+                    setMobileOpen(false)
+                    scrollToTop()
+                  }}
+                  className="mobile-nav-link"
+                  style={{
+                    width: '100%',
+                    textAlign: 'center',
+                    fontFamily: 'var(--font-sans)',
+                    fontSize: 'clamp(0.875rem, 2.4vh, 1.0625rem)',
+                    fontWeight: isActive ? 800 : 700,
+                    letterSpacing: '0.04em',
+                    textTransform: 'uppercase',
+                    color: isActive ? 'var(--burg-primary)' : 'var(--ink)',
+                    textDecoration: 'none',
+                    padding: 'clamp(0.45rem, 1.2vh, 0.65rem) 1rem',
+                    borderRadius: '12px',
+                    background: isActive
+                      ? theme === 'dark' ? 'rgba(29, 120, 255, 0.18)' : 'rgba(10, 75, 184, 0.08)'
+                      : 'transparent',
+                    border: isActive
+                      ? theme === 'dark' ? '1px solid rgba(56, 182, 255, 0.3)' : '1px solid rgba(10, 75, 184, 0.15)'
+                      : '1px solid transparent',
+                    transition: 'all 0.2s ease',
+                  }}
+                >
+                  {link.label}
+                </Link>
+              )
+            })}
             <Link
               href="/contact"
               className="btn-primary"
@@ -414,7 +431,9 @@ export function Header() {
                 width: '100%',
                 justifyContent: 'center',
                 borderRadius: '9999px',
-                marginTop: '0.5rem',
+                marginTop: 'clamp(0.25rem, 1vh, 0.5rem)',
+                padding: 'clamp(0.65rem, 1.6vh, 0.85rem) 1.5rem',
+                fontSize: 'clamp(0.8125rem, 2vh, 0.875rem)',
               }}
             >
               Get In Touch
@@ -427,22 +446,49 @@ export function Header() {
       <SearchModal isOpen={searchOpen} onClose={() => setSearchOpen(false)} />
 
       <style>{`
+        @keyframes mobileBackdropIn {
+          from { opacity: 0; }
+          to { opacity: 1; }
+        }
+        @keyframes mobileMenuIn {
+          from {
+            opacity: 0;
+            transform: translate(-50%, -12px) scale(0.96);
+          }
+          to {
+            opacity: 1;
+            transform: translate(-50%, 0) scale(1);
+          }
+        }
+        .mobile-nav-link:hover {
+          background: rgba(10, 75, 184, 0.06) !important;
+          color: var(--burg-primary) !important;
+        }
+        [data-theme="dark"] .mobile-nav-link:hover {
+          background: rgba(29, 120, 255, 0.15) !important;
+          color: var(--burg-bright) !important;
+        }
         @media (max-width: 1140px) {
-          .glass-navbar { width: calc(100% - clamp(1.5rem, 4vw, 4rem)) !important; }
+          .glass-navbar {
+            width: calc(100% - clamp(1.25rem, 4vw, 3.5rem)) !important;
+            max-width: 680px !important;
+          }
           .desktop-nav { display: none !important; }
           .mobile-menu-btn { display: flex !important; }
         }
-        @media (max-width: 640px) {
+        @media (max-width: 900px) {
           .header-cta-btn { display: none !important; }
+        }
+        @media (max-width: 640px) {
           .glass-navbar { padding: 0.35rem 0.85rem !important; }
         }
-        @media (max-width: 400px) {
+        @media (max-width: 440px) {
           .glass-navbar {
             width: calc(100% - 1.25rem) !important;
-            padding: 0.3rem 0.65rem !important;
+            padding: 0.32rem 0.65rem !important;
           }
           .nav-brand-logo img {
-            height: 2rem !important;
+            height: 1.95rem !important;
             width: auto !important;
           }
         }

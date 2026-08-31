@@ -189,7 +189,9 @@ export function ConsultationCTA() {
             display: 'inline-flex',
             alignItems: 'center',
             gap: '0.75rem',
-            padding: '1.25rem 3rem',
+            padding: 'clamp(1rem, 2vh, 1.25rem) clamp(1.5rem, 5vw, 3rem)',
+            maxWidth: '100%',
+            boxSizing: 'border-box',
             background: 'var(--burg-primary)',
             color: 'var(--white)',
             fontFamily: 'var(--font-sans)',
@@ -216,6 +218,16 @@ export function ConsultationCTA() {
           </svg>
         </Link>
       </div>
+
+      <style>{`
+        @media (max-width: 440px) {
+          .cta-btn {
+            width: 100% !important;
+            justify-content: center !important;
+            padding-inline: 1rem !important;
+          }
+        }
+      `}</style>
     </section>
   )
 }
