@@ -134,20 +134,22 @@ const MAIL_ICON = (
 )
 
 const UP_ICON = (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-    <path d="M7 10v11" />
-    <path d="M15 5.63 8.97 8.8a2 2 0 0 0-1.97 2v.2a2 2 0 0 0 .83 1.62L12 16.5" />
-    <path d="m13.5 4.5 3 1" />
-    <circle cx="15" cy="3.5" r="1.5" />
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <path d="M7 10v12" />
+    <path d="M15 5.88 14 10h5.83a2 2 0 0 1 1.92 2.56l-2.33 8A2 2 0 0 1 17.5 22H4a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h2.76a2 2 0 0 0 1.79-1.11L12 2a3.13 3.13 0 0 1 3 3.88Z" />
   </svg>
 )
 
 const DOWN_ICON = (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-    <path d="M17 14V3" />
-    <path d="M9 18.37l6.03-3.17a2 2 0 0 0 1.97-2v-.2a2 2 0 0 0-.83-1.62L12 8.5" />
-    <path d="m10.5 19.5-3-1" />
-    <circle cx="9" cy="20.5" r="1.5" />
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <path d="M17 14V2" />
+    <path d="M9 18.12 10 14H4.17a2 2 0 0 1-1.92-2.56l2.33-8A2 2 0 0 1 6.5 2H20a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-2.76a2 2 0 0 0-1.79 1.11L12 22a3.13 3.13 0 0 1-3-3.88Z" />
+  </svg>
+)
+
+const CHECK_ICON = (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <path d="M20 6 9 17l-5-5" />
   </svg>
 )
 
@@ -534,26 +536,40 @@ export function ChatAssistant() {
 
                   {!m.streaming && m.id !== 'msg-welcome' && (
                     <div className="gf-chat__rate">
-                      <span>Helpful?</span>
-                      <span className="gf-chat__rate-group">
-                        <button
-                          className="gf-chat__rate-btn"
-                          data-on={m.rating === 'up' ? 'up' : undefined}
-                          onClick={() => rate(m.id, 'up')}
-                          aria-label="Helpful"
-                        >
-                          {UP_ICON}
-                        </button>
-                        <button
-                          className="gf-chat__rate-btn"
-                          data-on={m.rating === 'down' ? 'down' : undefined}
-                          onClick={() => rate(m.id, 'down')}
-                          aria-label="Not helpful"
-                        >
-                          {DOWN_ICON}
-                        </button>
-                      </span>
-                      {m.rating && <span className="gf-chat__rate-done">Thank you</span>}
+                      {m.rating ? (
+                        /* Once rated, the buttons give way to a single quiet line —
+                           an answered question shouldn't keep asking. */
+                        <span className="gf-chat__rate-ack" data-tone={m.rating} role="status">
+                          {CHECK_ICON}
+                          {m.rating === 'up'
+                            ? 'Thank you — glad that helped.'
+                            : "Thank you — we'll improve this answer."}
+                        </span>
+                      ) : (
+                        <>
+                          <span className="gf-chat__rate-label">Was this helpful?</span>
+                          <span className="gf-chat__rate-group">
+                            <button
+                              className="gf-chat__rate-btn"
+                              onClick={() => rate(m.id, 'up')}
+                              aria-label="Yes, this was helpful"
+                              title="Helpful"
+                            >
+                              {UP_ICON}
+                            </button>
+                            <span className="gf-chat__rate-divider" aria-hidden="true" />
+                            <button
+                              className="gf-chat__rate-btn"
+                              data-variant="down"
+                              onClick={() => rate(m.id, 'down')}
+                              aria-label="No, this was not helpful"
+                              title="Not helpful"
+                            >
+                              {DOWN_ICON}
+                            </button>
+                          </span>
+                        </>
+                      )}
                     </div>
                   )}
 
