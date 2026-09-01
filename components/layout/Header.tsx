@@ -145,7 +145,7 @@ export function Header() {
             aria-label="Gulf Fiber Home"
           >
             <Image
-              src="/gulf-fibre-logo.png"
+              src="/gulf-fiber-logo.png"
               alt="Gulf Fiber Company (PVT) Limited"
               width={145}
               height={45}

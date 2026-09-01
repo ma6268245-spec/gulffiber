@@ -112,7 +112,7 @@ function header(origin: string) {
           <td class="px" style="padding:22px 28px;background:#FFFFFF;border-bottom:1px solid ${BORDER};">
             <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr>
               <td align="left" valign="middle">
-                <a href="${origin}" style="text-decoration:none;"><img class="logo" src="${origin}/gulf-fibre-logo.png" width="150" height="57" alt="${COMPANY}" style="display:block;width:150px;height:57px;border:0;outline:none;text-decoration:none;" /></a>
+                <a href="${origin}" style="text-decoration:none;"><img class="logo" src="${origin}/gulf-fiber-logo.png" width="150" height="57" alt="${COMPANY}" style="display:block;width:150px;height:57px;border:0;outline:none;text-decoration:none;" /></a>
               </td>
               <td align="right" valign="middle" class="eyebrow" style="font-family:${F};font-size:10px;font-weight:700;line-height:1.4;letter-spacing:0.14em;color:${MUTED};text-transform:uppercase;white-space:nowrap;">EST. 1999 &#8226; PAKISTAN</td>
             </tr></table>

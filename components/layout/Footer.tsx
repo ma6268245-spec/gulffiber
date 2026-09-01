@@ -65,7 +65,7 @@ export function Footer() {
           <div className="footer-brand">
             <div className="footer-logo-container" style={{ background: '#FFFFFF', padding: '0.45rem 0.85rem', borderRadius: '8px', display: 'inline-block', marginBottom: '1.25rem', boxShadow: '0 4px 16px rgba(0, 0, 0, 0.15)' }}>
               <Image
-                src="/gulf-fibre-logo.png"
+                src="/gulf-fiber-logo.png"
                 alt="Gulf Fiber Company (PVT) Limited"
                 width={150}
                 height={46}
