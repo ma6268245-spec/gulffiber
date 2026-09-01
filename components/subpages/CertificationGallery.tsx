@@ -493,22 +493,85 @@ export function CertificationGallery() {
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',
-              justifyContent: 'center',
-              padding: 'clamp(0.75rem, 3vw, 2rem)',
+              justifyContent: 'space-between',
+              padding: 'clamp(0.6rem, 2vh, 1.25rem) clamp(0.6rem, 3vw, 1.5rem)',
               animation: 'fadeIn 0.2s ease forwards',
             }}
           >
+            {/* Top Bar with Document Indicator and Easy Close Button */}
+            <div
+              onClick={(e) => e.stopPropagation()}
+              style={{
+                width: '100%',
+                maxWidth: 'min(94vw, 840px)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                zIndex: 100,
+                marginBottom: '0.4rem',
+              }}
+            >
+              <div
+                style={{
+                  background: 'rgba(15, 23, 42, 0.85)',
+                  color: '#FFFFFF',
+                  fontSize: '0.72rem',
+                  fontWeight: 800,
+                  padding: '0.3rem 0.85rem',
+                  borderRadius: '9999px',
+                  backdropFilter: 'blur(12px)',
+                  WebkitBackdropFilter: 'blur(12px)',
+                  border: '1px solid rgba(255, 255, 255, 0.25)',
+                }}
+              >
+                <span style={{ color: '#60A5FA' }}>{open.code}</span> · {openIdx! + 1}/6
+              </div>
+
+              <button
+                type="button"
+                onClick={() => setOpenIdx(null)}
+                onTouchEnd={(e) => {
+                  e.preventDefault()
+                  setOpenIdx(null)
+                }}
+                aria-label="Close certificate"
+                style={{
+                  background: 'rgba(255, 255, 255, 0.95)',
+                  color: '#0F172A',
+                  border: 'none',
+                  borderRadius: '50%',
+                  width: '40px',
+                  height: '40px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  fontSize: '1.25rem',
+                  fontWeight: 900,
+                  cursor: 'pointer',
+                  boxShadow: '0 4px 16px rgba(0, 0, 0, 0.4)',
+                }}
+              >
+                ✕
+              </button>
+            </div>
+
+            {/* Left/Right Navigation Arrows */}
             <button
               type="button"
               onClick={goPrev}
               aria-label="Previous Certificate"
               style={{
                 position: 'fixed',
+                left: 'clamp(0.4rem, 1.5vw, 1.5rem)',
+                top: '50%',
+                transform: 'translateY(-50%)',
+                zIndex: 60,
+                background: 'rgba(15, 23, 42, 0.75)',
                 color: '#FFFFFF',
                 border: '1px solid rgba(255, 255, 255, 0.25)',
                 borderRadius: '50%',
-                width: '46px',
-                height: '46px',
+                width: '42px',
+                height: '42px',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
@@ -522,23 +585,22 @@ export function CertificationGallery() {
               {CHEVRON_LEFT}
             </button>
 
-            {/* Floating Right Arrow */}
             <button
               type="button"
               onClick={goNext}
               aria-label="Next Certificate"
               style={{
                 position: 'fixed',
-                right: 'clamp(0.5rem, 1.5vw, 1.5rem)',
+                right: 'clamp(0.4rem, 1.5vw, 1.5rem)',
                 top: '50%',
                 transform: 'translateY(-50%)',
-                zIndex: 25,
+                zIndex: 60,
                 background: 'rgba(15, 23, 42, 0.75)',
                 color: '#FFFFFF',
                 border: '1px solid rgba(255, 255, 255, 0.25)',
                 borderRadius: '50%',
-                width: '46px',
-                height: '46px',
+                width: '42px',
+                height: '42px',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
@@ -552,20 +614,20 @@ export function CertificationGallery() {
               {CHEVRON_RIGHT}
             </button>
 
-            {/* ── LARGE HIGH-RESOLUTION CERTIFICATE DOCUMENT DISPLAY ── */}
+            {/* ── HIGH-RESOLUTION CERTIFICATE DOCUMENT DISPLAY ── */}
             <div
-              onClick={(e) => e.stopPropagation()}
               style={{
                 position: 'relative',
                 flex: '1 1 auto',
                 width: '100%',
-                maxWidth: 'min(92vw, 840px)',
-                maxHeight: 'calc(100vh - 120px)',
+                maxWidth: 'min(94vw, 840px)',
+                maxHeight: 'calc(100dvh - 160px)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
                 zIndex: 10,
                 filter: 'drop-shadow(0 20px 50px rgba(0, 0, 0, 0.65))',
+                cursor: 'pointer',
               }}
             >
               {open.asset ? (
@@ -574,7 +636,7 @@ export function CertificationGallery() {
                   alt={`${open.code} - ${open.name} official certificate document`}
                   fill
                   priority
-                  sizes="(max-width: 1200px) 92vw, 840px"
+                  sizes="(max-width: 1200px) 94vw, 840px"
                   style={{
                     objectFit: 'contain',
                     borderRadius: '6px',
@@ -583,69 +645,68 @@ export function CertificationGallery() {
               ) : null}
             </div>
 
-            {/* ── SLEEK, COMPACT SMALL INFO PILL (Low Profile, Never dominates screen) ── */}
+            {/* ── FULL DETAILS & REF NUMBER BOTTOM CARD (Always visible across all devices) ── */}
             <div
               onClick={(e) => e.stopPropagation()}
               style={{
                 position: 'relative',
-                zIndex: 30,
-                background: 'rgba(15, 23, 42, 0.9)',
+                zIndex: 50,
+                width: '100%',
+                maxWidth: 'min(94vw, 680px)',
+                background: 'rgba(15, 23, 42, 0.94)',
                 backdropFilter: 'blur(16px)',
                 WebkitBackdropFilter: 'blur(16px)',
                 border: '1px solid rgba(255, 255, 255, 0.2)',
-                borderRadius: '9999px',
-                padding: '0.35rem 1.1rem',
-                boxShadow: '0 8px 24px rgba(0, 0, 0, 0.4)',
+                borderRadius: '12px',
+                padding: '0.6rem 0.85rem',
+                boxShadow: '0 8px 30px rgba(0, 0, 0, 0.6)',
                 display: 'flex',
-                alignItems: 'center',
-                gap: '0.75rem',
-                maxWidth: 'min(92vw, 720px)',
-                overflow: 'hidden',
+                flexDirection: 'column',
+                gap: '0.3rem',
+                marginTop: '0.4rem',
               }}
             >
-              <span
-                style={{
-                  background: 'rgba(59, 130, 246, 0.25)',
-                  color: '#93C5FD',
-                  fontSize: '0.625rem',
-                  fontWeight: 800,
-                  padding: '0.12rem 0.45rem',
-                  borderRadius: '4px',
-                  letterSpacing: '0.04em',
-                  textTransform: 'uppercase',
-                  flexShrink: 0,
-                }}
-              >
-                {open.code}
-              </span>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '0.5rem' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', minWidth: 0 }}>
+                  <span
+                    style={{
+                      background: 'rgba(59, 130, 246, 0.3)',
+                      color: '#93C5FD',
+                      fontSize: '0.65rem',
+                      fontWeight: 800,
+                      padding: '0.15rem 0.45rem',
+                      borderRadius: '4px',
+                      letterSpacing: '0.04em',
+                      textTransform: 'uppercase',
+                      flexShrink: 0,
+                    }}
+                  >
+                    {open.code}
+                  </span>
+                  <span
+                    style={{
+                      fontSize: '0.78rem',
+                      fontWeight: 800,
+                      color: '#FFFFFF',
+                      overflow: 'hidden',
+                      textOverflow: 'ellipsis',
+                      whiteSpace: 'nowrap',
+                    }}
+                  >
+                    {open.name}
+                  </span>
+                </div>
+                <Provenance status="VERIFIED" />
+              </div>
 
-              <span
-                style={{
-                  fontSize: '0.78rem',
-                  fontWeight: 700,
-                  color: '#FFFFFF',
-                  whiteSpace: 'nowrap',
-                  overflow: 'hidden',
-                  textOverflow: 'ellipsis',
-                }}
-              >
-                {open.name}
-              </span>
-
-              {open.certNumber && (
-                <span
-                  style={{
-                    fontSize: '0.6875rem',
-                    color: '#94A3B8',
-                    whiteSpace: 'nowrap',
-                    flexShrink: 0,
-                    borderLeft: '1px solid rgba(255, 255, 255, 0.2)',
-                    paddingLeft: '0.65rem',
-                  }}
-                >
-                  Ref: <strong style={{ color: '#F1F5F9' }}>{open.certNumber}</strong>
-                </span>
-              )}
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '0.35rem', fontSize: '0.7rem', color: '#CBD5E1' }}>
+                <span>Issuer: <strong style={{ color: '#F1F5F9' }}>{open.issuer}</strong></span>
+                {open.certNumber && (
+                  <span style={{ background: 'rgba(255, 255, 255, 0.12)', padding: '0.15rem 0.45rem', borderRadius: '4px', border: '1px solid rgba(255, 255, 255, 0.15)', color: '#F8FAFC', fontWeight: 700 }}>
+                    Ref: {open.certNumber}
+                  </span>
+                )}
+              </div>
             </div>
           </div>,
           document.body
