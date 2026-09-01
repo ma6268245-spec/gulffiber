@@ -9,7 +9,7 @@ interface ProductHeroVideoProps {
 }
 
 export function ProductHeroVideo({
-  src = '/videos/company-story.mp4',
+  src = '/videos/company-page.mp4',
   poster = '/images/collection-rolls.jpg',
   alt = 'Gulf Fibre manufacturing and material production film',
 }: ProductHeroVideoProps) {

@@ -200,7 +200,7 @@ export default function ProductsPage() {
                       {p.video ? (
                         <ProductVideoPlayer
                           src={p.video}
-                          poster={p.image ?? '/images/process-fibre.jpg'}
+                          poster={p.image ?? '/images/process-fibre-lab.jpg'}
                           alt={`${p.title} at the Gulf Fibre plant`}
                           title={p.title}
                           code={p.code}
@@ -320,7 +320,7 @@ export default function ProductsPage() {
                       {p.video ? (
                         <ProductVideoPlayer
                           src={p.video}
-                          poster={p.image ?? '/images/process-fibre.jpg'}
+                          poster={p.image ?? '/images/process-fibre-lab.jpg'}
                           alt={`${p.title} at the Gulf Fibre plant`}
                           title={p.title}
                           code={p.code}

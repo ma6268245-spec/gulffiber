@@ -42,8 +42,8 @@ export default function QualityPage() {
           ]}
           aside={
             <Image
-              src="/images/quality-lab.jpg"
-              alt="Fibre being inspected under laboratory conditions at Gulf Fibre"
+              src="/images/quality-lab-equipment.jpg"
+              alt="Quality control testing apparatus and electronic precision balance in Gulf Fibre laboratory"
               fill
               priority
               sizes="(max-width: 992px) 100vw, 48vw"

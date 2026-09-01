@@ -17,7 +17,7 @@ const PRODUCTS = [
     id: '02',
     title: 'Wadding & Thermal Infill',
     subtitle: 'High-loft · Thermal bonding',
-    img: '/images/process-fibre.jpg',
+    img: '/images/process-fibre-lab.jpg',
     desc: 'Superior loft and resilience for premium apparel and bedding filling applications.',
     aspectStyle: {},
   },

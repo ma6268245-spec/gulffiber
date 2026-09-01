@@ -338,8 +338,8 @@ export function HeroSection() {
           }}
         >
           <Image
-            src="/images/hero-loom.jpg"
-            alt="Gulf Fibre industrial loom"
+            src="/images/stitch-bonding-loom.jpg"
+            alt="Gulf Fibre industrial textile and stitch-bonding machinery"
             fill
             className="hero-img"
             style={{ objectFit: 'cover', objectPosition: 'center', scale: '1.05' }}

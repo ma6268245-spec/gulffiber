@@ -79,8 +79,8 @@ export function QualitySection() {
             }}
           >
             <Image
-              src="/images/quality-lab.jpg"
-              alt="Quality testing laboratory"
+              src="/images/quality-lab-equipment.jpg"
+              alt="Quality control testing apparatus and precision balance in Gulf Fibre laboratory"
               fill
               style={{ objectFit: 'cover' }}
             />
@@ -122,8 +122,8 @@ export function QualitySection() {
             }}
           >
             <Image
-              src="/images/process-fibre.jpg"
-              alt="Fibre testing process"
+              src="/images/process-fibre-lab.jpg"
+              alt="Electronic single fibre tensile gauging tester in Gulf Fibre laboratory"
               fill
               style={{ objectFit: 'cover' }}
             />

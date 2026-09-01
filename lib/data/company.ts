@@ -183,7 +183,7 @@ export const CERTIFICATION_DETAIL: {
   {
     code: 'GRS (Scope P.1)',
     name: 'Global Recycled Standard (GRS 4.0) · Main Scope',
-    certNumber: 'CU1068996GRS-2026-00014625',
+    certNumber: 'CU1068996GRS-2026-00011425',
     scope: '100% Post-Consumer Recycled PET Flake, Dyed & Undyed Fibres',
     what:
       'Official Control Union Scope Certificate (Page 1) verifying post-consumer recycled PET feedstock inputs, dyed and undyed staple fibres, and comprehensive chain-of-custody compliance.',
@@ -196,7 +196,7 @@ export const CERTIFICATION_DETAIL: {
     certNumber: 'License: CB-CUC-1068996 · TE-00005889',
     scope: 'Mechanical Recycling, Dyeing & Trading Operations (33-KM Multan Rd)',
     what:
-      'Official Control Union Site Appendix (Page 3) certifying Gulf Fibre’s 33-KM Multan Road facility for mechanical recycling (PR0017), industrial dyeing (PR0008), and global trading (PR0030).',
+      'Official Control Union Site Appendix certifying Gulf Fibre’s 33-KM Multan Road facility for mechanical recycling (PR0017), industrial dyeing (PR0008), and global trading (PR0030).',
     kind: 'ACCREDITED_CERTIFICATION',
     status: 'VERIFIED',
   },
@@ -271,7 +271,7 @@ export const PRODUCT_LINES: ProductLine[] = [
     ],
     specSlot:
       'Specification pending production verification — batch tenacity (cN/dtex), elongation %, crimp count per inch, and oil pick-up (OPU) are confirmed per production lot on the consignment Certificate of Analysis.',
-    image: '/images/process-fibre.jpg',
+    image: '/images/process-fibre-lab.jpg',
     video: '/videos/staple-fiber.mp4',
     status: 'VERIFIED',
   },
@@ -328,7 +328,7 @@ export const PRODUCT_LINES: ProductLine[] = [
       { label: 'Compliance', value: 'Produced within certified ISO & OEKO-TEX framework' },
     ],
     specSlot:
-      'Specification pending production verification — exact GSM range (100–600+ g/m²), roll width (up to 3.2 m), loft thickness (mm), and compression recovery % are engineered to order and confirmed on proforma sheets.',
+      'Specification pending production verification — exact GSM range (100–1000+ g/m²), roll width (up to 3.2 m), loft thickness (mm), and compression recovery % are engineered to order and confirmed on proforma sheets.',
     image: '/images/recycled-polyester-fibre.jpg',
     video: '/videos/thermally-bonded-wadding.mp4',
     status: 'VERIFIED',
@@ -460,7 +460,7 @@ export const MILESTONES: CompanyMilestone[] = [
     body:
       'Capital investment in automated extrusion technology, high-speed drawing machines, and automated hydraulic baling presses, scaling continuous output capacity.',
     metric: 'Continuous Line Upgrade',
-    image: '/images/hero-loom.jpg',
+    image: '/images/stitch-bonding-loom.jpg',
     status: 'VERIFIED',
   },
   {
@@ -496,7 +496,7 @@ export const MILESTONES: CompanyMilestone[] = [
     body:
       'Formalized institutional quality management under ISO 9001:2015 and achieved OEKO-TEX Standard 100 certification, assuring global buyers of skin-safe, contaminant-free fibres.',
     metric: 'Dual International Certification',
-    image: '/images/quality-lab.jpg',
+    image: '/images/quality-lab-equipment.jpg',
     status: 'VERIFIED',
   },
   {
@@ -508,7 +508,7 @@ export const MILESTONES: CompanyMilestone[] = [
     body:
       'Today, Gulf Fibre operates 15,000+ T of annual production capacity with 250+ skilled staff, delivering consistent high-tenacity and recycled synthetic materials to leading industrial clients.',
     metric: '15,000+ T Annual Output',
-    image: '/images/process-fibre.jpg',
+    image: '/images/process-fibre-lab.jpg',
     status: 'VERIFIED',
   },
 ]
@@ -825,8 +825,8 @@ export const ORG_TREE_DATA: OrgNode[] = [
 export const CERT_ASSETS: Record<string, string | null> = {
   'ISO 9001:2015': '/images/certificates/iso-9001-2015-certificate.jpg',
   'GRS (Scope P.1)': '/images/certificates/grs-scope-certificate-page1.jpg',
-  'GRS (Site P.3)': '/images/certificates/grs-scope-certificate-page3.jpg',
-  'OEKO-TEX 100': '/images/certificates/oeko-tex-standard-100-certificate.jpg',
+  'GRS (Site P.3)': '/images/certificates/grs-site-appendix.jpg',
+  'OEKO-TEX 100': '/images/certificates/oeko-tex-certificate.jpg',
   'EPA Punjab': '/images/certificates/epa-punjab-environmental-approval.jpg',
   LCCI: '/images/certificates/lcci-membership-certificate.jpg',
 }

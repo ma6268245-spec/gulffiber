@@ -706,7 +706,7 @@ export default function ContactPage() {
                 }}
               >
                 <iframe
-                  src="https://maps.google.com/maps?q=33-KM+Multan+Road,+Lahore,+Punjab,+Pakistan&t=&z=13&ie=UTF8&iwloc=&output=embed"
+                  src="https://maps.google.com/maps?q=Gulf+Fiber+Company+(Pvt.)+LTD,+33-KM+Multan+Road,+Lahore,+Punjab,+Pakistan&t=&z=15&ie=UTF8&iwloc=&output=embed"
                   width="100%"
                   height="100%"
                   style={{
@@ -795,7 +795,7 @@ export default function ContactPage() {
 
                 <div style={{ paddingTop: '1rem', borderTop: '1px solid var(--border-light)' }}>
                   <a
-                    href="https://www.google.com/maps/search/?api=1&query=33-KM+Multan+Road+Lahore+Pakistan"
+                    href="https://maps.app.goo.gl/12379RLrPBQQ1S616"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="btn-primary"

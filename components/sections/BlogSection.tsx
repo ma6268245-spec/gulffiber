@@ -25,7 +25,7 @@ const ARTICLES = [
     category: 'Certification',
     date: 'Jun 2026',
     title: 'What GRS Certification Means for Textile Procurement',
-    img: '/images/quality-lab.jpg',
+    img: '/images/quality-lab-equipment.jpg',
     href: '/quality',
     large: false,
   },

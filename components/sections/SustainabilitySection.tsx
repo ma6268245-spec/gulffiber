@@ -13,14 +13,14 @@ const PILLARS = [
     moq: 'GRS Certified',
   },
   {
-    img: '/images/process-fibre.jpg',
+    img: '/images/process-fibre-lab.jpg',
     category: 'Traceability',
     name: 'Batch-Specific Documentation',
     spec: 'Full Chain of Custody',
     moq: 'Scope Certificates',
   },
   {
-    img: '/images/quality-lab.jpg',
+    img: '/images/quality-lab-equipment.jpg',
     category: 'Stewardship',
     name: 'Responsible Processing',
     spec: 'Resource Conservation',

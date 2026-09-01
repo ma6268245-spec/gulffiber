@@ -284,7 +284,7 @@ export default function CompanyPage() {
                   </p>
                   <ul style={{ listStyle: 'none', padding: 0, margin: '0 0 1.5rem', display: 'flex', flexDirection: 'column', gap: '0.45rem', fontSize: '0.8125rem', color: 'var(--ink)' }}>
                     <li>✔ <strong>High-loft batting & roll wadding</strong></li>
-                    <li>✔ <strong>100 to 600+ GSM</strong> customizable weights</li>
+                    <li>✔ <strong>100 to 1000+ GSM</strong> customizable weights</li>
                     <li>✔ Pillows, quilts, mattresses & garment fill</li>
                   </ul>
                 </div>

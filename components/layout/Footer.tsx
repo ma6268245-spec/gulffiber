@@ -87,7 +87,7 @@ export function Footer() {
                 color: 'rgba(255,255,255,0.5)',
               }}
             >
-              FOLLOW ME
+              FOLLOW US
             </p>
             <div style={{ display: 'flex', gap: '0.75rem' }}>
               {['facebook', 'twitter', 'instagram', 'linkedin'].map((s) => (

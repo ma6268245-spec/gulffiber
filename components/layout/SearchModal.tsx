@@ -131,7 +131,7 @@ export function SearchModal({ isOpen, onClose }: { isOpen: boolean; onClose: () 
             autoFocus
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="Search fibres, deniers (1.4D, 7D), GRS certification, specs..."
+            placeholder="Search fibres, deniers (1.2D, 7D, 60D), GRS certification, specs..."
             style={{
               flex: 1,
               minWidth: 0,
@@ -176,7 +176,7 @@ export function SearchModal({ isOpen, onClose }: { isOpen: boolean; onClose: () 
           {filtered.length === 0 ? (
             <div style={{ padding: '2.5rem', textAlign: 'center', color: 'var(--muted)' }}>
               <p style={{ fontWeight: 600, margin: 0 }}>No matching technical specifications found.</p>
-              <p style={{ fontSize: '0.8125rem', marginTop: '0.35rem' }}>Try searching &ldquo;1.4D&rdquo;, &ldquo;Conjugate&rdquo;, &ldquo;GRS&rdquo;, or &ldquo;Felt&rdquo;.</p>
+              <p style={{ fontSize: '0.8125rem', marginTop: '0.35rem' }}>Try searching &ldquo;1.2D&rdquo;, &ldquo;Conjugate&rdquo;, &ldquo;GRS&rdquo;, or &ldquo;Felt&rdquo;.</p>
             </div>
           ) : (
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.35rem' }}>

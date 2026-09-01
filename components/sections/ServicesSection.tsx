@@ -17,7 +17,7 @@ const SERVICES = [
     title: 'QUALITY & TESTING',
     badge: 'Lab Verified',
     desc: 'Comprehensive in-house batch testing, tensile analysis, moisture verification, and official Certificate of Analysis (COA) with every shipment.',
-    img: '/images/quality-lab.jpg',
+    img: '/images/quality-lab-equipment.jpg',
   },
   {
     num: '03',
@@ -31,7 +31,7 @@ const SERVICES = [
     title: 'EXPORT & LOGISTICS',
     badge: 'Global Dispatch',
     desc: 'Full export documentation, container loading, and dedicated shipping coordination for reliable delivery across worldwide spinning markets.',
-    img: '/images/process-fibre.jpg',
+    img: '/images/process-fibre-lab.jpg',
   },
 ]
 

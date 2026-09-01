@@ -87,7 +87,7 @@ export function ProcessSection() {
               <video
                 ref={videoRef}
                 src="/videos/product-hero.mp4"
-                poster="/images/process-fibre.jpg"
+                poster="/images/process-fibre-lab.jpg"
                 autoPlay
                 muted
                 loop

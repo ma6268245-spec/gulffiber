@@ -154,7 +154,7 @@ export default function ServicesPage() {
                     { key: 'Denier', value: <>Target count within <strong>{VERIFIED.denierRange}</strong></> },
                     { key: 'Cut length', value: 'Set per order rather than from a standing range' },
                     { key: 'Crimp & finish', value: 'Crimp frequency and finish chemistry to your process' },
-                    { key: 'Feedstock', value: <>Recycled (<strong>{VERIFIED.recycledInput}</strong>) or prime polymer</> },
+                    { key: 'Feedstock', value: <>Recycled (<strong>{VERIFIED.recycledInput}</strong>)</> },
                     { key: 'Volume & destination', value: 'Quantity and delivery country, for packing and documentation' },
                   ]}
                 />
