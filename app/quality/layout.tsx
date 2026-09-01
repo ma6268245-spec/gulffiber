@@ -1,10 +1,40 @@
 import type { Metadata } from 'next'
 import '@/styles/subpage.css'
 
+const title = 'Quality & Compliance - ISO 9001:2015, GRS, OEKO-TEX Standard 100'
+const description =
+  'Certified quality management, in-house tensile and moisture verification, and a Certificate of Analysis with every consignment.'
+
 export const metadata: Metadata = {
-  title: 'Quality & Compliance - ISO 9001:2015, GRS, OEKO-TEX Standard 100',
-  description:
-    'Certified quality management, in-house tensile and moisture verification, and a Certificate of Analysis with every consignment.',
+  title,
+  description,
+  alternates: {
+    canonical: '/quality',
+  },
+  openGraph: {
+    title,
+    description,
+    url: '/quality',
+    siteName: 'Gulf Fiber Company',
+    images: ['/images/quality-lab.jpg'],
+    locale: 'en_US',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title,
+    description,
+    images: ['/images/quality-lab.jpg'],
+  },
+}
+
+const breadcrumbJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.gulffiber.co/' },
+    { '@type': 'ListItem', position: 2, name: 'Quality & Compliance', item: 'https://www.gulffiber.co/quality' },
+  ],
 }
 
 /**
@@ -16,5 +46,13 @@ export const metadata: Metadata = {
  * Inter and Cormorant Garamond faces as the homepage.
  */
 export default function QualityLayout({ children }: { children: React.ReactNode }) {
-  return <>{children}</>
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
+      {children}
+    </>
+  )
 }
