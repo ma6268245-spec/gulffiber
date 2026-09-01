@@ -204,8 +204,47 @@ export function CertificationGallery() {
 
   return (
     <>
-      {/* ── WALL OUTER WRAPPER (CROPPED / CUT ON TABLET & MOBILE) ── */}
-      {/* ── WALL OUTER WRAPPER (FULL-WIDTH STRETCH ACROSS DEVICES) ── */}
+      {/* ── INTERACTIVE INSTRUCTION BADGE (Positioned Cleanly Above Wall Box) ── */}
+      <div
+        className="cert-instruction-badge-container"
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          marginBottom: '0.85rem',
+          zIndex: 30,
+          pointerEvents: 'none',
+          width: '100%',
+        }}
+      >
+        <div
+          className="cert-instruction-badge"
+          style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: '0.45rem',
+            background: 'rgba(255, 255, 255, 0.96)',
+            backdropFilter: 'blur(12px)',
+            WebkitBackdropFilter: 'blur(12px)',
+            padding: '0.35rem 1.1rem',
+            borderRadius: '9999px',
+            boxShadow: '0 4px 16px rgba(7, 20, 46, 0.08), 0 1px 3px rgba(0, 0, 0, 0.04)',
+            border: '1px solid rgba(10, 75, 184, 0.15)',
+            whiteSpace: 'nowrap',
+          }}
+        >
+          <span style={{ fontSize: '0.78rem' }}>🔍</span>
+          <span className="cert-badge-desktop">
+            Hover over frames to zoom in · Click to examine certificate
+          </span>
+          <span className="cert-badge-mobile">
+            Tap any certificate to verify
+          </span>
+        </div>
+      </div>
+
+      {/* ── WALL OUTER WRAPPER ── */}
       <div
         className="cert-wall-wrapper"
         style={{
@@ -217,47 +256,6 @@ export function CertificationGallery() {
           border: '1px solid var(--border-light)',
         }}
       >
-        {/* ── INTERACTIVE INSTRUCTION BADGE (Centered on Upper Wall Space) ── */}
-        <div
-          className="cert-instruction-badge-container"
-          style={{
-            position: 'absolute',
-            top: 'clamp(0.5rem, 3%, 1.75rem)',
-            left: '50%',
-            transform: 'translateX(-50%)',
-            zIndex: 30,
-            pointerEvents: 'none',
-            maxWidth: 'min(92vw, 680px)',
-            width: 'max-content',
-          }}
-        >
-          <div
-            className="cert-instruction-badge"
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              gap: '0.45rem',
-              background: 'rgba(255, 255, 255, 0.96)',
-              backdropFilter: 'blur(12px)',
-              WebkitBackdropFilter: 'blur(12px)',
-              padding: '0.35rem 1.1rem',
-              borderRadius: '9999px',
-              boxShadow: '0 8px 24px rgba(7, 20, 46, 0.14), 0 2px 6px rgba(0, 0, 0, 0.04)',
-              border: '1px solid rgba(255, 255, 255, 0.85)',
-              whiteSpace: 'nowrap',
-            }}
-          >
-            <span style={{ fontSize: '0.78rem' }}>🔍</span>
-            <span className="cert-badge-desktop">
-              Hover over frames to zoom in · Click to examine certificate
-            </span>
-            <span className="cert-badge-mobile">
-              Tap any certificate to verify
-            </span>
-          </div>
-        </div>
-
         <div
           className="executive-office-wall-fullbleed"
           style={{
@@ -658,12 +656,12 @@ export function CertificationGallery() {
         .cert-wall-wrapper {
           width: 100%;
           max-width: 100%;
-          aspect-ratio: 16 / 9.5;
+          aspect-ratio: 16 / 9;
           border-radius: 20px;
         }
         .executive-office-wall-fullbleed {
-          transform: scale(1.36) translateY(5.5%);
-          transform-origin: 50% 36%;
+          transform: scale(1.0) translateY(0);
+          transform-origin: center center;
         }
         .cert-badge-desktop {
           display: inline !important;
@@ -694,6 +692,12 @@ export function CertificationGallery() {
           .cert-badge-mobile {
             display: inline !important;
           }
+          .cert-instruction-badge-container {
+            margin-bottom: 0.75rem !important;
+          }
+          .cert-instruction-badge {
+            padding: 0.28rem 0.85rem !important;
+          }
           .cert-wall-wrapper {
             margin-left: calc(-1 * var(--container-pad, 1.25rem)) !important;
             margin-right: calc(-1 * var(--container-pad, 1.25rem)) !important;
@@ -713,6 +717,9 @@ export function CertificationGallery() {
           }
         }
         @media (max-width: 600px) {
+          .cert-instruction-badge-container {
+            margin-bottom: 0.65rem !important;
+          }
           .cert-wall-wrapper {
             margin-left: calc(-1 * var(--container-pad, 1rem)) !important;
             margin-right: calc(-1 * var(--container-pad, 1rem)) !important;
@@ -728,7 +735,7 @@ export function CertificationGallery() {
             transform-origin: 50% 36% !important;
           }
           .cert-instruction-badge {
-            padding: 0.3rem 0.75rem !important;
+            padding: 0.22rem 0.65rem !important;
           }
         }
       `}</style>
