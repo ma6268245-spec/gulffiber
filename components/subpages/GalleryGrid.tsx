@@ -3,6 +3,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { useEffect, useRef, useState } from 'react'
+import { createPortal } from 'react-dom'
 import { ACTIVE_CATEGORIES, GALLERY_ITEMS, type GalleryCategoryId } from '@/lib/data/gallery'
 import { Provenance } from '@/components/subpages/Primitives'
 
@@ -57,8 +58,13 @@ const categoryLabel = (id: GalleryCategoryId) =>
 export function GalleryGrid() {
   const [filter, setFilter] = useState<GalleryCategoryId | 'all'>('all')
   const [openIdx, setOpenIdx] = useState<number | null>(null)
+  const [mounted, setMounted] = useState(false)
   const closeRef = useRef<HTMLButtonElement>(null)
   const tileRefs = useRef<(HTMLButtonElement | null)[]>([])
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
 
   const items = filter === 'all' ? GALLERY_ITEMS : GALLERY_ITEMS.filter((i) => i.category === filter)
   const open = openIdx === null ? null : items[openIdx]
@@ -159,95 +165,113 @@ export function GalleryGrid() {
         ))}
       </ul>
 
-      {/* ── Lightbox ──────────────────────────────────────────────────── */}
-      {open && (
-        <div
-          className="sp-lightbox"
-          role="dialog"
-          aria-modal="true"
-          aria-label={`${open.title} - ${categoryLabel(open.category)}`}
-          onClick={() => setOpenIdx(null)}
-        >
-          <div className="sp-lightbox__panel sp-glightbox" onClick={(e) => e.stopPropagation()}>
-            <button
-              ref={closeRef}
-              type="button"
-              className="sp-lightbox__close"
-              onClick={() => setOpenIdx(null)}
-              aria-label="Close the image view"
-            >
-              {CLOSE}
-            </button>
+      {/* ── Lightbox Portal ─────────────────────────────────────────── */}
+      {open && mounted && typeof document !== 'undefined'
+        ? createPortal(
+          <div
+            className="sp-lightbox"
+            role="dialog"
+            aria-modal="true"
+            aria-label={`${open.title} - ${categoryLabel(open.category)}`}
+            onClick={() => setOpenIdx(null)}
+            data-lenis-prevent="true"
+            onWheel={(e) => e.stopPropagation()}
+            onTouchMove={(e) => e.stopPropagation()}
+            style={{
+              position: 'fixed',
+              inset: 0,
+              zIndex: 999999,
+              display: 'grid',
+              placeItems: 'center',
+              padding: 'clamp(0.75rem, 3vw, 2.5rem)',
+              background: 'rgba(4, 15, 38, 0.92)',
+              backdropFilter: 'blur(16px)',
+              WebkitBackdropFilter: 'blur(16px)',
+              animation: 'sp-lightbox-in 0.25s ease',
+            }}
+          >
+            <div className="sp-lightbox__panel sp-glightbox" onClick={(e) => e.stopPropagation()}>
+              <button
+                ref={closeRef}
+                type="button"
+                className="sp-lightbox__close"
+                onClick={() => setOpenIdx(null)}
+                aria-label="Close the image view"
+              >
+                {CLOSE}
+              </button>
 
-            <button
-              type="button"
-              className="sp-glightbox__nav sp-glightbox__nav--prev"
-              onClick={() => step(-1)}
-              aria-label="Previous image"
-            >
-              {ARROW_L}
-            </button>
-            <button
-              type="button"
-              className="sp-glightbox__nav sp-glightbox__nav--next"
-              onClick={() => step(1)}
-              aria-label="Next image"
-            >
-              {ARROW_R}
-            </button>
+              <button
+                type="button"
+                className="sp-glightbox__nav sp-glightbox__nav--prev"
+                onClick={() => step(-1)}
+                aria-label="Previous image"
+              >
+                {ARROW_L}
+              </button>
+              <button
+                type="button"
+                className="sp-glightbox__nav sp-glightbox__nav--next"
+                onClick={() => step(1)}
+                aria-label="Next image"
+              >
+                {ARROW_R}
+              </button>
 
-            <div className="sp-lightbox__media sp-glightbox__media">
-              {open.image ? (
-                <Image
-                  src={open.image}
-                  alt={open.alt}
-                  fill
-                  sizes="90vw"
-                  style={{ objectFit: 'contain' }}
-                  priority
-                />
-              ) : (
-                <span className="sp-gtile__placeholder">
-                  {PHOTO_GLYPH}
-                  <span>{open.title} - photograph to be supplied</span>
-                </span>
-              )}
-            </div>
-
-            <div className="sp-lightbox__caption">
-              <span className="sp-cat">
-                {categoryLabel(open.category)}
-                {open.year ? ` - ${open.year}` : ''}
-              </span>
-              <h3 className="sp-cert__title">{open.title}</h3>
-              <p className="sp-small">{open.description}</p>
-              {open.tags.length > 0 && (
-                <p className="sp-small" style={{ display: 'flex', flexWrap: 'wrap', gap: '0.4rem', marginTop: '0.25rem' }}>
-                  {open.tags.map((t) => (
-                    <span className="sp-pill" key={t}>
-                      {t}
-                    </span>
-                  ))}
-                </p>
-              )}
-              <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', flexWrap: 'wrap', marginTop: '0.5rem' }}>
-                <Provenance status={open.status} />
-                {open.relatedPage && (
-                  <Link className="btn-ghost" href={open.relatedPage} onClick={() => setOpenIdx(null)}>
-                    {open.relatedProduct ? 'See the product line' : 'See the related page'}
-                    {ARROW_R}
-                  </Link>
+              <div className="sp-lightbox__media sp-glightbox__media">
+                {open.image ? (
+                  <Image
+                    src={open.image}
+                    alt={open.alt}
+                    fill
+                    sizes="90vw"
+                    style={{ objectFit: 'contain' }}
+                    priority
+                  />
+                ) : (
+                  <span className="sp-gtile__placeholder">
+                    {PHOTO_GLYPH}
+                    <span>{open.title} - photograph to be supplied</span>
+                  </span>
                 )}
               </div>
-              <p className="sp-small" style={{ opacity: 0.7 }}>
-                {String((openIdx ?? 0) + 1).padStart(2, '0')} / {String(items.length).padStart(2, '0')} - arrow keys to
-                browse, Escape to close
-                {TAG_GLYPH}
-              </p>
+
+              <div className="sp-lightbox__caption">
+                <span className="sp-cat">
+                  {categoryLabel(open.category)}
+                  {open.year ? ` - ${open.year}` : ''}
+                </span>
+                <h3 className="sp-cert__title">{open.title}</h3>
+                <p className="sp-small">{open.description}</p>
+                {open.tags.length > 0 && (
+                  <p className="sp-small" style={{ display: 'flex', flexWrap: 'wrap', gap: '0.4rem', marginTop: '0.25rem' }}>
+                    {open.tags.map((t) => (
+                      <span className="sp-pill" key={t}>
+                        {t}
+                      </span>
+                    ))}
+                  </p>
+                )}
+                <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', flexWrap: 'wrap', marginTop: '0.5rem' }}>
+                  <Provenance status={open.status} />
+                  {open.relatedPage && (
+                    <Link className="btn-ghost" href={open.relatedPage} onClick={() => setOpenIdx(null)}>
+                      {open.relatedProduct ? 'See the product line' : 'See the related page'}
+                      {ARROW_R}
+                    </Link>
+                  )}
+                </div>
+                <p className="sp-small" style={{ opacity: 0.7 }}>
+                  {String((openIdx ?? 0) + 1).padStart(2, '0')} / {String(items.length).padStart(2, '0')} - arrow keys to
+                  browse, Escape to close
+                  {TAG_GLYPH}
+                </p>
+              </div>
             </div>
-          </div>
-        </div>
-      )}
+          </div>,
+          document.body
+        )
+        : null}
     </>
   )
 }
