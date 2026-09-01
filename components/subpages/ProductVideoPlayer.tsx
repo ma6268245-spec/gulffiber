@@ -31,6 +31,7 @@ export function ProductVideoPlayer({ src, poster, alt, title, code }: ProductVid
       role="button"
       tabIndex={0}
       aria-label={`${isPlaying ? 'Pause' : 'Play'} production video for ${title}`}
+      className="product-video-player-container"
       style={{
         position: 'relative',
         width: '100%',
@@ -41,6 +42,16 @@ export function ProductVideoPlayer({ src, poster, alt, title, code }: ProductVid
         cursor: 'pointer',
       }}
     >
+      <style>{`
+        @media (max-width: 768px) {
+          .product-video-player-container {
+            min-height: auto !important;
+            height: clamp(210px, 58vw, 260px) !important;
+            aspect-ratio: 16 / 10 !important;
+            flex: none !important;
+          }
+        }
+      `}</style>
       {/* 60 FPS Looping Production Video */}
       <video
         ref={videoRef}

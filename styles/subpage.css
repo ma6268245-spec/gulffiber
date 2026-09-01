@@ -927,6 +927,13 @@
     width: 2.35rem !important;
     height: 2.35rem !important;
   }
+  .product-video-player-container,
+  .product-media-showcase-container {
+    min-height: auto !important;
+    height: clamp(210px, 58vw, 260px) !important;
+    aspect-ratio: 16 / 10 !important;
+    flex: none !important;
+  }
 }
 @media (max-width: 600px) {
   .sp-root .sp-grid-2,

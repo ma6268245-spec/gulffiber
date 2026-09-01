@@ -136,14 +136,26 @@ export default function ProductsPage() {
                       }}
                     >
                       <div>
-                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1rem', borderBottom: '1px solid var(--border-light)', paddingBottom: '0.75rem' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '0.5rem', marginBottom: '1rem', borderBottom: '1px solid var(--border-light)', paddingBottom: '0.75rem' }}>
                           <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem' }}>
-                            <span style={{ display: 'inline-block', width: '8px', height: '8px', borderRadius: '50%', background: 'var(--burg-primary)' }} />
+                            <span style={{ display: 'inline-block', width: '8px', height: '8px', borderRadius: '50%', background: 'var(--burg-primary)', flexShrink: 0 }} />
                             <span style={{ fontSize: '0.75rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--burg-primary)' }}>
                               Verified Technical Specifications
                             </span>
                           </div>
-                          <span style={{ fontSize: '0.6875rem', fontWeight: 700, color: 'var(--muted)' }}>
+                          <span
+                            style={{
+                              fontSize: '0.6875rem',
+                              fontWeight: 800,
+                              color: 'var(--ink)',
+                              background: 'var(--ivory)',
+                              padding: '0.25rem 0.6rem',
+                              borderRadius: '6px',
+                              border: '1px solid var(--border-light)',
+                              whiteSpace: 'nowrap',
+                              flexShrink: 0,
+                            }}
+                          >
                             Standard Baseline
                           </span>
                         </div>
@@ -195,6 +207,7 @@ export default function ProductsPage() {
                         />
                       ) : (
                         <div
+                          className="product-media-showcase-container"
                           style={{
                             position: 'relative',
                             width: '100%',
@@ -314,6 +327,7 @@ export default function ProductsPage() {
                         />
                       ) : (
                         <div
+                          className="product-media-showcase-container"
                           style={{
                             position: 'relative',
                             width: '100%',
@@ -421,14 +435,26 @@ export default function ProductsPage() {
                       }}
                     >
                       <div>
-                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1rem', borderBottom: '1px solid var(--border-light)', paddingBottom: '0.75rem' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '0.5rem', marginBottom: '1rem', borderBottom: '1px solid var(--border-light)', paddingBottom: '0.75rem' }}>
                           <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem' }}>
-                            <span style={{ display: 'inline-block', width: '8px', height: '8px', borderRadius: '50%', background: 'var(--burg-primary)' }} />
+                            <span style={{ display: 'inline-block', width: '8px', height: '8px', borderRadius: '50%', background: 'var(--burg-primary)', flexShrink: 0 }} />
                             <span style={{ fontSize: '0.75rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--burg-primary)' }}>
                               Verified Technical Specifications
                             </span>
                           </div>
-                          <span style={{ fontSize: '0.6875rem', fontWeight: 700, color: 'var(--muted)' }}>
+                          <span
+                            style={{
+                              fontSize: '0.6875rem',
+                              fontWeight: 800,
+                              color: 'var(--ink)',
+                              background: 'var(--ivory)',
+                              padding: '0.25rem 0.6rem',
+                              borderRadius: '6px',
+                              border: '1px solid var(--border-light)',
+                              whiteSpace: 'nowrap',
+                              flexShrink: 0,
+                            }}
+                          >
                             Standard Baseline
                           </span>
                         </div>
