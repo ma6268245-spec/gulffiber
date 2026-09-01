@@ -129,6 +129,7 @@ export default function TermsAndCopyrightPage() {
             <div className="sp-anim">
               <SectionHead
                 stacked
+                dark
                 eyebrow="Logistics & Delivery"
                 title="Packaging standards & consignment transit"
                 lede="Factory-direct dispatch protocols designed to protect physical fibre integrity from warehouse loading to customer receiving mills."
@@ -145,7 +146,7 @@ export default function TermsAndCopyrightPage() {
                     <h3 style={{ fontSize: '1.2rem', fontWeight: 800, color: '#FFFFFF', margin: '0.65rem 0 1rem' }}>
                       High-Density Moisture Baling
                     </h3>
-                    <p className="sp-body" style={{ color: 'rgba(255, 255, 255, 0.72)' }}>
+                    <p className="sp-body" style={{ color: 'rgba(255, 255, 255, 0.78)' }}>
                       Standard staple fibre is compressed into 200–300 kg high-density bales wrapped in heavy multi-layer polypropylene with high-tensile steel strapping. Roll goods (wadding, felt, interlinings) are vacuum poly-wrapped to prevent ambient moisture ingress.
                     </p>
                   </div>
@@ -159,7 +160,7 @@ export default function TermsAndCopyrightPage() {
                     <h3 style={{ fontSize: '1.2rem', fontWeight: 800, color: '#FFFFFF', margin: '0.65rem 0 1rem' }}>
                       Export Container Loading
                     </h3>
-                    <p className="sp-body" style={{ color: 'rgba(255, 255, 255, 0.72)' }}>
+                    <p className="sp-body" style={{ color: 'rgba(255, 255, 255, 0.78)' }}>
                       Full Container Load (FCL 20ft & 40ft HC) loading is executed directly on plant ramps at 33-KM Multan Road, Lahore, and coordinated via dry port or bonded road transit to Karachi Sea Ports (Karachi Port / Port Qasim) for global ocean export.
                     </p>
                   </div>
@@ -173,7 +174,7 @@ export default function TermsAndCopyrightPage() {
                     <h3 style={{ fontSize: '1.2rem', fontWeight: 800, color: '#FFFFFF', margin: '0.65rem 0 1rem' }}>
                       Certificate of Analysis (COA)
                     </h3>
-                    <p className="sp-body" style={{ color: 'rgba(255, 255, 255, 0.72)' }}>
+                    <p className="sp-body" style={{ color: 'rgba(255, 255, 255, 0.78)' }}>
                       Every consignment is dispatched with an authentic Certificate of Analysis. Any discrepancy in weight or specification must be formally notified in writing with laboratory counter-test data within 14 calendar days of consignment arrival.
                     </p>
                   </div>
@@ -219,19 +220,21 @@ export default function TermsAndCopyrightPage() {
 
                 <div className="sp-terms-card" style={{ background: 'var(--white)' }}>
                   <div>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '1rem' }}>
-                      <span style={{ fontSize: '1.5rem', color: 'var(--burg-primary)' }}>®</span>
-                      <h3 style={{ fontFamily: 'var(--font-sans)', fontSize: '1.25rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.02em', color: 'var(--ink)', margin: 0 }}>
-                        Trademarks & Brand Identity
-                      </h3>
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '0.75rem', marginBottom: '1rem', flexWrap: 'wrap' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                        <span style={{ fontSize: '1.5rem', color: 'var(--burg-primary)' }}>®</span>
+                        <h3 style={{ fontFamily: 'var(--font-sans)', fontSize: '1.25rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.02em', color: 'var(--ink)', margin: 0 }}>
+                          Trademarks & Brand Identity
+                        </h3>
+                      </div>
+                      <Provenance status="VERIFIED" />
                     </div>
                     <p className="sp-body" style={{ marginBottom: '1.25rem' }}>
                       The company name <strong>Gulf Fibre Company (PVT) Limited</strong>, <strong>Gulf Fiber</strong>, the circular brand mark, product line monikers, and associated logos are registered corporate marks.
                     </p>
-                    <p className="sp-body" style={{ marginBottom: '1.25rem' }}>
+                    <p className="sp-body">
                       Third-party certification marks—including <em>Global Recycled Standard (GRS 4.0)</em>, <em>ISO 9001:2015</em>, <em>OEKO-TEX® Standard 100</em>, <em>EPA Punjab</em>, and <em>LCCI</em>—are the property of their respective accredited institutions and are displayed strictly under verified accreditation scope.
                     </p>
-                    <Provenance status="VERIFIED" />
                   </div>
                 </div>
               </div>
@@ -245,6 +248,7 @@ export default function TermsAndCopyrightPage() {
             <div className="sp-anim">
               <SectionHead
                 stacked
+                dark
                 eyebrow="Compliance & Jurisdiction"
                 title="Legal warranties & governing law"
                 lede="Statutory governance, environmental compliance, and legal jurisdiction applicable to all corporate transactions and website usage."
@@ -261,7 +265,7 @@ export default function TermsAndCopyrightPage() {
                     <h3 style={{ fontSize: '1.2rem', fontWeight: 800, color: '#FFFFFF', margin: '0.65rem 0 1rem' }}>
                       Governing Law & Venue
                     </h3>
-                    <p className="sp-body" style={{ color: 'rgba(255, 255, 255, 0.72)' }}>
+                    <p className="sp-body" style={{ color: 'rgba(255, 255, 255, 0.78)' }}>
                       These terms, commercial agreements, and website terms of service are governed by and construed in accordance with the substantive laws of the <strong>Islamic Republic of Pakistan</strong>. Any legal dispute, arbitration, or statutory claim arising from commercial sales contracts or intellectual property infringements shall be subject to the exclusive jurisdiction of the competent commercial courts in Lahore, Pakistan.
                     </p>
                   </div>
@@ -275,7 +279,7 @@ export default function TermsAndCopyrightPage() {
                     <h3 style={{ fontSize: '1.2rem', fontWeight: 800, color: '#FFFFFF', margin: '0.65rem 0 1rem' }}>
                       Liability Limitations
                     </h3>
-                    <p className="sp-body" style={{ color: 'rgba(255, 255, 255, 0.72)' }}>
+                    <p className="sp-body" style={{ color: 'rgba(255, 255, 255, 0.78)' }}>
                       Gulf Fibre warrants that delivered fibres conform to the agreed written physical specifications and certified quality standards at the point of factory dispatch. The company makes no warranty of merchantability for non-intended secondary conversions. In all cases, maximum aggregate liability shall not exceed the net invoice amount received for the specific consignment.
                     </p>
                   </div>
@@ -289,7 +293,7 @@ export default function TermsAndCopyrightPage() {
                     <h3 style={{ fontSize: '1.2rem', fontWeight: 800, color: '#FFFFFF', margin: '0.65rem 0 1rem' }}>
                       Confidentiality & Privacy
                     </h3>
-                    <p className="sp-body" style={{ color: 'rgba(255, 255, 255, 0.72)' }}>
+                    <p className="sp-body" style={{ color: 'rgba(255, 255, 255, 0.78)' }}>
                       Commercial customer enquiries, sample requests, proprietary mill blends, and trading specifications submitted through our forms or enquiry desks are handled with strict commercial confidentiality and will never be disclosed or sold to external third parties.
                     </p>
                   </div>
@@ -298,11 +302,30 @@ export default function TermsAndCopyrightPage() {
             </div>
 
             {/* Bottom CTA */}
-            <div className="sp-anim" style={{ textAlign: 'center', marginTop: '3.5rem' }}>
-              <p className="sp-body" style={{ color: 'rgba(255, 255, 255, 0.6)', marginBottom: '1.5rem' }}>
+            <div
+              className="sp-anim"
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'center',
+                textAlign: 'center',
+                marginTop: '4rem',
+                width: '100%',
+              }}
+            >
+              <p
+                className="sp-body"
+                style={{
+                  color: 'rgba(255, 255, 255, 0.85)',
+                  marginBottom: '1.5rem',
+                  textAlign: 'center',
+                  maxWidth: '54ch',
+                }}
+              >
                 Need formal supply documentation, proforma terms, or contract verification?
               </p>
-              <Link className="btn-primary" href="/contact">
+              <Link className="btn-primary" href="/contact" style={{ marginInline: 'auto' }}>
                 Contact Legal & Commercial Desk
               </Link>
             </div>

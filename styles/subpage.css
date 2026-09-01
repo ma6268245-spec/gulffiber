@@ -414,11 +414,19 @@
 
 .sp-root .sp-row {
   display: grid;
-  grid-template-columns: minmax(min-content, 7.5rem) minmax(0, 1fr);
-  gap: clamp(1rem, 2.5vw, 1.75rem);
-  padding-block: 1rem;
+  grid-template-columns: minmax(190px, 280px) minmax(0, 1fr);
+  gap: clamp(1rem, 2.5vw, 2.5rem);
+  padding-block: 1.1rem;
   border-bottom: 1px solid var(--border-light);
   align-items: baseline;
+}
+
+@media (max-width: 640px) {
+  .sp-root .sp-row {
+    grid-template-columns: 1fr;
+    gap: 0.35rem;
+    padding-block: 0.85rem;
+  }
 }
 
 .sp-root .sp-panel .sp-row {
@@ -714,6 +722,17 @@
 
 .sp-root .sp-dark .sp-stat-label {
   color: rgba(255, 255, 255, 0.65);
+}
+
+.sp-root .sp-dark .sp-lede,
+.sp-root .sp-dark [data-sp-section] .sp-lede,
+[data-theme='dark'] .sp-root .sp-lede {
+  color: rgba(255, 255, 255, 0.82) !important;
+}
+
+.sp-root .sp-dark .h-section,
+[data-theme='dark'] .sp-root .h-section {
+  color: #FFFFFF !important;
 }
 
 .sp-root .sp-dark .sp-slot {
