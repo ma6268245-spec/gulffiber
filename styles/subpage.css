@@ -2034,14 +2034,15 @@
 .sp-lightbox {
   position: fixed;
   inset: 0;
-  z-index: 9500;
-  display: grid;
-  place-items: center;
-  padding: clamp(0.75rem, 3vw, 2.5rem);
-  background: rgba(4, 15, 38, 0.88);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  animation: sp-lightbox-in 0.25s ease;
+  z-index: 999999 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: clamp(0.75rem, 2.5vw, 2rem);
+  background: rgba(0, 0, 0, 0.76) !important;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  animation: sp-lightbox-in 0.22s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 @keyframes sp-lightbox-in {
@@ -2059,15 +2060,16 @@
 .sp-lightbox__panel {
   position: relative;
   display: grid;
-  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1.85fr) minmax(300px, 360px);
   gap: 0;
-  width: min(68rem, 100%);
+  width: min(90vw, 1360px);
+  height: min(86vh, 840px);
   max-height: 90vh;
   background: var(--white);
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 20px;
   overflow: hidden;
-  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.45);
+  box-shadow: 0 32px 80px rgba(0, 0, 0, 0.7);
 }
 
 .sp-lightbox__close {
@@ -2109,9 +2111,9 @@
 
 .sp-lightbox__media {
   position: relative;
-  min-height: 28rem;
+  width: 100%;
   height: 100%;
-  background: var(--ivory);
+  background: #080c16;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -2119,7 +2121,10 @@
 }
 
 .sp-lightbox__media img {
+  width: 100% !important;
+  height: 100% !important;
   object-fit: contain !important;
+  padding: 0.5rem;
 }
 
 .sp-lightbox__caption {
@@ -2130,40 +2135,43 @@
   align-content: start;
   overflow-y: auto;
   background: var(--white);
+  height: 100%;
 }
 
 @media (max-width: 1024px) {
   .sp-lightbox__panel {
     grid-template-columns: minmax(0, 1fr) !important;
-    max-height: 92vh !important;
-    width: min(38rem, 100%) !important;
+    max-height: 90vh !important;
+    height: auto !important;
+    width: min(92vw, 680px) !important;
     overflow-y: auto !important;
   }
 
   .sp-lightbox__media {
-    min-height: clamp(16rem, 38vh, 24rem) !important;
-    height: clamp(16rem, 38vh, 24rem) !important;
+    min-height: clamp(20rem, 48vh, 32rem) !important;
+    height: clamp(20rem, 48vh, 32rem) !important;
   }
 
   .sp-lightbox__caption {
     padding: 1.5rem !important;
     overflow-y: visible !important;
+    height: auto !important;
   }
 }
 
 @media (max-width: 480px) {
   .sp-lightbox {
-    padding: 0.5rem;
+    padding: 0.5rem !important;
   }
 
   .sp-lightbox__panel {
-    border-radius: 12px !important;
+    border-radius: 14px !important;
     max-height: 94vh !important;
   }
 
   .sp-lightbox__media {
-    min-height: clamp(13rem, 32vh, 18rem) !important;
-    height: clamp(13rem, 32vh, 18rem) !important;
+    min-height: clamp(16rem, 38vh, 22rem) !important;
+    height: clamp(16rem, 38vh, 22rem) !important;
   }
 
   .sp-lightbox__caption {
@@ -2652,11 +2660,11 @@
 
 /* Gallery lightbox: reuse .sp-lightbox shell, add nav arrows */
 .sp-glightbox {
-  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1.85fr) minmax(300px, 360px);
 }
 
 .sp-glightbox__media {
-  min-height: 28rem;
+  min-height: 100%;
 }
 
 .sp-glightbox__nav {
@@ -2704,7 +2712,7 @@
   right: 1rem;
 }
 
-@media (max-width: 992px) {
+@media (max-width: 1024px) {
   .sp-root .sp-ggrid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -2714,8 +2722,8 @@
   }
 
   .sp-glightbox__media {
-    min-height: clamp(16rem, 38vh, 24rem) !important;
-    height: clamp(16rem, 38vh, 24rem) !important;
+    min-height: clamp(20rem, 48vh, 32rem) !important;
+    height: clamp(20rem, 48vh, 32rem) !important;
   }
 
   .sp-glightbox__nav--prev {
@@ -2735,8 +2743,8 @@
 
 @media (max-width: 480px) {
   .sp-glightbox__media {
-    min-height: clamp(13rem, 32vh, 18rem) !important;
-    height: clamp(13rem, 32vh, 18rem) !important;
+    min-height: clamp(16rem, 38vh, 22rem) !important;
+    height: clamp(16rem, 38vh, 22rem) !important;
   }
 
   .sp-glightbox__nav {

@@ -176,13 +176,6 @@ export function GalleryGrid() {
               position: 'fixed',
               inset: 0,
               zIndex: 999999,
-              display: 'grid',
-              placeItems: 'center',
-              padding: 'clamp(0.75rem, 3vw, 2.5rem)',
-              background: 'rgba(4, 15, 38, 0.92)',
-              backdropFilter: 'blur(16px)',
-              WebkitBackdropFilter: 'blur(16px)',
-              animation: 'sp-lightbox-in 0.25s ease',
             }}
           >
             <div className="sp-lightbox__panel sp-glightbox" onClick={(e) => e.stopPropagation()}>
