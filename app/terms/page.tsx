@@ -54,34 +54,16 @@ export default function TermsAndCopyrightPage() {
           <div className="container">
             <div className="sp-anim">
               <SectionHead
+                stacked
                 eyebrow="Commercial Supply"
-                title="Specification governance &"
-                em="orders"
+                title="Specification governance & orders"
                 lede="Every consignment leaving the Gulf Fibre plant is bound by written technical specifications, agreed tolerances, and pre-shipment quality verification."
               />
             </div>
 
             <div className="sp-anim" style={{ marginTop: '2.5rem' }}>
-              <div
-                style={{
-                  display: 'grid',
-                  gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 420px), 1fr))',
-                  gap: 'clamp(1.5rem, 2.5vw, 2.5rem)',
-                  alignItems: 'stretch',
-                }}
-              >
-                <div
-                  className="sp-card"
-                  style={{
-                    padding: 'clamp(1.75rem, 3vw, 2.5rem)',
-                    background: 'var(--bg-light)',
-                    borderRadius: '16px',
-                    border: '1px solid var(--border-light)',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'space-between',
-                  }}
-                >
+              <div className="sp-terms-grid-2">
+                <div className="sp-terms-card">
                   <div>
                     <span style={{ fontSize: '0.75rem', fontWeight: 800, color: 'var(--burg-primary)', letterSpacing: '0.12em', textTransform: 'uppercase' }}>
                       Clause 01
@@ -98,18 +80,7 @@ export default function TermsAndCopyrightPage() {
                   </div>
                 </div>
 
-                <div
-                  className="sp-card"
-                  style={{
-                    padding: 'clamp(1.75rem, 3vw, 2.5rem)',
-                    background: 'var(--bg-light)',
-                    borderRadius: '16px',
-                    border: '1px solid var(--border-light)',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'space-between',
-                  }}
-                >
+                <div className="sp-terms-card">
                   <div>
                     <span style={{ fontSize: '0.75rem', fontWeight: 800, color: 'var(--burg-primary)', letterSpacing: '0.12em', textTransform: 'uppercase' }}>
                       Clause 02
@@ -157,33 +128,16 @@ export default function TermsAndCopyrightPage() {
           <div className="container">
             <div className="sp-anim">
               <SectionHead
+                stacked
                 eyebrow="Logistics & Delivery"
-                title="Packaging standards &"
-                em="consignment transit"
+                title="Packaging standards & consignment transit"
                 lede="Factory-direct dispatch protocols designed to protect physical fibre integrity from warehouse loading to customer receiving mills."
               />
             </div>
 
             <div className="sp-anim" style={{ marginTop: '2.5rem' }}>
-              <div
-                style={{
-                  display: 'grid',
-                  gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 300px), 1fr))',
-                  gap: 'clamp(1.25rem, 2vw, 2rem)',
-                  alignItems: 'stretch',
-                }}
-              >
-                <div
-                  style={{
-                    padding: 'clamp(1.5rem, 2.5vw, 2rem)',
-                    border: '1px solid rgba(255, 255, 255, 0.12)',
-                    borderRadius: '16px',
-                    background: 'rgba(255, 255, 255, 0.03)',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'space-between',
-                  }}
-                >
+              <div className="sp-terms-grid-3">
+                <div className="sp-terms-card">
                   <div>
                     <span style={{ fontSize: '0.75rem', fontWeight: 800, color: 'var(--burg-bright)', letterSpacing: '0.1em', textTransform: 'uppercase' }}>
                       Packaging Integrity
@@ -197,17 +151,7 @@ export default function TermsAndCopyrightPage() {
                   </div>
                 </div>
 
-                <div
-                  style={{
-                    padding: 'clamp(1.5rem, 2.5vw, 2rem)',
-                    border: '1px solid rgba(255, 255, 255, 0.12)',
-                    borderRadius: '16px',
-                    background: 'rgba(255, 255, 255, 0.03)',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'space-between',
-                  }}
-                >
+                <div className="sp-terms-card">
                   <div>
                     <span style={{ fontSize: '0.75rem', fontWeight: 800, color: 'var(--burg-bright)', letterSpacing: '0.1em', textTransform: 'uppercase' }}>
                       Shipping & Ports
@@ -221,17 +165,7 @@ export default function TermsAndCopyrightPage() {
                   </div>
                 </div>
 
-                <div
-                  style={{
-                    padding: 'clamp(1.5rem, 2.5vw, 2rem)',
-                    border: '1px solid rgba(255, 255, 255, 0.12)',
-                    borderRadius: '16px',
-                    background: 'rgba(255, 255, 255, 0.03)',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'space-between',
-                  }}
-                >
+                <div className="sp-terms-card">
                   <div>
                     <span style={{ fontSize: '0.75rem', fontWeight: 800, color: 'var(--burg-bright)', letterSpacing: '0.1em', textTransform: 'uppercase' }}>
                       Verification & Claims
@@ -254,33 +188,16 @@ export default function TermsAndCopyrightPage() {
           <div className="container">
             <div className="sp-anim">
               <SectionHead
+                stacked
                 eyebrow="Intellectual Property"
-                title="Copyright notice &"
-                em="proprietary rights"
+                title="Copyright notice & proprietary rights"
                 lede="All digital content, imagery, technical specifications, trademarks, and documentation published across this website are protected under national and international copyright laws."
               />
             </div>
 
             <div className="sp-anim" style={{ marginTop: '2.5rem' }}>
-              <div
-                style={{
-                  display: 'grid',
-                  gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 420px), 1fr))',
-                  gap: 'clamp(1.5rem, 2.5vw, 2.5rem)',
-                  alignItems: 'stretch',
-                }}
-              >
-                <div
-                  style={{
-                    padding: 'clamp(1.75rem, 3vw, 2.5rem)',
-                    border: '1px solid var(--border-light)',
-                    borderRadius: '16px',
-                    background: 'var(--white)',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'space-between',
-                  }}
-                >
+              <div className="sp-terms-grid-2">
+                <div className="sp-terms-card" style={{ background: 'var(--white)' }}>
                   <div>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '1rem' }}>
                       <span style={{ fontSize: '1.5rem', color: 'var(--burg-primary)' }}>©</span>
@@ -300,17 +217,7 @@ export default function TermsAndCopyrightPage() {
                   </div>
                 </div>
 
-                <div
-                  style={{
-                    padding: 'clamp(1.75rem, 3vw, 2.5rem)',
-                    border: '1px solid var(--border-light)',
-                    borderRadius: '16px',
-                    background: 'var(--white)',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'space-between',
-                  }}
-                >
+                <div className="sp-terms-card" style={{ background: 'var(--white)' }}>
                   <div>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '1rem' }}>
                       <span style={{ fontSize: '1.5rem', color: 'var(--burg-primary)' }}>®</span>
@@ -337,33 +244,16 @@ export default function TermsAndCopyrightPage() {
           <div className="container">
             <div className="sp-anim">
               <SectionHead
+                stacked
                 eyebrow="Compliance & Jurisdiction"
-                title="Legal warranties &"
-                em="governing law"
+                title="Legal warranties & governing law"
                 lede="Statutory governance, environmental compliance, and legal jurisdiction applicable to all corporate transactions and website usage."
               />
             </div>
 
             <div className="sp-anim" style={{ marginTop: '2.5rem' }}>
-              <div
-                style={{
-                  display: 'grid',
-                  gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 300px), 1fr))',
-                  gap: 'clamp(1.25rem, 2vw, 2rem)',
-                  alignItems: 'stretch',
-                }}
-              >
-                <div
-                  style={{
-                    padding: 'clamp(1.5rem, 2.5vw, 2rem)',
-                    border: '1px solid rgba(255, 255, 255, 0.12)',
-                    borderRadius: '16px',
-                    background: 'rgba(255, 255, 255, 0.03)',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'space-between',
-                  }}
-                >
+              <div className="sp-terms-grid-3">
+                <div className="sp-terms-card">
                   <div>
                     <span style={{ fontSize: '0.75rem', fontWeight: 800, color: 'var(--burg-bright)', letterSpacing: '0.1em', textTransform: 'uppercase' }}>
                       Legal Framework
@@ -377,17 +267,7 @@ export default function TermsAndCopyrightPage() {
                   </div>
                 </div>
 
-                <div
-                  style={{
-                    padding: 'clamp(1.5rem, 2.5vw, 2rem)',
-                    border: '1px solid rgba(255, 255, 255, 0.12)',
-                    borderRadius: '16px',
-                    background: 'rgba(255, 255, 255, 0.03)',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'space-between',
-                  }}
-                >
+                <div className="sp-terms-card">
                   <div>
                     <span style={{ fontSize: '0.75rem', fontWeight: 800, color: 'var(--burg-bright)', letterSpacing: '0.1em', textTransform: 'uppercase' }}>
                       Commercial Warranty
@@ -401,17 +281,7 @@ export default function TermsAndCopyrightPage() {
                   </div>
                 </div>
 
-                <div
-                  style={{
-                    padding: 'clamp(1.5rem, 2.5vw, 2rem)',
-                    border: '1px solid rgba(255, 255, 255, 0.12)',
-                    borderRadius: '16px',
-                    background: 'rgba(255, 255, 255, 0.03)',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'space-between',
-                  }}
-                >
+                <div className="sp-terms-card">
                   <div>
                     <span style={{ fontSize: '0.75rem', fontWeight: 800, color: 'var(--burg-bright)', letterSpacing: '0.1em', textTransform: 'uppercase' }}>
                       Data Protection

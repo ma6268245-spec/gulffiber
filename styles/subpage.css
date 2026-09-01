@@ -2912,3 +2912,49 @@
   border-color: var(--border-light) !important;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.65) !important;
 }
+
+/* ── Terms & Legal Responsive Layout ────────────────────────────────────── */
+.sp-terms-grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(1.25rem, 2.5vw, 2rem);
+  align-items: stretch;
+}
+
+.sp-terms-grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1.25rem, 2vw, 1.75rem);
+  align-items: stretch;
+}
+
+.sp-terms-card {
+  padding: clamp(1.5rem, 2.5vw, 2.25rem);
+  border-radius: 16px;
+  background: var(--bg-light);
+  border: 1px solid var(--border-light);
+  display: flex;
+  flex-direction: column;
+  justifyContent: space-between;
+  height: 100%;
+}
+
+.sp-dark .sp-terms-card,
+[data-theme='dark'] .sp-terms-card {
+  background: rgba(255, 255, 255, 0.03) !important;
+  border-color: rgba(255, 255, 255, 0.12) !important;
+}
+
+@media (max-width: 900px) {
+  .sp-terms-grid-3 {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .sp-terms-grid-2 {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+}
