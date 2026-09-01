@@ -166,28 +166,80 @@ export function CompanyOrgTree() {
               padding: '0 0.5rem',
             }}
           >
-            {/* ── TOP EXECUTIVE TIER: FOUNDER (CEO) & CO-FOUNDER (INVESTOR) ── */}
+            {/* ── TOP EXECUTIVE TIER: CO-FOUNDER (LEFT SIDE) & FOUNDER (CENTERED) ── */}
             <div
-              className="org-executive-tier"
+              className="org-top-executive-container"
               style={{
                 position: 'relative',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                gap: 'clamp(2rem, 5vw, 4.5rem)',
                 width: '100%',
-                zIndex: 3,
+                display: 'grid',
+                gridTemplateColumns: '1fr auto 1fr',
+                alignItems: 'center',
                 marginBottom: '0.25rem',
+                zIndex: 3,
               }}
             >
-              {/* Founder & Managing Director (Center / Main Tree Hub) */}
+              {/* Left Slot: Co-founder & Strategic Investor (Far-Left Corner) */}
               <div
-                className="org-founder-wrapper"
+                className="org-investor-side-slot"
+                style={{
+                  display: 'flex',
+                  justifyContent: 'flex-start',
+                  paddingLeft: 'clamp(0.25rem, 1.5vw, 1rem)',
+                  zIndex: 3,
+                }}
+              >
+                {cofounderNode && (
+                  <div
+                    className="org-investor-card-wrap"
+                    style={{
+                      display: 'flex',
+                      flexDirection: 'column',
+                      alignItems: 'center',
+                      background: 'rgba(10, 75, 184, 0.03)',
+                      border: '1px dashed var(--border-light)',
+                      borderRadius: '16px',
+                      padding: '0.45rem 0.75rem',
+                    }}
+                  >
+                    <span
+                      style={{
+                        fontSize: '0.58rem',
+                        fontWeight: 800,
+                        letterSpacing: '0.08em',
+                        textTransform: 'uppercase',
+                        color: 'var(--burg-bright)',
+                        background: 'rgba(56, 182, 255, 0.12)',
+                        border: '1px solid rgba(56, 182, 255, 0.25)',
+                        padding: '0.15rem 0.5rem',
+                        borderRadius: '9999px',
+                        marginBottom: '0.25rem',
+                      }}
+                    >
+                      Strategic Investor
+                    </span>
+                    <OrgTreeNode
+                      node={cofounderNode}
+                      isHighlighted={isNodeActive(cofounderNode)}
+                      isHovered={hoveredNodeId === cofounderNode.id}
+                      isDimmed={hoveredNodeId !== null && hoveredNodeId !== cofounderNode.id}
+                      onHover={setHoveredNodeId}
+                      onSelect={setSelectedNode}
+                      size="medium"
+                    />
+                  </div>
+                )}
+              </div>
+
+              {/* Founder & Managing Director (Exactly Centered in the Tree) */}
+              <div
+                className="org-founder-center"
                 style={{
                   display: 'flex',
                   flexDirection: 'column',
                   alignItems: 'center',
-                  position: 'relative',
+                  justifyContent: 'center',
+                  zIndex: 3,
                 }}
               >
                 {founderNode && (
@@ -203,46 +255,8 @@ export function CompanyOrgTree() {
                 )}
               </div>
 
-              {/* Co-founder / Investor (Independent Side Node, Not linked to team) */}
-              {cofounderNode && (
-                <div
-                  className="org-investor-wrapper"
-                  style={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                    position: 'relative',
-                    borderLeft: '1px dashed var(--border-light)',
-                    paddingLeft: 'clamp(1.5rem, 3vw, 3rem)',
-                  }}
-                >
-                  <span
-                    style={{
-                      fontSize: '0.625rem',
-                      fontWeight: 800,
-                      letterSpacing: '0.06em',
-                      textTransform: 'uppercase',
-                      color: 'var(--burg-bright)',
-                      background: 'rgba(56, 182, 255, 0.1)',
-                      border: '1px solid rgba(56, 182, 255, 0.25)',
-                      padding: '0.15rem 0.55rem',
-                      borderRadius: '9999px',
-                      marginBottom: '0.35rem',
-                    }}
-                  >
-                    Executive Investor
-                  </span>
-                  <OrgTreeNode
-                    node={cofounderNode}
-                    isHighlighted={isNodeActive(cofounderNode)}
-                    isHovered={hoveredNodeId === cofounderNode.id}
-                    isDimmed={hoveredNodeId !== null && hoveredNodeId !== cofounderNode.id}
-                    onHover={setHoveredNodeId}
-                    onSelect={setSelectedNode}
-                    size="medium"
-                  />
-                </div>
-              )}
+              {/* Right Placeholder for perfect symmetrical balance */}
+              <div className="org-exec-right-spacer" style={{ minWidth: '0' }} />
             </div>
 
             {/* Vertical Connecting Line directly from Founder to the Team Branch */}
@@ -807,13 +821,21 @@ export function CompanyOrgTree() {
         }
 
         @media (max-width: 768px) {
-          .org-executive-tier {
+          .org-top-executive-container {
+            display: flex !important;
+            flex-direction: row !important;
+            justify-content: center !important;
+            align-items: center !important;
             gap: 0.5rem !important;
-            justify-content: space-around !important;
             width: 100% !important;
           }
-          .org-investor-wrapper {
-            padding-left: 0.5rem !important;
+          .org-exec-right-spacer,
+          .org-exec-left-spacer {
+            display: none !important;
+          }
+          .org-investor-side-slot {
+            padding-right: 0.35rem !important;
+            padding-left: 0 !important;
           }
           .org-tree-scroll-viewport {
             padding: 0 !important;
