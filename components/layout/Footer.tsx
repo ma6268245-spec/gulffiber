@@ -245,6 +245,8 @@ export function Footer() {
               />
               <button
                 type="submit"
+                aria-label="Subscribe to newsletter"
+                title="Subscribe to newsletter"
                 disabled={nl === 'sending'}
                 style={{
                   padding: '0.75rem 1rem',

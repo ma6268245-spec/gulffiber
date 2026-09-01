@@ -157,6 +157,8 @@ export function JourneyChapter() {
               <button
                 key={idx}
                 type="button"
+                aria-label={`Jump to step ${idx + 1}`}
+                title={`Jump to step ${idx + 1}`}
                 onClick={() => scrollToStep(idx)}
                 style={{
                   width: idx === active ? '1.5rem' : '0.45rem',
@@ -168,7 +170,6 @@ export function JourneyChapter() {
                   cursor: 'pointer',
                   transition: 'all 0.3s ease',
                 }}
-                title={`Jump to Step ${idx + 1}`}
               />
             ))}
           </div>

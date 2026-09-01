@@ -272,6 +272,7 @@ export function Header() {
           {/* Right: Search + Theme Toggle + CTA + Hamburger */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.55rem', flexShrink: 0 }}>
             <button
+              type="button"
               aria-label="Search (Ctrl+K)"
               title="Search (Ctrl+K)"
               data-search-btn
@@ -306,6 +307,7 @@ export function Header() {
 
             {/* Theme Toggle Button */}
             <button
+              type="button"
               onClick={toggleTheme}
               aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} theme`}
               title={`Switch to ${theme === 'light' ? 'dark' : 'light'} theme`}
@@ -369,6 +371,7 @@ export function Header() {
 
             {/* Mobile / Tablet hamburger */}
             <button
+              type="button"
               onClick={() => setMobileOpen(!mobileOpen)}
               aria-label="Menu"
               className="mobile-menu-btn"

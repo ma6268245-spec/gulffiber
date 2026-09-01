@@ -67,6 +67,9 @@ export function SearchModal({ isOpen, onClose }: { isOpen: boolean; onClose: () 
 
   return (
     <div
+      role="dialog"
+      aria-modal="true"
+      aria-label="Search site and technical specifications"
       style={{
         position: 'fixed',
         inset: 0,
@@ -160,7 +163,7 @@ export function SearchModal({ isOpen, onClose }: { isOpen: boolean; onClose: () 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.35rem' }}>
               {filtered.map((item, i) => (
                 <Link
-                  key={i}
+                  key={`${item.category}-${item.title}-${i}`}
                   href={item.href}
                   onClick={onClose}
                   className="search-item-row"

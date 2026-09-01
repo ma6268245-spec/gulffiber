@@ -109,6 +109,7 @@ export function ProcessSection() {
             </div>
             {/* Play/Pause toggle button */}
             <button
+              type="button"
               onClick={togglePlay}
               aria-label={isPlaying ? 'Pause video' : 'Play video'}
               style={{

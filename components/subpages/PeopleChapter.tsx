@@ -249,6 +249,7 @@ function PersonContactActions({ contact, name, role }: { contact: string; name?:
         type="button"
         onClick={handleCopy}
         className="sp-person-btn sp-person-btn--copy"
+        aria-label="Copy phone number to clipboard"
         title="Copy phone number to clipboard"
         style={{
           display: 'inline-flex',
