@@ -441,7 +441,7 @@ export default function ContactPage() {
                 </div>
 
                 {/* Steps Box / What Happens Next */}
-                <div className="sp-panel" style={{ borderRadius: '16px' }}>
+                <div className="sp-panel sp-contact-steps-box" style={{ borderRadius: '16px' }}>
                   <p className="sp-cat">What happens next</p>
                   <SpecRows
                     rows={[

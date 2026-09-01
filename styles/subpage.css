@@ -427,6 +427,37 @@
   padding-block: 0.9rem;
 }
 
+@media (min-width: 1025px) {
+  .sp-root .sp-contact-steps-box {
+    padding: clamp(2rem, 3.5vw, 2.75rem) !important;
+    display: flex !important;
+    flex-direction: column !important;
+    min-height: 440px !important;
+  }
+
+  .sp-root .sp-contact-steps-box .sp-rows {
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
+    flex: 1 !important;
+    margin-top: 1.25rem !important;
+  }
+
+  .sp-root .sp-contact-steps-box .sp-row {
+    padding-block: clamp(1.35rem, 2.2vh, 1.85rem) !important;
+    align-items: flex-start !important;
+  }
+
+  .sp-root .sp-contact-steps-box .sp-row-key {
+    font-size: 0.9375rem !important;
+  }
+
+  .sp-root .sp-contact-steps-box .sp-row-val {
+    font-size: 1rem !important;
+    line-height: 1.65 !important;
+  }
+}
+
 .sp-root .sp-row-key {
   font-family: var(--font-sans);
   font-size: 0.875rem;

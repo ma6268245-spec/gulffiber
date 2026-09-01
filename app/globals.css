@@ -661,6 +661,13 @@ body {
   transform: scale(0.97);
 }
 
+/* ── Dark Mode Brand Logo High-Contrast Legibility ── */
+[data-theme='dark'] .nav-brand-logo img,
+[data-theme='dark'] .mobile-drawer .drawer-header img,
+.footer-brand-logo-img {
+  filter: brightness(0) invert(1) !important;
+}
+
 /* ── Glass Navbar Responsive System ── */
 .mobile-menu-btn {
   display: none;
