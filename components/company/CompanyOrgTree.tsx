@@ -186,7 +186,6 @@ export function CompanyOrgTree() {
                   className="org-investor-side-slot"
                   style={{
                     position: 'absolute',
-                    left: 'clamp(0.5rem, 4vw, 3.5rem)',
                     top: '50%',
                     transform: 'translateY(-50%)',
                     display: 'flex',
@@ -793,6 +792,21 @@ export function CompanyOrgTree() {
           margin: 0 0 0.25rem;
         }
 
+        /* Desktop: Co-founder placed closer to Founder (~50px gap) */
+        @media (min-width: 1025px) {
+          .org-investor-side-slot {
+            left: calc(50% - 215px) !important;
+          }
+        }
+
+        /* Tablet: Keep good wide spacing as requested */
+        @media (min-width: 769px) and (max-width: 1024px) {
+          .org-investor-side-slot {
+            left: clamp(1.25rem, 4vw, 3.5rem) !important;
+          }
+        }
+
+        /* Phone: Perfect centered alignment for Founder and clean left docking for Co-founder */
         @media (max-width: 768px) {
           .org-top-executive-container {
             position: relative !important;
@@ -800,14 +814,15 @@ export function CompanyOrgTree() {
             display: flex !important;
             justify-content: center !important;
             align-items: center !important;
-            min-height: 90px !important;
+            min-height: 95px !important;
           }
           .org-investor-side-slot {
             position: absolute !important;
             left: 0.15rem !important;
             top: 50% !important;
             transform: translateY(-50%) !important;
-            max-width: 33% !important;
+            width: 105px !important;
+            max-width: 32% !important;
           }
           .org-founder-center {
             display: flex !important;
@@ -815,7 +830,8 @@ export function CompanyOrgTree() {
             align-items: center !important;
             justify-content: center !important;
             margin: 0 auto !important;
-            max-width: 38% !important;
+            width: 120px !important;
+            max-width: 36% !important;
           }
           .org-tree-scroll-viewport {
             padding: 0 !important;
@@ -852,13 +868,13 @@ export function CompanyOrgTree() {
             max-width: 100% !important;
           }
           .org-node-name {
-            font-size: clamp(0.56rem, 2.2vw, 0.6875rem) !important;
-            line-height: 1.1 !important;
+            font-size: clamp(0.55rem, 2.1vw, 0.65rem) !important;
+            line-height: 1.15 !important;
             margin: 0 0 0.1rem !important;
             word-break: break-word;
           }
           .org-node-role {
-            font-size: clamp(0.48rem, 1.8vw, 0.58rem) !important;
+            font-size: clamp(0.46rem, 1.7vw, 0.54rem) !important;
             line-height: 1.1 !important;
             margin: 0 !important;
             word-break: break-word;
