@@ -118,7 +118,7 @@ export function ServicesSection() {
                 lineHeight: 0.92,
                 letterSpacing: '-0.02em',
                 textTransform: 'uppercase',
-                color: 'var(--white)',
+                color: '#FFFFFF',
               }}
             >
               WHAT WE<br />
@@ -129,7 +129,7 @@ export function ServicesSection() {
                   fontWeight: 600,
                   fontSize: '1em',
                   textTransform: 'none',
-                  color: 'var(--burg-primary)',
+                  color: 'var(--burg-bright, #38B6FF)',
                 }}
               >
                 Manufacture
@@ -147,7 +147,7 @@ export function ServicesSection() {
               fontWeight: 700,
               letterSpacing: '0.1em',
               textTransform: 'uppercase',
-              color: 'rgba(255,255,255,0.5)',
+              color: 'rgba(255,255,255,0.75)',
               textDecoration: 'none',
               transition: 'color 0.2s',
             }}
@@ -189,7 +189,7 @@ export function ServicesSection() {
                   fontSize: '0.75rem',
                   fontWeight: 700,
                   letterSpacing: '0.1em',
-                  color: activeRow === i ? 'var(--burg-primary)' : 'rgba(255,255,255,0.25)',
+                  color: activeRow === i ? 'var(--burg-bright, #38B6FF)' : 'rgba(255,255,255,0.45)',
                   transition: 'color 0.3s',
                 }}
               >
@@ -206,7 +206,7 @@ export function ServicesSection() {
                     fontWeight: 900,
                     letterSpacing: '-0.01em',
                     textTransform: 'uppercase',
-                    color: activeRow === i ? 'var(--white)' : 'rgba(255,255,255,0.85)',
+                    color: '#FFFFFF',
                     transition: 'color 0.3s',
                     margin: 0,
                   }}
@@ -262,8 +262,9 @@ export function ServicesSection() {
                     fontWeight: 800,
                     letterSpacing: '0.08em',
                     textTransform: 'uppercase',
-                    background: activeRow === i ? 'var(--burg-primary)' : 'rgba(255,255,255,0.08)',
-                    color: 'var(--white)',
+                    background: activeRow === i ? 'var(--burg-primary, #0066FF)' : 'rgba(255,255,255,0.12)',
+                    border: activeRow === i ? '1px solid var(--burg-bright, #38B6FF)' : '1px solid rgba(255,255,255,0.22)',
+                    color: '#FFFFFF',
                     padding: '0.35rem 0.75rem',
                     borderRadius: '4px',
                     whiteSpace: 'nowrap',
