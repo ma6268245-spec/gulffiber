@@ -92,10 +92,11 @@ const ARROW = (
 const CHAT_ICON = (
   <div style={{ position: 'absolute', inset: 0, borderRadius: '50%', overflow: 'hidden' }}>
     <Image 
-      src="/images/ai-chat-logo.png" 
-      alt="AI Chat Icon" 
+      src="/images/ai-chat-emblem.png" 
+      alt="Gulf Fibre AI Specialist" 
       fill 
       sizes="60px"
+      priority
       style={{ objectFit: 'cover' }} 
     />
   </div>
@@ -404,11 +405,11 @@ export function ChatAssistant() {
           <header className="gf-chat__head">
             <div className="gf-chat__avatar">
               <Image
-                src="/images/ai-chat-logo.png"
+                src="/images/ai-chat-emblem.png"
                 alt="AI Chat Assistant"
                 fill
                 sizes="44px"
-                style={{ objectFit: 'contain' }}
+                style={{ objectFit: 'cover' }}
               />
               <span className="gf-chat__avatar-dot" aria-hidden="true" />
             </div>
