@@ -2880,3 +2880,35 @@
   color: #25D366 !important;
   border-color: rgba(37, 211, 102, 0.4) !important;
 }
+
+/* ── Custom Phone Country Dropdown System ───────────────────────────────── */
+@keyframes dropdownFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.sp-phone-country-trigger:hover {
+  border-color: var(--burg-primary) !important;
+}
+
+.sp-phone-dropdown-item:hover {
+  background: rgba(10, 75, 184, 0.08) !important;
+  color: var(--burg-primary) !important;
+}
+
+[data-theme='dark'] .sp-phone-dropdown-item:hover {
+  background: rgba(29, 120, 255, 0.18) !important;
+  color: var(--burg-bright) !important;
+}
+
+[data-theme='dark'] .sp-phone-dropdown-menu {
+  background: var(--card-bg) !important;
+  border-color: var(--border-light) !important;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.65) !important;
+}

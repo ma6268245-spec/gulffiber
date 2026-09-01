@@ -1,6 +1,6 @@
 'use client'
 
-import { useRef, useState, useId } from 'react'
+import { useRef, useState, useEffect, useId } from 'react'
 import { PageShell } from '@/components/subpages/PageShell'
 import { SectionHead, SectionLabel, SpecRows } from '@/components/subpages/Primitives'
 import { PersonCard } from '@/components/subpages/PeopleChapter'
@@ -71,6 +71,234 @@ const PHONE_COUNTRIES: PhoneCountry[] = [
   { name: 'Other Countries', code: 'OTHER', dialCode: '+', flag: '🌐', digits: 15, formatHint: 'International number' },
 ]
 
+function PhoneCountrySelect({
+  selected,
+  onSelect,
+}: {
+  selected: PhoneCountry
+  onSelect: (country: PhoneCountry) => void
+}) {
+  const [isOpen, setIsOpen] = useState(false)
+  const [query, setQuery] = useState('')
+  const dropdownRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsOpen(false)
+      }
+    }
+    if (isOpen) {
+      document.addEventListener('mousedown', handleClickOutside)
+    }
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside)
+    }
+  }, [isOpen])
+
+  const filtered = PHONE_COUNTRIES.filter(
+    (c) =>
+      c.name.toLowerCase().includes(query.toLowerCase()) ||
+      c.code.toLowerCase().includes(query.toLowerCase()) ||
+      c.dialCode.includes(query)
+  )
+
+  return (
+    <div ref={dropdownRef} style={{ position: 'relative' }}>
+      <button
+        type="button"
+        onClick={() => setIsOpen(!isOpen)}
+        className="sp-phone-country-trigger"
+        aria-haspopup="listbox"
+        aria-expanded={isOpen}
+        style={{
+          width: '100%',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          gap: '0.45rem',
+          padding: '0.62rem 0.85rem',
+          cursor: 'pointer',
+          textAlign: 'left',
+          fontSize: '0.8125rem',
+          fontWeight: 700,
+          background: 'var(--card-bg)',
+          borderRadius: '12px',
+          border: isOpen ? '1.5px solid var(--burg-primary)' : '1px solid var(--border-light)',
+          boxShadow: isOpen ? '0 0 0 3px rgba(10, 75, 184, 0.12)' : 'none',
+          transition: 'all 0.2s ease',
+          height: '100%',
+        }}
+      >
+        <span style={{ display: 'flex', alignItems: 'center', gap: '0.45rem', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+          <span
+            style={{
+              background: 'rgba(10, 75, 184, 0.08)',
+              color: 'var(--burg-primary)',
+              padding: '0.15rem 0.4rem',
+              borderRadius: '4px',
+              fontSize: '0.71875rem',
+              fontWeight: 900,
+              letterSpacing: '0.04em',
+            }}
+          >
+            {selected.code}
+          </span>
+          <span style={{ color: 'var(--burg-primary)', fontSize: '0.8125rem', fontWeight: 800 }}>{selected.dialCode}</span>
+        </span>
+        <svg
+          width="12"
+          height="12"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          style={{
+            transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)',
+            transition: 'transform 0.2s ease',
+            color: 'var(--muted)',
+            flexShrink: 0,
+          }}
+        >
+          <path d="M6 9l6 6 6-6" />
+        </svg>
+      </button>
+
+      {isOpen && (
+        <div
+          className="sp-phone-dropdown-menu"
+          data-lenis-prevent="true"
+          onWheel={(e) => e.stopPropagation()}
+          onTouchMove={(e) => e.stopPropagation()}
+          style={{
+            position: 'absolute',
+            top: 'calc(100% + 6px)',
+            left: 0,
+            width: 'clamp(280px, 80vw, 340px)',
+            maxHeight: '300px',
+            background: 'var(--card-bg)',
+            border: '1px solid var(--border-light)',
+            borderRadius: '16px',
+            boxShadow: '0 16px 48px rgba(7, 20, 46, 0.2), 0 2px 8px rgba(7, 20, 46, 0.08)',
+            backdropFilter: 'blur(24px)',
+            WebkitBackdropFilter: 'blur(24px)',
+            zIndex: 9999,
+            overflow: 'hidden',
+            display: 'flex',
+            flexDirection: 'column',
+            animation: 'dropdownFadeIn 0.2s cubic-bezier(0.16, 1, 0.3, 1)',
+          }}
+        >
+          {/* Search Input */}
+          <div style={{ padding: '0.65rem', borderBottom: '1px solid var(--border-light)', background: 'rgba(10, 75, 184, 0.03)' }}>
+            <input
+              type="text"
+              placeholder="Search country or code..."
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              autoFocus
+              className="sp-input"
+              style={{
+                padding: '0.45rem 0.75rem',
+                fontSize: '0.8125rem',
+                borderRadius: '8px',
+                width: '100%',
+              }}
+            />
+          </div>
+
+          {/* Country Items List */}
+          <div
+            data-lenis-prevent="true"
+            onWheel={(e) => e.stopPropagation()}
+            onTouchMove={(e) => e.stopPropagation()}
+            style={{
+              overflowY: 'auto',
+              overscrollBehavior: 'contain',
+              flex: 1,
+              padding: '0.35rem',
+              maxHeight: '230px',
+            }}
+          >
+            {filtered.length === 0 ? (
+              <div style={{ padding: '1rem', textAlign: 'center', fontSize: '0.8125rem', color: 'var(--muted)' }}>
+                No country found
+              </div>
+            ) : (
+              filtered.map((country) => {
+                const isSelected = country.code === selected.code
+                return (
+                  <button
+                    key={country.code}
+                    type="button"
+                    onClick={() => {
+                      onSelect(country)
+                      setIsOpen(false)
+                      setQuery('')
+                    }}
+                    className="sp-phone-dropdown-item"
+                    style={{
+                      width: '100%',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'space-between',
+                      gap: '0.65rem',
+                      padding: '0.55rem 0.75rem',
+                      borderRadius: '10px',
+                      border: 'none',
+                      background: isSelected ? 'rgba(10, 75, 184, 0.08)' : 'transparent',
+                      color: isSelected ? 'var(--burg-primary)' : 'var(--ink)',
+                      fontSize: '0.8125rem',
+                      fontWeight: isSelected ? 800 : 600,
+                      cursor: 'pointer',
+                      textAlign: 'left',
+                      transition: 'background 0.15s ease',
+                    }}
+                  >
+                    <span style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
+                      <span
+                        style={{
+                          background: isSelected ? 'var(--burg-primary)' : 'rgba(10, 75, 184, 0.08)',
+                          color: isSelected ? '#FFFFFF' : 'var(--burg-primary)',
+                          padding: '0.15rem 0.4rem',
+                          borderRadius: '4px',
+                          fontSize: '0.6875rem',
+                          fontWeight: 900,
+                          minWidth: '2.1rem',
+                          textAlign: 'center',
+                          letterSpacing: '0.03em',
+                        }}
+                      >
+                        {country.code}
+                      </span>
+                      <span style={{ color: 'var(--ink)', fontWeight: isSelected ? 800 : 600 }}>{country.name}</span>
+                    </span>
+                    <span
+                      style={{
+                        fontSize: '0.75rem',
+                        fontWeight: 800,
+                        color: isSelected ? '#FFFFFF' : 'var(--burg-primary)',
+                        background: isSelected ? 'var(--burg-primary)' : 'rgba(10, 75, 184, 0.08)',
+                        padding: '0.2rem 0.45rem',
+                        borderRadius: '6px',
+                        letterSpacing: '0.02em',
+                      }}
+                    >
+                      {country.dialCode}
+                    </span>
+                  </button>
+                )
+              })
+            )}
+          </div>
+        </div>
+      )}
+    </div>
+  )
+}
+
 export default function ContactPage() {
   const scope = useRef<HTMLDivElement>(null)
   useSectionReveal(scope)
@@ -89,8 +317,7 @@ export default function ContactPage() {
     setErrors((prev) => ({ ...prev, [k]: undefined }))
   }
 
-  const handlePhoneCountryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const selected = PHONE_COUNTRIES.find((c) => c.code === e.target.value) ?? PHONE_COUNTRIES[0]
+  const handlePhoneCountrySelect = (selected: PhoneCountry) => {
     setPhoneCountry(selected)
     
     // Truncate raw number if it exceeds new country's limit
@@ -285,26 +512,7 @@ export default function ContactPage() {
                           alignItems: 'stretch',
                         }}
                       >
-                        <select
-                          id="f-phone-country"
-                          aria-label="Select phone country code"
-                          className="sp-select"
-                          value={phoneCountry.code}
-                          onChange={handlePhoneCountryChange}
-                          style={{
-                            paddingLeft: '0.65rem',
-                            paddingRight: '1.75rem',
-                            fontSize: '0.8125rem',
-                            fontWeight: 700,
-                            cursor: 'pointer',
-                          }}
-                        >
-                          {PHONE_COUNTRIES.map((c) => (
-                            <option key={c.code} value={c.code}>
-                              {c.flag} {c.code} ({c.dialCode})
-                            </option>
-                          ))}
-                        </select>
+                        <PhoneCountrySelect selected={phoneCountry} onSelect={handlePhoneCountrySelect} />
 
                         <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
                           <span
