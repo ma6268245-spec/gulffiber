@@ -400,6 +400,117 @@ export const GALLERY_ITEMS: GalleryItem[] = [
     status: 'VERIFIED',
   },
 
+  {
+    id: 'g-factory-headquarters',
+    title: 'Plant Headquarters & Executive Portico',
+    category: 'factory',
+    image: '/images/Gallery/33.jpeg',
+    alt: 'Gulf Fibre executive administration building and main campus entrance',
+    description:
+      'Front view of the plant administration headquarters and management offices on the Faisalabad industrial campus.',
+    tags: ['headquarters', 'administration', 'portico', 'executive'],
+    relatedPage: '/company',
+    status: 'VERIFIED',
+  },
+  {
+    id: 'g-factory-extrusion-tower-facility',
+    title: 'Vertical Melt Spinning & Extrusion Facility',
+    category: 'factory',
+    image: '/images/Gallery/34.jpeg',
+    alt: 'Multi-story melt spinning tower and feedstock handling facility',
+    description:
+      'Multi-level vertical melt extrusion plant housing spinning manifolds, pressure polymer pumps, and quench chambers.',
+    tags: ['tower', 'melt-spinning', 'extrusion', 'plant'],
+    relatedPage: '/company',
+    status: 'VERIFIED',
+  },
+  {
+    id: 'g-factory-campus-warehouse',
+    title: 'Plant Logistics Yard & Raw Material Staging',
+    category: 'factory',
+    image: '/images/Gallery/35.jpeg',
+    alt: 'Wide plant campus grounds, material staging yard, and primary production warehouse',
+    description:
+      'Expansive factory grounds showcasing heavy material staging yards, feedstock logistics, and primary production halls.',
+    tags: ['campus', 'staging', 'feedstock', 'warehouse'],
+    relatedPage: '/company',
+    status: 'VERIFIED',
+  },
+
+  /* ── Manufacturing & Machinery ────────────────────────────────────────── */
+  {
+    id: 'g-mfg-slitter-winder-machine',
+    title: 'Automated Roll Winding & Slitting Machine',
+    category: 'manufacturing',
+    image: '/images/Gallery/25.jpeg',
+    alt: 'Industrial automatic roll slitter and precision winder for non-woven fabrics',
+    description:
+      'High-capacity continuous roll winding and slitting machine processing technical non-woven felts and thermal wadding.',
+    tags: ['winder', 'slitter', 'nonwoven', 'rolls'],
+    relatedPage: '/services',
+    status: 'VERIFIED',
+  },
+  {
+    id: 'g-mfg-thermal-calender-bed',
+    title: 'In-Line Thermal Calendering & Tension Bed',
+    category: 'manufacturing',
+    image: '/images/Gallery/26.jpeg',
+    alt: 'High-precision heated calendering rolls and web tension controller',
+    description:
+      'Multi-roller thermal calender bed fusing fiber webs into uniform non-woven substrates under precise temperature and pressure.',
+    tags: ['calendering', 'thermal', 'web-tension', 'bonding'],
+    relatedPage: '/services',
+    status: 'VERIFIED',
+  },
+  {
+    id: 'g-mfg-geotextile-winding-line',
+    title: 'Heavy Geotextile & Non-Woven Winding Line SQ-750',
+    category: 'manufacturing',
+    image: '/images/Gallery/27.jpeg',
+    alt: 'SQ-750 heavy geotextile and needle-punched felt winding unit',
+    description:
+      'Automated SQ-750 roll cutting and heavy winding station handling wide-width geotextiles and dense industrial felts.',
+    tags: ['geotextiles', 'sq750', 'winding', 'felt'],
+    relatedPage: '/services',
+    status: 'VERIFIED',
+  },
+  {
+    id: 'g-mfg-carding-hall-overview',
+    title: 'Main Non-Woven Carding Hall & Blending Line',
+    category: 'manufacturing',
+    image: '/images/Gallery/28.jpeg',
+    alt: 'Panorama of non-woven fiber carding machines and blending line',
+    description:
+      'High-throughput carding production hall housing automated bale openers, fine openers, and high-speed carding engines.',
+    tags: ['carding', 'hall', 'blending', 'openers'],
+    relatedPage: '/company',
+    status: 'VERIFIED',
+  },
+  {
+    id: 'g-mfg-carding-cylinder-hopper',
+    title: 'High-Production Carding Cylinder & Hopper Feeder',
+    category: 'manufacturing',
+    image: '/images/Gallery/29.jpeg',
+    alt: 'Large worker-stripper carding cylinder and automated hopper feeder',
+    description:
+      'Precision carding unit aligning staple fibers into homogeneous parallel webs prior to cross-lapping and thermal bonding.',
+    tags: ['carding-cylinder', 'hopper', 'alignment', 'webs'],
+    relatedPage: '/services',
+    status: 'VERIFIED',
+  },
+  {
+    id: 'g-mfg-cross-lapper-feeder',
+    title: 'Pneumatic Cross-Lapper Web Feeder',
+    category: 'manufacturing',
+    image: '/images/Gallery/30.jpeg',
+    alt: 'High-speed pneumatic cross-lapper feeding web into needle loom',
+    description:
+      'Pneumatically controlled cross-lapping mechanism building multi-layer fibrous batts with precise weight and density control.',
+    tags: ['cross-lapper', 'feeder', 'batt', 'density'],
+    relatedPage: '/services',
+    status: 'VERIFIED',
+  },
+
   /* ── Sustainability ──────────────────────────────────────────────────── */
   {
     id: 'g-sus-solar-array',
@@ -410,6 +521,30 @@ export const GALLERY_ITEMS: GalleryItem[] = [
     description:
       'Industrial photovoltaic solar installation powering manufacturing lines with clean, renewable energy to minimize the plant carbon footprint.',
     tags: ['solar', 'photovoltaic', 'clean-energy', 'green-plant'],
+    relatedPage: '/sustainability',
+    status: 'VERIFIED',
+  },
+  {
+    id: 'g-sus-pet-steam-washing-line',
+    title: 'Continuous PET Flake Steam Decontamination & Hot Washing',
+    category: 'sustainability',
+    image: '/images/Gallery/31.jpeg',
+    alt: 'Industrial hot washing and steam decontamination line for post-consumer PET flakes',
+    description:
+      'Continuous multi-stage hot washing and chemical floatation tanks removing contaminants and preparing clean PET flakes for spinning.',
+    tags: ['pet-washing', 'hot-wash', 'steam', 'recycling', 'grs'],
+    relatedPage: '/sustainability',
+    status: 'VERIFIED',
+  },
+  {
+    id: 'g-sus-recycling-hall-overview',
+    title: 'Bottle Recycling & Polymer Washing Facility',
+    category: 'sustainability',
+    image: '/images/Gallery/32.jpeg',
+    alt: 'Full overview of GRS-certified post-consumer PET recycling and flake washing hall',
+    description:
+      'Complete operational view of the in-house GRS recycling plant converting millions of post-consumer plastic bottles into high-purity flakes.',
+    tags: ['recycling-plant', 'grs-certified', 'sustainability', 'bottles'],
     relatedPage: '/sustainability',
     status: 'VERIFIED',
   },
