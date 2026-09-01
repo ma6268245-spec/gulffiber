@@ -200,7 +200,7 @@ export default function CompanyPage() {
         </section>
 
         {/* ── 03 · OUR PRODUCT PORTFOLIO ────────────────────────────────── */}
-        <section className="section-pad" data-sp-section style={{ background: 'var(--bg-subtle, #F8FAFC)' }}>
+        <section className="section-pad" data-sp-section style={{ background: 'var(--bg-subtle)' }}>
           <div className="container">
             <div className="sp-anim">
               <SectionHead
@@ -248,8 +248,8 @@ export default function CompanyPage() {
                     Polyester staple fibre (PSF) and conjugate hollow fibres engineered for high-speed yarn spinning, textile blending, and premium cushioning resilience.
                   </p>
                   <ul style={{ listStyle: 'none', padding: 0, margin: '0 0 1.5rem', display: 'flex', flexDirection: 'column', gap: '0.45rem', fontSize: '0.8125rem', color: 'var(--ink)' }}>
-                    <li>✔ <strong>1.5D to 15D</strong> Solid & Hollow conjugate deniers</li>
-                    <li>✔ <strong>32mm to 64mm</strong> Cut length options</li>
+                    <li>✔ <strong>1.2D to 60D</strong> Solid & Hollow conjugate deniers</li>
+                    <li>✔ <strong>32mm to 102mm</strong> Cut length options</li>
                     <li>✔ Siliconized, Non-Siliconized & Dope Dyed</li>
                   </ul>
                 </div>
@@ -369,7 +369,7 @@ export default function CompanyPage() {
         </section>
 
         {/* ── 06 · COMPANY ORGANIZATION ─────────────────────────────────── */}
-        <section className="section-pad" data-sp-section style={{ background: 'var(--bg-subtle, #F8FAFC)' }}>
+        <section className="section-pad" data-sp-section style={{ background: 'var(--bg-subtle)' }}>
           <div className="container">
             <div className="sp-anim">
               <SectionHead
@@ -406,7 +406,7 @@ export default function CompanyPage() {
         </section>
 
         {/* ── 08 · INSIDE THE PLANT ─────────────────────────────────────── */}
-        <section className="section-pad" data-sp-section style={{ background: 'var(--bg-subtle, #F8FAFC)' }}>
+        <section className="section-pad" data-sp-section style={{ background: 'var(--bg-subtle)' }}>
           <div className="container">
             <div className="sp-anim">
               <SectionHead

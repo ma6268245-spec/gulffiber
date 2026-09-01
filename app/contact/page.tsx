@@ -631,19 +631,19 @@ export default function ContactPage() {
                 {/* Response Commitment Card */}
                 <div
                   style={{
-                    background: 'var(--bg-subtle, #F8FAFC)',
-                    border: '1px solid rgba(10, 75, 184, 0.15)',
+                    background: 'var(--card-bg, #FFFFFF)',
+                    border: '1px solid var(--border-light, rgba(10, 75, 184, 0.15))',
                     borderRadius: '16px',
                     padding: '1.25rem 1.4rem',
                   }}
                 >
                   <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.4rem' }}>
                     <span style={{ fontSize: '0.9rem' }}>⚡</span>
-                    <h4 style={{ margin: 0, fontSize: '0.875rem', fontWeight: 800, color: 'var(--burg-primary, #0A4BB8)', letterSpacing: '0.04em', textTransform: 'uppercase' }}>
+                    <h4 style={{ margin: 0, fontSize: '0.875rem', fontWeight: 800, color: 'var(--burg-bright, #0A4BB8)', letterSpacing: '0.04em', textTransform: 'uppercase' }}>
                       24-Hour Feasibility Review
                     </h4>
                   </div>
-                  <p style={{ margin: 0, fontSize: '0.75rem', color: '#475569', lineHeight: 1.5 }}>
+                  <p style={{ margin: 0, fontSize: '0.75rem', color: 'var(--muted, #475569)', lineHeight: 1.5 }}>
                     Every technical inquiry, denier requirement, and sample request is evaluated directly by our production engineering desk within 24 business hours.
                   </p>
                 </div>
@@ -670,7 +670,7 @@ export default function ContactPage() {
           className="section-pad"
           data-sp-section
           style={{
-            background: 'var(--bg-subtle, #F8FAFC)',
+            background: 'var(--bg-subtle)',
             borderTop: '1px solid var(--border-light)',
           }}
         >

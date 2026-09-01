@@ -17,6 +17,7 @@
   /* ── Light Mode Color Tokens (Default) ── */
   --ivory: #F6F8FC;
   --ivory-deep: #EAF0F8;
+  --bg-subtle: #F6F8FC;
   --burg-primary: #0A4BB8;
   --burg-bright: #0070F3;
   --burg-dark: #071738;
@@ -27,6 +28,7 @@
   --border-dark: rgba(255, 255, 255, 0.16);
   --white: #FFFFFF;
   --card-bg: #FFFFFF;
+  --card-bg-subtle: #FFFFFF;
   --glass-nav-bg: rgba(255, 255, 255, 0.82);
   --glass-nav-border: rgba(255, 255, 255, 0.85);
   --glass-card-bg: rgba(255, 255, 255, 0.85);
@@ -55,6 +57,7 @@
 [data-theme="dark"] {
   --ivory: #060D1A;
   --ivory-deep: #0B162C;
+  --bg-subtle: #060D1A;
   --burg-primary: #1D78FF;
   --burg-bright: #38B6FF;
   --burg-dark: #0B172E;
@@ -65,6 +68,7 @@
   --border-dark: rgba(255, 255, 255, 0.15);
   --white: #0B172E;
   --card-bg: #0D1C38;
+  --card-bg-subtle: #0B172E;
   --glass-nav-bg: rgba(6, 13, 26, 0.85);
   --glass-nav-border: rgba(255, 255, 255, 0.15);
   --glass-card-bg: rgba(11, 23, 46, 0.85);

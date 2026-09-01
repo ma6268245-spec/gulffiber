@@ -295,7 +295,7 @@ export const PRODUCT_LINES: ProductLine[] = [
       { label: 'Cross-section profile', value: 'Conjugate hollow (helical 3D crimp)' },
       { label: 'Surface finish', value: 'Siliconized (slick hand-feel) / Non-siliconized' },
       { label: 'Denier range', value: '3D – 15D (filling & batting counts)' },
-      { label: 'Cut length', value: '32 mm – 64 mm (grade-dependent)' },
+      { label: 'Cut length', value: '32 mm – 102 mm (grade-dependent)' },
       { label: 'Substance safety', value: 'OEKO-TEX Standard 100 (Class I safe)' },
     ],
     specSlot:

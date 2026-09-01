@@ -440,32 +440,32 @@ export function CertificationGallery() {
                     pointerEvents: isHovered ? 'auto' : 'none',
                     zIndex: 120,
                     width: '230px',
-                    background: 'rgba(255, 255, 255, 0.98)',
+                    background: 'var(--card-bg, #FFFFFF)',
                     backdropFilter: 'blur(12px)',
                     borderRadius: '10px',
-                    padding: '0.6rem 0.75rem',
-                    boxShadow: '0 20px 40px rgba(0, 0, 0, 0.3), 0 2px 6px rgba(0,0,0,0.08)',
-                    border: '1px solid rgba(10, 75, 184, 0.25)',
+                    padding: '0.65rem 0.8rem',
+                    boxShadow: '0 20px 40px rgba(0, 0, 0, 0.35), 0 2px 6px rgba(0,0,0,0.12)',
+                    border: '1px solid var(--border-light, rgba(10, 75, 184, 0.25))',
                     transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
                   }}
                 >
                   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.25rem' }}>
-                    <span style={{ fontSize: '0.65rem', fontWeight: 800, color: 'var(--burg-primary, #0A4BB8)', letterSpacing: '0.06em', textTransform: 'uppercase' }}>
+                    <span style={{ fontSize: '0.65rem', fontWeight: 800, color: 'var(--burg-bright, #0A4BB8)', letterSpacing: '0.06em', textTransform: 'uppercase' }}>
                       {c.code}
                     </span>
                     <Provenance status="VERIFIED" />
                   </div>
 
-                  <div style={{ fontSize: '0.72rem', fontWeight: 800, color: '#0F172A', marginBottom: '0.2rem', lineHeight: 1.3 }}>
+                  <div style={{ fontSize: '0.72rem', fontWeight: 800, color: 'var(--ink, #0F172A)', marginBottom: '0.2rem', lineHeight: 1.3 }}>
                     {c.issuer}
                   </div>
 
-                  <div style={{ fontSize: '0.58rem', color: '#475569', lineHeight: 1.45, marginBottom: '0.35rem' }}>
+                  <div style={{ fontSize: '0.58rem', color: 'var(--muted, #475569)', lineHeight: 1.45, marginBottom: '0.35rem' }}>
                     {c.shortScope}
                   </div>
 
                   {c.certNumber && (
-                    <div style={{ fontSize: '0.52rem', fontWeight: 700, color: '#1E293B', background: '#F1F5F9', padding: '0.2rem 0.4rem', borderRadius: '4px', border: '1px solid #E2E8F0' }}>
+                    <div style={{ fontSize: '0.52rem', fontWeight: 700, color: 'var(--ink, #1E293B)', background: 'var(--ivory, #F1F5F9)', padding: '0.2rem 0.4rem', borderRadius: '4px', border: '1px solid var(--border-light, #E2E8F0)' }}>
                       Ref: {c.certNumber}
                     </div>
                   )}

@@ -205,7 +205,7 @@ export default function QualityPage() {
                     justifyContent: 'center',
                     flex: '1 1 auto',
                     minHeight: '15rem',
-                    background: 'var(--bg-subtle, #F8FAFC)',
+                    background: 'var(--card-bg, #FFFFFF)',
                     border: '1px solid var(--border-light, #E2E8F0)',
                     borderRadius: '16px',
                     padding: '1.75rem',
@@ -223,8 +223,8 @@ export default function QualityPage() {
 
                 <div
                   style={{
-                    background: 'var(--bg-subtle, #F8FAFC)',
-                    border: '1px solid rgba(10, 75, 184, 0.15)',
+                    background: 'var(--card-bg, #FFFFFF)',
+                    border: '1px solid var(--border-light, rgba(10, 75, 184, 0.15))',
                     borderRadius: '16px',
                     padding: '1.15rem 1.35rem',
                   }}
