@@ -21,15 +21,7 @@ export function FabricMarquee() {
         position: 'relative',
       }}
     >
-      <div
-        style={{
-          display: 'flex',
-          gap: '3.5rem',
-          animation: 'marquee 20s linear infinite',
-          whiteSpace: 'nowrap',
-          willChange: 'transform',
-        }}
-      >
+      <div className="sp-marquee-track">
         {doubled.map((item, i) => (
           <div
             key={i}
@@ -59,11 +51,28 @@ export function FabricMarquee() {
 
       <style>{`
         @keyframes marquee {
-          0%   { transform: translateX(0); }
-          100% { transform: translateX(-50%); }
+          0%   { transform: translate3d(0, 0, 0); }
+          100% { transform: translate3d(-50%, 0, 0); }
+        }
+        .sp-marquee-track {
+          display: flex !important;
+          gap: 3.5rem !important;
+          animation: marquee 20s linear infinite !important;
+          white-space: nowrap !important;
+          will-change: transform !important;
+        }
+        @media (max-width: 1024px) {
+          .sp-marquee-track {
+            animation-duration: 12s !important;
+          }
+        }
+        @media (max-width: 640px) {
+          .sp-marquee-track {
+            animation-duration: 8s !important;
+          }
         }
         @media (prefers-reduced-motion: reduce) {
-          div[style*="marquee"] { animation: none; }
+          .sp-marquee-track { animation: none !important; }
         }
       `}</style>
     </div>

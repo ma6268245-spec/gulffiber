@@ -312,7 +312,14 @@ export function PageHero({
           <dl className="sp-stats" style={{ marginTop: 'clamp(1.15rem, 2.2vh, 1.65rem)', marginBottom: 0 }}>
             {meta.map((m) => (
               <div key={m.label} className="sp-stat sph-meta-item">
-                <dd className="sp-stat-num" style={{ margin: 0 }}>
+                <dd
+                  className="sp-stat-num"
+                  style={{
+                    margin: 0,
+                    wordBreak: 'normal',
+                    overflowWrap: 'break-word',
+                  }}
+                >
                   {m.value}
                 </dd>
                 <dt className="sp-stat-label">{m.label}</dt>
@@ -499,6 +506,21 @@ export function PageHero({
             animation: marquee 20s linear infinite !important;
             white-space: nowrap !important;
             will-change: transform !important;
+          }
+          @media (max-width: 1024px) {
+            .sp-marquee-track {
+              animation-duration: 12s !important;
+            }
+          }
+          @media (max-width: 640px) {
+            .sp-marquee-track {
+              animation-duration: 8s !important;
+            }
+          }
+          @media (prefers-reduced-motion: reduce) {
+            .sp-marquee-track {
+              animation: none !important;
+            }
           }
         `}</style>
       </div>

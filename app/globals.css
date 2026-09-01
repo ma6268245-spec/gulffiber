@@ -720,6 +720,18 @@ body {
   will-change: transform !important;
 }
 
+@media (max-width: 1024px) {
+  .sp-marquee-track {
+    animation-duration: 12s !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .sp-marquee-track {
+    animation-duration: 8s !important;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .sp-marquee-track {
     animation: none !important;
