@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, useCallback } from 'react'
 import { SERVICE_JOURNEY } from '@/lib/data/company'
 
 /* ===========================================================================
@@ -8,7 +8,8 @@ import { SERVICE_JOURNEY } from '@/lib/data/company'
    ---------------------------------------------------------------------------
    "What happens when I work with Gulf Fibre?" answered as one continuous scroll:
    a sticky station marker (big number + step badge + step title + progress rail)
-   on the left, and the 7-step process ladder on the right.
+   beside the 7-step process ladder. Synchronized via real-time scroll tracking
+   across all devices (desktop, laptop, tablet, mobile).
    =========================================================================== */
 
 export function JourneyChapter() {
@@ -21,67 +22,102 @@ export function JourneyChapter() {
     if (!listRef.current) return
     const stepEl = listRef.current.children[index] as HTMLElement
     if (stepEl) {
-      const yOffset = -120
+      const yOffset = -140
       const y = stepEl.getBoundingClientRect().top + window.pageYOffset + yOffset
       window.scrollTo({ top: y, behavior: 'smooth' })
       setActive(index)
     }
   }
 
+  const updateActiveStep = useCallback(() => {
+    if (!listRef.current) return
+    const steps = Array.from(listRef.current.children) as HTMLElement[]
+    if (!steps.length) return
+
+    const focalY = window.innerHeight * 0.45 // 45% of viewport height is the reading focal line
+    let bestIndex = 0
+    let minDistance = Infinity
+
+    steps.forEach((el, index) => {
+      const rect = el.getBoundingClientRect()
+      const center = rect.top + rect.height / 2
+      const dist = Math.abs(center - focalY)
+
+      if (rect.top <= focalY && rect.bottom >= focalY) {
+        bestIndex = index
+        minDistance = -1
+      } else if (minDistance !== -1 && dist < minDistance) {
+        minDistance = dist
+        bestIndex = index
+      }
+    })
+
+    setActive((prev) => (prev !== bestIndex ? bestIndex : prev))
+
+    // Calculate overall list progress for the rail
+    const listRect = listRef.current.getBoundingClientRect()
+    const totalHeight = listRect.height
+    if (totalHeight > 0) {
+      const travel = focalY - listRect.top
+      const progress = Math.min(Math.max(travel / totalHeight, 0), 1)
+      setRail(progress)
+    }
+  }, [])
+
   useEffect(() => {
+    updateActiveStep()
+
+    let rafId: number | null = null
+    const handleScroll = () => {
+      if (rafId !== null) cancelAnimationFrame(rafId)
+      rafId = requestAnimationFrame(() => {
+        updateActiveStep()
+        rafId = null
+      })
+    }
+
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    window.addEventListener('resize', updateActiveStep, { passive: true })
+
+    // Lenis / GSAP ScrollTrigger synchronization
     let ctx: { revert: () => void } | undefined
     let cancelled = false
 
-    const run = async () => {
-      const { getGsap } = await import('@/lib/animations')
-      const gsap = await getGsap()
-      const { ScrollTrigger } = await import('gsap/ScrollTrigger')
-      gsap.registerPlugin(ScrollTrigger)
+    const setupGsap = async () => {
+      try {
+        const { getGsap } = await import('@/lib/animations')
+        const gsap = await getGsap()
+        const { ScrollTrigger } = await import('gsap/ScrollTrigger')
+        gsap.registerPlugin(ScrollTrigger)
 
-      if (cancelled || !listRef.current) return
-      const list = listRef.current
+        if (cancelled || !listRef.current) return
 
-      ctx = gsap.context(() => {
-        // Master rail progress scrub
-        ScrollTrigger.create({
-          trigger: list,
-          start: 'top 75%',
-          end: 'bottom 50%',
-          scrub: 0.3,
-          onUpdate: (self) => {
-            setRail(self.progress)
-          },
-        })
-
-        // Step activation triggers
-        const steps = Array.from(list.children) as HTMLElement[]
-        steps.forEach((el, i) => {
+        ctx = gsap.context(() => {
           ScrollTrigger.create({
-            trigger: el,
-            start: 'top 55%',
-            end: 'bottom 55%',
-            onEnter: () => setActive(i),
-            onEnterBack: () => setActive(i),
-            onLeaveBack: () => {
-              if (i === 0) setActive(0)
-              else setActive(i - 1)
-            },
+            trigger: listRef.current,
+            start: 'top 85%',
+            end: 'bottom 15%',
+            onUpdate: () => updateActiveStep(),
           })
-        })
-
-        // Refresh triggers once layout settles
-        setTimeout(() => {
           ScrollTrigger.refresh()
-        }, 150)
-      }, containerRef)
+        }, containerRef)
+      } catch {}
     }
 
-    run()
+    setupGsap()
+
+    // Periodic safety check during font / image hydration
+    const interval = setInterval(updateActiveStep, 400)
+
     return () => {
       cancelled = true
+      window.removeEventListener('scroll', handleScroll)
+      window.removeEventListener('resize', updateActiveStep)
+      clearInterval(interval)
+      if (rafId !== null) cancelAnimationFrame(rafId)
       if (ctx) ctx.revert()
     }
-  }, [])
+  }, [updateActiveStep])
 
   const current = SERVICE_JOURNEY[active] ?? SERVICE_JOURNEY[0]
 
