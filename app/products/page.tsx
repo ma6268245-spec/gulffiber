@@ -218,7 +218,7 @@ export default function ProductsPage() {
                           }}
                         >
                           <Image
-                            src={p.image ?? '/images/collection-rolls.jpg'}
+                            src={p.image ?? '/images/gallery-hero.jpg'}
                             alt={`${p.title} at the Gulf Fibre plant`}
                             fill
                             sizes="(max-width: 992px) 100vw, 48vw"
@@ -338,7 +338,7 @@ export default function ProductsPage() {
                           }}
                         >
                           <Image
-                            src={p.image ?? '/images/collection-rolls.jpg'}
+                            src={p.image ?? '/images/gallery-hero.jpg'}
                             alt={`${p.title} at the Gulf Fibre plant`}
                             fill
                             sizes="(max-width: 992px) 100vw, 48vw"

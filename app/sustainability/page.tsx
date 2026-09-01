@@ -45,8 +45,8 @@ export default function SustainabilityPage() {
           ]}
           aside={
             <Image
-              src="/images/recycled-polyester-fibre.jpg"
-              alt="Regenerated fibre produced by Gulf Fibre"
+              src="/images/Gallery/15.jpeg"
+              alt="Factory rooftop solar energy array and clean manufacturing facility at Gulf Fibre"
               fill
               priority
               sizes="(max-width: 992px) 100vw, 48vw"

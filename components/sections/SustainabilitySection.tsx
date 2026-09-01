@@ -6,21 +6,21 @@ import Link from 'next/link'
 
 const PILLARS = [
   {
-    img: '/images/collection-rolls.jpg',
+    img: '/images/Gallery/2.jpeg',
     category: 'Circular Inputs',
     name: 'Recycled Polyester Materials',
     spec: 'Post-Consumer PET Sourcing',
     moq: 'GRS Certified',
   },
   {
-    img: '/images/process-fibre-lab.jpg',
+    img: '/images/certificates/grs-site-appendix.jpg',
     category: 'Traceability',
     name: 'Batch-Specific Documentation',
     spec: 'Full Chain of Custody',
     moq: 'Scope Certificates',
   },
   {
-    img: '/images/quality-lab-equipment.jpg',
+    img: '/images/Gallery/15.jpeg',
     category: 'Stewardship',
     name: 'Responsible Processing',
     spec: 'Resource Conservation',

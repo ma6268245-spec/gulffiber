@@ -10,7 +10,7 @@ const SERVICES = [
     title: 'CUSTOM SPECIFICATIONS',
     badge: 'Tailored Specs',
     desc: 'Tailored manufacturing across denier, cut length, crimp frequency, lustre, and finish chemistry to match your mill setup.',
-    img: '/images/collection-rolls.jpg',
+    img: '/images/Gallery/12.jpeg',
   },
   {
     num: '02',
@@ -24,14 +24,14 @@ const SERVICES = [
     title: 'PACKAGING & HANDLING',
     badge: 'Moisture Sealed',
     desc: 'Export-grade moisture-sealed baling (280kg standard) and protective roll wrapping for damage-free transit and automated warehouse handling.',
-    img: '/images/fiber-production-line.jpg',
+    img: '/images/Gallery/23.jpeg',
   },
   {
     num: '04',
     title: 'EXPORT & LOGISTICS',
     badge: 'Global Dispatch',
     desc: 'Full export documentation, container loading, and dedicated shipping coordination for reliable delivery across worldwide spinning markets.',
-    img: '/images/process-fibre-lab.jpg',
+    img: '/images/Gallery/14.jpeg',
   },
 ]
 

@@ -10,7 +10,7 @@ interface ProductHeroVideoProps {
 
 export function ProductHeroVideo({
   src = '/videos/company-page.mp4',
-  poster = '/images/collection-rolls.jpg',
+  poster = '/images/gallery-hero.jpg',
   alt = 'Gulf Fibre manufacturing and material production film',
 }: ProductHeroVideoProps) {
   const containerRef = useRef<HTMLDivElement>(null)

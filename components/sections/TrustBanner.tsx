@@ -209,11 +209,11 @@ export function TrustBanner() {
         </div>
       </div>
 
-      {/* RIGHT: Cotton plant image */}
+      {/* RIGHT: Production image */}
       <div style={{ position: 'relative', overflow: 'hidden' }}>
         <Image
-          src="/images/recycled-polyester-fibre.jpg"
-          alt="Recycled polyester staple fibre — Gulf Fibre Company"
+          src="/images/Gallery/11.jpeg"
+          alt="Continuous synthetic filament strands — Gulf Fibre Company"
           fill
           className="tb-plant-img"
           style={{
@@ -245,8 +245,8 @@ export function TrustBanner() {
         >
           <div style={{ width: '8rem', height: '5.5rem', overflow: 'hidden', borderRadius: '0.375rem' }}>
             <Image
-              src="/images/collection-rolls.jpg"
-              alt="Fabric rolls"
+              src="/images/Gallery/Thermal-Bonded Polyester Wadding.jpeg"
+              alt="Thermal-Bonded Polyester Wadding"
               width={128}
               height={88}
               style={{ width: '100%', height: '100%', objectFit: 'cover' }}
