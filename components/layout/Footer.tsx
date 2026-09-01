@@ -90,11 +90,18 @@ export function Footer() {
               FOLLOW US
             </p>
             <div style={{ display: 'flex', gap: '0.75rem' }}>
-              {['facebook', 'twitter', 'instagram', 'linkedin'].map((s) => (
+              {[
+                { id: 'facebook', label: 'Facebook', href: 'https://facebook.com/gulffibre' },
+                { id: 'linkedin', label: 'LinkedIn', href: 'https://linkedin.com/company/gulffibre' },
+                { id: 'instagram', label: 'Instagram', href: 'https://instagram.com/gulffibre' },
+                { id: 'twitter', label: 'Twitter', href: 'https://x.com/gulffibre' },
+              ].map(({ id, label, href }) => (
                 <a
-                  key={s}
-                  href="#"
-                  aria-label={s}
+                  key={id}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`Gulf Fibre on ${label}`}
                   style={{
                     width: '2.25rem',
                     height: '2.25rem',
@@ -108,10 +115,10 @@ export function Footer() {
                   }}
                 >
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
-                    {s === 'facebook' && <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />}
-                    {s === 'twitter' && <path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z" />}
-                    {s === 'instagram' && <><rect x="2" y="2" width="20" height="20" rx="5" ry="5" fill="none" stroke="currentColor" strokeWidth="2" /><circle cx="12" cy="12" r="5" fill="none" stroke="currentColor" strokeWidth="2" /><circle cx="17.5" cy="6.5" r="1.5" /></>}
-                    {s === 'linkedin' && <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z" />}
+                    {id === 'facebook' && <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />}
+                    {id === 'twitter' && <path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z" />}
+                    {id === 'instagram' && <><rect x="2" y="2" width="20" height="20" rx="5" ry="5" fill="none" stroke="currentColor" strokeWidth="2" /><circle cx="12" cy="12" r="5" fill="none" stroke="currentColor" strokeWidth="2" /><circle cx="17.5" cy="6.5" r="1.5" /></>}
+                    {id === 'linkedin' && <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z" />}
                   </svg>
                 </a>
               ))}

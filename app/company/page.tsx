@@ -386,7 +386,7 @@ export default function CompanyPage() {
         </section>
 
         {/* ── 07 · CERTIFICATIONS & REGISTRATIONS ───────────────────────── */}
-        <section className="section-pad" data-sp-section style={{ background: 'var(--white)' }}>
+        <section id="certifications" className="section-pad" data-sp-section style={{ background: 'var(--white)' }}>
           <div className="container">
             <div className="sp-anim">
               <SectionHead
