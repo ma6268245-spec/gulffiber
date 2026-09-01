@@ -22,8 +22,10 @@ export function JourneyChapter() {
     if (!listRef.current) return
     const stepEl = listRef.current.children[index] as HTMLElement
     if (stepEl) {
-      const yOffset = -140
-      const y = stepEl.getBoundingClientRect().top + window.pageYOffset + yOffset
+      const asideEl = containerRef.current?.querySelector('.sp-journey__aside') as HTMLElement | null
+      const isStacked = window.innerWidth <= 992
+      const yOffset = isStacked && asideEl ? asideEl.offsetHeight + 90 : 140
+      const y = stepEl.getBoundingClientRect().top + window.pageYOffset - yOffset
       window.scrollTo({ top: y, behavior: 'smooth' })
       setActive(index)
     }
@@ -34,7 +36,17 @@ export function JourneyChapter() {
     const steps = Array.from(listRef.current.children) as HTMLElement[]
     if (!steps.length) return
 
-    const focalY = window.innerHeight * 0.45 // 45% of viewport height is the reading focal line
+    const asideEl = containerRef.current?.querySelector('.sp-journey__aside') as HTMLElement | null
+    const isStacked = window.innerWidth <= 992
+    const asideRect = asideEl?.getBoundingClientRect()
+
+    // On stacked viewports (tablet & mobile), focal reading line is just below the sticky HUD
+    // On desktop, focal reading line is natural eye-level (38% of viewport)
+    let focalY = window.innerHeight * 0.38
+    if (isStacked && asideRect && asideRect.bottom > 0) {
+      focalY = asideRect.bottom + 45
+    }
+
     let bestIndex = 0
     let minDistance = Infinity
 

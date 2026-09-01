@@ -171,10 +171,10 @@ export default function ContactPage() {
                 <form onSubmit={onSubmit} noValidate>
                   {/* Inquiry path - adapts the message prompt to the desk it routes to */}
                   <fieldset style={{ border: 'none', margin: '0 0 1.75rem', padding: 0 }}>
-                    <legend className="sp-field-label" style={{ marginBottom: '0.75rem' }}>
+                    <legend className="sp-field-label" style={{ marginBottom: '0.75rem', textAlign: 'center', width: '100%' }}>
                       What is this about?
                     </legend>
-                    <div role="radiogroup" aria-label="Inquiry type" style={{ display: 'flex', flexWrap: 'wrap', gap: '0.4rem' }}>
+                    <div role="radiogroup" aria-label="Inquiry type" style={{ display: 'flex', flexWrap: 'wrap', gap: '0.4rem', justifyContent: 'center' }}>
                       {INTENTS.map((i) => (
                         <button
                           key={i.id}
