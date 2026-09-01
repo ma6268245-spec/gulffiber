@@ -13,6 +13,99 @@ export interface HeroMeta {
   value: string
 }
 
+const DEFAULT_MARQUEES: Record<string, string[]> = {
+  Company: [
+    'SINCE 1999',
+    '25+ YEARS HERITAGE',
+    'FAISALABAD MANUFACTURING PLANT',
+    '15,000 T ANNUAL CAPACITY',
+    'DIRECT MILL SUPPLY',
+    '350+ GLOBAL CLIENTS',
+    'GRS & ISO 9001 ACCREDITED',
+  ],
+  Products: [
+    '1.2D TO 60D SPECIFICATIONS',
+    'REGENERATED POLYESTER STAPLE FIBRE',
+    'THERMAL BONDING WADDING',
+    'NEEDLE PUNCHED FELT',
+    'AUTOMOTIVE & GEOTEXTILE FIBRE',
+    'CUSTOM CUT LENGTHS 32MM-102MM',
+  ],
+  Services: [
+    'BESPOKE FIBRE EXTRUSION',
+    'PRECISION REFINING & CRIMPING',
+    'CERTIFICATE OF ANALYSIS PER LOT',
+    'MOISTURE-SEALED BALING',
+    'EXPORT CONTAINERIZATION',
+    'DEDICATED LOGISTICS DESK',
+  ],
+  'Manufacturing & Services': [
+    'BESPOKE FIBRE EXTRUSION',
+    'PRECISION REFINING & CRIMPING',
+    'CERTIFICATE OF ANALYSIS PER LOT',
+    'MOISTURE-SEALED BALING',
+    'EXPORT CONTAINERIZATION',
+    'DEDICATED LOGISTICS DESK',
+  ],
+  Sustainability: [
+    '100% POST-CONSUMER PET FEEDSTOCK',
+    'GRS CHAIN OF CUSTODY CERTIFIED',
+    '25,000+ METRIC TONS BOTTLES DIVERTED',
+    'CLOSED-LOOP REGENERATION',
+    'OEKO-TEX STANDARD 100 COMPLIANT',
+    'ZERO HAZARDOUS EFFLUENTS',
+  ],
+  'Quality & Compliance': [
+    'ISO 9001:2015 REGISTERED',
+    'OEKO-TEX STANDARD 100 CLASS 1',
+    'GRS 4.0 TRANSACTION CERTIFICATES',
+    'IN-HOUSE TENSILE & CRIMP TESTING',
+    'BATCH RECONCILIATION TO THE BALE',
+    'ZERO-DEFECT PROTOCOL',
+  ],
+  'The Visual Archive': [
+    'AUTHENTIC PLANT ARCHIVE',
+    'EXTRUSION & SPINNING FLOOR',
+    'HIGH-CAPACITY BALING PRESSES',
+    'IN-HOUSE TESTING LABORATORY',
+    'FINISHED CONSIGNMENT WAREHOUSE',
+    'ROOFTOP SOLAR INFRASTRUCTURE',
+  ],
+  Gallery: [
+    'AUTHENTIC PLANT ARCHIVE',
+    'EXTRUSION & SPINNING FLOOR',
+    'HIGH-CAPACITY BALING PRESSES',
+    'IN-HOUSE TESTING LABORATORY',
+    'FINISHED CONSIGNMENT WAREHOUSE',
+    'ROOFTOP SOLAR INFRASTRUCTURE',
+  ],
+  'Commercial Enquiries': [
+    'COMMERCIAL INQUIRIES',
+    'SAMPLE DISPATCH IN 48 HOURS',
+    'SPECIFICATION RECONCILIATION',
+    'FOB & CIF EXPORT QUOTATIONS',
+    'DIRECT MILL COORDINATION',
+    'FAISALABAD HEADQUARTERS',
+  ],
+  Contact: [
+    'COMMERCIAL INQUIRIES',
+    'SAMPLE DISPATCH IN 48 HOURS',
+    'SPECIFICATION RECONCILIATION',
+    'FOB & CIF EXPORT QUOTATIONS',
+    'DIRECT MILL COORDINATION',
+    'FAISALABAD HEADQUARTERS',
+  ],
+}
+
+const FALLBACK_MARQUEE = [
+  'POLYESTER STAPLE FIBRE',
+  'WADDING & THERMAL INFILL',
+  'FELT & NON-WOVENS',
+  'LININGS & FUSING MATERIALS',
+  'TEXTILE FIBRE SOLUTIONS',
+  'CUSTOM MATERIAL REQUIREMENTS',
+]
+
 /**
  * The shared subpage hero.
  *
@@ -27,6 +120,7 @@ export function PageHero({
   aside,
   bgVideo,
   tone = 'light',
+  tickerItems,
   children,
 }: {
   eyebrow: string
@@ -36,6 +130,7 @@ export function PageHero({
   aside?: React.ReactNode
   bgVideo?: string
   tone?: 'light' | 'dark'
+  tickerItems?: string[]
   /** Ignored - kept so existing callers still type-check. */
   coord?: string
   children?: React.ReactNode
@@ -44,6 +139,8 @@ export function PageHero({
   const videoRef = useRef<HTMLVideoElement>(null)
   const [isMuted, setIsMuted] = useState(true)
   const [isPlaying, setIsPlaying] = useState(true)
+
+  const resolvedMarquee = tickerItems || DEFAULT_MARQUEES[eyebrow] || FALLBACK_MARQUEE
 
   useEffect(() => {
     const video = videoRef.current
@@ -135,6 +232,7 @@ export function PageHero({
   }
 
   return (
+    <>
     <section
       ref={ref}
       className={`sp-hero ${bgVideo ? 'sp-hero--fullscreen-video' : ''} ${dark ? 'sp-dark' : ''}`.trim()}
@@ -222,6 +320,36 @@ export function PageHero({
             ))}
           </dl>
         )}
+
+        {/* Scroll indicator matching Homepage Hero */}
+        <div
+          className="sph-scroll-indicator"
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '0.75rem',
+            marginTop: 'clamp(1.35rem, 2.4vh, 2rem)',
+          }}
+        >
+          <div
+            style={{
+              width: '2.5rem',
+              height: '2.5px',
+              background: bgVideo ? '#3B82F6' : 'var(--burg-primary)',
+            }}
+          />
+          <span
+            style={{
+              fontSize: '0.6875rem',
+              fontWeight: 800,
+              letterSpacing: '0.15em',
+              textTransform: 'uppercase',
+              color: bgVideo ? 'rgba(255, 255, 255, 0.9)' : 'var(--ink)',
+            }}
+          >
+            SCROLL TO EXPLORE
+          </span>
+        </div>
       </div>
 
       {bgVideo && (
@@ -315,6 +443,67 @@ export function PageHero({
         </div>
       )}
     </section>
+
+    {/* Infinite Carousel / Marquee Ticker Matching Homepage Style */}
+    {resolvedMarquee.length > 0 && (
+      <div
+        className="sp-hero-marquee"
+        style={{
+          background: 'var(--burg-primary)',
+          overflow: 'hidden',
+          padding: '1.25rem 0',
+          position: 'relative',
+          zIndex: 5,
+        }}
+      >
+        <div className="sp-marquee-track">
+          {[...resolvedMarquee, ...resolvedMarquee, ...resolvedMarquee, ...resolvedMarquee].map((item, idx) => (
+            <div
+              key={idx}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '3.5rem',
+                flexShrink: 0,
+              }}
+            >
+              <span
+                style={{
+                  fontFamily: 'var(--font-sans)',
+                  fontSize: '0.8125rem',
+                  fontWeight: 700,
+                  letterSpacing: '0.16em',
+                  textTransform: 'uppercase',
+                  color: 'rgba(255,255,255,0.9)',
+                }}
+              >
+                {item}
+              </span>
+              <span style={{ color: 'rgba(255,255,255,0.4)', fontSize: '1.125rem', lineHeight: 1 }}>☆</span>
+            </div>
+          ))}
+        </div>
+
+        <style>{`
+          @keyframes marquee {
+            0% {
+              transform: translate3d(0, 0, 0);
+            }
+            100% {
+              transform: translate3d(-50%, 0, 0);
+            }
+          }
+          .sp-marquee-track {
+            display: flex !important;
+            gap: 3.5rem !important;
+            animation: marquee 20s linear infinite !important;
+            white-space: nowrap !important;
+            will-change: transform !important;
+          }
+        `}</style>
+      </div>
+    )}
+    </>
   )
 }
 

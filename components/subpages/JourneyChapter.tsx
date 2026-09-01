@@ -162,8 +162,10 @@ export function JourneyChapter() {
           </div>
         </div>
 
-        <p className="sp-journey__big">{String(active + 1).padStart(2, '0')}</p>
-        <h3 className="sp-journey__big-title">{current.title}</h3>
+        <div className="sp-journey__aside-body">
+          <p className="sp-journey__big">{String(active + 1).padStart(2, '0')}</p>
+          <h3 className="sp-journey__big-title">{current.title}</h3>
+        </div>
         <p className="sp-journey__big-note">{current.detail}</p>
 
         <div className="sp-journey__rail">

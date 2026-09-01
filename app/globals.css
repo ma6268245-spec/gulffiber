@@ -75,7 +75,7 @@ html {
   font-size: 16px;
   scroll-behavior: auto;
   scroll-padding-top: 5.75rem;
-  overflow-x: hidden;
+  overflow-x: clip;
   /* Lenis handles smooth scroll */
 }
 
@@ -89,7 +89,7 @@ body {
   color: var(--ink);
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
-  overflow-x: hidden;
+  overflow-x: clip;
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
@@ -699,5 +699,29 @@ body {
   .nav-brand-logo img {
     height: 1.95rem !important;
     width: auto !important;
+  }
+}
+
+/* ── Global Infinite Marquee Animation ── */
+@keyframes marquee {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.sp-marquee-track {
+  display: flex !important;
+  gap: 3.5rem !important;
+  animation: marquee 20s linear infinite !important;
+  white-space: nowrap !important;
+  will-change: transform !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sp-marquee-track {
+    animation: none !important;
   }
 }

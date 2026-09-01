@@ -329,7 +329,7 @@ export function HeroSection() {
       </div>
 
       {/* RIGHT: Image + floating card */}
-      <div style={{ position: 'relative', overflow: 'hidden', minHeight: '100%' }}>
+      <div className="hero-image-col" style={{ position: 'relative', overflow: 'hidden', minHeight: '100%' }}>
         <div
           className="hero-image-wrap"
           style={{
@@ -393,48 +393,67 @@ export function HeroSection() {
       </div>
 
       <style>{`
-        @media (min-width: 601px) and (max-width: 1024px) {
+        @media (max-width: 1024px) {
           .hero-section {
+            position: relative !important;
+            display: flex !important;
+            flex-direction: column !important;
+            justify-content: center !important;
             min-height: auto !important;
-          }
-          .hero-content-col {
-            padding-top: clamp(6rem, 10vh, 7.25rem) !important;
-            padding-bottom: 2rem !important;
-          }
-          .hero-section > div:last-child {
-            min-height: 360px !important;
-            height: 38vh !important;
-          }
-        }
-        @media (max-width: 992px) {
-          .hero-section {
             grid-template-columns: 1fr !important;
-            min-height: auto !important;
+            overflow: hidden !important;
+            background: var(--ivory) !important;
+          }
+          .hero-image-col {
+            position: absolute !important;
+            inset: 0 !important;
+            width: 100% !important;
+            height: 100% !important;
+            min-height: 100% !important;
+            z-index: 1 !important;
+            pointer-events: none !important;
+            overflow: hidden !important;
+          }
+          .hero-image-wrap {
+            position: absolute !important;
+            inset: 0 !important;
+            width: 100% !important;
+            height: 100% !important;
+          }
+          .hero-img {
+            position: absolute !important;
+            inset: 0 !important;
+            width: 100% !important;
+            height: 100% !important;
+            object-fit: cover !important;
+            object-position: center !important;
+            filter: blur(1px) !important;
+            transform: scale(1.02) !important;
+            opacity: 0.65 !important;
+          }
+          .hero-image-wrap > div:last-child {
+            position: absolute !important;
+            inset: 0 !important;
+            background: linear-gradient(180deg, rgba(246, 244, 239, 0.38) 0%, rgba(246, 244, 239, 0.58) 100%) !important;
+            z-index: 2 !important;
           }
           .hero-content-col {
-            padding-top: clamp(6.5rem, 15vh, 8.5rem) !important;
-          }
-          .hero-section > div:last-child {
-            min-height: 50vh !important;
-            height: 50vh !important;
+            position: relative !important;
+            z-index: 3 !important;
+            padding-top: clamp(6.25rem, 11vh, 7.5rem) !important;
+            padding-bottom: clamp(2.5rem, 5vh, 3.5rem) !important;
           }
           .hero-card-offer {
-            bottom: 1.5rem !important;
-            right: 1.5rem !important;
-            left: auto !important;
+            display: none !important;
           }
+        }
+        [data-theme='dark'] .hero-image-wrap > div:last-child {
+          background: linear-gradient(180deg, rgba(4, 15, 38, 0.45) 0%, rgba(4, 15, 38, 0.68) 100%) !important;
         }
         @media (max-width: 576px) {
           .hero-content-col {
-            padding-top: 6.75rem !important;
-          }
-          .hero-section > div:last-child {
-            min-height: 40vh !important;
-            height: 40vh !important;
-          }
-          .hero-card-offer {
-            bottom: 1rem !important;
-            right: 1rem !important;
+            padding-top: clamp(5.75rem, 12vh, 6.75rem) !important;
+            padding-bottom: 2rem !important;
           }
         }
         @media (max-width: 480px) {

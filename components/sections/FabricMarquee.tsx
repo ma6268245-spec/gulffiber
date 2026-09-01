@@ -25,7 +25,7 @@ export function FabricMarquee() {
         style={{
           display: 'flex',
           gap: '3.5rem',
-          animation: 'marquee 30s linear infinite',
+          animation: 'marquee 20s linear infinite',
           whiteSpace: 'nowrap',
           willChange: 'transform',
         }}
