@@ -226,11 +226,10 @@ export function PageHero({
 
       {bgVideo && (
         <div
+          className="sp-hero-video-controls"
           style={{
             position: 'absolute',
-            bottom: 'clamp(1.5rem, 3vh, 2.5rem)',
-            right: 'clamp(1.5rem, 4vw, 3.5rem)',
-            zIndex: 3,
+            zIndex: 15,
             display: 'flex',
             alignItems: 'center',
             gap: '0.65rem',

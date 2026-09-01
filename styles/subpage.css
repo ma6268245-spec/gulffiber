@@ -117,6 +117,10 @@
 .sp-root .sp-hero--fullscreen-video .sp-stat + .sp-stat {
   border-inline-start-color: rgba(255, 255, 255, 0.22);
 }
+.sp-root .sp-hero-video-controls {
+  bottom: clamp(1.5rem, 3vh, 2.5rem);
+  right: clamp(1.5rem, 4vw, 3.5rem);
+}
 
 /* ── Stat strip (homepage hero stats) ───────────────────────────────────── */
 .sp-root .sp-stats {
@@ -911,8 +915,18 @@
   .sp-root .sp-row-val { font-size: 0.9375rem; line-height: 1.55; }
   .sp-root .sp-row-key { font-size: 0.8125rem; }
   .sp-root .sp-route__num { font-size: 0.875rem; }
-  .sp-root .sp-route__label { font-size: 0.875rem; }
-  .sp-root .sp-route__detail { font-size: 0.875rem; }
+  .sp-root .sp-hero--fullscreen-video .sp-hero-body {
+    padding-bottom: 4.75rem !important;
+  }
+  .sp-root .sp-hero-video-controls {
+    bottom: 1.15rem !important;
+    right: 1.25rem !important;
+    gap: 0.5rem !important;
+  }
+  .sp-root .sp-hero-video-controls button {
+    width: 2.35rem !important;
+    height: 2.35rem !important;
+  }
 }
 @media (max-width: 600px) {
   .sp-root .sp-grid-2,
@@ -925,6 +939,16 @@
   .sp-root .sp-stat { flex: none; width: 100%; border-inline-start: none !important; padding-inline-start: 0 !important; padding-inline-end: 0 !important; }
   .sp-root .sp-stat + .sp-stat { border-top: 1px solid var(--border-light); padding-top: 1rem; border-inline-start: none; }
   .sp-root .sp-hero-body { padding-top: clamp(5.5rem, 12vh, 7rem); }
+  .sp-root .sp-hero--fullscreen-video .sp-hero-body { padding-bottom: 4.5rem !important; }
+  .sp-root .sp-hero-video-controls {
+    bottom: 1rem !important;
+    right: 1rem !important;
+    gap: 0.45rem !important;
+  }
+  .sp-root .sp-hero-video-controls button {
+    width: 2.25rem !important;
+    height: 2.25rem !important;
+  }
 }
 @media (max-width: 375px) {
   .sp-root .sp-hero-title { font-size: clamp(1.85rem, 9vw, 2.4rem); }
