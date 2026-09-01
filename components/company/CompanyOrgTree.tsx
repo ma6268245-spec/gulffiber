@@ -180,6 +180,24 @@ export function CompanyOrgTree() {
                 minHeight: '115px',
               }}
             >
+              {/* Horizontal Connecting Bridge Line between Co-founder and Founder */}
+              {cofounderNode && (
+                <div
+                  className="org-exec-bridge-line"
+                  style={{
+                    position: 'absolute',
+                    height: '2px',
+                    background:
+                      hoveredNodeId === cofounderNode?.id || hoveredNodeId === founderNode?.id
+                        ? 'var(--burg-bright)'
+                        : 'linear-gradient(to right, rgba(56, 182, 255, 0.6), var(--burg-primary))',
+                    transition: 'all 0.3s ease',
+                    zIndex: 1,
+                    pointerEvents: 'none',
+                  }}
+                />
+              )}
+
               {/* Left Slot: Co-founder & Strategic Investor (Clean Circle Node - No Dashed Box) */}
               {cofounderNode && (
                 <div
@@ -803,6 +821,11 @@ export function CompanyOrgTree() {
             width: 220px !important;
             margin: 0 auto !important;
           }
+          .org-exec-bridge-line {
+            left: calc(50% - 190px) !important;
+            width: 190px !important;
+            top: clamp(34px, 3vw, 41px) !important;
+          }
         }
 
         /* Tablet: Keep good wide spacing as requested */
@@ -812,6 +835,11 @@ export function CompanyOrgTree() {
             top: 0 !important;
             transform: none !important;
           }
+          .org-exec-bridge-line {
+            left: calc(clamp(1.25rem, 4vw, 3.5rem) + clamp(30px, 2.6vw, 37px)) !important;
+            right: 50% !important;
+            top: clamp(34px, 3vw, 41px) !important;
+          }
         }
 
         /* Phone: Perfect centered alignment for Founder and clean left docking for Co-founder */
@@ -819,9 +847,6 @@ export function CompanyOrgTree() {
           .org-top-executive-container {
             position: relative !important;
             width: 100% !important;
-            display: flex !important;
-            justify-content: center !important;
-            align-items: flex-start !important;
             min-height: 95px !important;
           }
           .org-investor-side-slot {
@@ -833,13 +858,22 @@ export function CompanyOrgTree() {
             max-width: 32% !important;
           }
           .org-founder-center {
+            position: absolute !important;
+            left: 50% !important;
+            top: 0 !important;
+            transform: translateX(-50%) !important;
             display: flex !important;
             flex-direction: column !important;
             align-items: center !important;
             justify-content: flex-start !important;
-            margin: 0 auto !important;
             width: 120px !important;
             max-width: 36% !important;
+            text-align: center !important;
+          }
+          .org-exec-bridge-line {
+            left: calc(0.25rem + 52.5px) !important;
+            right: 50% !important;
+            top: 27px !important;
           }
           .org-tree-scroll-viewport {
             padding: 0 !important;
