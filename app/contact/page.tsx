@@ -361,7 +361,7 @@ export default function ContactPage() {
                     </div>
 
                     {field('denier', 'Denier / cut length', { placeholder: VERIFIED.denierRange })}
-                    {field('volume', 'Volume', { full: true, placeholder: 'e.g. monthly or annual tonnage' })}
+                    {field('volume', 'Volume', { placeholder: 'e.g. monthly or annual tonnage' })}
 
                     <div className="sp-field sp-full">
                       <label className="sp-field-label" htmlFor="f-message">
@@ -612,7 +612,7 @@ export default function ContactPage() {
         </section>
 
         {/* ── Product Line Sales Leads ──────────────────────────────────── */}
-        <section className="section-pad" data-sp-section style={{ background: 'var(--white)' }}>
+        <section className="section-pad sp-contact-specialists" data-sp-section style={{ background: 'var(--white)' }}>
           <div className="container">
             <div className="sp-anim">
               <SectionHead

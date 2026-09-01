@@ -1867,6 +1867,40 @@
   gap: 0.5rem;
 }
 
+@media (max-width: 767px) {
+  .sp-root .sp-contact-specialists .sp-person {
+    align-items: center;
+  }
+
+  .sp-root .sp-contact-specialists .sp-person .sp-person__photo {
+    width: clamp(120px, 36vw, 150px) !important;
+    height: clamp(120px, 36vw, 150px) !important;
+    aspect-ratio: 1 / 1 !important;
+    margin: 1.5rem auto 0.25rem !important;
+    border-radius: 20px !important;
+    border: 3px solid rgba(10, 75, 184, 0.18) !important;
+    box-shadow: 0 8px 24px rgba(10, 75, 184, 0.12) !important;
+    flex-shrink: 0;
+  }
+
+  .sp-root .sp-contact-specialists .sp-person__body {
+    padding: 1.25rem 1.15rem 1.5rem !important;
+    text-align: center;
+    align-items: center;
+    width: 100%;
+  }
+
+  .sp-root .sp-contact-specialists .sp-person__role {
+    justify-content: center !important;
+    min-height: auto !important;
+  }
+
+  .sp-root .sp-contact-specialists .sp-person-actions {
+    justify-content: center !important;
+    width: 100% !important;
+  }
+}
+
 /* ── Certification gallery + lightbox ───────────────────────────────────── */
 .sp-root .sp-cert {
   display: flex;

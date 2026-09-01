@@ -63,14 +63,14 @@ export function Footer() {
         <div className="footer-main-grid">
           {/* Brand */}
           <div className="footer-brand">
-            <div className="footer-logo-container" style={{ display: 'inline-block', marginBottom: '1.25rem' }}>
+            <div className="footer-logo-container" style={{ background: '#FFFFFF', padding: '0.45rem 0.85rem', borderRadius: '8px', display: 'inline-block', marginBottom: '1.25rem', boxShadow: '0 4px 16px rgba(0, 0, 0, 0.15)' }}>
               <Image
                 src="/gulf-fibre-logo.png"
                 alt="Gulf Fibre Company (PVT) Limited"
                 width={150}
                 height={46}
                 className="footer-brand-logo-img"
-                style={{ objectFit: 'contain', height: '2.5rem', width: 'auto', display: 'block', filter: 'brightness(0) invert(1)' }}
+                style={{ objectFit: 'contain', height: '2.5rem', width: 'auto', display: 'block' }}
               />
             </div>
             <p style={{ fontFamily: 'var(--font-serif)', fontStyle: 'italic', fontSize: '1.0625rem', lineHeight: 1.7, color: 'rgba(255,255,255,0.7)', maxWidth: '22ch', marginBottom: '1.5rem' }}>

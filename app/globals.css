@@ -661,11 +661,18 @@ body {
   transform: scale(0.97);
 }
 
-/* ── Dark Mode Brand Logo High-Contrast Legibility ── */
+/* ── Dark Mode Brand Logo Capsule Pill (Full Original Color Preservation) ── */
+[data-theme='dark'] .nav-brand-logo {
+  background: #FFFFFF !important;
+  padding: 0.22rem 0.65rem !important;
+  border-radius: 9999px !important;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25) !important;
+}
+
 [data-theme='dark'] .nav-brand-logo img,
 [data-theme='dark'] .mobile-drawer .drawer-header img,
 .footer-brand-logo-img {
-  filter: brightness(0) invert(1) !important;
+  filter: none !important;
 }
 
 /* ── Glass Navbar Responsive System ── */

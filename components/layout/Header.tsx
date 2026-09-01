@@ -17,6 +17,24 @@ const NAV_LINKS = [
   { label: 'Contact', href: '/contact' },
 ]
 
+const TABLET_NAV_LINKS = [
+  { label: 'Company', href: '/company' },
+  { label: 'Products', href: '/products' },
+  { label: 'Services', href: '/services' },
+  { label: 'Contact', href: '/contact' },
+]
+
+const DRAWER_NAV_LINKS = [
+  { label: 'Home', href: '/' },
+  { label: 'Company', href: '/company' },
+  { label: 'Products', href: '/products' },
+  { label: 'Services', href: '/services' },
+  { label: 'Sustainability', href: '/sustainability' },
+  { label: 'Quality', href: '/quality' },
+  { label: 'Gallery', href: '/gallery' },
+  { label: 'Contact', href: '/contact' },
+]
+
 export function Header() {
   const pathname = usePathname()
   const headerRef = useRef<HTMLElement>(null)
@@ -210,7 +228,48 @@ export function Header() {
             ))}
           </nav>
 
-          {/* Right: Search + Theme Toggle + CTA */}
+          {/* Tablet Nav - Quick Access Key Links (Visible on Tablet 768px - 1140px) */}
+          <nav
+            className="tablet-nav"
+            style={{
+              position: 'relative',
+              display: 'none',
+              alignItems: 'center',
+              gap: '0.2rem',
+              padding: '0.15rem',
+            }}
+          >
+            {TABLET_NAV_LINKS.map((link) => {
+              const isActive = pathname === link.href
+              return (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  onClick={scrollToTop}
+                  className="tablet-nav-pill"
+                  style={{
+                    fontFamily: 'var(--font-sans)',
+                    fontSize: '0.8125rem',
+                    fontWeight: isActive ? 800 : 700,
+                    letterSpacing: '0.04em',
+                    textTransform: 'uppercase',
+                    color: isActive ? 'var(--burg-primary)' : 'var(--ink)',
+                    textDecoration: 'none',
+                    padding: '0.45rem 0.72rem',
+                    borderRadius: '9999px',
+                    background: isActive ? (theme === 'dark' ? 'rgba(29, 120, 255, 0.18)' : 'rgba(10, 75, 184, 0.08)') : 'transparent',
+                    border: isActive ? (theme === 'dark' ? '1px solid rgba(56, 182, 255, 0.25)' : '1px solid rgba(10, 75, 184, 0.14)') : '1px solid transparent',
+                    transition: 'all 0.2s ease',
+                    whiteSpace: 'nowrap',
+                  }}
+                >
+                  {link.label}
+                </Link>
+              )
+            })}
+          </nav>
+
+          {/* Right: Search + Theme Toggle + CTA + Hamburger */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.55rem', flexShrink: 0 }}>
             <button
               aria-label="Search (Ctrl+K)"
@@ -308,7 +367,7 @@ export function Header() {
               GET IN TOUCH
             </Link>
 
-            {/* Mobile hamburger */}
+            {/* Mobile / Tablet hamburger */}
             <button
               onClick={() => setMobileOpen(!mobileOpen)}
               aria-label="Menu"
@@ -339,7 +398,7 @@ export function Header() {
         </div>
       </header>
 
-      {/* Mobile Nav Floating Glass Dropdown & Backdrop */}
+      {/* Mobile / Tablet Nav Floating Glass Dropdown & Backdrop */}
       {mobileOpen && (
         <>
           <div
@@ -364,7 +423,7 @@ export function Header() {
               transform: 'translateX(-50%)',
               width: 'calc(100% - clamp(1.25rem, 4vw, 3.5rem))',
               maxWidth: '680px',
-              maxHeight: 'min(calc(100dvh - 5.5rem), 540px)',
+              maxHeight: 'min(calc(100dvh - 5.5rem), 560px)',
               overflowY: 'auto',
               scrollbarWidth: 'none',
               zIndex: 9998,
@@ -384,7 +443,7 @@ export function Header() {
               animation: 'mobileMenuIn 0.28s cubic-bezier(0.16, 1, 0.3, 1)',
             }}
           >
-            {NAV_LINKS.map((link) => {
+            {DRAWER_NAV_LINKS.map((link) => {
               const isActive = pathname === link.href
               return (
                 <Link
@@ -468,20 +527,56 @@ export function Header() {
           background: rgba(29, 120, 255, 0.15) !important;
           color: var(--burg-bright) !important;
         }
-        @media (max-width: 1140px) {
+        .tablet-nav-pill:hover {
+          background: rgba(10, 75, 184, 0.08) !important;
+          color: var(--burg-primary) !important;
+        }
+        [data-theme="dark"] .tablet-nav-pill:hover {
+          background: rgba(29, 120, 255, 0.18) !important;
+          color: var(--burg-bright) !important;
+        }
+
+        /* ── Viewport Routing: Desktop (>1140px) ── */
+        @media (min-width: 1141px) {
+          .desktop-nav { display: flex !important; }
+          .tablet-nav { display: none !important; }
+          .mobile-menu-btn { display: none !important; }
+          .header-cta-btn { display: inline-flex !important; }
+        }
+
+        /* ── Viewport Routing: Tablet (768px - 1140px) ── */
+        @media (min-width: 768px) and (max-width: 1140px) {
+          .glass-navbar {
+            width: max-content !important;
+            max-width: calc(100% - 2.5rem) !important;
+            padding: 0.38rem 0.95rem !important;
+          }
+          .desktop-nav { display: none !important; }
+          .tablet-nav { display: flex !important; }
+          .mobile-menu-btn { display: flex !important; }
+          .header-cta-btn { display: inline-flex !important; }
+        }
+
+        @media (max-width: 860px) {
+          .header-cta-btn { display: none !important; }
+        }
+
+        /* ── Viewport Routing: Phone (<768px) ── */
+        @media (max-width: 767px) {
           .glass-navbar {
             width: calc(100% - clamp(1.25rem, 4vw, 3.5rem)) !important;
             max-width: 680px !important;
           }
           .desktop-nav { display: none !important; }
+          .tablet-nav { display: none !important; }
           .mobile-menu-btn { display: flex !important; }
-        }
-        @media (max-width: 900px) {
           .header-cta-btn { display: none !important; }
         }
+
         @media (max-width: 640px) {
           .glass-navbar { padding: 0.35rem 0.85rem !important; }
         }
+
         @media (max-width: 440px) {
           .glass-navbar {
             width: calc(100% - 1.25rem) !important;
