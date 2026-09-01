@@ -84,7 +84,7 @@ export default function QualityPage() {
                 eyebrow="In-house verification"
                 title="Four checks that"
                 em="decide the bale"
-                lede="Verification is placed where the outcome is still recoverable: before the melt, at the fibre, and before the bale is sealed."
+                lede="Verification is placed where the outcome is still recoverable: before the melt, at the fiber, and before the bale is sealed."
               />
             </div>
 

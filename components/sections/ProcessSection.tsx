@@ -87,7 +87,7 @@ export function ProcessSection() {
               <video
                 ref={videoRef}
                 src="/videos/product-hero.mp4"
-                poster="/images/process-fibre-lab.jpg"
+                poster="/images/process-fiber-lab.jpg"
                 autoPlay
                 muted
                 loop
@@ -181,7 +181,7 @@ export function ProcessSection() {
                 marginBottom: '1.5rem',
               }}
             >
-              ADVANCED FIBRE
+              ADVANCED FIBER
               <br />
               <span
                 style={{
@@ -206,7 +206,7 @@ export function ProcessSection() {
                 marginBottom: '2.5rem',
               }}
             >
-              We believe transparency starts on the factory floor. Our integrated manufacturing process documents the collision of high-performance engineering and the precision of fine fibre production.
+              We believe transparency starts on the factory floor. Our integrated manufacturing process documents the collision of high-performance engineering and the precision of fine fiber production.
             </p>
 
             {/* Mini stats */}

@@ -8,8 +8,8 @@ import { GALLERY_CATEGORIES, GALLERY_ITEMS } from '@/lib/data/gallery'
 /* Every entry below is grounded in lib/data/company.ts (and gallery.ts) -
    no invented deniers, capacities, destinations or claims. */
 const SEARCH_DATABASE = [
-  { title: 'Recycled Polyester Staple Fibre', category: 'Product', href: '/products#psf-regenerated', tag: 'GRS', desc: '100% post-consumer PET regenerated into staple fibre under GRS chain of custody.' },
-  { title: 'Regenerated Polyester Hollow Fibre', category: 'Product', href: '/products#psf-virgin', tag: 'HCS', desc: 'Siliconized and non-siliconized conjugate hollow fibre for bedding, upholstery and thermal insulation.' },
+  { title: 'Recycled Polyester Staple Fiber', category: 'Product', href: '/products#psf-regenerated', tag: 'GRS', desc: '100% post-consumer PET regenerated into staple fiber under GRS chain of custody.' },
+  { title: 'Regenerated Polyester Hollow Fiber', category: 'Product', href: '/products#psf-virgin', tag: 'HCS', desc: 'Siliconized and non-siliconized conjugate hollow fiber for bedding, upholstery and thermal insulation.' },
   { title: 'High-Loft Wadding', category: 'Product', href: '/products#wadding', tag: 'Bonded', desc: 'High-loft, thermally bonded wadding for bedding, furniture and insulation.' },
   { title: 'Needle-Punched Felt', category: 'Product', href: '/products#felt', tag: 'Nonwoven', desc: 'Needle-punched technical felts for automotive, acoustic and industrial uses.' },
   { title: 'Interlining Materials', category: 'Product', href: '/products#interlining', tag: 'Woven', desc: 'Woven and non-woven interlining goods for garment tailoring.' },
@@ -17,7 +17,7 @@ const SEARCH_DATABASE = [
   { title: 'The Production Sequence', category: 'Service', href: '/services', tag: 'Process', desc: 'The published manufacturing sequence, from feedstock to cut and baled material.' },
   { title: 'ISO 9001:2015 Quality Management', category: 'Quality', href: '/quality', tag: 'Certified', desc: 'The certified quality management system governing specifications and verification.' },
   { title: 'GRS - Global Recycled Standard', category: 'Quality', href: '/quality', tag: 'Recycled', desc: 'Scope certificate and chain of custody for recycled material.' },
-  { title: 'The Circular Material Journey', category: 'Sustainability', href: '/sustainability', tag: 'Lifecycle', desc: 'The recycled route from post-consumer PET back to fibre - verified facts only.' },
+  { title: 'The Circular Material Journey', category: 'Sustainability', href: '/sustainability', tag: 'Lifecycle', desc: 'The recycled route from post-consumer PET back to fiber - verified facts only.' },
   { title: 'Company Story & Timeline', category: 'Company', href: '/company', tag: 'Since 1999', desc: 'The company history, timeline and leadership - with slots where the record is outstanding.' },
   { title: 'The Visual Archive', category: 'Gallery', href: '/gallery', tag: 'Archive', desc: 'Factory, machinery, manufacturing, products, and sustainability.' },
   { title: 'Terms & Conditions & Copyright Notice', category: 'Legal', href: '/terms', tag: 'Governance', desc: 'Commercial supply terms, specification tolerances, shipping, warranties, and copyright ownership.' },
@@ -131,7 +131,7 @@ export function SearchModal({ isOpen, onClose }: { isOpen: boolean; onClose: () 
             autoFocus
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="Search fibres, deniers (1.2D, 7D, 60D), GRS certification, specs..."
+            placeholder="Search fibers, deniers (1.2D, 7D, 60D), GRS certification, specs..."
             style={{
               flex: 1,
               minWidth: 0,

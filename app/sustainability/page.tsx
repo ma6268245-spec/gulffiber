@@ -36,7 +36,7 @@ export default function SustainabilityPage() {
         <PageHero
           eyebrow="Sustainability"
           lines={[{ text: 'Recycled under' }, { text: 'a chain' }, { text: 'of custody', serif: true }]}
-          lede={`Regenerated staple fibre produced from ${VERIFIED.recycledInput} and tracked under Global Recycled Standard chain of custody, so a recycled-content claim on your product can be substantiated on ours.`}
+          lede={`Regenerated staple fiber produced from ${VERIFIED.recycledInput} and tracked under Global Recycled Standard chain of custody, so a recycled-content claim on your product can be substantiated on ours.`}
           meta={[
             { label: 'Recycled input', value: '100% PET' },
             { label: 'Chain of custody', value: 'GRS' },
@@ -203,8 +203,8 @@ export default function SustainabilityPage() {
               <div className="sp-anim">
                 <InfoCard
                   category="State 03"
-                  title="Staple fibre"
-                  body="The output is staple fibre supplied across the full count range for spinning and nonwoven conversion, under the same chain of custody as the input."
+                  title="Staple fiber"
+                  body="The output is staple fiber supplied across the full count range for spinning and nonwoven conversion, under the same chain of custody as the input."
                   footKey="Denier range"
                   footValue={VERIFIED.denierRange}
                 />

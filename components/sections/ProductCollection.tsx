@@ -6,7 +6,7 @@ import Link from 'next/link'
 const PRODUCTS = [
   {
     id: '01',
-    title: 'Polyester Staple Fibre',
+    title: 'Polyester Staple Fiber',
     subtitle: 'Virgin & Recycled · 1.2D–60D',
     img: '/images/Gallery/Staple Fiber.jpeg',
     video: '/videos/staple-fiber.mp4',
@@ -98,7 +98,7 @@ export function ProductCollection() {
               Premium Products
             </div>
             <h2 className="coll-heading h-section">
-              PREMIUM FIBRE<br />
+              PREMIUM FIBER<br />
               <em>Collection</em>
             </h2>
           </div>

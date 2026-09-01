@@ -22,10 +22,10 @@ const VIDEOS: VideoItem[] = [
   },
   {
     id: 'production-line',
-    title: 'Fibre Extrusion & Spinning Machinery',
+    title: 'Fiber Extrusion & Spinning Machinery',
     location: 'High-Precision Extrusion Line',
     src: '/videos/product-hero.mp4',
-    poster: '/images/process-fibre-lab.jpg',
+    poster: '/images/process-fiber-lab.jpg',
     description: 'Continuous melt filtration, multi-spinneret drawing, mechanical crimping, and automated baling in action.',
   },
 ]

@@ -12,7 +12,7 @@ const APPLICATIONS = [
       </svg>
     ),
     title: 'SPINNING & BLENDING',
-    desc: 'High-tenacity staple fibre engineered for ring, rotor, and open-end yarn spinning and cotton-polyester blends.',
+    desc: 'High-tenacity staple fiber engineered for ring, rotor, and open-end yarn spinning and cotton-polyester blends.',
   },
   {
     icon: (
@@ -21,7 +21,7 @@ const APPLICATIONS = [
       </svg>
     ),
     title: 'BEDDING & FILLING',
-    desc: 'High-loft conjugate and thermal infill fibres providing superior resilience for pillows, duvets, and upholstery.',
+    desc: 'High-loft conjugate and thermal infill fibers providing superior resilience for pillows, duvets, and upholstery.',
   },
   {
     icon: (
@@ -42,7 +42,7 @@ const APPLICATIONS = [
       </svg>
     ),
     title: 'AUTOMOTIVE & INDUSTRIAL',
-    desc: 'Durable non-woven felts and high-denier fibres for automotive headliners, acoustic dampening, and geotextiles.',
+    desc: 'Durable non-woven felts and high-denier fibers for automotive headliners, acoustic dampening, and geotextiles.',
   },
 ]
 
@@ -128,7 +128,7 @@ export function AdvantagesSection() {
               maxWidth: '46ch',
             }}
           >
-            From high-speed yarn spinning to automotive acoustic felts, our fibre specifications are tailored to the exact requirements of your manufacturing setup.
+            From high-speed yarn spinning to automotive acoustic felts, our fiber specifications are tailored to the exact requirements of your manufacturing setup.
           </p>
         </div>
 

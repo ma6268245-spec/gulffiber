@@ -89,7 +89,7 @@ export default function TermsAndCopyrightPage() {
                       Technical Tolerances
                     </h3>
                     <p className="sp-body" style={{ marginBottom: '1rem' }}>
-                      Fibre specifications across the <strong>{VERIFIED.denierRange}</strong> range (linear density, staple cut length, crimp frequency, tensile strength, and oil pick-up / spin finish) adhere to international textile manufacturing standards (ASTM / ISO).
+                      Fiber specifications across the <strong>{VERIFIED.denierRange}</strong> range (linear density, staple cut length, crimp frequency, tensile strength, and oil pick-up / spin finish) adhere to international textile manufacturing standards (ASTM / ISO).
                     </p>
                     <p className="sp-body">
                       Custom tailored parameters requested by client spinning mills or nonwoven converters are documented in the mutual technical data sheet (TDS) accompanying the supply agreement.
@@ -132,7 +132,7 @@ export default function TermsAndCopyrightPage() {
                 dark
                 eyebrow="Logistics & Delivery"
                 title="Packaging standards & consignment transit"
-                lede="Factory-direct dispatch protocols designed to protect physical fibre integrity from warehouse loading to customer receiving mills."
+                lede="Factory-direct dispatch protocols designed to protect physical fiber integrity from warehouse loading to customer receiving mills."
               />
             </div>
 
@@ -147,7 +147,7 @@ export default function TermsAndCopyrightPage() {
                       High-Density Moisture Baling
                     </h3>
                     <p className="sp-body" style={{ color: 'rgba(255, 255, 255, 0.78)' }}>
-                      Standard staple fibre is compressed into 200–300 kg high-density bales wrapped in heavy multi-layer polypropylene with high-tensile steel strapping. Roll goods (wadding, felt, interlinings) are vacuum poly-wrapped to prevent ambient moisture ingress.
+                      Standard staple fiber is compressed into 200–300 kg high-density bales wrapped in heavy multi-layer polypropylene with high-tensile steel strapping. Roll goods (wadding, felt, interlinings) are vacuum poly-wrapped to prevent ambient moisture ingress.
                     </p>
                   </div>
                 </div>
@@ -280,7 +280,7 @@ export default function TermsAndCopyrightPage() {
                       Liability Limitations
                     </h3>
                     <p className="sp-body" style={{ color: 'rgba(255, 255, 255, 0.78)' }}>
-                      Gulf Fiber warrants that delivered fibres conform to the agreed written physical specifications and certified quality standards at the point of factory dispatch. The company makes no warranty of merchantability for non-intended secondary conversions. In all cases, maximum aggregate liability shall not exceed the net invoice amount received for the specific consignment.
+                      Gulf Fiber warrants that delivered fibers conform to the agreed written physical specifications and certified quality standards at the point of factory dispatch. The company makes no warranty of merchantability for non-intended secondary conversions. In all cases, maximum aggregate liability shall not exceed the net invoice amount received for the specific consignment.
                     </p>
                   </div>
                 </div>

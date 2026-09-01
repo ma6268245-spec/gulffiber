@@ -254,8 +254,8 @@ export function TrustBanner() {
           </div>
           <div style={{ width: '8rem', height: '5.5rem', overflow: 'hidden', borderRadius: '0.375rem' }}>
             <Image
-              src="/images/process-fibre-lab.jpg"
-              alt="Single fibre tensile testing equipment"
+              src="/images/process-fiber-lab.jpg"
+              alt="Single fiber tensile testing equipment"
               width={128}
               height={88}
               style={{ width: '100%', height: '100%', objectFit: 'cover' }}

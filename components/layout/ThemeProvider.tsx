@@ -19,7 +19,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     let raf = 0
-    const saved = localStorage.getItem('gulf-fibre-theme') as Theme | null
+    const saved = localStorage.getItem('gulf-fiber-theme') as Theme | null
     if (saved === 'dark' || saved === 'light') {
       document.documentElement.setAttribute('data-theme', saved)
       raf = requestAnimationFrame(() => {
@@ -36,7 +36,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const toggleTheme = () => {
     const next = theme === 'light' ? 'dark' : 'light'
     setTheme(next)
-    localStorage.setItem('gulf-fibre-theme', next)
+    localStorage.setItem('gulf-fiber-theme', next)
     document.documentElement.setAttribute('data-theme', next)
   }
 

@@ -49,7 +49,7 @@ export default function CompanyPage() {
             { text: 'Gulf Fiber —' },
             { text: 'Since 1999', serif: true },
           ]}
-          lede={`${VERIFIED.legalName} has manufactured synthetic polyester fibre in ${VERIFIED.country} for over 25 years, supplying spinning mills, wadding converters, and nonwoven manufacturers with uncompromising batch-to-batch consistency.`}
+          lede={`${VERIFIED.legalName} has manufactured synthetic polyester fiber in ${VERIFIED.country} for over 25 years, supplying spinning mills, wadding converters, and nonwoven manufacturers with uncompromising batch-to-batch consistency.`}
           meta={[
             { label: 'Established', value: String(VERIFIED.established) },
             { label: 'Heritage', value: '25+ Years' },
@@ -74,7 +74,7 @@ export default function CompanyPage() {
                 WebkitBackdropFilter: 'blur(12px)',
               }}
             >
-              View Fibre Catalog →
+              View Fiber Catalog →
             </Link>
           </div>
         </PageHero>
@@ -85,9 +85,9 @@ export default function CompanyPage() {
             <div className="sp-anim" style={{ marginBottom: 'clamp(2rem, 4vh, 3rem)' }}>
               <SectionHead
                 eyebrow="02 · Who We Are"
-                title="A fibre manufacturer,"
+                title="A fiber manufacturer,"
                 em="not a trading house"
-                lede="Direct manufacturer of high-tenacity and recycled polyester staple fibres, operating dedicated extrusion and carding lines in Pakistan since 1999."
+                lede="Direct manufacturer of high-tenacity and recycled polyester staple fibers, operating dedicated extrusion and carding lines in Pakistan since 1999."
               />
             </div>
 
@@ -107,7 +107,7 @@ export default function CompanyPage() {
                     { key: 'Legal Name', value: <strong>{VERIFIED.legalName}</strong> },
                     { key: 'Headquarters & Plant', value: <strong>{VERIFIED.country}</strong> },
                     { key: 'Founding Year', value: <strong>{String(VERIFIED.established)} (25+ Years)</strong> },
-                    { key: 'Core Materials', value: <strong>Recycled & Staple Polyester Fibres</strong> },
+                    { key: 'Core Materials', value: <strong>Recycled & Staple Polyester Fibers</strong> },
                     { key: 'Registrations', value: <strong>{VERIFIED.certificationCount} Official Licenses</strong> },
                   ]}
                 />
@@ -223,7 +223,7 @@ export default function CompanyPage() {
                 marginTop: '1.5rem',
               }}
             >
-              {/* Product 1: Staple & Hollow Fibre */}
+              {/* Product 1: Staple & Hollow Fiber */}
               <div
                 style={{
                   background: 'var(--card-bg)',
@@ -239,13 +239,13 @@ export default function CompanyPage() {
               >
                 <div>
                   <span style={{ fontSize: '0.6875rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--burg-primary)', background: 'rgba(10, 75, 184, 0.08)', padding: '0.3rem 0.75rem', borderRadius: '9999px', display: 'inline-block', marginBottom: '1rem' }}>
-                    01 · Core Spinning & Filling Fibres
+                    01 · Core Spinning & Filling Fibers
                   </span>
                   <h3 style={{ fontSize: '1.35rem', fontWeight: 900, fontFamily: 'var(--font-sans)', textTransform: 'uppercase', color: 'var(--ink)', margin: '0 0 0.65rem' }}>
-                    Staple & Hollow Fibre
+                    Staple & Hollow Fiber
                   </h3>
                   <p style={{ fontSize: '0.875rem', lineHeight: 1.6, color: 'var(--muted)', margin: '0 0 1.25rem' }}>
-                    Polyester staple fibre (PSF) and conjugate hollow fibres engineered for high-speed yarn spinning, textile blending, and premium cushioning resilience.
+                    Polyester staple fiber (PSF) and conjugate hollow fibers engineered for high-speed yarn spinning, textile blending, and premium cushioning resilience.
                   </p>
                   <ul style={{ listStyle: 'none', padding: 0, margin: '0 0 1.5rem', display: 'flex', flexDirection: 'column', gap: '0.45rem', fontSize: '0.8125rem', color: 'var(--ink)' }}>
                     <li>✔ <strong>1.2D to 60D</strong> Solid & Hollow conjugate deniers</li>
@@ -339,7 +339,7 @@ export default function CompanyPage() {
                 eyebrow="04 · 25 Years of History"
                 title="25 Years of manufacturing heritage,"
                 em="1999 to Present"
-                lede="From our founding staple fibre plant in 1999 to today's 15,000+ T automated production capacity, explore the key milestones and expansions across a quarter-century of industrial operations."
+                lede="From our founding staple fiber plant in 1999 to today's 15,000+ T automated production capacity, explore the key milestones and expansions across a quarter-century of industrial operations."
                 stacked
                 dark
               />

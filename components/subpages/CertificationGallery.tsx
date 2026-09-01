@@ -80,7 +80,7 @@ const CERT_COORDS: Record<string, { top: string; left: string; width: string; he
     height: '25.0%',
     plaqueTitle: 'GRS 4.0 · MAIN SCOPE CERTIFICATE',
     issuer: 'Control Union Certifications B.V. (Netherlands)',
-    shortScope: '100% Post-Consumer Recycled PET Flake & Fibres',
+    shortScope: '100% Post-Consumer Recycled PET Flake & Fibers',
   },
   'EPA Punjab': {
     top: '10.8%',

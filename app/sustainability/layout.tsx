@@ -4,7 +4,7 @@ import '@/styles/subpage.css'
 export const metadata: Metadata = {
   title: 'Sustainability - Recycled Polyester Under GRS Chain of Custody',
   description:
-    'Regenerated polyester staple fibre produced from 100% post-consumer PET under Global Recycled Standard chain of custody.',
+    'Regenerated polyester staple fiber produced from 100% post-consumer PET under Global Recycled Standard chain of custody.',
 }
 
 /**

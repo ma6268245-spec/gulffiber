@@ -18,7 +18,7 @@ export const GALLERY_CATEGORIES: { id: GalleryCategoryId | 'all'; label: string;
   { id: 'all', label: 'All Photos', blurb: 'Complete visual archive of Gulf Fiber plant facilities, machinery, and products.' },
   { id: 'factory', label: 'Factory & Plant', blurb: 'Plant facilities, administrative buildings, aerial campus views, and logistics.' },
   { id: 'manufacturing', label: 'Manufacturing', blurb: 'Extrusion spinnerets, drawing stands, crimpers, needle looms, and slitter rewinders.' },
-  { id: 'products', label: 'Products', blurb: 'Staple fibres, conjugated hollow fibres, thermal wadding, felt rolls, interlinings, and fusion paper.' },
+  { id: 'products', label: 'Products', blurb: 'Staple fibers, conjugated hollow fibers, thermal wadding, felt rolls, interlinings, and fusion paper.' },
   { id: 'sustainability', label: 'Sustainability', blurb: 'Rooftop solar energy generation arrays and clean green plant operations.' },
 ]
 
@@ -158,7 +158,7 @@ export const GALLERY_ITEMS: GalleryItem[] = [
     alt: 'Continuous tow drawing, crimping and rotary cutting unit',
     description:
       'High-speed rotary cutter converting continuous crimped tow bands into precision cut lengths (32mm to 102mm) before baling.',
-    tags: ['cutting', 'crimping', 'staple-fibre', 'baling'],
+    tags: ['cutting', 'crimping', 'staple-fiber', 'baling'],
     relatedPage: '/services',
     status: 'VERIFIED',
   },
@@ -239,7 +239,7 @@ export const GALLERY_ITEMS: GalleryItem[] = [
     title: 'Tow Can Coilers & Accumulators',
     category: 'manufacturing',
     image: '/images/Gallery/19.jpeg',
-    alt: 'Fibre tow collection cans receiving continuous filament bands',
+    alt: 'Fiber tow collection cans receiving continuous filament bands',
     description:
       'Rotating collection cans collecting quenched undrawn tow bands for tensionless buffering before combined drafting.',
     tags: ['coilers', 'cans', 'tow-buffer', 'spinning'],
@@ -276,9 +276,9 @@ export const GALLERY_ITEMS: GalleryItem[] = [
     title: 'Main Production Floor & Drawing Line',
     category: 'manufacturing',
     image: '/images/Gallery/22.jpeg',
-    alt: 'Wide panorama of staple fibre manufacturing floor and draw line',
+    alt: 'Wide panorama of staple fiber manufacturing floor and draw line',
     description:
-      'Full operational view of the primary fibre production hall, showcasing continuous draw stands, can arrays, and ventilation systems.',
+      'Full operational view of the primary fiber production hall, showcasing continuous draw stands, can arrays, and ventilation systems.',
     tags: ['floor', 'production-line', 'hall', 'capacity'],
     relatedPage: '/company',
     status: 'VERIFIED',
@@ -302,7 +302,7 @@ export const GALLERY_ITEMS: GalleryItem[] = [
     image: '/images/Gallery/24.jpeg',
     alt: 'High-speed industrial needle-punching board and bonding zone',
     description:
-      'Heavy-duty reciprocal needle board mechanically interlocking fibres at thousands of penetrations per square centimetre.',
+      'Heavy-duty reciprocal needle board mechanically interlocking fibers at thousands of penetrations per square centimetre.',
     tags: ['needle-loom', 'bonding', 'mechanical', 'felt'],
     relatedPage: '/services',
     status: 'VERIFIED',
@@ -326,7 +326,7 @@ export const GALLERY_ITEMS: GalleryItem[] = [
     title: 'Conjugated Hollow Siliconized Fiber',
     category: 'products',
     image: '/images/Gallery/Hollow FIber.jpeg',
-    alt: 'Conjugate hollow siliconized polyester staple fibre cluster',
+    alt: 'Conjugate hollow siliconized polyester staple fiber cluster',
     description:
       'High-resilience 3D crimp hollow fiber with siliconized surface finish for superior loft, recovery, and thermal insulation.',
     tags: ['hollow-fiber', 'siliconized', 'hcs', 'loft', 'products'],

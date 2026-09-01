@@ -226,7 +226,7 @@ const CONTACT_CARDS: ChatCard[] = [...DESK_CARDS, ...EXPORT_CARD, GENERAL_CARD]
    PRODUCT CARDS
    ---------------------------------------------------------------------------
    Built here, below the desks, because every product card closes with the person
-   who handles that line: ask about staple fibre and Ehsan Afzal's direct dial
+   who handles that line: ask about staple fiber and Ehsan Afzal's direct dial
    arrives under the specification, so the answer and the way to act on it are
    never two separate lookups.
    --------------------------------------------------------------------------- */
@@ -322,7 +322,7 @@ function desksForLines(lineIds: string[]) {
 const deskSentence = (person: OrgNode) =>
   `${person.name} (${person.role})${person.contact ? ` on ${person.contact}` : ''}`
 
-/** "Ehsan Afzal for staple and hollow fibre; ..." across every product desk. */
+/** "Ehsan Afzal for staple and hollow fiber; ..." across every product desk. */
 const DESK_SUMMARY = DESK_CARDS.map((c, i) => {
   const person = orgMember(SALES_DESKS[i].orgId)!
   return `${person.name} for ${person.department.toLowerCase()}`
@@ -340,13 +340,13 @@ const DESK_SUMMARY = DESK_CARDS.map((c, i) => {
    --------------------------------------------------------------------------- */
 export const CHIP = {
   products: { label: 'Products', query: 'What is your product range?' },
-  compare: { label: 'Compare lines', query: 'Compare the difference between the fibre lines' },
+  compare: { label: 'Compare lines', query: 'Compare the difference between the fiber lines' },
   specs: { label: 'Denier & specs', query: 'What denier range and specifications do you offer?' },
-  bedding: { label: 'Fibre for bedding', query: 'What product should I use for bedding?' },
-  recommend: { label: 'Recommend a fibre', query: 'Which product do you recommend for my application?' },
+  bedding: { label: 'Fiber for bedding', query: 'What product should I use for bedding?' },
+  recommend: { label: 'Recommend a fiber', query: 'Which product do you recommend for my application?' },
   certifications: { label: 'Certifications', query: 'What certifications do you hold?' },
   quality: { label: 'Quality control', query: 'How do you control quality?' },
-  process: { label: 'How it is made', query: 'How is the fibre made?' },
+  process: { label: 'How it is made', query: 'How is the fiber made?' },
   capacity: { label: 'Capacity', query: 'What is your annual production capacity?' },
   company: { label: 'The company', query: 'Who are you?' },
   recycled: { label: 'Recycled content', query: 'How is recycled content verified?' },
@@ -414,7 +414,7 @@ export const CHAT_INTENTS: ChatIntent[] = [
   {
     id: 'products',
     keywords: [
-      'product', 'products', 'catalogue', 'catalog', 'range', 'fibre', 'fiber',
+      'product', 'products', 'catalogue', 'catalog', 'range', 'fiber', 'fiber',
       'psf', 'staple', 'wadding', 'felt', 'nonwoven', 'non-woven', 'non woven',
       'interlining', 'lining', 'fusing', 'wadding', 'infill', 'material', 'materials',
       'what do you make', 'what do you sell', 'offer',
@@ -426,7 +426,7 @@ export const CHAT_INTENTS: ChatIntent[] = [
         desks.length === 1
           ? ` ${desks[0].asked.map(lineTitle).join(' and ')} is handled by ${deskSentence(desks[0].person)}.`
           : ''
-      return `We manufacture five verified product lines: ${lineList}. The staple fibre range spans ${VERIFIED.denierRange}, from fine-count spinning to ultra-coarse industrial batting.${routing} Tap a card for the line's verified attributes.`
+      return `We manufacture five verified product lines: ${lineList}. The staple fiber range spans ${VERIFIED.denierRange}, from fine-count spinning to ultra-coarse industrial batting.${routing} Tap a card for the line's verified attributes.`
     },
     cards: (message = '') => {
       const lineIds = detectLineIds(message)
@@ -457,7 +457,7 @@ export const CHAT_INTENTS: ChatIntent[] = [
       'regenerated or prime',
     ],
     answer: () =>
-      'The comparison the record supports is recycled versus prime staple fibre: both span the full 1.2D-60D range and both run the same four-stage sequence - they differ in feedstock and in what you can claim downstream. GRS chain of custody applies to the regenerated line; prime-polymer processing behaviour and colour consistency are why the prime line is specified. Deeper comparisons between specific grades are order questions, so they go to the enquiry desk rather than being improvised here.',
+      'The comparison the record supports is recycled versus prime staple fiber: both span the full 1.2D-60D range and both run the same four-stage sequence - they differ in feedstock and in what you can claim downstream. GRS chain of custody applies to the regenerated line; prime-polymer processing behaviour and colour consistency are why the prime line is specified. Deeper comparisons between specific grades are order questions, so they go to the enquiry desk rather than being improvised here.',
     cards: COMPARE_CARDS,
     suggestions: [CHIP.recycled, CHIP.specs, CHIP.recommend, CHIP.quote],
     action: { text: 'Open the enquiry form', href: '/contact' },
@@ -492,7 +492,7 @@ export const CHAT_INTENTS: ChatIntent[] = [
       'eco', 'carbon', 'circular', 'post-consumer', 'closed loop',
     ],
     answer: () =>
-      `Regenerated staple fibre is produced from ${VERIFIED.recycledInput}, tracked under Global Recycled Standard chain of custody - so a recycled-content claim on your product can be substantiated on ours. The transformation runs through the same four production stages as the rest of the line.`,
+      `Regenerated staple fiber is produced from ${VERIFIED.recycledInput}, tracked under Global Recycled Standard chain of custody - so a recycled-content claim on your product can be substantiated on ours. The transformation runs through the same four production stages as the rest of the line.`,
     suggestions: [CHIP.certifications, CHIP.process, CHIP.compare, CHIP.quote],
     action: { text: 'See the sustainability page', href: '/sustainability' },
   },
@@ -515,7 +515,7 @@ export const CHAT_INTENTS: ChatIntent[] = [
       'where are you', 'location', 'pakistan',
     ],
     answer: () =>
-      `${VERIFIED.legalName} has manufactured polyester fibre in ${VERIFIED.country} since ${VERIFIED.established} - ${VERIFIED.yearsInBusiness} in business, ${VERIFIED.annualCapacity} of annual capacity, ${VERIFIED.customers} customers served and a workforce of ${VERIFIED.workforce}.`,
+      `${VERIFIED.legalName} has manufactured polyester fiber in ${VERIFIED.country} since ${VERIFIED.established} - ${VERIFIED.yearsInBusiness} in business, ${VERIFIED.annualCapacity} of annual capacity, ${VERIFIED.customers} customers served and a workforce of ${VERIFIED.workforce}.`,
     suggestions: [CHIP.products, CHIP.certifications, CHIP.capacity, CHIP.gallery],
     action: { text: 'See the company page', href: '/company' },
   },
@@ -538,7 +538,7 @@ export const CHAT_INTENTS: ChatIntent[] = [
       'verify', 'verified', 'tolerance', 'inspection',
     ],
     answer: () =>
-      'Verification sits where the outcome is still recoverable: incoming feedstock control before the melt, tensile analysis at the fibre, moisture verification before baling, and a Certificate of Analysis per consignment so the receiving mill can reconcile delivered material against the agreed specification.',
+      'Verification sits where the outcome is still recoverable: incoming feedstock control before the melt, tensile analysis at the fiber, moisture verification before baling, and a Certificate of Analysis per consignment so the receiving mill can reconcile delivered material against the agreed specification.',
     suggestions: [CHIP.certifications, CHIP.samples, CHIP.specs, CHIP.quote],
     action: { text: 'See quality and compliance', href: '/quality' },
   },
@@ -580,8 +580,8 @@ export const CHAT_INTENTS: ChatIntent[] = [
     id: 'recommend',
     keywords: [
       'which product', 'what product', 'recommend', 'recommendation', 'suggest',
-      'suitable for', 'right fibre', 'right fiber', 'right product', 'best product',
-      'need fibre for', 'need fiber for', 'use for', 'used for',
+      'suitable for', 'right fiber', 'right fiber', 'right product', 'best product',
+      'need fiber for', 'need fiber for', 'use for', 'used for',
       'bedding', 'quilt', 'quilts', 'duvet', 'pillow', 'pillows', 'mattress',
       'furniture', 'upholstery', 'upholstered', 'sofa', 'cushion', 'insulation',
       'apparel', 'outerwear', 'jacket', 'spinning', 'yarn', 'automotive',
@@ -666,7 +666,7 @@ export const CHAT_INTENTS: ChatIntent[] = [
       'company introduction', 'brief me', 'full picture', 'at a glance',
     ],
     answer: () =>
-      `${VERIFIED.legalName} has manufactured polyester fibre in ${VERIFIED.country} since ${VERIFIED.established} - ${VERIFIED.yearsInBusiness} years in business, ${VERIFIED.annualCapacity} of annual capacity, ${VERIFIED.customers} customers served and a workforce of ${VERIFIED.workforce}. ${PRODUCT_LINES.length} product lines run across the ${VERIFIED.denierRange} denier range through four production stages - ${PROCESS_STAGES.map(
+      `${VERIFIED.legalName} has manufactured polyester fiber in ${VERIFIED.country} since ${VERIFIED.established} - ${VERIFIED.yearsInBusiness} years in business, ${VERIFIED.annualCapacity} of annual capacity, ${VERIFIED.customers} customers served and a workforce of ${VERIFIED.workforce}. ${PRODUCT_LINES.length} product lines run across the ${VERIFIED.denierRange} denier range through four production stages - ${PROCESS_STAGES.map(
         (s) => s.title.toLowerCase()
       ).join('; ')} - with ${VERIFIED.certificationCount} registrations covering quality management, recycled content and harmful-substance testing. In-house capability covers ${SERVICE_CAPABILITIES.map(
         (c) => c.title.toLowerCase()
@@ -791,8 +791,8 @@ export const PAGE_CONTEXTS: Record<string, PageContext> = {
   },
   '/products': {
     topic: 'Products',
-    greeting: `Five verified lines — staple fibre, hollow fibre, wadding, felt and interlinings — across the ${VERIFIED.denierRange} denier range. Ask about any line, or how they compare.`,
-    nudge: 'Need help choosing a fibre line?',
+    greeting: `Five verified lines — staple fiber, hollow fiber, wadding, felt and interlinings — across the ${VERIFIED.denierRange} denier range. Ask about any line, or how they compare.`,
+    nudge: 'Need help choosing a fiber line?',
     suggestions: [CHIP.compare, CHIP.specs, CHIP.recommend, CHIP.samples, CHIP.contacts, CHIP.quote],
   },
   '/services': {
@@ -804,19 +804,19 @@ export const PAGE_CONTEXTS: Record<string, PageContext> = {
   '/company': {
     topic: 'The company',
     nudge: 'Ask about the company record.',
-    greeting: `${VERIFIED.legalName} — polyester fibre in ${VERIFIED.country} since ${VERIFIED.established}. ${VERIFIED.annualCapacity} annual capacity, ${VERIFIED.customers} customers, a workforce of ${VERIFIED.workforce}.`,
+    greeting: `${VERIFIED.legalName} — polyester fiber in ${VERIFIED.country} since ${VERIFIED.established}. ${VERIFIED.annualCapacity} annual capacity, ${VERIFIED.customers} customers, a workforce of ${VERIFIED.workforce}.`,
     suggestions: [CHIP.contacts, CHIP.capacity, CHIP.products, CHIP.certifications, CHIP.gallery, CHIP.quote],
   },
   '/sustainability': {
     topic: 'Sustainability',
     nudge: 'Ask how recycled content is verified.',
-    greeting: `Regenerated fibre is produced from ${VERIFIED.recycledInput}, tracked under Global Recycled Standard chain of custody — so your recycled-content claim can be substantiated on ours.`,
+    greeting: `Regenerated fiber is produced from ${VERIFIED.recycledInput}, tracked under Global Recycled Standard chain of custody — so your recycled-content claim can be substantiated on ours.`,
     suggestions: [CHIP.recycled, CHIP.certifications, CHIP.compare, CHIP.products, CHIP.contacts, CHIP.quote],
   },
   '/quality': {
     topic: 'Quality & compliance',
     nudge: 'Ask about certifications and testing.',
-    greeting: `Registrations held: ${certCodes}. Verification runs at incoming feedstock, at the fibre and before baling, with a Certificate of Analysis per consignment.`,
+    greeting: `Registrations held: ${certCodes}. Verification runs at incoming feedstock, at the fiber and before baling, with a Certificate of Analysis per consignment.`,
     suggestions: [CHIP.certifications, CHIP.quality, CHIP.samples, CHIP.recycled, CHIP.contacts, CHIP.quote],
   },
   '/gallery': {

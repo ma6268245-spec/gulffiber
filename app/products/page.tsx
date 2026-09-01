@@ -28,7 +28,7 @@ export default function ProductsPage() {
         <PageHero
           eyebrow="Product Portfolio"
           lines={[{ text: 'Five lines,' }, { text: 'one specification' }, { text: 'discipline', serif: true }]}
-          lede={`Regenerated solid and hollow staple fibre (${VERIFIED.denierRange}), high-loft thermal-bonded wadding, needle-punched technical felt, and fusible garment interlinings — engineered to the precise specification of the receiving operation.`}
+          lede={`Regenerated solid and hollow staple fiber (${VERIFIED.denierRange}), high-loft thermal-bonded wadding, needle-punched technical felt, and fusible garment interlinings — engineered to the precise specification of the receiving operation.`}
           meta={[
             { label: 'Denier range', value: VERIFIED.denierRange },
             { label: 'Annual capacity', value: VERIFIED.annualCapacity },
@@ -200,7 +200,7 @@ export default function ProductsPage() {
                       {p.video ? (
                         <ProductVideoPlayer
                           src={p.video}
-                          poster={p.image ?? '/images/process-fibre-lab.jpg'}
+                          poster={p.image ?? '/images/process-fiber-lab.jpg'}
                           alt={`${p.title} at the Gulf Fiber plant`}
                           title={p.title}
                           code={p.code}
@@ -320,7 +320,7 @@ export default function ProductsPage() {
                       {p.video ? (
                         <ProductVideoPlayer
                           src={p.video}
-                          poster={p.image ?? '/images/process-fibre-lab.jpg'}
+                          poster={p.image ?? '/images/process-fiber-lab.jpg'}
                           alt={`${p.title} at the Gulf Fiber plant`}
                           title={p.title}
                           code={p.code}

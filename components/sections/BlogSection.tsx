@@ -8,7 +8,7 @@ const ARTICLES = [
   {
     category: 'Technical Guide',
     date: 'Aug 2026',
-    title: 'How to Select the Correct Polyester Staple Fibre Denier',
+    title: 'How to Select the Correct Polyester Staple Fiber Denier',
     img: '/images/Gallery/11.jpeg',
     href: '/products',
     large: true,
@@ -16,7 +16,7 @@ const ARTICLES = [
   {
     category: 'Spinning',
     date: 'Jul 2026',
-    title: 'Understanding Staple Length in Synthetic Fibre Spinning',
+    title: 'Understanding Staple Length in Synthetic Fiber Spinning',
     img: '/images/Gallery/6.jpeg',
     href: '/services',
     large: false,
@@ -94,7 +94,7 @@ export function BlogSection() {
               Our Blog
             </div>
             <h2 className="blog-heading h-section">
-              SMART FIBRE<br />
+              SMART FIBER<br />
               <em>Stories</em>
             </h2>
           </div>

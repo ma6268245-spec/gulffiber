@@ -174,10 +174,10 @@ export function CompanyOrgTree() {
                 width: '100%',
                 display: 'flex',
                 justifyContent: 'center',
-                alignItems: 'center',
+                alignItems: 'flex-start',
                 marginBottom: '0.25rem',
                 zIndex: 3,
-                minHeight: '110px',
+                minHeight: '115px',
               }}
             >
               {/* Left Slot: Co-founder & Strategic Investor (Clean Circle Node - No Dashed Box) */}
@@ -186,8 +186,7 @@ export function CompanyOrgTree() {
                   className="org-investor-side-slot"
                   style={{
                     position: 'absolute',
-                    top: '50%',
-                    transform: 'translateY(-50%)',
+                    top: 0,
                     display: 'flex',
                     flexDirection: 'column',
                     alignItems: 'center',
@@ -213,7 +212,7 @@ export function CompanyOrgTree() {
                   display: 'flex',
                   flexDirection: 'column',
                   alignItems: 'center',
-                  justifyContent: 'center',
+                  justifyContent: 'flex-start',
                   zIndex: 3,
                 }}
               >
@@ -792,10 +791,17 @@ export function CompanyOrgTree() {
           margin: 0 0 0.25rem;
         }
 
-        /* Desktop: Co-founder placed closer to Founder (~50px gap) */
+        /* Desktop: Co-founder placed comfortably left of Founder without collision */
         @media (min-width: 1025px) {
           .org-investor-side-slot {
-            left: calc(50% - 215px) !important;
+            left: calc(50% - 290px) !important;
+            width: 200px !important;
+            top: 0 !important;
+            transform: none !important;
+          }
+          .org-founder-center {
+            width: 220px !important;
+            margin: 0 auto !important;
           }
         }
 
@@ -803,6 +809,8 @@ export function CompanyOrgTree() {
         @media (min-width: 769px) and (max-width: 1024px) {
           .org-investor-side-slot {
             left: clamp(1.25rem, 4vw, 3.5rem) !important;
+            top: 0 !important;
+            transform: none !important;
           }
         }
 
@@ -813,14 +821,14 @@ export function CompanyOrgTree() {
             width: 100% !important;
             display: flex !important;
             justify-content: center !important;
-            align-items: center !important;
+            align-items: flex-start !important;
             min-height: 95px !important;
           }
           .org-investor-side-slot {
             position: absolute !important;
-            left: 0.15rem !important;
-            top: 50% !important;
-            transform: translateY(-50%) !important;
+            left: 0.25rem !important;
+            top: 0 !important;
+            transform: none !important;
             width: 105px !important;
             max-width: 32% !important;
           }
@@ -828,7 +836,7 @@ export function CompanyOrgTree() {
             display: flex !important;
             flex-direction: column !important;
             align-items: center !important;
-            justify-content: center !important;
+            justify-content: flex-start !important;
             margin: 0 auto !important;
             width: 120px !important;
             max-width: 36% !important;

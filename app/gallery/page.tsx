@@ -44,7 +44,7 @@ export default function GalleryPage() {
           aside={
             <Image
               src="/images/gallery-hero.jpg"
-              alt="Main extrusion line and staple fibre production floor at Gulf Fiber facility"
+              alt="Main extrusion line and staple fiber production floor at Gulf Fiber facility"
               fill
               priority
               sizes="(max-width: 992px) 100vw, 48vw"

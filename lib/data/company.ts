@@ -31,7 +31,7 @@ export interface CompanyData {
   }[]
 }
 
-export const GULF_FIBRE_DATA: CompanyData = {
+export const GULF_FIBER_DATA: CompanyData = {
   legalName: 'Gulf Fiber Company (PVT) Limited',
   establishedYear: 1999,
   origin: 'Pakistan',
@@ -44,7 +44,7 @@ export const GULF_FIBRE_DATA: CompanyData = {
     { value: '250+', label: 'Workforce / Employees', status: 'VERIFIED' },
   ],
   productCategories: [
-    { id: '01', title: 'Polyester Staple Fibre', subtitle: 'Solid & Hollow · 1.2D–60D', status: 'VERIFIED' },
+    { id: '01', title: 'Polyester Staple Fiber', subtitle: 'Solid & Hollow · 1.2D–60D', status: 'VERIFIED' },
     { id: '02', title: 'Wadding & Thermal Infill', subtitle: 'High-loft · Thermal bonding', status: 'VERIFIED' },
     { id: '03', title: 'Felt & Non-Woven Materials', subtitle: 'Needle-punched · All weights', status: 'VERIFIED' },
     { id: '04', title: 'Linings & Fusing Materials', subtitle: 'Woven & non-woven interlinings', status: 'VERIFIED' },
@@ -68,10 +68,10 @@ export const GULF_FIBRE_DATA: CompanyData = {
 /* ===========================================================================
    SUBPAGE CONTENT MODULE
    ---------------------------------------------------------------------------
-   Additive only. `GULF_FIBRE_DATA` above is untouched.
+   Additive only. `GULF_FIBER_DATA` above is untouched.
 
    Provenance rules enforced here:
-   - VERIFIED        = present in GULF_FIBRE_DATA, or already published on the
+   - VERIFIED        = present in GULF_FIBER_DATA, or already published on the
                        client-approved homepage (source is named on each entry).
    - CONTENT_REQUIRED = the design needs this, but the repository does not
                        verify it. It renders as a visible, intentional content
@@ -97,9 +97,9 @@ export interface ContentSlot {
 }
 
 export const VERIFIED = {
-  legalName: GULF_FIBRE_DATA.legalName,
-  established: GULF_FIBRE_DATA.establishedYear,
-  country: GULF_FIBRE_DATA.origin,
+  legalName: GULF_FIBER_DATA.legalName,
+  established: GULF_FIBER_DATA.establishedYear,
+  country: GULF_FIBER_DATA.origin,
   yearsInBusiness: '25+',
   annualCapacity: '15,000 T',
   annualCapacityValue: 15000,
@@ -157,8 +157,8 @@ export const PROCESS_STAGES: {
     },
   ]
 
-/** Capability spine for /services. Source: GULF_FIBRE_DATA.capabilities. */
-export const SERVICE_CAPABILITIES = GULF_FIBRE_DATA.capabilities
+/** Capability spine for /services. Source: GULF_FIBER_DATA.capabilities. */
+export const SERVICE_CAPABILITIES = GULF_FIBER_DATA.capabilities
 
 /** Certification detail for /quality and /company. Verified from original official certificates. */
 export const CERTIFICATION_DETAIL: {
@@ -184,9 +184,9 @@ export const CERTIFICATION_DETAIL: {
     code: 'GRS (Scope P.1)',
     name: 'Global Recycled Standard (GRS 4.0) · Main Scope',
     certNumber: 'CU1068996GRS-2026-00011425',
-    scope: '100% Post-Consumer Recycled PET Flake, Dyed & Undyed Fibres',
+    scope: '100% Post-Consumer Recycled PET Flake, Dyed & Undyed Fibers',
     what:
-      'Official Control Union Scope Certificate (Page 1) verifying post-consumer recycled PET feedstock inputs, dyed and undyed staple fibres, and comprehensive chain-of-custody compliance.',
+      'Official Control Union Scope Certificate (Page 1) verifying post-consumer recycled PET feedstock inputs, dyed and undyed staple fibers, and comprehensive chain-of-custody compliance.',
     kind: 'ACCREDITED_CERTIFICATION',
     status: 'VERIFIED',
   },
@@ -204,9 +204,9 @@ export const CERTIFICATION_DETAIL: {
     code: 'OEKO-TEX 100',
     name: 'OEKO-TEX® Standard 100 (Class I Baby Articles)',
     certNumber: 'Certificate 2023OK2168 (AITEX)',
-    scope: '100% Recycled Polyester Staple Fibre (White, Green, Black)',
+    scope: '100% Recycled Polyester Staple Fiber (White, Green, Black)',
     what:
-      'Certified under Product Class I (baby articles / sensitive skin contact), confirming zero harmful substances or restricted chemical residues across post-consumer PET staple fibre production.',
+      'Certified under Product Class I (baby articles / sensitive skin contact), confirming zero harmful substances or restricted chemical residues across post-consumer PET staple fiber production.',
     kind: 'ACCREDITED_CERTIFICATION',
     status: 'VERIFIED',
   },
@@ -251,18 +251,18 @@ export const PRODUCT_LINES: ProductLine[] = [
   {
     id: 'psf-regenerated',
     code: 'PSF-R',
-    title: 'Regenerated Polyester Staple Fibre',
+    title: 'Regenerated Polyester Staple Fiber',
     subtitle: '100% Recycled PET feedstock · Bottle flakes & polymer waste',
     positioning:
-      'Engineered recycled polyester staple fibre manufactured from sorted post-consumer PET bottle flakes and clean polymer waste under verified GRS chain of custody. Offered in solid and hollow configurations with tailored siliconized or non-siliconized surface finishes for spinning mills, fibrefill cushioning, and non-woven conversion.',
+      'Engineered recycled polyester staple fiber manufactured from sorted post-consumer PET bottle flakes and clean polymer waste under verified GRS chain of custody. Offered in solid and hollow configurations with tailored siliconized or non-siliconized surface finishes for spinning mills, fiberfill cushioning, and non-woven conversion.',
     appliedIn: [
       'Ring & open-end yarn spinning',
       'Home textiles & bedding fill',
-      'Fibrefill & furniture cushioning',
+      'Fiberfill & furniture cushioning',
       'Non-woven & needle-punched substrates',
     ],
     verifiedAttributes: [
-      { label: 'Fibre category', value: 'Polyester staple fibre (solid & hollow)' },
+      { label: 'Fiber category', value: 'Polyester staple fiber (solid & hollow)' },
       { label: 'Feedstock origin', value: '100% post-consumer PET bottle flakes' },
       { label: 'Denier range', value: `${VERIFIED.denierRange} (grade-dependent)` },
       { label: 'Cut length', value: '32 mm – 102 mm (customer-specified)' },
@@ -271,17 +271,17 @@ export const PRODUCT_LINES: ProductLine[] = [
     ],
     specSlot:
       'Specification pending production verification — batch tenacity (cN/dtex), elongation %, crimp count per inch, and oil pick-up (OPU) are confirmed per production lot on the consignment Certificate of Analysis.',
-    image: '/images/process-fibre-lab.jpg',
+    image: '/images/process-fiber-lab.jpg',
     video: '/videos/staple-fiber.mp4',
     status: 'VERIFIED',
   },
   {
     id: 'psf-virgin',
     code: 'PSF-H',
-    title: 'Regenerated Polyester Hollow Fibre',
+    title: 'Regenerated Polyester Hollow Fiber',
     subtitle: 'Conjugate hollow infill · Siliconized & non-siliconized',
     positioning:
-      'High-resilience regenerated polyester hollow fibre engineered with a continuous hollow cross-section and permanent three-dimensional helical crimp. Manufactured from sorted post-consumer PET under verified GRS chain of custody for exceptional loft recovery, thermal air retention, and down-like softness in pillows, quilts, cushions, and winter garment insulation.',
+      'High-resilience regenerated polyester hollow fiber engineered with a continuous hollow cross-section and permanent three-dimensional helical crimp. Manufactured from sorted post-consumer PET under verified GRS chain of custody for exceptional loft recovery, thermal air retention, and down-like softness in pillows, quilts, cushions, and winter garment insulation.',
     appliedIn: [
       'Pillows, duvets & luxury bedding',
       'Sofa cushions & upholstered furniture',
@@ -291,7 +291,7 @@ export const PRODUCT_LINES: ProductLine[] = [
       'Mattress toppers & sleep surfaces',
     ],
     verifiedAttributes: [
-      { label: 'Fibre category', value: 'Regenerated polyester hollow fibre' },
+      { label: 'Fiber category', value: 'Regenerated polyester hollow fiber' },
       { label: 'Cross-section profile', value: 'Conjugate hollow (helical 3D crimp)' },
       { label: 'Surface finish', value: 'Siliconized (slick hand-feel) / Non-siliconized' },
       { label: 'Denier range', value: '3D – 15D (filling & batting counts)' },
@@ -310,7 +310,7 @@ export const PRODUCT_LINES: ProductLine[] = [
     title: 'Thermal-Bonded Polyester Wadding',
     subtitle: 'High-loft non-woven infill · Chemical glue-free bonding',
     positioning:
-      'Resilient non-woven cushioning and insulating batting produced by homogeneously blending polyester staple fibres with low-melt bonding fibres and passing the carded web through a precision thermal bonding oven. The heat-activated bonding process securely fuses the fibre matrix into a high-loft structure without relying on hazardous chemical glues or volatile resins.',
+      'Resilient non-woven cushioning and insulating batting produced by homogeneously blending polyester staple fibers with low-melt bonding fibers and passing the carded web through a precision thermal bonding oven. The heat-activated bonding process securely fuses the fiber matrix into a high-loft structure without relying on hazardous chemical glues or volatile resins.',
     appliedIn: [
       'Mattresses & bed toppers',
       'Quilts, duvets & comforters',
@@ -321,7 +321,7 @@ export const PRODUCT_LINES: ProductLine[] = [
     ],
     verifiedAttributes: [
       { label: 'Construction', value: 'Thermal-bonded non-woven (glue-free)' },
-      { label: 'Bonding mechanism', value: 'Low-melt bicomponent fibre activation' },
+      { label: 'Bonding mechanism', value: 'Low-melt bicomponent fiber activation' },
       { label: 'Core properties', value: 'High loft recovery, breathable, hypoallergenic' },
       { label: 'Weight & width', value: 'Customizable GSM & roll width (per order)' },
       { label: 'Durability', value: 'Wash-durable loft retention under compression' },
@@ -339,7 +339,7 @@ export const PRODUCT_LINES: ProductLine[] = [
     title: 'Needle-Punched Felt & Non-Woven Materials',
     subtitle: 'Mechanically interlocked structure · All weights',
     positioning:
-      'Dense, heavy-duty non-woven felt manufactured by mechanically entangling polyester staple fibres using thousands of high-speed barbed needles. The repeated penetration causes fibres to interlock three-dimensionally into a cohesive, dimensionally stable mat with high tear resistance, fluid permeability, and acoustic dampening properties without requiring chemical binders.',
+      'Dense, heavy-duty non-woven felt manufactured by mechanically entangling polyester staple fibers using thousands of high-speed barbed needles. The repeated penetration causes fibers to interlock three-dimensionally into a cohesive, dimensionally stable mat with high tear resistance, fluid permeability, and acoustic dampening properties without requiring chemical binders.',
     appliedIn: [
       'Industrial & liquid filtration',
       'Automotive boot & acoustic linings',
@@ -350,7 +350,7 @@ export const PRODUCT_LINES: ProductLine[] = [
     ],
     verifiedAttributes: [
       { label: 'Bonding method', value: 'Mechanical needle-punching (binder-free)' },
-      { label: 'Structural profile', value: 'Dense, cohesive, isotropic fibre matrix' },
+      { label: 'Structural profile', value: 'Dense, cohesive, isotropic fiber matrix' },
       { label: 'Mechanical strength', value: 'High tear resistance & dimensional stability' },
       { label: 'Permeability', value: 'Engineered porosity for filtration & air passage' },
       { label: 'Feedstock options', value: '100% GRS recycled or prime PET' },
@@ -444,9 +444,9 @@ export const MILESTONES: CompanyMilestone[] = [
     year: '1999',
     marker: '1999',
     category: 'Founding Milestone',
-    title: 'Inauguration of Polyester Staple Fibre Plant',
+    title: 'Inauguration of Polyester Staple Fiber Plant',
     body:
-      'Established in Pakistan by Muhammad Iftikhar as a specialized synthetic fibre manufacturing plant, supplying high-tenacity polyester staple fibres to domestic yarn spinning mills.',
+      'Established in Pakistan by Muhammad Iftikhar as a specialized synthetic fiber manufacturing plant, supplying high-tenacity polyester staple fibers to domestic yarn spinning mills.',
     metric: 'Initial Plant Commissioning',
     image: '/images/Gallery/1.jpeg',
     status: 'VERIFIED',
@@ -468,9 +468,9 @@ export const MILESTONES: CompanyMilestone[] = [
     year: '2014',
     marker: '2014',
     category: 'Product Diversification',
-    title: 'Conjugate Hollow Fibre & Stitch-Bonded Nonwoven Unit',
+    title: 'Conjugate Hollow Fiber & Stitch-Bonded Nonwoven Unit',
     body:
-      'Expanded production into siliconized conjugate hollow fibres, thermal-bonded wadding sheets, and high-speed stitch-bonded reinforcement fabrics for bedding, apparel, and geotextiles.',
+      'Expanded production into siliconized conjugate hollow fibers, thermal-bonded wadding sheets, and high-speed stitch-bonded reinforcement fabrics for bedding, apparel, and geotextiles.',
     metric: 'Hollow & Nonwovens Line',
     image: '/images/stitch-bonding-loom.jpg',
     status: 'VERIFIED',
@@ -504,11 +504,11 @@ export const MILESTONES: CompanyMilestone[] = [
     year: '2024+',
     marker: '2024 — Today',
     category: 'Operating Scale & Advanced QC',
-    title: '15,000+ T Annual Capacity & Single Fibre Electronic Testing',
+    title: '15,000+ T Annual Capacity & Single Fiber Electronic Testing',
     body:
-      'Operating 15,000+ T of annual production capacity with 250+ skilled staff, delivering batch-tested synthetic materials with electronic single-fibre tenacity verification to 350+ industrial partners.',
+      'Operating 15,000+ T of annual production capacity with 250+ skilled staff, delivering batch-tested synthetic materials with electronic single-fiber tenacity verification to 350+ industrial partners.',
     metric: '15,000+ T Annual Output',
-    image: '/images/process-fibre-lab.jpg',
+    image: '/images/process-fiber-lab.jpg',
     status: 'VERIFIED',
   },
 ]
@@ -546,14 +546,14 @@ export const CONTACT_SLOTS: ContentSlot[] = [
   {
     id: 'email-sales',
     label: 'Quotations & Commercial Enquiries',
-    value: 'sales@gulffibre.com / info@gulffibre.com',
+    value: 'sales@gulffiber.com / info@gulffiber.com',
     status: 'VERIFIED',
     note: 'Monitored inbox for specifications, volume pricing, and RFQs.',
   },
   {
     id: 'email-samples',
     label: 'Sample Dispatch & Feasibility Desk',
-    value: 'samples@gulffibre.com',
+    value: 'samples@gulffiber.com',
     status: 'VERIFIED',
     note: 'Technical lab desk for sample evaluations, lab dips, and test reports.',
   },
@@ -591,7 +591,7 @@ export const DIRECTOR: PersonSlot = {
   placeholderKey: 'director-placeholder',
   name: 'Muhammad Iftikhar',
   role: 'Founder / Director',
-  bio: 'Guiding Gulf Fiber since 1999 with an unwavering commitment to precision manufacturing, sustainability, and technological excellence in synthetic fibre engineering.',
+  bio: 'Guiding Gulf Fiber since 1999 with an unwavering commitment to precision manufacturing, sustainability, and technological excellence in synthetic fiber engineering.',
   contact: null,
   portrait: '/images/team/muhammad-iftikhar.jpg',
   status: 'VERIFIED',
@@ -640,7 +640,7 @@ export const MANAGEMENT: PersonSlot[] = [
     placeholderKey: 'manager-placeholder-02',
     name: 'Ehsan Afzal',
     role: 'Sales for Staple & Hollow Polyester Fiber',
-    bio: 'Technical sales lead specializing in regenerated staple fibre and hollow conjugate polyester specifications for spinning and filling applications.',
+    bio: 'Technical sales lead specializing in regenerated staple fiber and hollow conjugate polyester specifications for spinning and filling applications.',
     contact: '+92 334 7804900',
     portrait: '/images/team/ehsan-afzal.jpg',
     status: 'VERIFIED',
@@ -707,7 +707,7 @@ export const ORG_DEPARTMENTS: { id: string; label: string; dept?: OrgDepartment 
   { id: 'all', label: 'All Departments' },
   { id: 'executive', label: 'Executive Leadership', dept: 'Executive' },
   { id: 'export', label: 'Import & Export', dept: 'Import & Export' },
-  { id: 'staple', label: 'Staple & Hollow Fibre', dept: 'Staple & Hollow' },
+  { id: 'staple', label: 'Staple & Hollow Fiber', dept: 'Staple & Hollow' },
   { id: 'wadding', label: 'Wadding & Interlinings', dept: 'Wadding & Interlinings' },
   { id: 'felts', label: 'Felts & Nonwovens', dept: 'Felts & Nonwovens' },
 ]
@@ -721,7 +721,7 @@ export const ORG_TREE_DATA: OrgNode[] = [
     level: 1,
     parentId: null,
     portrait: '/images/team/muhammad-iftikhar.jpg',
-    bio: 'Founded Gulf Fiber in 1999 and has steered the company from a pioneering synthetic fibre producer into Pakistan’s benchmark manufacturer of recycled polyester staple fibre, wadding, and non-woven textiles.',
+    bio: 'Founded Gulf Fiber in 1999 and has steered the company from a pioneering synthetic fiber producer into Pakistan’s benchmark manufacturer of recycled polyester staple fiber, wadding, and non-woven textiles.',
     responsibilities: [
       'Strategic Vision & Long-term Corporate Governance',
       'Capital Investments & Production Facility Expansion',
@@ -768,19 +768,19 @@ export const ORG_TREE_DATA: OrgNode[] = [
   {
     id: 'org-sales-staple',
     name: 'Ehsan Afzal',
-    role: 'Technical Sales Lead — Staple & Hollow Fibre',
+    role: 'Technical Sales Lead — Staple & Hollow Fiber',
     department: 'Staple & Hollow',
     level: 3,
     parentId: 'org-founder',
     portrait: '/images/team/ehsan-afzal.jpg',
     contact: '+92 334 7804900',
-    bio: 'Heading technical sales accounts for regenerated polyester staple fibre (1.2D to 60D) as well as siliconized and hollow conjugate fibre across textile spinning mills and filling converters.',
+    bio: 'Heading technical sales accounts for regenerated polyester staple fiber (1.2D to 60D) as well as siliconized and hollow conjugate fiber across textile spinning mills and filling converters.',
     responsibilities: [
       'Spinning Mill & Filling Converter Client Accounts',
       'Custom Denier, Cut-Length & Crimp Formulations',
       'Order Verification & Dispatch Logistics',
     ],
-    specialties: ['Regenerated PSF', 'Hollow Conjugate Fibre', 'Spinning Mill Specifications'],
+    specialties: ['Regenerated PSF', 'Hollow Conjugate Fiber', 'Spinning Mill Specifications'],
     experience: 'Commercial Technical Sales Lead',
   },
   {
@@ -914,21 +914,21 @@ export const PRODUCT_ROUTES: Record<string, RouteStation[]> = {
   ],
   wadding: [
     {
-      label: 'Fibre opening & precision blending',
+      label: 'Fiber opening & precision blending',
       detail:
-        'Selected polyester staple fibres and low-melt bicomponent bonding fibres are pneumatically opened and metered in exact ratios.',
+        'Selected polyester staple fibers and low-melt bicomponent bonding fibers are pneumatically opened and metered in exact ratios.',
       status: 'VERIFIED',
     },
     {
       label: 'Web formation & cross-lapping',
       detail:
-        'High-speed carding machines comb fibres into a fine web, layered by cross-lappers to reach the target GSM, thickness, and loft profile.',
+        'High-speed carding machines comb fibers into a fine web, layered by cross-lappers to reach the target GSM, thickness, and loft profile.',
       status: 'VERIFIED',
     },
     {
       label: 'Thermal bonding oven (glue-free)',
       detail:
-        'The layered web passes through a multi-zone hot-air oven where low-melt fibres fuse contact points without chemical glues or volatile resins.',
+        'The layered web passes through a multi-zone hot-air oven where low-melt fibers fuse contact points without chemical glues or volatile resins.',
       status: 'VERIFIED',
     },
     {
@@ -946,9 +946,9 @@ export const PRODUCT_ROUTES: Record<string, RouteStation[]> = {
   ],
   felt: [
     {
-      label: 'Fibre selection & carding',
+      label: 'Fiber selection & carding',
       detail:
-        'Selected GRS recycled or prime polyester fibres are opened and carded into a homogeneous multi-directional fibre batt.',
+        'Selected GRS recycled or prime polyester fibers are opened and carded into a homogeneous multi-directional fiber batt.',
       status: 'VERIFIED',
     },
     {
@@ -960,7 +960,7 @@ export const PRODUCT_ROUTES: Record<string, RouteStation[]> = {
     {
       label: 'Mechanical needle-punching',
       detail:
-        'Thousands of reciprocating barbed needles repeatedly penetrate the batt, mechanically interlocking fibres into a dense, binder-free cohesive mat.',
+        'Thousands of reciprocating barbed needles repeatedly penetrate the batt, mechanically interlocking fibers into a dense, binder-free cohesive mat.',
       status: 'VERIFIED',
     },
     {
@@ -980,7 +980,7 @@ export const PRODUCT_ROUTES: Record<string, RouteStation[]> = {
     {
       label: 'Substrate web formation',
       detail:
-        'Non-woven polyester staple fibre webs are carded, or woven base lattices are formed according to the target garment rigidity and drape.',
+        'Non-woven polyester staple fiber webs are carded, or woven base lattices are formed according to the target garment rigidity and drape.',
       status: 'VERIFIED',
     },
     {
@@ -1096,7 +1096,7 @@ export const SUSTAINABILITY_LOOP: {
     {
       id: 'lc-03',
       title: 'Regeneration',
-      detail: 'Flake is melted, extruded, drawn and crimped into staple fibre on the same production line as the rest of the range.',
+      detail: 'Flake is melted, extruded, drawn and crimped into staple fiber on the same production line as the rest of the range.',
       status: 'VERIFIED',
     },
     {
@@ -1128,7 +1128,7 @@ export const SUSTAINABILITY_LOOP: {
     },
   ]
 
-/** Shipping / commercial terms that are verified by GULF_FIBRE_DATA. */
+/** Shipping / commercial terms that are verified by GULF_FIBER_DATA. */
 export const COMMERCIAL_TERMS: { label: string; value: string; status: DataStatus }[] = [
   { label: 'Standard baling', value: '200–300 kg, moisture-sealed with high-tensile strapping', status: 'VERIFIED' },
   { label: 'Roll goods packaging', value: 'Heavy-duty protective poly-wrapping (wadding, felt & interlinings)', status: 'VERIFIED' },

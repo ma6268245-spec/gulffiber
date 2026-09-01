@@ -6,7 +6,7 @@ import Image from 'next/image'
 
 const SERVICES = [
   'Crafted to Impress',
-  'Sustainable Fibres',
+  'Sustainable Fibers',
   'Tailored Perfection',
   'Technical Innovation',
   'Durability Woven In',
@@ -74,7 +74,7 @@ export function Footer() {
               />
             </div>
             <p style={{ fontFamily: 'var(--font-serif)', fontStyle: 'italic', fontSize: '1.0625rem', lineHeight: 1.7, color: 'rgba(255,255,255,0.7)', maxWidth: '22ch', marginBottom: '1.5rem' }}>
-              Elevating Industry Through Superior Fibre Solutions
+              Elevating Industry Through Superior Fiber Solutions
             </p>
             <p
               style={{
@@ -91,10 +91,10 @@ export function Footer() {
             </p>
             <div style={{ display: 'flex', gap: '0.75rem' }}>
               {[
-                { id: 'facebook', label: 'Facebook', href: 'https://facebook.com/gulffibre' },
-                { id: 'linkedin', label: 'LinkedIn', href: 'https://linkedin.com/company/gulffibre' },
-                { id: 'instagram', label: 'Instagram', href: 'https://instagram.com/gulffibre' },
-                { id: 'twitter', label: 'Twitter', href: 'https://x.com/gulffibre' },
+                { id: 'facebook', label: 'Facebook', href: 'https://facebook.com/gulffiber' },
+                { id: 'linkedin', label: 'LinkedIn', href: 'https://linkedin.com/company/gulffiber' },
+                { id: 'instagram', label: 'Instagram', href: 'https://instagram.com/gulffiber' },
+                { id: 'twitter', label: 'Twitter', href: 'https://x.com/gulffiber' },
               ].map(({ id, label, href }) => (
                 <a
                   key={id}
@@ -223,7 +223,7 @@ export function Footer() {
               <span>★</span> Get Updates
             </p>
             <p style={{ fontSize: '0.875rem', color: 'rgba(255,255,255,0.6)', lineHeight: 1.7, marginBottom: '1.25rem' }}>
-              Premium fibres into high-quality textiles that define excellence.
+              Premium fibers into high-quality textiles that define excellence.
             </p>
             <form
               onSubmit={subscribe}

@@ -2,9 +2,9 @@ import type { Metadata } from 'next'
 import '@/styles/subpage.css'
 
 export const metadata: Metadata = {
-  title: 'Products - Polyester Staple Fibre, Wadding, Felt & Interlinings',
+  title: 'Products - Polyester Staple Fiber, Wadding, Felt & Interlinings',
   description:
-    'Regenerated solid and conjugate hollow polyester staple fibre (1.2D to 60D), high-loft thermal wadding, needle-punched felts, and woven and nonwoven interlinings.',
+    'Regenerated solid and conjugate hollow polyester staple fiber (1.2D to 60D), high-loft thermal wadding, needle-punched felts, and woven and nonwoven interlinings.',
 }
 
 /**

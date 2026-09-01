@@ -240,7 +240,7 @@ export function HeroSection() {
             fontWeight: 500,
           }}
         >
-          Polyester fibre and textile material solutions for spinning, filling, nonwoven and industrial applications. Manufactured and supplied from Pakistan.
+          Polyester fiber and textile material solutions for spinning, filling, nonwoven and industrial applications. Manufactured and supplied from Pakistan.
         </p>
 
         {/* CTAs */}
@@ -339,7 +339,7 @@ export function HeroSection() {
         >
           <Image
             src="/images/stitch-bonding-loom.jpg"
-            alt="Gulf Fibre industrial textile and stitch-bonding machinery"
+            alt="Gulf Fiber industrial textile and stitch-bonding machinery"
             fill
             className="hero-img"
             style={{ objectFit: 'cover', objectPosition: 'center', scale: '1.05' }}

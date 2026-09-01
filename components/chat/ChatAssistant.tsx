@@ -18,7 +18,7 @@ import {
 } from '@/lib/data/chatbot'
 
 /* ===========================================================================
-   GULF FIBRE CHAT ASSISTANT
+   GULF FIBER CHAT ASSISTANT
    ---------------------------------------------------------------------------
    The complete redesign of the earlier Tidio-style clone. Speaks the frozen
    homepage's design grammar (Inter, sapphire, hairlines, ivory) through
@@ -93,7 +93,7 @@ const CHAT_ICON = (
   <div style={{ position: 'absolute', inset: 0, borderRadius: '50%', overflow: 'hidden' }}>
     <Image 
       src="/images/ai-chat-emblem.png" 
-      alt="Gulf Fibre AI Specialist" 
+      alt="Gulf Fiber AI Specialist" 
       fill 
       sizes="60px"
       priority
@@ -372,7 +372,7 @@ export function ChatAssistant() {
             setOpen((v) => !v)
             setUnread(false)
           }}
-          aria-label={open ? 'Close the Gulf Fibre assistant' : `Open the Gulf Fibre assistant — ${ctx.topic}`}
+          aria-label={open ? 'Close the Gulf Fiber assistant' : `Open the Gulf Fiber assistant — ${ctx.topic}`}
           aria-expanded={open}
           aria-haspopup="dialog"
         >
@@ -394,7 +394,7 @@ export function ChatAssistant() {
           className="gf-chat"
           role="dialog"
           ref={containerRef}
-          aria-label="Gulf Fibre assistant"
+          aria-label="Gulf Fiber assistant"
           data-lenis-prevent="true"
           data-lenis-prevent-wheel="true"
           data-lenis-prevent-touch="true"
@@ -415,7 +415,7 @@ export function ChatAssistant() {
             </div>
             <div className="gf-chat__who">
               <span className="gf-chat__who-kicker">Talk to</span>
-              <h4 className="gf-chat__who-name">Gulf Fibre Specialist</h4>
+              <h4 className="gf-chat__who-name">Gulf Fiber Specialist</h4>
             </div>
             <div className="gf-chat__head-actions">
               <button
@@ -668,7 +668,7 @@ export function ChatAssistant() {
             }}
           >
             <label htmlFor="gf-chat-input" className="gf-chat__who-kicker" style={{ position: 'absolute', left: -9999 }}>
-              Message the Gulf Fibre specialist
+              Message the Gulf Fiber specialist
             </label>
             <input
               id="gf-chat-input"

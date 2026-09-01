@@ -162,7 +162,7 @@ export function ConsultationCTA() {
           </div>
           <div className="clip-line">
             <span className="cta-line" style={{ display: 'block', color: 'var(--white)' }}>
-              TEXTILE FIBRES?
+              TEXTILE FIBERS?
             </span>
           </div>
         </h2>

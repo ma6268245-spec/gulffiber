@@ -2,12 +2,12 @@
  * Parametric material visualisation used by the subpages.
  *
  * One scene, one draw call for the filaments, layout/motion variants:
- *   bundle    /products        - a staple-fibre bundle that opens to show cross-sections
+ *   bundle    /products        - a staple-fiber bundle that opens to show cross-sections
  *   extrusion /services        - filaments drawn down from a spinneret
  *   circular  /sustainability  - flake -> chip -> aligned filament transformation
- *   cross     /quality         - a fibre cross-section under measurement
+ *   cross     /quality         - a fiber cross-section under measurement
  *   loft      /products wadding     - layered high-loft sheets that loft apart on scroll
- *   felt      /products felts       - chaotic fibres compacting into a needle-punched mat
+ *   felt      /products felts       - chaotic fibers compacting into a needle-punched mat
  *   weave     /products interlining - loose strands interlacing into a woven grid
  *   process   /products process     - flake -> extrusion -> crimp -> bale, swept by scroll
  *
@@ -16,7 +16,7 @@
  * bundle, and it draws nothing until the canvas is actually on screen.
  *
  * It is a visualisation of material behaviour, not a measured rendering of a
- * specific Gulf Fibre grade, and the pages label it as such.
+ * specific Gulf Fiber grade, and the pages label it as such.
  */
 import type * as THREE_NS from 'three'
 
@@ -172,7 +172,7 @@ export async function createMaterialScene(
     }
 
     if (variant === 'loft') {
-      // Thermal wadding: horizontal fibre layers that separate and gain volume
+      // Thermal wadding: horizontal fiber layers that separate and gain volume
       // as progress rises - the sheet lofts under scroll.
       const LAYERS = 9
       const layer = i % LAYERS
@@ -194,7 +194,7 @@ export async function createMaterialScene(
     }
 
     if (variant === 'felt') {
-      // Needle-punched felt: chaotic fibre cloud that compacts into a dense,
+      // Needle-punched felt: chaotic fiber cloud that compacts into a dense,
       // interlocked plane as progress rises.
       const order = p * p * (3 - 2 * p) // smoothstep compaction
       const cx2 = (r1 - 0.5) * 5.6

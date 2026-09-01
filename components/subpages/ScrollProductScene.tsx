@@ -22,12 +22,12 @@ import type { SceneVariant } from '@/components/three/materialScene'
 
 const STAGE_COPY: Record<string, { label: string; note: string }[]> = {
   loft: [
-    { label: 'Layered', note: 'Thermally bonded fibre webs' },
+    { label: 'Layered', note: 'Thermally bonded fiber webs' },
     { label: 'Lofting', note: 'Layers gain height and volume' },
     { label: 'Recovery', note: 'Structure springs back under load' },
   ],
   felt: [
-    { label: 'Fibre cloud', note: 'Loose recycled and prime fibre' },
+    { label: 'Fiber cloud', note: 'Loose recycled and prime fiber' },
     { label: 'Needling', note: 'Barbed needles interlock the structure' },
     { label: 'Compacted', note: 'A dimensionally stable mat' },
   ],

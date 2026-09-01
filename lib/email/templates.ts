@@ -606,7 +606,7 @@ ${receipt}
               <td style="padding:24px;">
                 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr>
                   <td class="photocell" width="176" valign="top" style="width:176px;padding-right:22px;">
-                    <img class="photo" src="${origin}/images/process-fibre.jpg" width="176" height="236" alt="Polyester fiber extrusion line at the Gulf Fiber plant" style="display:block;width:176px;height:236px;border:0;outline:none;border-radius:10px;" />
+                    <img class="photo" src="${origin}/images/process-fiber.jpg" width="176" height="236" alt="Polyester fiber extrusion line at the Gulf Fiber plant" style="display:block;width:176px;height:236px;border:0;outline:none;border-radius:10px;" />
                   </td>
                   <td class="photocopy" valign="middle">
                     <p style="margin:0 0 8px;font-family:${F};font-size:18px;font-weight:700;line-height:1.35;color:${NAVY};">Explore Our Solutions</p>
