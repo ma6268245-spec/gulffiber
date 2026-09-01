@@ -166,74 +166,46 @@ export function CompanyOrgTree() {
               padding: '0 0.5rem',
             }}
           >
-            {/* ── TOP EXECUTIVE TIER: CO-FOUNDER (LEFT SIDE) & FOUNDER (CENTERED) ── */}
+            {/* ── TOP EXECUTIVE ROW: CO-FOUNDER (SIDE NODE) & FOUNDER (TREE CENTER) ── */}
             <div
               className="org-top-executive-container"
               style={{
                 position: 'relative',
                 width: '100%',
-                display: 'grid',
-                gridTemplateColumns: '1fr auto 1fr',
+                display: 'flex',
+                justifyContent: 'center',
                 alignItems: 'center',
                 marginBottom: '0.25rem',
                 zIndex: 3,
+                minHeight: '110px',
               }}
             >
-              {/* Left Slot: Co-founder & Strategic Investor */}
-              <div
-                className="org-investor-side-slot"
-                style={{
-                  display: 'flex',
-                  justifyContent: 'flex-start',
-                  paddingLeft: 'clamp(1.5rem, 4vw, 3.5rem)',
-                  zIndex: 3,
-                }}
-              >
-                {cofounderNode && (
-                  <div
-                    className="org-investor-card-wrap"
-                    style={{
-                      position: 'relative',
-                      display: 'flex',
-                      flexDirection: 'column',
-                      alignItems: 'center',
-                      background: 'rgba(10, 75, 184, 0.03)',
-                      border: '1px dashed var(--border-light)',
-                      borderRadius: '16px',
-                      padding: '0.65rem 0.85rem 0.5rem 0.85rem',
-                    }}
-                  >
-                    <span
-                      style={{
-                        position: 'absolute',
-                        top: '-10px',
-                        fontSize: '0.55rem',
-                        fontWeight: 800,
-                        letterSpacing: '0.08em',
-                        textTransform: 'uppercase',
-                        color: 'var(--burg-bright)',
-                        background: 'var(--card-bg)',
-                        border: '1px solid rgba(56, 182, 255, 0.35)',
-                        padding: '0.12rem 0.55rem',
-                        borderRadius: '9999px',
-                        boxShadow: '0 2px 6px rgba(0,0,0,0.15)',
-                        whiteSpace: 'nowrap',
-                      }}
-                    >
-                      Strategic Investor
-                    </span>
-                    <OrgTreeNode
-                      node={cofounderNode}
-                      isHighlighted={isNodeActive(cofounderNode)}
-                      isHovered={hoveredNodeId === cofounderNode.id}
-                      isDimmed={hoveredNodeId !== null && hoveredNodeId !== cofounderNode.id}
-                      onHover={setHoveredNodeId}
-                      onSelect={setSelectedNode}
-                      size="large"
-                    />
-                  </div>
-                )}
-              </div>
+              {/* Left Slot: Co-founder & Strategic Investor (Clean Circle Node - No Dashed Box) */}
+              {cofounderNode && (
+                <div
+                  className="org-investor-side-slot"
+                  style={{
+                    position: 'absolute',
+                    left: 'clamp(0.5rem, 4vw, 3.5rem)',
+                    top: '50%',
+                    transform: 'translateY(-50%)',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    zIndex: 3,
+                  }}
+                >
+                  <OrgTreeNode
+                    node={cofounderNode}
+                    isHighlighted={isNodeActive(cofounderNode)}
+                    isHovered={hoveredNodeId === cofounderNode.id}
+                    isDimmed={hoveredNodeId !== null && hoveredNodeId !== cofounderNode.id}
+                    onHover={setHoveredNodeId}
+                    onSelect={setSelectedNode}
+                    size="large"
+                  />
+                </div>
+              )}
 
               {/* Founder & Managing Director (Exactly Centered in the Tree) */}
               <div
@@ -258,9 +230,6 @@ export function CompanyOrgTree() {
                   />
                 )}
               </div>
-
-              {/* Right Placeholder for perfect symmetrical balance */}
-              <div className="org-exec-right-spacer" style={{ minWidth: '0' }} />
             </div>
 
             {/* Vertical Connecting Line directly from Founder to the Team Branch */}
@@ -826,20 +795,27 @@ export function CompanyOrgTree() {
 
         @media (max-width: 768px) {
           .org-top-executive-container {
+            position: relative !important;
+            width: 100% !important;
             display: flex !important;
-            flex-direction: row !important;
             justify-content: center !important;
             align-items: center !important;
-            gap: 0.5rem !important;
-            width: 100% !important;
-          }
-          .org-exec-right-spacer,
-          .org-exec-left-spacer {
-            display: none !important;
+            min-height: 90px !important;
           }
           .org-investor-side-slot {
-            padding-right: 0.35rem !important;
-            padding-left: 0 !important;
+            position: absolute !important;
+            left: 0.15rem !important;
+            top: 50% !important;
+            transform: translateY(-50%) !important;
+            max-width: 33% !important;
+          }
+          .org-founder-center {
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: center !important;
+            justify-content: center !important;
+            margin: 0 auto !important;
+            max-width: 38% !important;
           }
           .org-tree-scroll-viewport {
             padding: 0 !important;
