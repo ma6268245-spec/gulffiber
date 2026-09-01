@@ -1,5 +1,6 @@
 'use client'
 
+import { useState } from 'react'
 import Image from 'next/image'
 import { DataSlot } from '@/components/subpages/Primitives'
 import { DIRECTOR, FOUNDERS, MANAGEMENT, type PersonSlot } from '@/lib/data/company'
@@ -157,6 +158,135 @@ export function DirectorFeature() {
   )
 }
 
+function PersonContactActions({ contact, name, role }: { contact: string; name?: string | null; role?: string | null }) {
+  const [copied, setCopied] = useState(false)
+  const cleanNumber = contact.replace(/[^\d+]/g, '')
+  const whatsappDigits = contact.replace(/\D/g, '')
+  const waUrl = `https://wa.me/${whatsappDigits}?text=${encodeURIComponent(`Hello ${name ?? 'Team'}, I am inquiring about Gulf Fibre materials.`)}`
+
+  const handleCopy = async (e: React.MouseEvent) => {
+    e.preventDefault()
+    e.stopPropagation()
+    try {
+      await navigator.clipboard.writeText(contact)
+      setCopied(true)
+      setTimeout(() => setCopied(false), 2000)
+    } catch {}
+  }
+
+  return (
+    <div
+      className="sp-person-actions"
+      style={{
+        marginTop: 'auto',
+        paddingTop: '0.85rem',
+        display: 'flex',
+        flexWrap: 'wrap',
+        gap: '0.45rem',
+        alignItems: 'center',
+      }}
+    >
+      {/* Direct Call Link */}
+      <a
+        href={`tel:${cleanNumber}`}
+        className="sp-person-btn sp-person-btn--call"
+        title={`Call ${name ?? ''}`}
+        style={{
+          display: 'inline-flex',
+          alignItems: 'center',
+          gap: '0.4rem',
+          padding: '0.38rem 0.75rem',
+          borderRadius: '9999px',
+          background: 'rgba(10, 75, 184, 0.08)',
+          border: '1px solid rgba(10, 75, 184, 0.22)',
+          color: 'var(--burg-primary)',
+          fontSize: '0.75rem',
+          fontFamily: 'var(--font-sans)',
+          fontWeight: 800,
+          letterSpacing: '0.02em',
+          textDecoration: 'none',
+          transition: 'all 0.2s ease',
+        }}
+      >
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+        </svg>
+        <span>{contact}</span>
+      </a>
+
+      {/* Direct WhatsApp Action */}
+      <a
+        href={waUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="sp-person-btn sp-person-btn--wa"
+        title={`Chat on WhatsApp with ${name ?? ''}`}
+        style={{
+          display: 'inline-flex',
+          alignItems: 'center',
+          gap: '0.35rem',
+          padding: '0.38rem 0.75rem',
+          borderRadius: '9999px',
+          background: 'rgba(37, 211, 102, 0.12)',
+          border: '1px solid rgba(37, 211, 102, 0.35)',
+          color: '#128C7E',
+          fontSize: '0.75rem',
+          fontFamily: 'var(--font-sans)',
+          fontWeight: 800,
+          letterSpacing: '0.02em',
+          textDecoration: 'none',
+          transition: 'all 0.2s ease',
+        }}
+      >
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.664-.698c.969.586 1.761.884 2.796.885h.005c3.179 0 5.766-2.586 5.767-5.767.001-3.18-2.584-5.771-5.772-5.771zm3.374 8.163c-.144.405-.837.774-1.17.825-.311.05-.712.068-2.288-.583-1.637-.677-2.673-2.348-2.753-2.457-.081-.109-.665-.884-.665-1.686 0-.802.42-1.196.57-1.356.15-.16.327-.2.436-.2.11 0 .219.002.316.006.102.005.239-.039.373.285.141.341.482 1.176.524 1.263.042.087.071.19.012.308-.059.117-.089.19-.176.292-.088.102-.185.228-.264.307-.088.088-.18.183-.078.358.102.175.454.748.974 1.212.67.597 1.235.782 1.41.87.175.088.277.073.38-.044.103-.117.436-.508.552-.682.117-.175.233-.146.393-.087.16.059 1.016.479 1.191.566.175.088.292.131.335.204.044.073.044.423-.1 1.028z" />
+        </svg>
+        <span>WhatsApp</span>
+      </a>
+
+      {/* Copy Number Action */}
+      <button
+        type="button"
+        onClick={handleCopy}
+        className="sp-person-btn sp-person-btn--copy"
+        title="Copy phone number to clipboard"
+        style={{
+          display: 'inline-flex',
+          alignItems: 'center',
+          gap: '0.35rem',
+          padding: '0.38rem 0.65rem',
+          borderRadius: '9999px',
+          background: copied ? 'var(--accent-green, #12B76A)' : 'var(--white)',
+          border: copied ? '1px solid var(--accent-green, #12B76A)' : '1px solid var(--border-light)',
+          color: copied ? '#FFFFFF' : 'var(--muted)',
+          fontSize: '0.71875rem',
+          fontFamily: 'var(--font-sans)',
+          fontWeight: 700,
+          cursor: 'pointer',
+          transition: 'all 0.2s ease',
+        }}
+      >
+        {copied ? (
+          <>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+              <polyline points="20 6 9 17 4 12" />
+            </svg>
+            <span>Copied!</span>
+          </>
+        ) : (
+          <>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
+              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+            </svg>
+            <span>Copy</span>
+          </>
+        )}
+      </button>
+    </div>
+  )
+}
+
 /** A single founder or manager card. */
 export function PersonCard({ person }: { person: PersonSlot }) {
   return (
@@ -175,33 +305,7 @@ export function PersonCard({ person }: { person: PersonSlot }) {
               </p>
             )}
             {person.contact && (
-              <div style={{ marginTop: 'auto', paddingTop: '0.85rem' }}>
-                <a
-                  href={`tel:${person.contact.replace(/[^\d+]/g, '')}`}
-                  className="sp-person-phone-pill"
-                  style={{
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    gap: '0.45rem',
-                    padding: '0.38rem 0.85rem',
-                    borderRadius: '9999px',
-                    background: 'rgba(10, 75, 184, 0.08)',
-                    border: '1px solid rgba(10, 75, 184, 0.2)',
-                    color: 'var(--burg-primary)',
-                    fontSize: '0.75rem',
-                    fontFamily: 'var(--font-sans)',
-                    fontWeight: 800,
-                    letterSpacing: '0.02em',
-                    textDecoration: 'none',
-                    transition: 'all 0.2s ease',
-                  }}
-                >
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
-                  </svg>
-                  {person.contact}
-                </a>
-              </div>
+              <PersonContactActions contact={person.contact} name={person.name} role={person.role} />
             )}
           </>
         ) : (
