@@ -190,9 +190,10 @@ export function CompanyOrgTree() {
                     background:
                       hoveredNodeId === cofounderNode?.id || hoveredNodeId === founderNode?.id
                         ? 'var(--burg-bright)'
-                        : 'linear-gradient(to right, rgba(56, 182, 255, 0.6), var(--burg-primary))',
+                        : 'linear-gradient(90deg, var(--burg-primary) 0%, var(--burg-bright) 50%, var(--burg-primary) 100%)',
+                    boxShadow: '0 0 8px rgba(56, 182, 255, 0.4)',
                     transition: 'all 0.3s ease',
-                    zIndex: 1,
+                    zIndex: 0,
                     pointerEvents: 'none',
                   }}
                 />
@@ -822,9 +823,9 @@ export function CompanyOrgTree() {
             margin: 0 auto !important;
           }
           .org-exec-bridge-line {
-            left: calc(50% - 190px) !important;
-            width: 190px !important;
-            top: clamp(34px, 3vw, 41px) !important;
+            left: calc(50% - 150px) !important;
+            width: 110px !important;
+            top: clamp(34px, 3.2vw, 41px) !important;
           }
         }
 
@@ -836,9 +837,9 @@ export function CompanyOrgTree() {
             transform: none !important;
           }
           .org-exec-bridge-line {
-            left: calc(clamp(1.25rem, 4vw, 3.5rem) + clamp(30px, 2.6vw, 37px)) !important;
-            right: 50% !important;
-            top: clamp(34px, 3vw, 41px) !important;
+            left: calc(clamp(1.25rem, 4vw, 3.5rem) + clamp(68px, 6vw, 82px)) !important;
+            right: calc(50% + clamp(34px, 3vw, 41px)) !important;
+            top: clamp(34px, 3.2vw, 41px) !important;
           }
         }
 
@@ -871,9 +872,9 @@ export function CompanyOrgTree() {
             text-align: center !important;
           }
           .org-exec-bridge-line {
-            left: calc(0.25rem + 52.5px) !important;
-            right: 50% !important;
-            top: 27px !important;
+            left: calc(0.25rem + 52.5px + 24px) !important;
+            right: calc(50% + 24px) !important;
+            top: 24px !important;
           }
           .org-tree-scroll-viewport {
             padding: 0 !important;
@@ -1022,6 +1023,7 @@ function OrgTreeNode({
         className={`org-node-avatar org-node-avatar--${size}`}
         style={{
           position: 'relative',
+          zIndex: 2,
           borderRadius: '50%',
           padding: `${ring + 2}px`,
           background: isHovered
