@@ -70,6 +70,9 @@ export function SearchModal({ isOpen, onClose }: { isOpen: boolean; onClose: () 
       role="dialog"
       aria-modal="true"
       aria-label="Search site and technical specifications"
+      data-lenis-prevent="true"
+      onWheel={(e) => e.stopPropagation()}
+      onTouchMove={(e) => e.stopPropagation()}
       style={{
         position: 'fixed',
         inset: 0,
@@ -83,12 +86,16 @@ export function SearchModal({ isOpen, onClose }: { isOpen: boolean; onClose: () 
         paddingTop: 'clamp(4rem, 12vh, 8rem)',
         paddingInline: '1rem',
         animation: 'searchModalFadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1)',
+        overscrollBehavior: 'contain',
       }}
       onClick={onClose}
     >
       {/* Modal Dialog Card */}
       <div
         className="search-modal-card"
+        data-lenis-prevent="true"
+        onWheel={(e) => e.stopPropagation()}
+        onTouchMove={(e) => e.stopPropagation()}
         style={{
           width: '100%',
           maxWidth: '640px',
@@ -101,6 +108,7 @@ export function SearchModal({ isOpen, onClose }: { isOpen: boolean; onClose: () 
           overflow: 'hidden',
           display: 'flex',
           flexDirection: 'column',
+          overscrollBehavior: 'contain',
         }}
         onClick={(e) => e.stopPropagation()}
       >
@@ -153,7 +161,18 @@ export function SearchModal({ isOpen, onClose }: { isOpen: boolean; onClose: () 
         </div>
 
         {/* Results List */}
-        <div style={{ maxHeight: 'clamp(240px, 55vh, 420px)', overflowY: 'auto', padding: '0.75rem' }}>
+        <div
+          data-lenis-prevent="true"
+          onWheel={(e) => e.stopPropagation()}
+          onTouchMove={(e) => e.stopPropagation()}
+          style={{
+            maxHeight: 'clamp(260px, 58vh, 460px)',
+            overflowY: 'auto',
+            overscrollBehavior: 'contain',
+            WebkitOverflowScrolling: 'touch',
+            padding: '0.75rem',
+          }}
+        >
           {filtered.length === 0 ? (
             <div style={{ padding: '2.5rem', textAlign: 'center', color: 'var(--muted)' }}>
               <p style={{ fontWeight: 600, margin: 0 }}>No matching technical specifications found.</p>
