@@ -393,6 +393,19 @@ export function HeroSection() {
       </div>
 
       <style>{`
+        @media (min-width: 601px) and (max-width: 1024px) {
+          .hero-section {
+            min-height: auto !important;
+          }
+          .hero-content-col {
+            padding-top: clamp(6rem, 10vh, 7.25rem) !important;
+            padding-bottom: 2rem !important;
+          }
+          .hero-section > div:last-child {
+            min-height: 360px !important;
+            height: 38vh !important;
+          }
+        }
         @media (max-width: 992px) {
           .hero-section {
             grid-template-columns: 1fr !important;
