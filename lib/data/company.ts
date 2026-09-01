@@ -358,7 +358,7 @@ export const PRODUCT_LINES: ProductLine[] = [
     ],
     specSlot:
       'Technical data sheet required — caliper thickness (mm), weight range (GSM), tensile strength (MD/CD), air permeability, and puncture resistance tables require project-specific laboratory sheet confirmation.',
-    image: '/images/workshop-factory.jpg',
+    image: '/images/fiber-production-line.jpg',
     video: '/videos/non-woven-felt.mp4',
     status: 'VERIFIED',
   },
@@ -448,7 +448,7 @@ export const MILESTONES: CompanyMilestone[] = [
     body:
       'Established in Pakistan by Muhammad Iftikhar as a specialized synthetic fibre manufacturing plant, supplying high-tenacity polyester staple fibres to domestic yarn spinning mills.',
     metric: 'Initial Plant Commissioning',
-    image: '/images/workshop-factory.jpg',
+    image: '/images/fiber-production-line.jpg',
     status: 'VERIFIED',
   },
   {

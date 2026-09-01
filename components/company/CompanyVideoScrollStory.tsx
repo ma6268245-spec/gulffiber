@@ -17,7 +17,7 @@ const VIDEOS: VideoItem[] = [
     title: 'Plant Facility & Factory Operations',
     location: 'Lahore Manufacturing Plant',
     src: '/videos/company-page.mp4',
-    poster: '/images/workshop-factory.jpg',
+    poster: '/images/fiber-production-line.jpg',
     description: 'Direct walk-through footage of plant grounds, raw PET flake ingestion, sorting lines, and logistics bays.',
   },
   {

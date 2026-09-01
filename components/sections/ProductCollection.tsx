@@ -1,7 +1,6 @@
 'use client'
 
 import { useEffect, useRef } from 'react'
-import Image from 'next/image'
 import Link from 'next/link'
 
 const PRODUCTS = [
@@ -10,6 +9,7 @@ const PRODUCTS = [
     title: 'Polyester Staple Fibre',
     subtitle: 'Virgin & Recycled · 1.2D–60D',
     img: '/images/collection-rolls.jpg',
+    video: '/videos/staple-fiber.mp4',
     desc: 'High-tenacity PSF for spinning, wadding, and technical applications.',
     aspectStyle: { gridRow: 'span 2' },
   },
@@ -18,6 +18,7 @@ const PRODUCTS = [
     title: 'Wadding & Thermal Infill',
     subtitle: 'High-loft · Thermal bonding',
     img: '/images/process-fibre-lab.jpg',
+    video: '/videos/thermally-bonded-wadding.mp4',
     desc: 'Superior loft and resilience for premium apparel and bedding filling applications.',
     aspectStyle: {},
   },
@@ -25,7 +26,8 @@ const PRODUCTS = [
     id: '03',
     title: 'Felt & Non-Woven Materials',
     subtitle: 'Needle-punched · All weights',
-    img: '/images/workshop-factory.jpg',
+    img: '/images/fiber-production-line.jpg',
+    video: '/videos/non-woven-felt.mp4',
     desc: 'Industrial, acoustic, and automotive grade non-woven felt products.',
     aspectStyle: {},
   },
@@ -119,26 +121,37 @@ export function ProductCollection() {
           }}
         >
           {PRODUCTS.map((p, i) => (
-            <div
+            <Link
               key={p.id}
+              href="/products"
               className="coll-tile"
               style={{
                 position: 'relative',
                 overflow: 'hidden',
                 cursor: 'pointer',
+                display: 'block',
+                textDecoration: 'none',
                 ...(i === 0 ? { gridRow: 'span 2' } : {}),
               }}
             >
-              <Image
-                src={p.img}
-                alt={p.title}
-                fill
+              <video
+                src={p.video}
+                poster={p.img}
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload="metadata"
+                className="coll-video"
                 style={{
+                  position: 'absolute',
+                  inset: 0,
+                  width: '100%',
+                  height: '100%',
                   objectFit: 'cover',
                   objectPosition: 'center',
                   transition: 'transform 0.7s cubic-bezier(0.16,1,0.3,1)',
                 }}
-                className="coll-img"
               />
               {/* Gradient overlay */}
               <div
@@ -146,6 +159,7 @@ export function ProductCollection() {
                   position: 'absolute',
                   inset: 0,
                   background: 'linear-gradient(to top, rgba(20,5,5,0.75) 0%, transparent 55%)',
+                  pointerEvents: 'none',
                 }}
               />
               {/* Content */}
@@ -156,6 +170,7 @@ export function ProductCollection() {
                   left: 0,
                   right: 0,
                   padding: '1.5rem',
+                  pointerEvents: 'none',
                 }}
               >
                 <span
@@ -190,7 +205,7 @@ export function ProductCollection() {
                   </p>
                 )}
               </div>
-            </div>
+            </Link>
           ))}
 
           {/* 4th tile — red info panel */}
@@ -255,6 +270,7 @@ export function ProductCollection() {
       </div>
 
       <style>{`
+        .coll-tile:hover .coll-video,
         .coll-tile:hover .coll-img { transform: scale(1.05); }
         @media (max-width: 900px) {
           .coll-grid {

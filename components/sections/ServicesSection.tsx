@@ -24,7 +24,7 @@ const SERVICES = [
     title: 'PACKAGING & HANDLING',
     badge: 'Moisture Sealed',
     desc: 'Export-grade moisture-sealed baling (280kg standard) and protective roll wrapping for damage-free transit and automated warehouse handling.',
-    img: '/images/workshop-factory.jpg',
+    img: '/images/fiber-production-line.jpg',
   },
   {
     num: '04',

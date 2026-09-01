@@ -79,7 +79,7 @@ export function QualityStory() {
               }}
             >
               <Image
-                src="/images/workshop-factory.jpg"
+                src="/images/fiber-production-line.jpg"
                 alt="Gulf Fibre Manufacturing Facility"
                 fill
                 className="qs-img"
