@@ -142,11 +142,11 @@ export function Header() {
             href="/"
             onClick={scrollToTop}
             className="nav-brand-logo"
-            aria-label="Gulf Fibre Home"
+            aria-label="Gulf Fiber Home"
           >
             <Image
               src="/gulf-fibre-logo.png"
-              alt="Gulf Fibre Company (PVT) Limited"
+              alt="Gulf Fiber Company (PVT) Limited"
               width={145}
               height={45}
               style={{ objectFit: 'contain', height: '2.35rem', width: 'auto' }}

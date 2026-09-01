@@ -5,14 +5,14 @@ import { useEffect, useRef } from 'react'
 const TESTIMONIALS = [
   {
     stars: 5,
-    quote: 'Gulf Fibre has been our preferred PSF supplier for over 8 years. Their conjugate fibre quality is unmatched — consistent denier, excellent crimp retention, and always on-time delivery.',
+    quote: 'Gulf Fiber has been our preferred PSF supplier for over 8 years. Their conjugate fibre quality is unmatched — consistent denier, excellent crimp retention, and always on-time delivery.',
     name: 'Arjun Mehta',
     role: 'Procurement Head, Textile Mills India',
     initials: 'AM',
   },
   {
     stars: 5,
-    quote: 'We switched to Gulf Fibre for our GRS-certified recycled fibre requirements. Their documentation process is seamless and the product quality meets every international standard we need.',
+    quote: 'We switched to Gulf Fiber for our GRS-certified recycled fibre requirements. Their documentation process is seamless and the product quality meets every international standard we need.',
     name: 'Zhang Wei',
     role: 'Technical Director, Shanghai Fibre Co.',
     initials: 'ZW',
@@ -106,7 +106,7 @@ export function TestimonialsSection() {
               </h2>
             </div>
             <p style={{ fontSize: '0.9375rem', lineHeight: 1.75, color: 'rgba(255,255,255,0.6)', maxWidth: '36ch' }}>
-              Over 500 manufacturers and industrial buyers trust Gulf Fibre for quality, speed, and honest sourcing.
+              Over 500 manufacturers and industrial buyers trust Gulf Fiber for quality, speed, and honest sourcing.
             </p>
           </div>
         </div>

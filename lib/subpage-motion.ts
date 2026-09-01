@@ -1,5 +1,5 @@
 /**
- * Motion helpers for the Gulf Fibre subpages.
+ * Motion helpers for the Gulf Fiber subpages.
  *
  * Deliberately a SEPARATE module from `lib/animations.ts`: that file is
  * imported by five homepage sections (TrustBanner, QualitySection,

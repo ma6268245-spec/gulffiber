@@ -14,7 +14,7 @@ import { VERIFIED } from '@/lib/data/company'
 /* ===========================================================================
    /gallery - the visual archive
    ---------------------------------------------------------------------------
-   Not an image grid: the archive of what Gulf Fibre actually looks like -
+   Not an image grid: the archive of what Gulf Fiber actually looks like -
    factory, materials, manufacturing, products, quality, people and
    sustainability. Real photographs render; anything the repository does not
    hold renders as a labelled frame that says what to supply. The client adds
@@ -34,7 +34,7 @@ export default function GalleryPage() {
         <PageHero
           eyebrow="The Visual Archive"
           lines={[{ text: 'What the company' }, { text: 'actually' }, { text: 'looks like', serif: true }]}
-          lede="Explore the authentic visual archive of Gulf Fibre: plant facilities, extrusion and spinning lines, heavy machinery, materials, finished product lines, and rooftop solar installations."
+          lede="Explore the authentic visual archive of Gulf Fiber: plant facilities, extrusion and spinning lines, heavy machinery, materials, finished product lines, and rooftop solar installations."
           meta={[
             { label: 'Categories', value: String(GALLERY_CATEGORIES.length - 1) },
             { label: 'Archive entries', value: String(GALLERY_ITEMS.length) },
@@ -44,7 +44,7 @@ export default function GalleryPage() {
           aside={
             <Image
               src="/images/gallery-hero.jpg"
-              alt="Main extrusion line and staple fibre production floor at Gulf Fibre facility"
+              alt="Main extrusion line and staple fibre production floor at Gulf Fiber facility"
               fill
               priority
               sizes="(max-width: 992px) 100vw, 48vw"

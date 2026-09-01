@@ -46,7 +46,7 @@ export default function SustainabilityPage() {
           aside={
             <Image
               src="/images/Gallery/15.jpeg"
-              alt="Factory rooftop solar energy array and clean manufacturing facility at Gulf Fibre"
+              alt="Factory rooftop solar energy array and clean manufacturing facility at Gulf Fiber"
               fill
               priority
               sizes="(max-width: 992px) 100vw, 48vw"

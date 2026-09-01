@@ -3,7 +3,7 @@ import type { DataStatus } from '@/lib/data/company'
 /* ===========================================================================
    GALLERY ARCHIVE (/gallery)
    ---------------------------------------------------------------------------
-   The visual archive of Gulf Fibre - factory, manufacturing, products,
+   The visual archive of Gulf Fiber - factory, manufacturing, products,
    and sustainability. Every entry maps directly to an authentic photograph
    from the /public/images/Gallery directory.
    =========================================================================== */
@@ -15,7 +15,7 @@ export type GalleryCategoryId =
   | 'sustainability'
 
 export const GALLERY_CATEGORIES: { id: GalleryCategoryId | 'all'; label: string; blurb: string }[] = [
-  { id: 'all', label: 'All Photos', blurb: 'Complete visual archive of Gulf Fibre plant facilities, machinery, and products.' },
+  { id: 'all', label: 'All Photos', blurb: 'Complete visual archive of Gulf Fiber plant facilities, machinery, and products.' },
   { id: 'factory', label: 'Factory & Plant', blurb: 'Plant facilities, administrative buildings, aerial campus views, and logistics.' },
   { id: 'manufacturing', label: 'Manufacturing', blurb: 'Extrusion spinnerets, drawing stands, crimpers, needle looms, and slitter rewinders.' },
   { id: 'products', label: 'Products', blurb: 'Staple fibres, conjugated hollow fibres, thermal wadding, felt rolls, interlinings, and fusion paper.' },
@@ -44,9 +44,9 @@ export const GALLERY_ITEMS: GalleryItem[] = [
     title: 'Plant Complex & Factory Compound',
     category: 'factory',
     image: '/images/Gallery/1.jpeg',
-    alt: 'Gulf Fibre industrial plant complex and factory buildings',
+    alt: 'Gulf Fiber industrial plant complex and factory buildings',
     description:
-      'Exterior view of the Gulf Fibre manufacturing facility in Faisalabad, showing the production sheds and processing infrastructure.',
+      'Exterior view of the Gulf Fiber manufacturing facility in Faisalabad, showing the production sheds and processing infrastructure.',
     tags: ['plant', 'compound', 'facility', 'industrial'],
     relatedPage: '/company',
     status: 'VERIFIED',
@@ -68,7 +68,7 @@ export const GALLERY_ITEMS: GalleryItem[] = [
     title: 'Aerial View of Plant Campus',
     category: 'factory',
     image: '/images/Gallery/14.jpeg',
-    alt: 'Elevated view of Gulf Fibre factory campus, yards and logistics',
+    alt: 'Elevated view of Gulf Fiber factory campus, yards and logistics',
     description:
       'Overhead perspective of the plant compound showing production halls, material staging yards, logistics fleet and solar arrays.',
     tags: ['aerial', 'campus', 'logistics', 'overview'],
@@ -405,7 +405,7 @@ export const GALLERY_ITEMS: GalleryItem[] = [
     title: 'Plant Headquarters & Executive Portico',
     category: 'factory',
     image: '/images/Gallery/33.jpeg',
-    alt: 'Gulf Fibre executive administration building and main campus entrance',
+    alt: 'Gulf Fiber executive administration building and main campus entrance',
     description:
       'Front view of the plant administration headquarters and management offices on the Faisalabad industrial campus.',
     tags: ['headquarters', 'administration', 'portico', 'executive'],

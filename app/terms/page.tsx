@@ -26,7 +26,7 @@ export default function TermsAndCopyrightPage() {
             { text: 'Copyright', serif: true },
             { text: 'Framework' },
           ]}
-          lede="The legal and operational terms governing purchase contracts, specification tolerances, freight logistics, and intellectual property protections for Gulf Fibre Company (PVT) Limited."
+          lede="The legal and operational terms governing purchase contracts, specification tolerances, freight logistics, and intellectual property protections for Gulf Fiber Company (PVT) Limited."
           meta={[
             { label: 'Established', value: String(VERIFIED.established) },
             { label: 'Legal entity', value: 'PVT Limited' },
@@ -36,7 +36,7 @@ export default function TermsAndCopyrightPage() {
           aside={
             <Image
               src="/images/Gallery/18.jpeg"
-              alt="Administration and corporate office at the Gulf Fibre manufacturing facility"
+              alt="Administration and corporate office at the Gulf Fiber manufacturing facility"
               fill
               priority
               sizes="(max-width: 992px) 100vw, 48vw"
@@ -57,7 +57,7 @@ export default function TermsAndCopyrightPage() {
                 stacked
                 eyebrow="Commercial Supply"
                 title="Specification governance & orders"
-                lede="Every consignment leaving the Gulf Fibre plant is bound by written technical specifications, agreed tolerances, and pre-shipment quality verification."
+                lede="Every consignment leaving the Gulf Fiber plant is bound by written technical specifications, agreed tolerances, and pre-shipment quality verification."
               />
             </div>
 
@@ -207,10 +207,10 @@ export default function TermsAndCopyrightPage() {
                       </h3>
                     </div>
                     <p className="sp-body" style={{ marginBottom: '1.25rem' }}>
-                      Copyright © 1999–{currentYear} <strong>Gulf Fibre Company (PVT) Limited</strong>. All rights reserved.
+                      Copyright © 1999–{currentYear} <strong>Gulf Fiber Company (PVT) Limited</strong>. All rights reserved.
                     </p>
                     <p className="sp-body" style={{ marginBottom: '1.25rem' }}>
-                      All original materials, text content, photographs, plant imagery, technical tables, 3D animations, code architecture, graphic designs, and digital assets published on this website (and its related subdomains) are the exclusive proprietary property of Gulf Fibre Company (PVT) Limited.
+                      All original materials, text content, photographs, plant imagery, technical tables, 3D animations, code architecture, graphic designs, and digital assets published on this website (and its related subdomains) are the exclusive proprietary property of Gulf Fiber Company (PVT) Limited.
                     </p>
                     <p className="sp-body">
                       No part of this website may be reproduced, distributed, mirrored, deep-linked without attribution, scraped, translated, or transmitted in any form or by any means (electronic, mechanical, photocopying, recording, or automated web retrieval) without express prior written permission from the company.
@@ -230,7 +230,7 @@ export default function TermsAndCopyrightPage() {
                       <Provenance status="VERIFIED" />
                     </div>
                     <p className="sp-body" style={{ marginBottom: '1.25rem' }}>
-                      The company name <strong>Gulf Fibre Company (PVT) Limited</strong>, <strong>Gulf Fiber</strong>, the circular brand mark, product line monikers, and associated logos are registered corporate marks.
+                      The company name <strong>Gulf Fiber Company (PVT) Limited</strong>, <strong>Gulf Fiber</strong>, the circular brand mark, product line monikers, and associated logos are registered corporate marks.
                     </p>
                     <p className="sp-body">
                       Third-party certification marks—including <em>Global Recycled Standard (GRS 4.0)</em>, <em>ISO 9001:2015</em>, <em>OEKO-TEX® Standard 100</em>, <em>EPA Punjab</em>, and <em>LCCI</em>—are the property of their respective accredited institutions and are displayed strictly under verified accreditation scope.
@@ -280,7 +280,7 @@ export default function TermsAndCopyrightPage() {
                       Liability Limitations
                     </h3>
                     <p className="sp-body" style={{ color: 'rgba(255, 255, 255, 0.78)' }}>
-                      Gulf Fibre warrants that delivered fibres conform to the agreed written physical specifications and certified quality standards at the point of factory dispatch. The company makes no warranty of merchantability for non-intended secondary conversions. In all cases, maximum aggregate liability shall not exceed the net invoice amount received for the specific consignment.
+                      Gulf Fiber warrants that delivered fibres conform to the agreed written physical specifications and certified quality standards at the point of factory dispatch. The company makes no warranty of merchantability for non-intended secondary conversions. In all cases, maximum aggregate liability shall not exceed the net invoice amount received for the specific consignment.
                     </p>
                   </div>
                 </div>

@@ -719,7 +719,7 @@ export default function ContactPage() {
                   allowFullScreen
                   loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"
-                  title="Gulf Fibre Company Facility Location"
+                  title="Gulf Fiber Company Facility Location"
                 />
               </div>
 
@@ -751,7 +751,7 @@ export default function ContactPage() {
                       margin: '0 0 1rem',
                     }}
                   >
-                    Gulf Fibre Company (PVT) Ltd.
+                    Gulf Fiber Company (PVT) Ltd.
                   </h3>
 
                   <div style={{ display: 'grid', gap: '1rem', marginTop: '1.25rem' }}>
@@ -774,7 +774,7 @@ export default function ContactPage() {
                           Commercial & Export Desk
                         </strong>
                         <p style={{ margin: '0.2rem 0 0', fontSize: '0.875rem', color: 'var(--ink)', lineHeight: 1.5 }}>
-                          Gulf Fibre Corporate Office, 33-KM Multan Road, Lahore 54000
+                          Gulf Fiber Corporate Office, 33-KM Multan Road, Lahore 54000
                         </p>
                       </div>
                     </div>

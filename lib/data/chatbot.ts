@@ -124,7 +124,7 @@ const OVERVIEW_CARDS: ChatCard[] = [
   },
 ]
 
-export const GREETING_ANSWER = `I am the Gulf Fibre assistant. Ask about our product lines, the ${VERIFIED.denierRange} denier range, certifications, the production sequence or commercial terms.`
+export const GREETING_ANSWER = `I am the Gulf Fiber assistant. Ask about our product lines, the ${VERIFIED.denierRange} denier range, certifications, the production sequence or commercial terms.`
 
 /* ===========================================================================
    CONTACT DIRECTORY & PRODUCT → SALES DESK ROUTING
@@ -511,7 +511,7 @@ export const CHAT_INTENTS: ChatIntent[] = [
     id: 'company',
     keywords: [
       'who are you', 'company', 'about', 'history', 'established', 'founded',
-      'gulf fibre', 'employees', 'workforce', 'people', 'customers', 'clients',
+      'gulf fiber', 'employees', 'workforce', 'people', 'customers', 'clients',
       'where are you', 'location', 'pakistan',
     ],
     answer: () =>
@@ -785,7 +785,7 @@ const certCodes = CERTIFICATION_DETAIL.map((c) => c.code).join(', ')
 export const PAGE_CONTEXTS: Record<string, PageContext> = {
   '/': {
     topic: 'General enquiries',
-    nudge: 'Questions about Gulf Fibre? Ask me.',
+    nudge: 'Questions about Gulf Fiber? Ask me.',
     greeting: GREETING_ANSWER,
     suggestions: STARTER_SUGGESTIONS,
   },

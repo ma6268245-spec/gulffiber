@@ -2,9 +2,9 @@ import type { Metadata } from 'next'
 import '@/styles/subpage.css'
 
 export const metadata: Metadata = {
-  title: 'Gallery - The Gulf Fibre Visual Archive',
+  title: 'Gallery - The Gulf Fiber Visual Archive',
   description:
-    'The visual archive of Gulf Fibre: factory, materials, manufacturing, products, quality, people and sustainability - real photographs where the record holds them, labelled frames where it does not.',
+    'The visual archive of Gulf Fiber: factory, materials, manufacturing, products, quality, people and sustainability - real photographs where the record holds them, labelled frames where it does not.',
 }
 
 /**

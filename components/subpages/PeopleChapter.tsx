@@ -89,7 +89,7 @@ export function DirectorFeature() {
       >
         <Image
           src={DIRECTOR.portrait || '/images/specialist-avatar.jpg'}
-          alt={`${DIRECTOR.name ?? 'Founder & Director'} - Gulf Fibre`}
+          alt={`${DIRECTOR.name ?? 'Founder & Director'} - Gulf Fiber`}
           fill
           sizes="(max-width: 992px) 100vw, 360px"
           style={{ objectFit: 'cover', objectPosition: 'center 15%' }}
@@ -162,7 +162,7 @@ function PersonContactActions({ contact, name, role }: { contact: string; name?:
   const [copied, setCopied] = useState(false)
   const cleanNumber = contact.replace(/[^\d+]/g, '')
   const whatsappDigits = contact.replace(/\D/g, '')
-  const waUrl = `https://wa.me/${whatsappDigits}?text=${encodeURIComponent(`Hello ${name ?? 'Team'}, I am inquiring about Gulf Fibre materials.`)}`
+  const waUrl = `https://wa.me/${whatsappDigits}?text=${encodeURIComponent(`Hello ${name ?? 'Team'}, I am inquiring about Gulf Fiber materials.`)}`
 
   const handleCopy = async (e: React.MouseEvent) => {
     e.preventDefault()

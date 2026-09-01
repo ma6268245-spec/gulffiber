@@ -213,7 +213,7 @@ export function TrustBanner() {
       <div style={{ position: 'relative', overflow: 'hidden' }}>
         <Image
           src="/images/Gallery/11.jpeg"
-          alt="Continuous synthetic filament strands — Gulf Fibre Company"
+          alt="Continuous synthetic filament strands — Gulf Fiber Company"
           fill
           className="tb-plant-img"
           style={{

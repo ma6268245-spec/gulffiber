@@ -24,7 +24,7 @@ import { VERIFIED } from '@/lib/data/company'
    ---------------------------------------------------------------------------
    9 Sequential Sections:
 
-     01 · HERO                      - Gulf Fibre — Since 1999 (Video Ambient Hero)
+     01 · HERO                      - Gulf Fiber — Since 1999 (Video Ambient Hero)
      02 · WHO WE ARE                - Company identity, capabilities & scale
      03 · OUR PRODUCT PORTFOLIO     - High-level product ecosystem
      04 · 25 YEARS OF HISTORY       - 1999 to Present day interactive timeline
@@ -46,7 +46,7 @@ export default function CompanyPage() {
         <PageHero
           eyebrow="01 · Established 1999 · Pakistan"
           lines={[
-            { text: 'Gulf Fibre —' },
+            { text: 'Gulf Fiber —' },
             { text: 'Since 1999', serif: true },
           ]}
           lede={`${VERIFIED.legalName} has manufactured synthetic polyester fibre in ${VERIFIED.country} for over 25 years, supplying spinning mills, wadding converters, and nonwoven manufacturers with uncompromising batch-to-batch consistency.`}
@@ -207,7 +207,7 @@ export default function CompanyPage() {
                 eyebrow="03 · Our Product Portfolio"
                 title="High-level product"
                 em="ecosystem"
-                lede="Gulf Fibre manufactures three core synthetic material categories tailored for spinning mills, bedding manufacturers, and industrial nonwoven processors."
+                lede="Gulf Fiber manufactures three core synthetic material categories tailored for spinning mills, bedding manufacturers, and industrial nonwoven processors."
                 link="/products"
                 linkLabel="Explore Full Product Specifications"
                 stacked
@@ -376,7 +376,7 @@ export default function CompanyPage() {
                 eyebrow="06 · Company Organization"
                 title="Interactive organization"
                 em="tree & leadership"
-                lede="An interactive visualization of Gulf Fibre's corporate hierarchy - from founding executive governance to specialized technical product sales departments. Click any circular profile node to view credentials, material domains, and direct contact details."
+                lede="An interactive visualization of Gulf Fiber's corporate hierarchy - from founding executive governance to specialized technical product sales departments. Click any circular profile node to view credentials, material domains, and direct contact details."
               />
             </div>
             <div className="sp-anim">
@@ -411,7 +411,7 @@ export default function CompanyPage() {
             <div className="sp-anim">
               <SectionHead
                 eyebrow="08 · Inside The Plant"
-                title="See where Gulf Fibre"
+                title="See where Gulf Fiber"
                 em="operates"
                 lede="Explore authentic footage of our 33-KM Multan Road, Lahore production facility and live high-pressure extrusion lines in action."
                 stacked

@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import '@/styles/subpage.css'
 
 export const metadata: Metadata = {
-  title: 'Manufacturing & Services - Gulf Fibre Company (PVT) Limited',
+  title: 'Manufacturing & Services - Gulf Fiber Company (PVT) Limited',
   description:
     'Custom denier and cut-length specification, in-house testing, 200–300 kg moisture-sealed baling, and export documentation prepared in-house.',
 }

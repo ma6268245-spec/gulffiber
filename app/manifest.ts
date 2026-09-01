@@ -2,9 +2,9 @@ import type { MetadataRoute } from 'next'
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: 'Gulf Fibre Company (PVT) Limited',
-    short_name: 'Gulf Fibre',
-    description: 'Premier manufacturer of recycled polyester staple fibre, thermal-bonded wadding, and non-woven felts in Pakistan since 1999.',
+    name: 'Gulf Fiber Company (PVT) Limited',
+    short_name: 'Gulf Fiber',
+    description: 'Premier manufacturer of recycled polyester staple fiber, thermal-bonded wadding, and non-woven felts in Pakistan since 1999.',
     start_url: '/',
     display: 'standalone',
     background_color: '#0A1128',

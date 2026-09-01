@@ -7,9 +7,9 @@ import { ThemeProvider } from '@/components/layout/ThemeProvider'
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://www.gulffiber.co'),
-  title: 'Gulf Fibre Company (PVT) Limited — Premium Fibre Manufacturer',
-  description: 'Pakistan\'s leading manufacturer of recycled polyester staple fibre, conjugate fibre, non-woven felt, and hollow fibre since 1999. GRS certified, ISO 9001.',
-  applicationName: 'Gulf Fibre',
+  title: 'Gulf Fiber Company (PVT) Limited — Premium Fiber Manufacturer',
+  description: 'Pakistan\'s leading manufacturer of recycled polyester staple fiber, conjugate fiber, non-woven felt, and hollow fiber since 1999. GRS certified, ISO 9001.',
+  applicationName: 'Gulf Fiber',
   manifest: '/manifest.webmanifest',
   icons: {
     icon: [
@@ -28,16 +28,16 @@ export const metadata: Metadata = {
     ],
   },
   openGraph: {
-    title: 'Gulf Fibre Company (PVT) Limited',
-    description: 'Premier manufacturer of recycled polyester staple fibre, thermal-bonded wadding, and non-woven felts in Pakistan since 1999.',
+    title: 'Gulf Fiber Company (PVT) Limited',
+    description: 'Premier manufacturer of recycled polyester staple fiber, thermal-bonded wadding, and non-woven felts in Pakistan since 1999.',
     url: 'https://www.gulffiber.co',
-    siteName: 'Gulf Fibre Company',
+    siteName: 'Gulf Fiber Company',
     images: [
       {
         url: '/icon-512.png',
         width: 512,
         height: 512,
-        alt: 'Gulf Fibre Company Logo Emblem',
+        alt: 'Gulf Fiber Company Logo Emblem',
       },
     ],
     locale: 'en_US',
@@ -53,12 +53,12 @@ export default function RootLayout({
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'Organization',
-    name: 'Gulf Fibre Company (PVT) Limited',
-    alternateName: ['Gulf Fibre', 'Gulf Fiber'],
+    name: 'Gulf Fiber Company (PVT) Limited',
+    alternateName: ['Gulf Fiber', 'Gulf Fiber Company', 'Gulf Fiber'],
     url: 'https://www.gulffiber.co',
     logo: 'https://www.gulffiber.co/icon-512.png',
     image: 'https://www.gulffiber.co/icon-512.png',
-    description: "Pakistan's leading manufacturer of recycled polyester staple fibre, conjugate fibre, non-woven felt, and hollow fibre since 1999. GRS certified, ISO 9001:2015.",
+    description: "Pakistan's leading manufacturer of recycled polyester staple fiber, conjugate fiber, non-woven felt, and hollow fiber since 1999. GRS certified, ISO 9001:2015.",
     foundingDate: '1999',
     address: {
       '@type': 'PostalAddress',

@@ -32,7 +32,7 @@ export interface CompanyData {
 }
 
 export const GULF_FIBRE_DATA: CompanyData = {
-  legalName: 'Gulf Fibre Company (PVT) Limited',
+  legalName: 'Gulf Fiber Company (PVT) Limited',
   establishedYear: 1999,
   origin: 'Pakistan',
   status: 'VERIFIED',
@@ -196,7 +196,7 @@ export const CERTIFICATION_DETAIL: {
     certNumber: 'License: CB-CUC-1068996 · TE-00005889',
     scope: 'Mechanical Recycling, Dyeing & Trading Operations (33-KM Multan Rd)',
     what:
-      'Official Control Union Site Appendix certifying Gulf Fibre’s 33-KM Multan Road facility for mechanical recycling (PR0017), industrial dyeing (PR0008), and global trading (PR0030).',
+      'Official Control Union Site Appendix certifying Gulf Fiber’s 33-KM Multan Road facility for mechanical recycling (PR0017), industrial dyeing (PR0008), and global trading (PR0030).',
     kind: 'ACCREDITED_CERTIFICATION',
     status: 'VERIFIED',
   },
@@ -525,7 +525,7 @@ export const CONTACT_SLOTS: ContentSlot[] = [
   {
     id: 'office',
     label: 'Commercial & Export Office',
-    value: 'Gulf Fibre Corporate Office, 33-KM Multan Road, Lahore 54000',
+    value: 'Gulf Fiber Corporate Office, 33-KM Multan Road, Lahore 54000',
     status: 'VERIFIED',
     note: 'Corporate governance, commercial contracts, and international shipping desk.',
   },
@@ -591,11 +591,11 @@ export const DIRECTOR: PersonSlot = {
   placeholderKey: 'director-placeholder',
   name: 'Muhammad Iftikhar',
   role: 'Founder / Director',
-  bio: 'Guiding Gulf Fibre since 1999 with an unwavering commitment to precision manufacturing, sustainability, and technological excellence in synthetic fibre engineering.',
+  bio: 'Guiding Gulf Fiber since 1999 with an unwavering commitment to precision manufacturing, sustainability, and technological excellence in synthetic fibre engineering.',
   contact: null,
   portrait: '/images/team/muhammad-iftikhar.jpg',
   status: 'VERIFIED',
-  note: 'Founder & Director of Gulf Fibre Company (PVT) Limited.',
+  note: 'Founder & Director of Gulf Fiber Company (PVT) Limited.',
 }
 
 export const FOUNDERS: PersonSlot[] = [
@@ -680,7 +680,7 @@ export const LEADERSHIP: { name: string; role: string; portrait: string | null; 
 ]
 
 export const LEADERSHIP_NOTE =
-  'Dedicated commercial, export, and technical sales leadership with deep manufacturing expertise across all five Gulf Fibre product lines.'
+  'Dedicated commercial, export, and technical sales leadership with deep manufacturing expertise across all five Gulf Fiber product lines.'
 
 /* ===========================================================================
    ORGANIZATION TREE DATA (Interactive Company Hierarchy)
@@ -721,14 +721,14 @@ export const ORG_TREE_DATA: OrgNode[] = [
     level: 1,
     parentId: null,
     portrait: '/images/team/muhammad-iftikhar.jpg',
-    bio: 'Founded Gulf Fibre in 1999 and has steered the company from a pioneering synthetic fibre producer into Pakistan’s benchmark manufacturer of recycled polyester staple fibre, wadding, and non-woven textiles.',
+    bio: 'Founded Gulf Fiber in 1999 and has steered the company from a pioneering synthetic fibre producer into Pakistan’s benchmark manufacturer of recycled polyester staple fibre, wadding, and non-woven textiles.',
     responsibilities: [
       'Strategic Vision & Long-term Corporate Governance',
       'Capital Investments & Production Facility Expansion',
       'International Market Partnerships & Industry Standards',
     ],
     specialties: ['Recycled Polyester Manufacturing', 'Industrial Plant Engineering', 'Global Trade Relations'],
-    experience: '25+ Years at Gulf Fibre',
+    experience: '25+ Years at Gulf Fiber',
   },
   {
     id: 'org-cofounder',
@@ -745,7 +745,7 @@ export const ORG_TREE_DATA: OrgNode[] = [
       'International Market Partnerships & Industry Standards',
     ],
     specialties: ['Strategic Investment', 'Corporate Governance', 'Capital Expansion'],
-    experience: '25+ Years at Gulf Fibre',
+    experience: '25+ Years at Gulf Fiber',
   },
   {
     id: 'org-export-manager',
@@ -756,7 +756,7 @@ export const ORG_TREE_DATA: OrgNode[] = [
     parentId: 'org-founder',
     portrait: '/images/team/abdul-qayyum.jpg',
     contact: '+92 334 3862175',
-    bio: 'Heading international trade logistics, global export freight operations, customs documentation, and raw material import clearance for Gulf Fibre’s manufacturing plant.',
+    bio: 'Heading international trade logistics, global export freight operations, customs documentation, and raw material import clearance for Gulf Fiber’s manufacturing plant.',
     responsibilities: [
       'Global Export Freight & Container Shipment Logistics',
       'Feedstock Raw Material Import Clearances & Port Operations',
@@ -1054,7 +1054,7 @@ export const SERVICE_JOURNEY: { id: string; title: string; detail: string; statu
     id: 'jy-06',
     title: 'Documentation & loading',
     detail:
-      'Full export documentation is prepared in-house and container loading is coordinated by Gulf Fibre, so one party is accountable for what ships.',
+      'Full export documentation is prepared in-house and container loading is coordinated by Gulf Fiber, so one party is accountable for what ships.',
     status: 'VERIFIED',
   },
   {

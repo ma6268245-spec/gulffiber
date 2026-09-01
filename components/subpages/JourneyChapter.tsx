@@ -6,7 +6,7 @@ import { SERVICE_JOURNEY } from '@/lib/data/company'
 /* ===========================================================================
    JOURNEY CHAPTER (Services page)
    ---------------------------------------------------------------------------
-   "What happens when I work with Gulf Fibre?" answered as one continuous scroll:
+   "What happens when I work with Gulf Fiber?" answered as one continuous scroll:
    a sticky station marker (big number + step badge + step title + progress rail)
    beside the 7-step process ladder. Synchronized via real-time scroll tracking
    across all devices (desktop, laptop, tablet, mobile).

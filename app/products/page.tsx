@@ -201,7 +201,7 @@ export default function ProductsPage() {
                         <ProductVideoPlayer
                           src={p.video}
                           poster={p.image ?? '/images/process-fibre-lab.jpg'}
-                          alt={`${p.title} at the Gulf Fibre plant`}
+                          alt={`${p.title} at the Gulf Fiber plant`}
                           title={p.title}
                           code={p.code}
                         />
@@ -219,7 +219,7 @@ export default function ProductsPage() {
                         >
                           <Image
                             src={p.image ?? '/images/gallery-hero.jpg'}
-                            alt={`${p.title} at the Gulf Fibre plant`}
+                            alt={`${p.title} at the Gulf Fiber plant`}
                             fill
                             sizes="(max-width: 992px) 100vw, 48vw"
                             style={{ objectFit: 'cover' }}
@@ -321,7 +321,7 @@ export default function ProductsPage() {
                         <ProductVideoPlayer
                           src={p.video}
                           poster={p.image ?? '/images/process-fibre-lab.jpg'}
-                          alt={`${p.title} at the Gulf Fibre plant`}
+                          alt={`${p.title} at the Gulf Fiber plant`}
                           title={p.title}
                           code={p.code}
                         />
@@ -339,7 +339,7 @@ export default function ProductsPage() {
                         >
                           <Image
                             src={p.image ?? '/images/gallery-hero.jpg'}
-                            alt={`${p.title} at the Gulf Fibre plant`}
+                            alt={`${p.title} at the Gulf Fiber plant`}
                             fill
                             sizes="(max-width: 992px) 100vw, 48vw"
                             style={{ objectFit: 'cover' }}

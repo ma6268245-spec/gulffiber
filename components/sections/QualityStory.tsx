@@ -80,7 +80,7 @@ export function QualityStory() {
             >
               <Image
                 src="/images/fiber-production-line.jpg"
-                alt="Gulf Fibre Manufacturing Facility"
+                alt="Gulf Fiber Manufacturing Facility"
                 fill
                 className="qs-img"
                 style={{ objectFit: 'cover', objectPosition: 'center', scale: '1.06' }}
@@ -141,7 +141,7 @@ export function QualityStory() {
             </h2>
 
             <p style={{ fontSize: '0.9375rem', lineHeight: 1.75, color: 'var(--muted)', marginBottom: '1.25rem', maxWidth: '50ch' }}>
-              Established in 1999, Gulf Fibre Company has grown from a specialized domestic supplier into an established manufacturer of polyester staple fibres and technical textile materials in Pakistan.
+              Established in 1999, Gulf Fiber Company has grown from a specialized domestic supplier into an established manufacturer of polyester staple fibres and technical textile materials in Pakistan.
             </p>
 
             <p style={{ fontSize: '0.9375rem', lineHeight: 1.75, color: 'var(--muted)', marginBottom: '2.5rem', maxWidth: '50ch' }}>

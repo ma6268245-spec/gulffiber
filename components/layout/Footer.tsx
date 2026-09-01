@@ -66,7 +66,7 @@ export function Footer() {
             <div className="footer-logo-container" style={{ background: '#FFFFFF', padding: '0.45rem 0.85rem', borderRadius: '8px', display: 'inline-block', marginBottom: '1.25rem', boxShadow: '0 4px 16px rgba(0, 0, 0, 0.15)' }}>
               <Image
                 src="/gulf-fibre-logo.png"
-                alt="Gulf Fibre Company (PVT) Limited"
+                alt="Gulf Fiber Company (PVT) Limited"
                 width={150}
                 height={46}
                 className="footer-brand-logo-img"
@@ -101,7 +101,7 @@ export function Footer() {
                   href={href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  aria-label={`Gulf Fibre on ${label}`}
+                  aria-label={`Gulf Fiber on ${label}`}
                   style={{
                     width: '2.25rem',
                     height: '2.25rem',
@@ -319,7 +319,7 @@ export function Footer() {
         >
           <p style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.45)', textAlign: 'center', margin: 0 }}>
             © Copyright {new Date().getFullYear()}. All rights reserved.{' '}
-            <strong style={{ color: 'rgba(255,255,255,0.7)' }}>Gulf Fibre Company (PVT) Limited</strong>
+            <strong style={{ color: 'rgba(255,255,255,0.7)' }}>Gulf Fiber Company (PVT) Limited</strong>
           </p>
           <span style={{ color: 'rgba(255,255,255,0.25)', fontSize: '0.75rem' }}>·</span>
           <Link
