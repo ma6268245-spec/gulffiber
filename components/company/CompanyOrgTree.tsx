@@ -179,13 +179,13 @@ export function CompanyOrgTree() {
                 zIndex: 3,
               }}
             >
-              {/* Left Slot: Co-founder & Strategic Investor (Far-Left Corner) */}
+              {/* Left Slot: Co-founder & Strategic Investor */}
               <div
                 className="org-investor-side-slot"
                 style={{
                   display: 'flex',
                   justifyContent: 'flex-start',
-                  paddingLeft: 'clamp(0.25rem, 1.5vw, 1rem)',
+                  paddingLeft: 'clamp(1.5rem, 4vw, 3.5rem)',
                   zIndex: 3,
                 }}
               >
@@ -193,27 +193,31 @@ export function CompanyOrgTree() {
                   <div
                     className="org-investor-card-wrap"
                     style={{
+                      position: 'relative',
                       display: 'flex',
                       flexDirection: 'column',
                       alignItems: 'center',
                       background: 'rgba(10, 75, 184, 0.03)',
                       border: '1px dashed var(--border-light)',
                       borderRadius: '16px',
-                      padding: '0.45rem 0.75rem',
+                      padding: '0.65rem 0.85rem 0.5rem 0.85rem',
                     }}
                   >
                     <span
                       style={{
-                        fontSize: '0.58rem',
+                        position: 'absolute',
+                        top: '-10px',
+                        fontSize: '0.55rem',
                         fontWeight: 800,
                         letterSpacing: '0.08em',
                         textTransform: 'uppercase',
                         color: 'var(--burg-bright)',
-                        background: 'rgba(56, 182, 255, 0.12)',
-                        border: '1px solid rgba(56, 182, 255, 0.25)',
-                        padding: '0.15rem 0.5rem',
+                        background: 'var(--card-bg)',
+                        border: '1px solid rgba(56, 182, 255, 0.35)',
+                        padding: '0.12rem 0.55rem',
                         borderRadius: '9999px',
-                        marginBottom: '0.25rem',
+                        boxShadow: '0 2px 6px rgba(0,0,0,0.15)',
+                        whiteSpace: 'nowrap',
                       }}
                     >
                       Strategic Investor
@@ -225,7 +229,7 @@ export function CompanyOrgTree() {
                       isDimmed={hoveredNodeId !== null && hoveredNodeId !== cofounderNode.id}
                       onHover={setHoveredNodeId}
                       onSelect={setSelectedNode}
-                      size="medium"
+                      size="large"
                     />
                   </div>
                 )}
