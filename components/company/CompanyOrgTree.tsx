@@ -166,58 +166,96 @@ export function CompanyOrgTree() {
               padding: '0 0.5rem',
             }}
           >
-            {/* ── LEVEL 1: FOUNDER & DIRECTOR ── */}
-            {founderNode && (
-              <div className="org-level org-level--1" style={{ position: 'relative', zIndex: 3 }}>
-                <OrgTreeNode
-                  node={founderNode}
-                  isHighlighted={isNodeActive(founderNode)}
-                  isHovered={hoveredNodeId === founderNode.id}
-                  isDimmed={hoveredNodeId !== null && hoveredNodeId !== founderNode.id}
-                  onHover={setHoveredNodeId}
-                  onSelect={setSelectedNode}
-                  size="large"
-                />
+            {/* ── TOP EXECUTIVE TIER: FOUNDER (CEO) & CO-FOUNDER (INVESTOR) ── */}
+            <div
+              className="org-executive-tier"
+              style={{
+                position: 'relative',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: 'clamp(2rem, 5vw, 4.5rem)',
+                width: '100%',
+                zIndex: 3,
+                marginBottom: '0.25rem',
+              }}
+            >
+              {/* Founder & Managing Director (Center / Main Tree Hub) */}
+              <div
+                className="org-founder-wrapper"
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  position: 'relative',
+                }}
+              >
+                {founderNode && (
+                  <OrgTreeNode
+                    node={founderNode}
+                    isHighlighted={isNodeActive(founderNode)}
+                    isHovered={hoveredNodeId === founderNode.id}
+                    isDimmed={hoveredNodeId !== null && hoveredNodeId !== founderNode.id}
+                    onHover={setHoveredNodeId}
+                    onSelect={setSelectedNode}
+                    size="large"
+                  />
+                )}
               </div>
-            )}
 
-            {/* Vertical Connecting Line 1 -> 2 */}
+              {/* Co-founder / Investor (Independent Side Node, Not linked to team) */}
+              {cofounderNode && (
+                <div
+                  className="org-investor-wrapper"
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    position: 'relative',
+                    borderLeft: '1px dashed var(--border-light)',
+                    paddingLeft: 'clamp(1.5rem, 3vw, 3rem)',
+                  }}
+                >
+                  <span
+                    style={{
+                      fontSize: '0.625rem',
+                      fontWeight: 800,
+                      letterSpacing: '0.06em',
+                      textTransform: 'uppercase',
+                      color: 'var(--burg-bright)',
+                      background: 'rgba(56, 182, 255, 0.1)',
+                      border: '1px solid rgba(56, 182, 255, 0.25)',
+                      padding: '0.15rem 0.55rem',
+                      borderRadius: '9999px',
+                      marginBottom: '0.35rem',
+                    }}
+                  >
+                    Executive Investor
+                  </span>
+                  <OrgTreeNode
+                    node={cofounderNode}
+                    isHighlighted={isNodeActive(cofounderNode)}
+                    isHovered={hoveredNodeId === cofounderNode.id}
+                    isDimmed={hoveredNodeId !== null && hoveredNodeId !== cofounderNode.id}
+                    onHover={setHoveredNodeId}
+                    onSelect={setSelectedNode}
+                    size="medium"
+                  />
+                </div>
+              )}
+            </div>
+
+            {/* Vertical Connecting Line directly from Founder to the Team Branch */}
             <div
               className="org-connector-vertical"
               style={{
                 width: '2px',
-                height: 'clamp(0.85rem, 1.8vh, 1.4rem)',
+                height: 'clamp(1.2rem, 2.5vh, 2rem)',
                 background:
-                  hoveredNodeId === founderNode?.id || hoveredNodeId === cofounderNode?.id
+                  hoveredNodeId === founderNode?.id
                     ? 'var(--burg-bright)'
                     : 'linear-gradient(to bottom, var(--burg-primary), var(--burg-bright))',
                 transition: 'background 0.3s ease',
-                margin: '0 auto',
-              }}
-            />
-
-            {/* ── LEVEL 2: CO-FOUNDER / OPERATIONAL DIRECTOR ── */}
-            {cofounderNode && (
-              <div className="org-level org-level--2" style={{ position: 'relative', zIndex: 3 }}>
-                <OrgTreeNode
-                  node={cofounderNode}
-                  isHighlighted={isNodeActive(cofounderNode)}
-                  isHovered={hoveredNodeId === cofounderNode.id}
-                  isDimmed={hoveredNodeId !== null && hoveredNodeId !== cofounderNode.id}
-                  onHover={setHoveredNodeId}
-                  onSelect={setSelectedNode}
-                  size="medium"
-                />
-              </div>
-            )}
-
-            {/* Vertical Connector 2 -> Fork */}
-            <div
-              className="org-connector-vertical"
-              style={{
-                width: '2px',
-                height: 'clamp(0.65rem, 1.4vh, 1.1rem)',
-                background: 'var(--burg-bright)',
                 margin: '0 auto',
               }}
             />
@@ -769,6 +807,14 @@ export function CompanyOrgTree() {
         }
 
         @media (max-width: 768px) {
+          .org-executive-tier {
+            gap: 0.5rem !important;
+            justify-content: space-around !important;
+            width: 100% !important;
+          }
+          .org-investor-wrapper {
+            padding-left: 0.5rem !important;
+          }
           .org-tree-scroll-viewport {
             padding: 0 !important;
           }

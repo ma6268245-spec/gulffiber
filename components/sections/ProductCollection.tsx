@@ -192,7 +192,7 @@ export function ProductCollection() {
                     fontFamily: 'var(--font-sans)',
                     fontSize: i === 0 ? '1.375rem' : '1rem',
                     fontWeight: 800,
-                    color: 'var(--white)',
+                    color: '#FFFFFF',
                     lineHeight: 1.2,
                     marginBottom: '0.375rem',
                   }}
@@ -200,7 +200,7 @@ export function ProductCollection() {
                   {p.title}
                 </h3>
                 {i === 0 && (
-                  <p style={{ fontSize: '0.8125rem', color: 'rgba(255,255,255,0.65)', lineHeight: 1.6 }}>
+                  <p style={{ fontSize: '0.8125rem', color: 'rgba(255,255,255,0.75)', lineHeight: 1.6 }}>
                     {p.desc}
                   </p>
                 )}
@@ -233,7 +233,7 @@ export function ProductCollection() {
                   fontFamily: 'var(--font-sans)',
                   fontSize: '1.25rem',
                   fontWeight: 800,
-                  color: 'var(--white)',
+                  color: '#FFFFFF',
                   textTransform: 'uppercase',
                   letterSpacing: '0.02em',
                   marginBottom: '0.75rem',
@@ -241,7 +241,7 @@ export function ProductCollection() {
               >
                 LININGS & FUSING MATERIALS
               </h3>
-              <p style={{ fontSize: '0.8125rem', color: 'rgba(255,255,255,0.7)', lineHeight: 1.65, marginBottom: '1.5rem' }}>
+              <p style={{ fontSize: '0.8125rem', color: 'rgba(255,255,255,0.75)', lineHeight: 1.65, marginBottom: '1.5rem' }}>
                 Woven & non-woven fusible interlinings and tailored textile materials for industrial apparel manufacturing.
               </p>
               <Link
@@ -255,7 +255,7 @@ export function ProductCollection() {
                   fontWeight: 700,
                   letterSpacing: '0.1em',
                   textTransform: 'uppercase',
-                  color: 'var(--white)',
+                  color: '#FFFFFF',
                   textDecoration: 'none',
                 }}
               >
