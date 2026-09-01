@@ -740,9 +740,9 @@ export const ORG_TREE_DATA: OrgNode[] = [
     portrait: '/images/team/iftikhar-ali.jpg',
     bio: 'Co-founding director overseeing operational discipline, raw material sourcing integrity, factory infrastructure, and ISO/GRS certified quality assurance across all manufacturing lines.',
     responsibilities: [
-      'Plant Operations & Infrastructure Management',
-      'Raw Material Feedstock Sourcing & Supply Chain Integrity',
-      'Quality Management Systems (ISO 9001, GRS Certification)',
+      'Strategic Vision & Long-term Corporate Governance',
+      'Capital Investments & Production Facility Expansion',
+      'International Market Partnerships & Industry Standards',
     ],
     specialties: ['Operational Excellence', 'Plant Infrastructure', 'Supply Chain Discipline'],
     experience: '25+ Years at Gulf Fibre',
