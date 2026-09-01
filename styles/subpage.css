@@ -1935,26 +1935,52 @@
   margin-top: 0.75rem;
 }
 
-/* Lightbox */
+/* ── Contact Layout (Responsive Grid) ───────────────────────────────────── */
+.sp-contact-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+  gap: clamp(2.5rem, 5vw, 4rem);
+  align-items: start;
+}
+
+@media (max-width: 1024px) {
+  .sp-contact-layout {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 3.5rem;
+    max-width: 700px;
+    margin-inline: auto;
+  }
+}
+
+@media (max-width: 600px) {
+  .sp-contact-layout {
+    gap: 2.5rem;
+  }
+}
+
+/* Lightbox - Customized for All Screen Sizes */
 .sp-lightbox {
   position: fixed;
   inset: 0;
   z-index: 9500;
   display: grid;
   place-items: center;
-  padding: clamp(1rem, 4vw, 3rem);
-  background: rgba(6, 18, 40, 0.82);
-  backdrop-filter: blur(6px);
-  animation: sp-lightbox-in 0.3s ease;
+  padding: clamp(0.75rem, 3vw, 2.5rem);
+  background: rgba(4, 15, 38, 0.88);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  animation: sp-lightbox-in 0.25s ease;
 }
 
 @keyframes sp-lightbox-in {
   from {
     opacity: 0;
+    transform: scale(0.98);
   }
 
   to {
     opacity: 1;
+    transform: scale(1);
   }
 }
 
@@ -1963,32 +1989,40 @@
   display: grid;
   grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
   gap: 0;
-  width: min(64rem, 100%);
-  max-height: 100%;
+  width: min(68rem, 100%);
+  max-height: 90vh;
   background: var(--white);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  overflow: auto;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.45);
 }
 
 .sp-lightbox__close {
   position: absolute;
-  top: 0.75rem;
-  right: 0.75rem;
-  z-index: 2;
+  top: 1rem;
+  right: 1rem;
+  z-index: 10;
   display: grid;
   place-items: center;
   width: 2.5rem;
   height: 2.5rem;
+  border-radius: 50%;
   border: 1px solid var(--border-light);
-  background: var(--white);
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   color: var(--ink);
   cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+  transition: all 0.25s ease;
 }
 
 .sp-lightbox__close:hover {
   background: var(--burg-primary);
   color: #fff;
   border-color: var(--burg-primary);
+  transform: scale(1.06);
 }
 
 .sp-lightbox__close:focus-visible {
@@ -1997,30 +2031,78 @@
 }
 
 .sp-lightbox__close svg {
-  width: 1rem;
-  height: 1rem;
+  width: 1.125rem;
+  height: 1.125rem;
 }
 
 .sp-lightbox__media {
   position: relative;
-  min-height: 22rem;
+  min-height: 28rem;
+  height: 100%;
   background: var(--ivory);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.sp-lightbox__media img {
+  object-fit: contain !important;
 }
 
 .sp-lightbox__caption {
   padding: clamp(1.5rem, 3vw, 2.5rem);
-  display: grid;
+  display: flex;
+  flex-direction: column;
   gap: 0.75rem;
   align-content: start;
+  overflow-y: auto;
+  background: var(--white);
 }
 
-@media (max-width: 767px) {
+@media (max-width: 1024px) {
   .sp-lightbox__panel {
-    grid-template-columns: minmax(0, 1fr);
+    grid-template-columns: minmax(0, 1fr) !important;
+    max-height: 92vh !important;
+    width: min(38rem, 100%) !important;
+    overflow-y: auto !important;
   }
 
   .sp-lightbox__media {
-    min-height: 16rem;
+    min-height: clamp(16rem, 38vh, 24rem) !important;
+    height: clamp(16rem, 38vh, 24rem) !important;
+  }
+
+  .sp-lightbox__caption {
+    padding: 1.5rem !important;
+    overflow-y: visible !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .sp-lightbox {
+    padding: 0.5rem;
+  }
+
+  .sp-lightbox__panel {
+    border-radius: 12px !important;
+    max-height: 94vh !important;
+  }
+
+  .sp-lightbox__media {
+    min-height: clamp(13rem, 32vh, 18rem) !important;
+    height: clamp(13rem, 32vh, 18rem) !important;
+  }
+
+  .sp-lightbox__caption {
+    padding: 1.15rem !important;
+  }
+
+  .sp-lightbox__close {
+    top: 0.65rem;
+    right: 0.65rem;
+    width: 2.25rem;
+    height: 2.25rem;
   }
 }
 
@@ -2498,32 +2580,38 @@
 
 /* Gallery lightbox: reuse .sp-lightbox shell, add nav arrows */
 .sp-glightbox {
-  grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
 }
 
 .sp-glightbox__media {
-  min-height: 26rem;
+  min-height: 28rem;
 }
 
 .sp-glightbox__nav {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  z-index: 2;
+  z-index: 5;
   display: grid;
   place-items: center;
   width: 2.75rem;
   height: 2.75rem;
+  border-radius: 50%;
   border: 1px solid var(--border-light);
-  background: var(--white);
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   color: var(--ink);
   cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: all 0.25s ease;
 }
 
 .sp-glightbox__nav:hover {
   background: var(--burg-primary);
   color: #fff;
   border-color: var(--burg-primary);
+  transform: translateY(-50%) scale(1.08);
 }
 
 .sp-glightbox__nav:focus-visible {
@@ -2532,21 +2620,38 @@
 }
 
 .sp-glightbox__nav svg {
-  width: 1rem;
-  height: 1rem;
+  width: 1.125rem;
+  height: 1.125rem;
 }
 
 .sp-glightbox__nav--prev {
-  left: 0.75rem;
+  left: 1rem;
 }
 
 .sp-glightbox__nav--next {
-  right: 0.75rem;
+  right: 1rem;
 }
 
 @media (max-width: 992px) {
   .sp-root .sp-ggrid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .sp-glightbox {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+
+  .sp-glightbox__media {
+    min-height: clamp(16rem, 38vh, 24rem) !important;
+    height: clamp(16rem, 38vh, 24rem) !important;
+  }
+
+  .sp-glightbox__nav--prev {
+    left: 0.65rem;
+  }
+
+  .sp-glightbox__nav--next {
+    right: 0.65rem;
   }
 }
 
@@ -2554,35 +2659,17 @@
   .sp-root .sp-ggrid {
     grid-template-columns: minmax(0, 1fr);
   }
-
-  .sp-glightbox {
-    grid-template-columns: minmax(0, 1fr);
-  }
-
-  .sp-glightbox__media {
-    min-height: 16rem;
-  }
-
-  .sp-glightbox__nav--prev {
-    left: 0.5rem;
-  }
-
-  .sp-glightbox__nav--next {
-    right: 0.5rem;
-  }
 }
 
 @media (max-width: 480px) {
-  .sp-lightbox {
-    padding: 0.5rem;
-  }
-
   .sp-glightbox__media {
-    min-height: 13rem;
+    min-height: clamp(13rem, 32vh, 18rem) !important;
+    height: clamp(13rem, 32vh, 18rem) !important;
   }
 
-  .sp-lightbox__caption {
-    padding: 1.25rem;
+  .sp-glightbox__nav {
+    width: 2.25rem;
+    height: 2.25rem;
   }
 }
 

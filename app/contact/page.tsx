@@ -1,8 +1,8 @@
 'use client'
 
-import { useRef, useState } from 'react'
+import { useRef, useState, useId } from 'react'
 import { PageShell } from '@/components/subpages/PageShell'
-import { SectionHead, SpecRows } from '@/components/subpages/Primitives'
+import { SectionHead, SectionLabel, SpecRows } from '@/components/subpages/Primitives'
 import { PersonCard } from '@/components/subpages/PeopleChapter'
 import { useSectionReveal } from '@/components/subpages/useSectionReveal'
 import { MANAGEMENT, PRODUCT_LINES, VERIFIED } from '@/lib/data/company'
@@ -42,28 +42,42 @@ const INTENTS = [
 
 type IntentId = (typeof INTENTS)[number]['id']
 
-/**
- * /contact
- *
- * Design: the approved homepage's grammar - ivory and white sections, sapphire
- * eyebrows, 900-weight uppercase headings with a Cormorant italic accent, white
- * hairline panels, one dark band. No new design language; the homepage is
- * untouched.
- *
- * Data: the previous version of this page published a telephone number, a
- * WhatsApp number, two mailboxes and a sample buyer address that appear nowhere
- * in this repository. Every one of them has been removed rather than reworded.
- * Real channels render from CONTACT_SLOTS the moment they are filled in one
- * place; until then each renders as a labelled slot saying what to supply.
- *
- * The form validates in the browser and then POSTs to /api/contact, which
- * sends the enquiry through Resend. Success and failure are reported inline.
- */
+interface PhoneCountry {
+  name: string
+  code: string
+  dialCode: string
+  flag: string
+  digits: number
+  formatHint: string
+}
+
+const PHONE_COUNTRIES: PhoneCountry[] = [
+  { name: 'Pakistan', code: 'PK', dialCode: '+92', flag: '🇵🇰', digits: 10, formatHint: '300 1234567' },
+  { name: 'United Arab Emirates', code: 'AE', dialCode: '+971', flag: '🇦🇪', digits: 9, formatHint: '50 123 4567' },
+  { name: 'Saudi Arabia', code: 'SA', dialCode: '+966', flag: '🇸🇦', digits: 9, formatHint: '50 123 4567' },
+  { name: 'United States', code: 'US', dialCode: '+1', flag: '🇺🇸', digits: 10, formatHint: '202 555 0123' },
+  { name: 'United Kingdom', code: 'GB', dialCode: '+44', flag: '🇬🇧', digits: 10, formatHint: '7911 123456' },
+  { name: 'China', code: 'CN', dialCode: '+86', flag: '🇨🇳', digits: 11, formatHint: '138 0013 8000' },
+  { name: 'Germany', code: 'DE', dialCode: '+49', flag: '🇩🇪', digits: 10, formatHint: '151 12345678' },
+  { name: 'Turkey', code: 'TR', dialCode: '+90', flag: '🇹🇷', digits: 10, formatHint: '532 123 4567' },
+  { name: 'India', code: 'IN', dialCode: '+91', flag: '🇮🇳', digits: 10, formatHint: '98765 43210' },
+  { name: 'Bangladesh', code: 'BD', dialCode: '+880', flag: '🇧🇩', digits: 10, formatHint: '1712 345678' },
+  { name: 'Vietnam', code: 'VN', dialCode: '+84', flag: '🇻🇳', digits: 9, formatHint: '91 234 5678' },
+  { name: 'Egypt', code: 'EG', dialCode: '+20', flag: '🇪🇬', digits: 10, formatHint: '10 1234 5678' },
+  { name: 'Italy', code: 'IT', dialCode: '+39', flag: '🇮🇹', digits: 10, formatHint: '320 123 4567' },
+  { name: 'Spain', code: 'ES', dialCode: '+34', flag: '🇪🇸', digits: 9, formatHint: '612 345 678' },
+  { name: 'Canada', code: 'CA', dialCode: '+1', flag: '🇨🇦', digits: 10, formatHint: '416 555 0123' },
+  { name: 'Australia', code: 'AU', dialCode: '+61', flag: '🇦🇺', digits: 9, formatHint: '412 345 678' },
+  { name: 'Other Countries', code: 'OTHER', dialCode: '+', flag: '🌐', digits: 15, formatHint: 'International number' },
+]
+
 export default function ContactPage() {
   const scope = useRef<HTMLDivElement>(null)
   useSectionReveal(scope)
 
   const [v, setV] = useState<Fields>(EMPTY)
+  const [phoneCountry, setPhoneCountry] = useState<PhoneCountry>(PHONE_COUNTRIES[0]) // Default Pakistan
+  const [phoneRawNumber, setPhoneRawNumber] = useState<string>('')
   const [errors, setErrors] = useState<Partial<Record<keyof Fields, string>>>({})
   const [status, setStatus] = useState<'idle' | 'sending' | 'ok' | 'error'>('idle')
   const [intent, setIntent] = useState<IntentId>('quotation')
@@ -75,6 +89,29 @@ export default function ContactPage() {
     setErrors((prev) => ({ ...prev, [k]: undefined }))
   }
 
+  const handlePhoneCountryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const selected = PHONE_COUNTRIES.find((c) => c.code === e.target.value) ?? PHONE_COUNTRIES[0]
+    setPhoneCountry(selected)
+    
+    // Truncate raw number if it exceeds new country's limit
+    const cleaned = phoneRawNumber.replace(/\D/g, '').slice(0, selected.digits)
+    setPhoneRawNumber(cleaned)
+    setV((prev) => ({ ...prev, phone: cleaned ? `${selected.dialCode} ${cleaned}` : '' }))
+    setErrors((prev) => ({ ...prev, phone: undefined }))
+  }
+
+  const handlePhoneInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    let raw = e.target.value.replace(/\D/g, '') // Only digits
+    // If user starts with 0 for domestic format (e.g. 0300...), strip the leading 0 if in non-US international mode
+    if (phoneCountry.code !== 'OTHER' && raw.startsWith('0') && raw.length > phoneCountry.digits) {
+      raw = raw.substring(1)
+    }
+    const limited = raw.slice(0, phoneCountry.digits)
+    setPhoneRawNumber(limited)
+    setV((prev) => ({ ...prev, phone: limited ? `${phoneCountry.dialCode} ${limited}` : '' }))
+    setErrors((prev) => ({ ...prev, phone: undefined }))
+  }
+
   const validate = () => {
     const next: Partial<Record<keyof Fields, string>> = {}
     if (!v.company.trim()) next.company = 'Company name is required so we can address the quotation.'
@@ -82,6 +119,16 @@ export default function ContactPage() {
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.email.trim())) next.email = 'Enter an email address we can reply to.'
     if (!v.country.trim()) next.country = 'Destination country is required for packing and documentation.'
     if (!v.message.trim()) next.message = 'Tell us what you need - even one line is enough to start.'
+    
+    // Phone validation if provided
+    if (phoneRawNumber.trim().length > 0) {
+      if (phoneCountry.code !== 'OTHER' && phoneRawNumber.length < phoneCountry.digits) {
+        next.phone = `${phoneCountry.name} phone numbers require ${phoneCountry.digits} digits (e.g. ${phoneCountry.formatHint}). Currently: ${phoneRawNumber.length}/${phoneCountry.digits}.`
+      } else if (phoneCountry.code === 'OTHER' && phoneRawNumber.length < 7) {
+        next.phone = 'Please enter a valid international phone number (minimum 7 digits).'
+      }
+    }
+
     setErrors(next)
     return Object.keys(next).length === 0
   }
@@ -103,6 +150,7 @@ export default function ContactPage() {
       if (!res.ok) throw new Error('request failed')
       setStatus('ok')
       setV(EMPTY)
+      setPhoneRawNumber('')
     } catch {
       setStatus('error')
     }
@@ -150,23 +198,22 @@ export default function ContactPage() {
           }}
         >
           <div className="container">
-            <div className="sp-anim" style={{ marginBottom: 'clamp(3rem, 6vh, 4.5rem)' }}>
-              <SectionHead
-                eyebrow="Contact & Enquiries"
-                title="Send the specification,"
-                em="we will answer it"
-                lede="Denier, cut length, volume and destination are enough for a firm answer on feasibility. Sample requests are handled through the same route."
-              />
+            {/* Enhanced Heading with Responsive Centered Alignment for Tablet/Mobile */}
+            <div className="sp-anim sp-contact-header">
+              <div style={{ marginBottom: '1rem' }}>
+                <SectionLabel>Contact & Enquiries</SectionLabel>
+              </div>
+              <h2 className="sp-contact-title">
+                SEND THE SPECIFICATION,
+                <br />
+                <em>we will answer it</em>
+              </h2>
+              <p className="sp-contact-lede">
+                Denier, cut length, volume and destination are enough for a firm answer on feasibility. Sample requests are handled through the same route.
+              </p>
             </div>
 
-            <div
-              style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 300px), 1fr))',
-                gap: 'clamp(2rem, 4vw, 3.5rem)',
-                alignItems: 'start',
-              }}
-            >
+            <div className="sp-contact-layout">
               <div className="sp-anim">
                 <form onSubmit={onSubmit} noValidate>
                   {/* Inquiry path - adapts the message prompt to the desk it routes to */}
@@ -209,7 +256,95 @@ export default function ContactPage() {
                     {field('company', 'Company', { required: true })}
                     {field('person', 'Contact name', { required: true })}
                     {field('email', 'Email', { type: 'email', required: true })}
-                    {field('phone', 'Phone (optional)', { type: 'tel', placeholder: 'Include country code' })}
+
+                    {/* ── International Phone Input with Country Selector & Digit Handling ── */}
+                    <div className="sp-field">
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline' }}>
+                        <label className="sp-field-label" htmlFor="f-phone-input">
+                          Phone (optional)
+                        </label>
+                        {phoneRawNumber.length > 0 && phoneCountry.code !== 'OTHER' && (
+                          <span
+                            style={{
+                              fontSize: '0.6875rem',
+                              fontWeight: 700,
+                              color: phoneRawNumber.length === phoneCountry.digits ? 'var(--accent-green, #12B76A)' : 'var(--muted)',
+                            }}
+                          >
+                            {phoneRawNumber.length} / {phoneCountry.digits} digits
+                          </span>
+                        )}
+                      </div>
+                      
+                      <div
+                        className="sp-phone-group"
+                        style={{
+                          display: 'grid',
+                          gridTemplateColumns: 'minmax(115px, 145px) 1fr',
+                          gap: '0.5rem',
+                          alignItems: 'stretch',
+                        }}
+                      >
+                        <select
+                          id="f-phone-country"
+                          aria-label="Select phone country code"
+                          className="sp-select"
+                          value={phoneCountry.code}
+                          onChange={handlePhoneCountryChange}
+                          style={{
+                            paddingLeft: '0.65rem',
+                            paddingRight: '1.75rem',
+                            fontSize: '0.8125rem',
+                            fontWeight: 700,
+                            cursor: 'pointer',
+                          }}
+                        >
+                          {PHONE_COUNTRIES.map((c) => (
+                            <option key={c.code} value={c.code}>
+                              {c.flag} {c.code} ({c.dialCode})
+                            </option>
+                          ))}
+                        </select>
+
+                        <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
+                          <span
+                            style={{
+                              position: 'absolute',
+                              left: '0.85rem',
+                              fontFamily: 'var(--font-sans)',
+                              fontSize: '0.875rem',
+                              fontWeight: 700,
+                              color: 'var(--burg-primary)',
+                              pointerEvents: 'none',
+                            }}
+                          >
+                            {phoneCountry.dialCode}
+                          </span>
+                          <input
+                            id="f-phone-input"
+                            className="sp-input"
+                            type="tel"
+                            inputMode="numeric"
+                            value={phoneRawNumber}
+                            onChange={handlePhoneInputChange}
+                            placeholder={phoneCountry.formatHint}
+                            maxLength={phoneCountry.digits}
+                            style={{
+                              paddingLeft: `calc(${phoneCountry.dialCode.length}ch + 1.65rem)`,
+                            }}
+                            aria-invalid={errors.phone ? 'true' : undefined}
+                            aria-describedby={errors.phone ? 'e-phone' : undefined}
+                          />
+                        </div>
+                      </div>
+
+                      {errors.phone && (
+                        <p className="sp-field-error" id="e-phone">
+                          {errors.phone}
+                        </p>
+                      )}
+                    </div>
+
                     {field('country', 'Destination country', { required: true })}
 
                     <div className="sp-field">
@@ -260,7 +395,7 @@ export default function ContactPage() {
                     {status === 'ok' && (
                       <div className="sp-form-note" style={{ marginTop: '1.5rem', background: 'rgba(10, 75, 184, 0.05)', border: '1px solid rgba(10, 75, 184, 0.25)', borderRadius: '8px', padding: '1.25rem' }}>
                         <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.4rem' }}>
-                          <span style={{ display: 'inline-flex', width: '1.25rem', height: '1.25rem', borderRadius: '50%', background: 'var(--accent-green)', color: '#fff', alignItems: 'center', justifyContent: 'center', fontSize: '0.75rem', fontWeight: 900 }}>✓</span>
+                          <span style={{ display: 'inline-flex', width: '1.25rem', height: '1.25rem', borderRadius: '50%', background: 'var(--accent-green, #12B76A)', color: '#fff', alignItems: 'center', justifyContent: 'center', fontSize: '0.75rem', fontWeight: 900 }}>✓</span>
                           <p className="sp-slot-title" style={{ margin: 0, color: 'var(--burg-primary)' }}>
                             Enquiry Sent
                           </p>
@@ -322,8 +457,162 @@ export default function ContactPage() {
           </div>
         </section>
 
+        {/* ── Google Maps & Plant Location Section ────────────────────────── */}
+        <section
+          className="section-pad"
+          data-sp-section
+          style={{
+            background: 'var(--bg-subtle, #F8FAFC)',
+            borderTop: '1px solid var(--border-light)',
+          }}
+        >
+          <div className="container">
+            <div className="sp-anim" style={{ marginBottom: 'clamp(2.5rem, 5vh, 3.5rem)' }}>
+              <SectionHead
+                eyebrow="Plant & Logistics Hub"
+                title="Visit our facility,"
+                em="Multan Road, Lahore"
+                lede="Located directly on Pakistan’s prime industrial transit corridor (N-5 Highway) for seamless container dispatch to Karachi Port and rapid dry-port access."
+              />
+            </div>
+
+            <div
+              className="sp-anim"
+              style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 340px), 1fr))',
+                gap: 'clamp(1.5rem, 3vw, 2.5rem)',
+                alignItems: 'stretch',
+              }}
+            >
+              {/* Google Maps Interactive Frame */}
+              <div
+                style={{
+                  position: 'relative',
+                  minHeight: 'clamp(320px, 45vw, 420px)',
+                  borderRadius: '16px',
+                  overflow: 'hidden',
+                  border: '1px solid var(--border-light)',
+                  boxShadow: '0 8px 30px rgba(0, 0, 0, 0.06)',
+                  background: 'var(--white)',
+                }}
+              >
+                <iframe
+                  src="https://maps.google.com/maps?q=33-KM+Multan+Road,+Lahore,+Punjab,+Pakistan&t=&z=13&ie=UTF8&iwloc=&output=embed"
+                  width="100%"
+                  height="100%"
+                  style={{
+                    border: 0,
+                    position: 'absolute',
+                    inset: 0,
+                    width: '100%',
+                    height: '100%',
+                  }}
+                  allowFullScreen
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  title="Gulf Fibre Company Facility Location"
+                />
+              </div>
+
+              {/* Location Details & Directions Panel */}
+              <div
+                className="sp-panel"
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'space-between',
+                  gap: '1.5rem',
+                  borderRadius: '16px',
+                  padding: 'clamp(1.5rem, 3vw, 2.25rem)',
+                  background: 'var(--white)',
+                }}
+              >
+                <div>
+                  <span className="sp-cat" style={{ display: 'inline-block', marginBottom: '0.75rem' }}>
+                    Industrial Site & Headquarters
+                  </span>
+                  <h3
+                    style={{
+                      fontFamily: 'var(--font-sans)',
+                      fontSize: 'clamp(1.2rem, 2.5vw, 1.5rem)',
+                      fontWeight: 800,
+                      color: 'var(--ink)',
+                      textTransform: 'uppercase',
+                      letterSpacing: '-0.01em',
+                      margin: '0 0 1rem',
+                    }}
+                  >
+                    Gulf Fibre Company (PVT) Ltd.
+                  </h3>
+
+                  <div style={{ display: 'grid', gap: '1rem', marginTop: '1.25rem' }}>
+                    <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'flex-start' }}>
+                      <span style={{ fontSize: '1.1rem', flexShrink: 0 }}>📍</span>
+                      <div>
+                        <strong style={{ fontSize: '0.8125rem', color: 'var(--burg-primary)', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
+                          Plant & Extrusion Lines
+                        </strong>
+                        <p style={{ margin: '0.2rem 0 0', fontSize: '0.875rem', color: 'var(--ink)', lineHeight: 1.5 }}>
+                          33-KM Multan Road, Behind Daewoo Workshop, Lahore, Punjab, Pakistan
+                        </p>
+                      </div>
+                    </div>
+
+                    <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'flex-start' }}>
+                      <span style={{ fontSize: '1.1rem', flexShrink: 0 }}>🏢</span>
+                      <div>
+                        <strong style={{ fontSize: '0.8125rem', color: 'var(--burg-primary)', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
+                          Commercial & Export Desk
+                        </strong>
+                        <p style={{ margin: '0.2rem 0 0', fontSize: '0.875rem', color: 'var(--ink)', lineHeight: 1.5 }}>
+                          Gulf Fibre Corporate Office, 33-KM Multan Road, Lahore 54000
+                        </p>
+                      </div>
+                    </div>
+
+                    <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'flex-start' }}>
+                      <span style={{ fontSize: '1.1rem', flexShrink: 0 }}>⏱️</span>
+                      <div>
+                        <strong style={{ fontSize: '0.8125rem', color: 'var(--burg-primary)', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
+                          Dispatch & Office Hours
+                        </strong>
+                        <p style={{ margin: '0.2rem 0 0', fontSize: '0.875rem', color: 'var(--muted)', lineHeight: 1.5 }}>
+                          Plant: Continuous 24/7 Extrusion · Office: Mon – Sat 09:00 – 18:00 PKT
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div style={{ paddingTop: '1rem', borderTop: '1px solid var(--border-light)' }}>
+                  <a
+                    href="https://www.google.com/maps/search/?api=1&query=33-KM+Multan+Road+Lahore+Pakistan"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn-primary"
+                    style={{
+                      width: '100%',
+                      justifyContent: 'center',
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '0.65rem',
+                      padding: '0.75rem 1.5rem',
+                    }}
+                  >
+                    <span>Get Directions on Google Maps</span>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" aria-hidden="true">
+                      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3" />
+                    </svg>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* ── Product Line Sales Leads ──────────────────────────────────── */}
-        <section className="section-pad" data-sp-section style={{ background: 'var(--bg-subtle, #F8FAFC)' }}>
+        <section className="section-pad" data-sp-section style={{ background: 'var(--white)' }}>
           <div className="container">
             <div className="sp-anim">
               <SectionHead
@@ -369,7 +658,48 @@ export default function ContactPage() {
       </div>
 
       <style>{`
+        .sp-contact-header {
+          margin-bottom: clamp(3rem, 6vh, 4.5rem);
+        }
+        .sp-contact-title {
+          font-family: var(--font-sans);
+          font-size: clamp(2.35rem, 5.5vw, 3.65rem);
+          font-weight: 900;
+          letter-spacing: -0.025em;
+          text-transform: uppercase;
+          line-height: 1.1;
+          color: var(--ink);
+          margin: 0 0 1.25rem;
+        }
+        .sp-contact-title em {
+          font-family: var(--font-serif);
+          font-style: italic;
+          font-weight: 400;
+          text-transform: none;
+          color: var(--burg-primary);
+        }
+        .sp-contact-lede {
+          font-size: 1.0625rem;
+          line-height: 1.65;
+          color: var(--muted);
+          max-width: 54ch;
+          margin: 0;
+        }
+        @media (max-width: 1024px) {
+          .sp-contact-header {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+          }
+          .sp-contact-lede {
+            text-align: center;
+          }
+        }
         @media (max-width: 480px) {
+          .sp-phone-group {
+            grid-template-columns: 1fr !important;
+          }
           .contact-submit-btn {
             width: 100% !important;
             justify-content: center !important;
