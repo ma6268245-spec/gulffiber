@@ -838,44 +838,51 @@ export function CompanyOrgTree() {
           }
         }
 
-        /* Desktop / Laptop: Cut container width to eliminate excess side margins */
+        /* Desktop / Laptop: Shift Co-founder comfortably to the left so hover never touches Founder */
         @media (min-width: 1025px) {
           .org-tree-canvas {
             max-width: 920px !important;
             margin: 0 auto !important;
           }
           .org-investor-side-slot {
-            left: calc(50% - 280px) !important;
+            left: calc(50% - 370px) !important;
             width: 200px !important;
             top: 0 !important;
             transform: none !important;
           }
           .org-founder-center {
-            width: 220px !important;
+            width: 200px !important;
             margin: 0 auto !important;
           }
           .org-exec-bridge-line {
-            left: calc(50% - 145px) !important;
-            width: 105px !important;
+            left: calc(50% - 231px) !important;
+            right: calc(50% + 39px) !important;
+            width: auto !important;
             top: clamp(34px, 3.2vw, 41px) !important;
           }
         }
 
-        /* Tablet: Keep good wide spacing as requested */
+        /* Tablet: Keep good wide spacing without co-founder overlapping founder */
         @media (min-width: 769px) and (max-width: 1024px) {
           .org-investor-side-slot {
-            left: clamp(1.25rem, 4vw, 3.5rem) !important;
+            left: calc(50% - 310px) !important;
+            width: 190px !important;
             top: 0 !important;
             transform: none !important;
           }
+          .org-founder-center {
+            width: 190px !important;
+            margin: 0 auto !important;
+          }
           .org-exec-bridge-line {
-            left: calc(clamp(1.25rem, 4vw, 3.5rem) + clamp(68px, 6vw, 82px)) !important;
-            right: calc(50% + clamp(34px, 3vw, 41px)) !important;
+            left: calc(50% - 175px) !important;
+            right: calc(50% + 36px) !important;
+            width: auto !important;
             top: clamp(34px, 3.2vw, 41px) !important;
           }
         }
 
-        /* Phone: Perfect centered alignment for Founder and clean left docking for Co-founder */
+        /* Phone: Perfect centered alignment for Founder, left docking for Co-founder, and aligned text rows */
         @media (max-width: 768px) {
           .org-top-executive-container {
             position: relative !important;
@@ -941,21 +948,32 @@ export function CompanyOrgTree() {
           }
           .org-node-card-body {
             max-width: 100% !important;
+            width: 100% !important;
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: center !important;
+            justify-content: flex-start !important;
           }
           .org-node-name {
-            font-size: clamp(0.55rem, 2.1vw, 0.65rem) !important;
+            font-size: clamp(0.52rem, 2.1vw, 0.62rem) !important;
             line-height: 1.15 !important;
-            margin: 0 0 0.1rem !important;
+            margin: 0 0 0.15rem !important;
+            min-height: 2.3em !important;
+            display: flex !important;
+            align-items: flex-start !important;
+            justify-content: center !important;
+            text-align: center !important;
             word-break: break-word;
           }
           .org-node-role {
-            font-size: clamp(0.46rem, 1.7vw, 0.54rem) !important;
-            line-height: 1.1 !important;
+            font-size: clamp(0.44rem, 1.7vw, 0.52rem) !important;
+            line-height: 1.15 !important;
             margin: 0 !important;
-            min-height: 2.2em !important;
+            min-height: 3.6em !important;
             display: flex !important;
-            align-items: center !important;
+            align-items: flex-start !important;
             justify-content: center !important;
+            text-align: center !important;
             word-break: break-word;
           }
           .org-node-contact-pill {
