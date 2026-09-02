@@ -145,37 +145,30 @@ export function TimelineChapter() {
 
       {/* ── Timeline Rows ── */}
       <div
+        className="timeline-rows-list"
         style={{
           display: 'flex',
           flexDirection: 'column',
-          gap: 'clamp(2.25rem, 4.5vh, 3.75rem)',
+          gap: 'clamp(2.5rem, 5vh, 4rem)',
           position: 'relative',
           zIndex: 2,
         }}
       >
         {MILESTONES.map((m: CompanyMilestone, idx: number) => {
-          const isEven = idx % 2 === 0 // 0, 2, 4 -> Image Left, Text Right; 1, 3, 5 -> Text Left, Image Right
+          const isEven = idx % 2 === 0
 
           return (
             <div
               key={m.id}
-              className="timeline-row"
+              className={`timeline-row ${isEven ? 'timeline-row--even' : 'timeline-row--odd'}`}
               style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(2, minmax(0, 1fr))',
-                gap: 'clamp(1.5rem, 3.5vw, 2.75rem)',
-                alignItems: 'center',
                 position: 'relative',
               }}
             >
-              {/* Center Dot on Rail */}
+              {/* Center / Left Dot on Rail */}
               <div
                 className="timeline-center-dot"
                 style={{
-                  position: 'absolute',
-                  left: '50%',
-                  top: '50%',
-                  transform: 'translate(-50%, -50%)',
                   width: '12px',
                   height: '12px',
                   borderRadius: '50%',
@@ -186,228 +179,197 @@ export function TimelineChapter() {
                 }}
               />
 
-              {/* ── LEFT COLUMN ── */}
-              <div
-                style={{
-                  order: isEven ? 1 : 1,
-                  paddingRight: 'clamp(0.25rem, 1.5vw, 1rem)',
-                }}
-              >
-                {isEven ? (
-                  /* Image on Left */
+              {/* ── Image Column ── */}
+              <div className="timeline-img-col">
+                <div
+                  className="timeline-img-box"
+                  style={{
+                    position: 'relative',
+                    borderRadius: '14px',
+                    overflow: 'hidden',
+                    border: '1px solid rgba(255, 255, 255, 0.12)',
+                    boxShadow: '0 12px 28px rgba(0, 0, 0, 0.35)',
+                    aspectRatio: '16 / 10',
+                    maxWidth: '380px',
+                    width: '100%',
+                    background: 'rgba(255, 255, 255, 0.03)',
+                    transition: 'transform 0.3s ease, border-color 0.3s ease',
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.transform = 'scale(1.02)'
+                    e.currentTarget.style.borderColor = 'rgba(56, 182, 255, 0.5)'
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.transform = 'scale(1)'
+                    e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.12)'
+                  }}
+                >
+                  <Image
+                    src={m.image}
+                    alt={m.title}
+                    fill
+                    sizes="(max-width: 768px) 100vw, 400px"
+                    style={{ objectFit: 'cover' }}
+                  />
                   <div
-                    className="timeline-img-box"
                     style={{
-                      position: 'relative',
-                      borderRadius: '14px',
-                      overflow: 'hidden',
-                      border: '1px solid rgba(255, 255, 255, 0.12)',
-                      boxShadow: '0 12px 28px rgba(0, 0, 0, 0.35)',
-                      aspectRatio: '16 / 10',
-                      maxWidth: '380px',
-                      marginLeft: 'auto',
-                      background: 'rgba(255, 255, 255, 0.03)',
-                      transition: 'transform 0.3s ease, border-color 0.3s ease',
+                      position: 'absolute',
+                      inset: 0,
+                      background: 'linear-gradient(180deg, rgba(4, 15, 38, 0) 65%, rgba(4, 15, 38, 0.6) 100%)',
                     }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.transform = 'scale(1.02)'
-                      e.currentTarget.style.borderColor = 'rgba(56, 182, 255, 0.5)'
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.transform = 'scale(1)'
-                      e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.12)'
-                    }}
-                  >
-                    <Image
-                      src={m.image}
-                      alt={m.title}
-                      fill
-                      sizes="(max-width: 768px) 100vw, 400px"
-                      style={{ objectFit: 'cover' }}
-                    />
-                    <div
-                      style={{
-                        position: 'absolute',
-                        inset: 0,
-                        background: 'linear-gradient(180deg, rgba(4, 15, 38, 0) 65%, rgba(4, 15, 38, 0.6) 100%)',
-                      }}
-                    />
-                  </div>
-                ) : (
-                  /* Text Block on Left */
-                  <div className="timeline-text-box" style={{ maxWidth: '380px', marginLeft: 'auto' }}>
-                    <span
-                      style={{
-                        fontSize: '0.6875rem',
-                        fontWeight: 800,
-                        fontFamily: 'var(--font-sans)',
-                        textTransform: 'uppercase',
-                        letterSpacing: '0.08em',
-                        color: 'var(--burg-bright, #38B6FF)',
-                        display: 'block',
-                        marginBottom: '0.25rem',
-                      }}
-                    >
-                      {m.category}
-                    </span>
-                    <div
-                      style={{
-                        fontSize: 'clamp(2rem, 3.2vw, 2.65rem)',
-                        fontWeight: 900,
-                        fontFamily: 'var(--font-sans)',
-                        letterSpacing: '-0.03em',
-                        color: '#FFFFFF',
-                        lineHeight: 1,
-                      }}
-                    >
-                      {m.marker}
-                    </div>
-                    <div
-                      style={{
-                        width: '100%',
-                        height: '1px',
-                        background: 'rgba(255, 255, 255, 0.12)',
-                        margin: '0.65rem 0 0.85rem',
-                      }}
-                    />
-                    <p
-                      style={{
-                        fontSize: '0.875rem',
-                        lineHeight: 1.65,
-                        color: 'rgba(255, 255, 255, 0.72)',
-                        margin: 0,
-                      }}
-                    >
-                      {m.body}
-                    </p>
-                  </div>
-                )}
+                  />
+                </div>
               </div>
 
-              {/* ── RIGHT COLUMN ── */}
-              <div
-                style={{
-                  order: 2,
-                  paddingLeft: 'clamp(0.25rem, 1.5vw, 1rem)',
-                }}
-              >
-                {isEven ? (
-                  /* Text Block on Right */
-                  <div className="timeline-text-box" style={{ maxWidth: '380px' }}>
-                    <span
-                      style={{
-                        fontSize: '0.6875rem',
-                        fontWeight: 800,
-                        fontFamily: 'var(--font-sans)',
-                        textTransform: 'uppercase',
-                        letterSpacing: '0.08em',
-                        color: 'var(--burg-bright, #38B6FF)',
-                        display: 'block',
-                        marginBottom: '0.25rem',
-                      }}
-                    >
-                      {m.category}
-                    </span>
-                    <div
-                      style={{
-                        fontSize: 'clamp(2rem, 3.2vw, 2.65rem)',
-                        fontWeight: 900,
-                        fontFamily: 'var(--font-sans)',
-                        letterSpacing: '-0.03em',
-                        color: '#FFFFFF',
-                        lineHeight: 1,
-                      }}
-                    >
-                      {m.marker}
-                    </div>
-                    <div
-                      style={{
-                        width: '100%',
-                        height: '1px',
-                        background: 'rgba(255, 255, 255, 0.12)',
-                        margin: '0.65rem 0 0.85rem',
-                      }}
-                    />
-                    <p
-                      style={{
-                        fontSize: '0.875rem',
-                        lineHeight: 1.65,
-                        color: 'rgba(255, 255, 255, 0.72)',
-                        margin: 0,
-                      }}
-                    >
-                      {m.body}
-                    </p>
-                  </div>
-                ) : (
-                  /* Image on Right */
-                  <div
-                    className="timeline-img-box"
+              {/* ── Text Column ── */}
+              <div className="timeline-text-col">
+                <div className="timeline-text-box" style={{ maxWidth: '380px', width: '100%' }}>
+                  <span
+                    className="timeline-category"
                     style={{
-                      position: 'relative',
-                      borderRadius: '14px',
-                      overflow: 'hidden',
-                      border: '1px solid rgba(255, 255, 255, 0.12)',
-                      boxShadow: '0 12px 28px rgba(0, 0, 0, 0.35)',
-                      aspectRatio: '16 / 10',
-                      maxWidth: '380px',
-                      background: 'rgba(255, 255, 255, 0.03)',
-                      transition: 'transform 0.3s ease, border-color 0.3s ease',
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.transform = 'scale(1.02)'
-                      e.currentTarget.style.borderColor = 'rgba(56, 182, 255, 0.5)'
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.transform = 'scale(1)'
-                      e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.12)'
+                      fontSize: '0.6875rem',
+                      fontWeight: 800,
+                      fontFamily: 'var(--font-sans)',
+                      textTransform: 'uppercase',
+                      letterSpacing: '0.08em',
+                      color: 'var(--burg-bright, #38B6FF)',
+                      display: 'block',
+                      marginBottom: '0.25rem',
                     }}
                   >
-                    <Image
-                      src={m.image}
-                      alt={m.title}
-                      fill
-                      sizes="(max-width: 768px) 100vw, 400px"
-                      style={{ objectFit: 'cover' }}
-                    />
-                    <div
-                      style={{
-                        position: 'absolute',
-                        inset: 0,
-                        background: 'linear-gradient(180deg, rgba(4, 15, 38, 0) 65%, rgba(4, 15, 38, 0.6) 100%)',
-                      }}
-                    />
+                    {m.category}
+                  </span>
+                  <div
+                    className="timeline-marker"
+                    style={{
+                      fontSize: 'clamp(2rem, 3.2vw, 2.65rem)',
+                      fontWeight: 900,
+                      fontFamily: 'var(--font-sans)',
+                      letterSpacing: '-0.03em',
+                      color: '#FFFFFF',
+                      lineHeight: 1,
+                    }}
+                  >
+                    {m.marker}
                   </div>
-                )}
+                  <div
+                    className="timeline-divider"
+                    style={{
+                      width: '100%',
+                      height: '1px',
+                      background: 'rgba(255, 255, 255, 0.12)',
+                      margin: '0.65rem 0 0.85rem',
+                    }}
+                  />
+                  <p
+                    className="timeline-body"
+                    style={{
+                      fontSize: '0.875rem',
+                      lineHeight: 1.65,
+                      color: 'rgba(255, 255, 255, 0.72)',
+                      margin: 0,
+                    }}
+                  >
+                    {m.body}
+                  </p>
+                </div>
               </div>
             </div>
           )
         })}
       </div>
 
-      {/* ── Responsive CSS for Mobile Screens ── */}
+      {/* ── Responsive CSS ── */}
       <style jsx>{`
-        @media (max-width: 768px) {
-          .timeline-center-rail {
-            left: 0 !important;
-            transform: none !important;
+        /* Desktop & Tablet: 2-column alternating grid */
+        @media (min-width: 769px) {
+          .timeline-row {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: clamp(1.5rem, 3.5vw, 2.75rem);
+            align-items: center;
           }
           .timeline-center-dot {
-            left: 0 !important;
-            transform: translate(-50%, -50%) !important;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+          }
+          .timeline-row--even .timeline-img-col {
+            order: 1;
+            padding-right: clamp(0.25rem, 1.5vw, 1rem);
+          }
+          .timeline-row--even .timeline-img-box {
+            margin-left: auto;
+          }
+          .timeline-row--even .timeline-text-col {
+            order: 2;
+            padding-left: clamp(0.25rem, 1.5vw, 1rem);
+          }
+          .timeline-row--odd .timeline-text-col {
+            order: 1;
+            padding-right: clamp(0.25rem, 1.5vw, 1rem);
+          }
+          .timeline-row--odd .timeline-text-box {
+            margin-left: auto;
+          }
+          .timeline-row--odd .timeline-img-col {
+            order: 2;
+            padding-left: clamp(0.25rem, 1.5vw, 1rem);
+          }
+        }
+
+        /* Phone: Left-anchored timeline rail with consistent Text -> Image order */
+        @media (max-width: 768px) {
+          .timeline-root-container {
+            padding-left: 0.25rem !important;
+            padding-right: 0.25rem !important;
+          }
+          .timeline-center-rail {
+            left: 0.75rem !important;
+            top: 0.5rem !important;
+            bottom: 0.5rem !important;
+            transform: none !important;
           }
           .timeline-row {
-            grid-template-columns: 1fr !important;
-            gap: 1.25rem !important;
-            padding-left: 1.25rem !important;
+            display: flex !important;
+            flex-direction: column !important;
+            padding-left: 1.85rem !important;
+            gap: 0.95rem !important;
           }
-          .timeline-img-box {
-            max-width: 100% !important;
-            margin-left: 0 !important;
+          .timeline-center-dot {
+            position: absolute !important;
+            left: 0.75rem !important;
+            top: 0.25rem !important;
+            transform: translate(-50%, 0) !important;
+          }
+          .timeline-text-col {
+            order: 1 !important;
+            padding: 0 !important;
+            width: 100% !important;
+          }
+          .timeline-img-col {
+            order: 2 !important;
+            padding: 0 !important;
+            width: 100% !important;
           }
           .timeline-text-box {
             max-width: 100% !important;
-            margin-left: 0 !important;
+            margin: 0 !important;
+            width: 100% !important;
+          }
+          .timeline-img-box {
+            max-width: 100% !important;
+            margin: 0 !important;
+            width: 100% !important;
+            border-radius: 12px !important;
+          }
+          .timeline-marker {
+            font-size: clamp(1.75rem, 6vw, 2.2rem) !important;
+          }
+          .timeline-body {
+            font-size: 0.8125rem !important;
+            line-height: 1.6 !important;
           }
         }
       `}</style>

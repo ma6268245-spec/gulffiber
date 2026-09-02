@@ -812,7 +812,7 @@ export function CompanyOrgTree() {
           margin: 0 0 0.35rem;
           min-height: 2.6em;
           display: flex;
-          align-items: center;
+          align-items: flex-start;
           justify-content: center;
           text-align: center;
         }
@@ -835,6 +835,20 @@ export function CompanyOrgTree() {
             display: flex !important;
             flex-direction: column !important;
             align-items: center !important;
+          }
+          .org-level--3 .org-node-name {
+            min-height: 1.25em !important;
+            display: flex !important;
+            align-items: flex-start !important;
+            justify-content: center !important;
+            text-align: center !important;
+          }
+          .org-level--3 .org-node-role {
+            min-height: 2.6em !important;
+            display: flex !important;
+            align-items: flex-start !important;
+            justify-content: center !important;
+            text-align: center !important;
           }
         }
 
@@ -862,7 +876,7 @@ export function CompanyOrgTree() {
           }
         }
 
-        /* Tablet: Keep good wide spacing without co-founder overlapping founder */
+        /* Tablet: Symmetrical alignment for executives and Level 3 cards */
         @media (min-width: 769px) and (max-width: 1024px) {
           .org-investor-side-slot {
             left: calc(50% - 310px) !important;
@@ -879,6 +893,51 @@ export function CompanyOrgTree() {
             right: calc(50% + 36px) !important;
             width: auto !important;
             top: clamp(34px, 3.2vw, 41px) !important;
+          }
+          .org-top-executive-container .org-node-name {
+            min-height: 2.3em !important;
+            display: flex !important;
+            align-items: flex-start !important;
+            justify-content: center !important;
+            text-align: center !important;
+          }
+          .org-top-executive-container .org-node-role {
+            min-height: 2.6em !important;
+            display: flex !important;
+            align-items: flex-start !important;
+            justify-content: center !important;
+            text-align: center !important;
+          }
+          .org-level--3 {
+            gap: clamp(0.35rem, 1.2vw, 0.85rem) !important;
+            align-items: stretch !important;
+          }
+          .org-level--3 .org-tree-node-wrapper {
+            min-width: 140px !important;
+            max-width: 190px !important;
+            min-height: 180px !important;
+            padding: 0.55rem 0.35rem !important;
+            justify-content: flex-start !important;
+          }
+          .org-level--3 .org-node-name {
+            min-height: 1.25em !important;
+            display: flex !important;
+            align-items: flex-start !important;
+            justify-content: center !important;
+            text-align: center !important;
+          }
+          .org-level--3 .org-node-role {
+            min-height: 2.8em !important;
+            height: 2.8em !important;
+            display: flex !important;
+            align-items: flex-start !important;
+            justify-content: center !important;
+            text-align: center !important;
+            line-height: 1.25 !important;
+            margin: 0 0 0.35rem !important;
+          }
+          .org-level--3 .org-node-contact-pill {
+            margin-top: auto !important;
           }
         }
 
