@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     description,
     url: '/gallery',
     siteName: 'Gulf Fiber Company',
-    images: ['/images/gallery-hero.jpg'],
+    images: ['/images/Gallery/16.jpeg'],
     locale: 'en_US',
     type: 'website',
   },
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title,
     description,
-    images: ['/images/gallery-hero.jpg'],
+    images: ['/images/Gallery/16.jpeg'],
   },
 }
 

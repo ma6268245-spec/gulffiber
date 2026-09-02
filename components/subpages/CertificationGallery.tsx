@@ -27,12 +27,6 @@ const MAGNIFIER = (
   </svg>
 )
 
-const CLOSE = (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" aria-hidden="true">
-    <path d="M18 6L6 18M6 6l12 12" />
-  </svg>
-)
-
 const CHEVRON_LEFT = (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" style={{ width: '22px', height: '22px' }}>
     <polyline points="15 18 9 12 15 6" />

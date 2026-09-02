@@ -338,8 +338,8 @@ export function HeroSection() {
           }}
         >
           <Image
-            src="/images/stitch-bonding-loom.jpg"
-            alt="Gulf Fiber industrial textile and stitch-bonding machinery"
+            src="/images/hero-production-line.jpg"
+            alt="Gulf Fiber continuous draw stands and staple fiber production line"
             fill
             className="hero-img"
             style={{ objectFit: 'cover', objectPosition: 'center', scale: '1.05' }}

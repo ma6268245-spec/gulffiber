@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, useSyncExternalStore } from 'react'
 import { createPortal } from 'react-dom'
 import Image from 'next/image'
 import {
@@ -9,16 +9,14 @@ import {
   type OrgNode,
 } from '@/lib/data/company'
 
+const emptySubscribe = () => () => {}
+
 export function CompanyOrgTree() {
   const [activeDept, setActiveDept] = useState<string>('all')
   const [selectedNode, setSelectedNode] = useState<OrgNode | null>(null)
   const [hoveredNodeId, setHoveredNodeId] = useState<string | null>(null)
-  const [mounted, setMounted] = useState(false)
+  const mounted = useSyncExternalStore(emptySubscribe, () => true, () => false)
   const drawerRef = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    setMounted(true)
-  }, [])
 
   // Keyboard escape listener to close drawer
   useEffect(() => {
@@ -323,7 +321,7 @@ export function CompanyOrgTree() {
                 }}
               >
                 {salesNodes.map((node) => (
-                  <div key={node.id} style={{ display: 'flex', justifyContent: 'center' }}>
+                  <div key={node.id} style={{ display: 'flex', justifyContent: 'center', width: '100%', height: '100%' }}>
                     <OrgTreeNode
                       node={node}
                       isHighlighted={isNodeActive(node)}
@@ -791,7 +789,11 @@ export function CompanyOrgTree() {
           height: clamp(52px, 4.5vw, 64px);
         }
         .org-node-card-body {
+          width: 100%;
           max-width: 220px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
         }
         .org-node-name {
           font-family: var(--font-sans);
@@ -807,13 +809,43 @@ export function CompanyOrgTree() {
           font-weight: 700;
           color: var(--burg-primary);
           line-height: 1.25;
-          margin: 0 0 0.25rem;
+          margin: 0 0 0.35rem;
+          min-height: 2.6em;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          text-align: center;
         }
 
-        /* Desktop: Co-founder placed comfortably left of Founder without collision */
+        /* Desktop & Laptop: Ensure all Level 3 manager cards have equal, balanced box sizes on hover */
+        @media (min-width: 769px) {
+          .org-level--3 {
+            align-items: stretch !important;
+          }
+          .org-level--3 .org-tree-node-wrapper {
+            width: 100% !important;
+            min-width: 165px !important;
+            max-width: 215px !important;
+            min-height: 178px !important;
+            justify-content: flex-start !important;
+            padding: 0.55rem 0.5rem !important;
+          }
+          .org-level--3 .org-node-card-body {
+            width: 100% !important;
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: center !important;
+          }
+        }
+
+        /* Desktop / Laptop: Cut container width to eliminate excess side margins */
         @media (min-width: 1025px) {
+          .org-tree-canvas {
+            max-width: 920px !important;
+            margin: 0 auto !important;
+          }
           .org-investor-side-slot {
-            left: calc(50% - 290px) !important;
+            left: calc(50% - 280px) !important;
             width: 200px !important;
             top: 0 !important;
             transform: none !important;
@@ -823,8 +855,8 @@ export function CompanyOrgTree() {
             margin: 0 auto !important;
           }
           .org-exec-bridge-line {
-            left: calc(50% - 150px) !important;
-            width: 110px !important;
+            left: calc(50% - 145px) !important;
+            width: 105px !important;
             top: clamp(34px, 3.2vw, 41px) !important;
           }
         }
@@ -920,6 +952,10 @@ export function CompanyOrgTree() {
             font-size: clamp(0.46rem, 1.7vw, 0.54rem) !important;
             line-height: 1.1 !important;
             margin: 0 !important;
+            min-height: 2.2em !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
             word-break: break-word;
           }
           .org-node-contact-pill {
@@ -931,6 +967,9 @@ export function CompanyOrgTree() {
           }
           .org-tree-node-wrapper {
             padding: 0.15rem 0.1rem !important;
+            min-height: auto !important;
+            min-width: 0 !important;
+            width: 100% !important;
           }
           .org-drawer-backdrop {
             align-items: flex-end !important;

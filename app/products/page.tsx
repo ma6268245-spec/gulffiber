@@ -10,7 +10,6 @@ import { CompanyVideoScrollStory } from '@/components/company/CompanyVideoScroll
 import {
   ArrowLink,
   Chip,
-  DataSlot,
   Provenance,
   SectionHead,
   SpecRows,

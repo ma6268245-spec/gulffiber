@@ -2,10 +2,12 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, useSyncExternalStore } from 'react'
 import { createPortal } from 'react-dom'
 import { ACTIVE_CATEGORIES, GALLERY_ITEMS, type GalleryCategoryId } from '@/lib/data/gallery'
 import { Provenance } from '@/components/subpages/Primitives'
+
+const emptySubscribe = () => () => {}
 
 /* ===========================================================================
    GALLERY GRID (/gallery)
@@ -53,13 +55,9 @@ const categoryLabel = (id: GalleryCategoryId) =>
 export function GalleryGrid() {
   const [filter, setFilter] = useState<GalleryCategoryId | 'all'>('all')
   const [openIdx, setOpenIdx] = useState<number | null>(null)
-  const [mounted, setMounted] = useState(false)
+  const mounted = useSyncExternalStore(emptySubscribe, () => true, () => false)
   const closeRef = useRef<HTMLButtonElement>(null)
   const tileRefs = useRef<(HTMLButtonElement | null)[]>([])
-
-  useEffect(() => {
-    setMounted(true)
-  }, [])
 
   const items = filter === 'all' ? GALLERY_ITEMS : GALLERY_ITEMS.filter((i) => i.category === filter)
   const open = openIdx === null ? null : items[openIdx]

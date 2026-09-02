@@ -62,6 +62,8 @@ export function ProductVideoPlayer({ src, poster, alt, title, code }: ProductVid
         loop
         playsInline
         preload="metadata"
+        aria-label={alt}
+        data-product-code={code}
         style={{
           position: 'absolute',
           inset: 0,

@@ -162,7 +162,7 @@ function PersonContactActions({ contact, name, role }: { contact: string; name?:
   const [copied, setCopied] = useState(false)
   const cleanNumber = contact.replace(/[^\d+]/g, '')
   const whatsappDigits = contact.replace(/\D/g, '')
-  const waUrl = `https://wa.me/${whatsappDigits}?text=${encodeURIComponent(`Hello ${name ?? 'Team'}, I am inquiring about Gulf Fiber materials.`)}`
+  const waUrl = `https://wa.me/${whatsappDigits}?text=${encodeURIComponent(`Hello ${name ?? 'Team'}${role ? ` (${role})` : ''}, I am inquiring about Gulf Fiber materials.`)}`
 
   const handleCopy = async (e: React.MouseEvent) => {
     e.preventDefault()

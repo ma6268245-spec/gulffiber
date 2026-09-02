@@ -1,6 +1,6 @@
 'use client'
 
-import { useRef, useState, useEffect, useId } from 'react'
+import { useRef, useState, useEffect } from 'react'
 import { PageShell } from '@/components/subpages/PageShell'
 import { SectionHead, SectionLabel, SpecRows } from '@/components/subpages/Primitives'
 import { PersonCard } from '@/components/subpages/PeopleChapter'
