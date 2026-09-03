@@ -518,14 +518,14 @@ export const CONTACT_SLOTS: ContentSlot[] = [
   {
     id: 'plant',
     label: 'Plant & Manufacturing Facility',
-    value: '33-KM, Multan Road, Lahore, Punjab, Pakistan',
+    value: '33-KM Multan Road, Behind Daewoo Bus Terminal, Lahore, 54000, Pakistan',
     status: 'VERIFIED',
     note: 'Official registered manufacturing plant, extrusion lines & warehousing facility.',
   },
   {
     id: 'office',
     label: 'Commercial & Export Office',
-    value: 'Gulf Fiber Corporate Office, 33-KM Multan Road, Lahore 54000',
+    value: 'Gulf Fiber Corporate Office, 33-KM Multan Road, Behind Daewoo Bus Terminal, Lahore, 54000, Pakistan',
     status: 'VERIFIED',
     note: 'Corporate governance, commercial contracts, and international shipping desk.',
   },
@@ -578,6 +578,8 @@ export interface PersonSlot {
   name: string | null
   role: string | null
   bio: string | null
+  /** Multi-paragraph signed message, when the person supplies one instead of a single-line bio. */
+  message?: string[]
   /** Contact phone number or direct sales line. */
   contact?: string | null
   /** Portrait path in /public, or null while the photograph is outstanding. */
@@ -590,12 +592,39 @@ export const DIRECTOR: PersonSlot = {
   id: 'director',
   placeholderKey: 'director-placeholder',
   name: 'Muhammad Iftikhar',
-  role: 'Founder / Director',
-  bio: 'Guiding Gulf Fiber since 1999 with an unwavering commitment to precision manufacturing, sustainability, and technological excellence in synthetic fiber engineering.',
+  role: 'Co-Founder & Managing Director, Gulf Fiber Company Pvt. Limited',
+  bio: null,
+  message: [
+    'Welcome to Gulf Fiber',
+    'Since our founding in 1999, our focus has been driven by an unwavering commitment to precision manufacturing, sustainability, and technological excellence in synthetic fiber engineering. Building a industrial presence requires overcoming constant market challenges, but our belief in local engineering capability and high-standard production has remained absolute.',
+    'Over the past two decades, we have continuously modernized our facilities, expanded our technical capabilities, and embraced sustainable manufacturing practices. By combining cutting-edge technology with rigorous quality standards, we ensure that Gulf Fiber remains a trusted, competitive force both domestically and on the global stage.',
+    'Thank you for your continued partnership and confidence in our vision. We remain committed to advancing synthetic fiber technology and driving industrial growth for years to come.',
+    'Sincerely,',
+  ],
   contact: null,
   portrait: '/images/team/muhammad-iftikhar.jpg',
   status: 'VERIFIED',
-  note: 'Founder & Director of Gulf Fiber Company (PVT) Limited.',
+  note: 'Co-Founder & Managing Director of Gulf Fiber Company (PVT) Limited.',
+}
+
+export const CEO: PersonSlot = {
+  id: 'ceo',
+  placeholderKey: 'ceo-placeholder',
+  name: 'Iftikhar Ali',
+  role: 'CEO and Co.founder of Gulf fiber company PVT limited',
+  bio: null,
+  message: [
+    'Welcome to Gulf fiber',
+    'In 1993, I moved to Saudi Arabia for an embition to earn foreign money for future investment in home country. It is always risky to have production facility in Pakistan due to energy prices and different bottlenecks.',
+    'Despite this I took financial risk and established Gulf fiber in 1999 for my ultimate goal of creating job opportunities besides financial return.',
+    'From last more than two decades we have made considerable growth and excellence. Through supportive and dedicated workforce we are delivering diversified items to our global partners while actively driving local enonomic growth.',
+    'Thank you for continued trust in gulf fiber. We look forward to weaving an even stronger more prosperous future together.',
+    'Sincerely',
+  ],
+  contact: null,
+  portrait: '/images/team/iftikhar-ali-ceo.jpg',
+  status: 'VERIFIED',
+  note: 'CEO & Co-founder of Gulf Fiber Company (PVT) Limited.',
 }
 
 export const FOUNDERS: PersonSlot[] = [
@@ -716,7 +745,7 @@ export const ORG_TREE_DATA: OrgNode[] = [
   {
     id: 'org-founder',
     name: 'Muhammad Iftikhar',
-    role: 'Founder & Managing Director',
+    role: 'Co-Founder & Managing Director',
     department: 'Executive',
     level: 1,
     parentId: null,
@@ -733,11 +762,11 @@ export const ORG_TREE_DATA: OrgNode[] = [
   {
     id: 'org-cofounder',
     name: 'Iftikhar Ali',
-    role: 'Co-founder & Strategic Investor',
+    role: 'CEO & Co-Founder',
     department: 'Executive',
     level: 2,
     parentId: null,
-    portrait: '/images/team/iftikhar-ali.jpg',
+    portrait: '/images/team/iftikhar-ali-ceo.jpg',
     bio: 'Co-founding partner and strategic investor providing founding capital, executive advisory, and long-term corporate governance since 1999.',
     responsibilities: [
       'Strategic Vision & Long-term Corporate Governance',

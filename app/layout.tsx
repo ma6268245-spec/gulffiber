@@ -72,9 +72,10 @@ export default function RootLayout({
     foundingDate: '1999',
     address: {
       '@type': 'PostalAddress',
-      streetAddress: '32-KM Sheikhupura Road',
-      addressLocality: 'Faisalabad',
+      streetAddress: '33-KM Multan Road, Behind Daewoo Bus Terminal',
+      addressLocality: 'Lahore',
       addressRegion: 'Punjab',
+      postalCode: '54000',
       addressCountry: 'PK',
     },
     contactPoint: {

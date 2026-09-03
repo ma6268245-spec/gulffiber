@@ -17,7 +17,7 @@ import {
   SpecRows,
 } from '@/components/subpages/Primitives'
 import { useSectionReveal } from '@/components/subpages/useSectionReveal'
-import { VERIFIED } from '@/lib/data/company'
+import { CEO, VERIFIED } from '@/lib/data/company'
 
 /* ===========================================================================
    /company - The Comprehensive Company Documentary
@@ -25,14 +25,15 @@ import { VERIFIED } from '@/lib/data/company'
    9 Sequential Sections:
 
      01 · HERO                      - Gulf Fiber — Since 1999 (Video Ambient Hero)
-     02 · WHO WE ARE                - Company identity, capabilities & scale
-     03 · OUR PRODUCT PORTFOLIO     - High-level product ecosystem
-     04 · 25 YEARS OF HISTORY       - 1999 to Present day interactive timeline
-     05 · FOUNDER'S VISION          - Muhammad Iftikhar feature & message
-     06 · COMPANY ORGANIZATION      - Interactive organization tree
-     07 · CERTIFICATIONS            - ISO, GRS, OEKO-TEX, LCCI gallery
-     08 · INSIDE THE PLANT          - Cinematic video scroll documentary
-     09 · THE NEXT CHAPTER          - Future growth & 4-button inquiry close
+     02 · CEO & CO-FOUNDER          - Iftikhar Ali signed message
+     03 · CO-FOUNDER & MD           - Muhammad Iftikhar signed message
+     04 · WHO WE ARE                - Company identity, capabilities & scale
+     05 · OUR PRODUCT PORTFOLIO     - High-level product ecosystem
+     06 · 25 YEARS OF HISTORY       - 1999 to Present day interactive timeline
+     07 · COMPANY ORGANIZATION      - Interactive organization tree
+     08 · CERTIFICATIONS            - ISO, GRS, OEKO-TEX, LCCI gallery
+     09 · INSIDE THE PLANT          - Cinematic video scroll documentary
+     10 · THE NEXT CHAPTER          - Future growth & 4-button inquiry close
    =========================================================================== */
 
 export default function CompanyPage() {
@@ -79,12 +80,46 @@ export default function CompanyPage() {
           </div>
         </PageHero>
 
-        {/* ── 02 · WHO WE ARE ───────────────────────────────────────────── */}
+        {/* ── 02 · A MESSAGE FROM OUR CEO & CO-FOUNDER ──────────────────── */}
+        <section className="section-pad" data-sp-section style={{ background: 'var(--white)' }}>
+          <div className="container">
+            <div className="sp-anim">
+              <SectionHead
+                eyebrow="02 · A Message from Our CEO & Co-Founder"
+                title="A Message from Our"
+                em="CEO & Co-Founder"
+                stacked
+              />
+            </div>
+            <div className="sp-anim">
+              <DirectorFeature person={CEO} />
+            </div>
+          </div>
+        </section>
+
+        {/* ── 03 · CO-FOUNDER & MANAGING DIRECTOR ───────────────────────── */}
+        <section className="section-pad" data-sp-section style={{ background: 'var(--white)' }}>
+          <div className="container">
+            <div className="sp-anim">
+              <SectionHead
+                eyebrow="03 · Co-Founder & Managing Director"
+                title="Co-Founder &"
+                em="Managing Director"
+                stacked
+              />
+            </div>
+            <div className="sp-anim">
+              <DirectorFeature />
+            </div>
+          </div>
+        </section>
+
+        {/* ── 04 · WHO WE ARE ───────────────────────────────────────────── */}
         <section className="section-pad" data-sp-section style={{ background: 'var(--white)' }}>
           <div className="container">
             <div className="sp-anim" style={{ marginBottom: 'clamp(2rem, 4vh, 3rem)' }}>
               <SectionHead
-                eyebrow="02 · Who We Are"
+                eyebrow="04 · Who We Are"
                 title="A fiber manufacturer,"
                 em="not a trading house"
                 lede="Direct manufacturer of high-tenacity and recycled polyester staple fibers, operating dedicated extrusion and carding lines in Pakistan since 1999."
@@ -199,12 +234,12 @@ export default function CompanyPage() {
           </div>
         </section>
 
-        {/* ── 03 · OUR PRODUCT PORTFOLIO ────────────────────────────────── */}
+        {/* ── 05 · OUR PRODUCT PORTFOLIO ────────────────────────────────── */}
         <section className="section-pad" data-sp-section style={{ background: 'var(--bg-subtle)' }}>
           <div className="container">
             <div className="sp-anim">
               <SectionHead
-                eyebrow="03 · Our Product Portfolio"
+                eyebrow="05 · Our Product Portfolio"
                 title="High-level product"
                 em="ecosystem"
                 lede="Gulf Fiber manufactures three core synthetic material categories tailored for spinning mills, bedding manufacturers, and industrial nonwoven processors."
@@ -331,12 +366,12 @@ export default function CompanyPage() {
           </div>
         </section>
 
-        {/* ── 04 · 25 YEARS OF HISTORY ──────────────────────────────────── */}
+        {/* ── 06 · 25 YEARS OF HISTORY ──────────────────────────────────── */}
         <section className="section-pad sp-dark" data-sp-section>
           <div className="container">
             <div className="sp-anim">
               <SectionHead
-                eyebrow="04 · 25 Years of History"
+                eyebrow="06 · 25 Years of History"
                 title="25 Years of manufacturing heritage,"
                 em="1999 to Present"
                 lede="From our founding staple fiber plant in 1999 to today's 15,000+ T automated production capacity, explore the key milestones and expansions across a quarter-century of industrial operations."
@@ -350,30 +385,12 @@ export default function CompanyPage() {
           </div>
         </section>
 
-        {/* ── 05 · FOUNDER'S VISION ─────────────────────────────────────── */}
-        <section className="section-pad" data-sp-section style={{ background: 'var(--white)' }}>
-          <div className="container">
-            <div className="sp-anim">
-              <SectionHead
-                eyebrow="05 · Founder's Vision"
-                title="Leadership &"
-                em="Executive Vision"
-                lede="A signed message from Founder & Managing Director Muhammad Iftikhar on 25+ years of engineering discipline, technical innovation, and customer-first manufacturing."
-                stacked
-              />
-            </div>
-            <div className="sp-anim">
-              <DirectorFeature />
-            </div>
-          </div>
-        </section>
-
-        {/* ── 06 · COMPANY ORGANIZATION ─────────────────────────────────── */}
+        {/* ── 07 · COMPANY ORGANIZATION ─────────────────────────────────── */}
         <section className="section-pad" data-sp-section style={{ background: 'var(--bg-subtle)' }}>
           <div className="container">
             <div className="sp-anim">
               <SectionHead
-                eyebrow="06 · Company Organization"
+                eyebrow="07 · Company Organization"
                 title="Interactive organization"
                 em="tree & leadership"
                 lede="An interactive visualization of Gulf Fiber's corporate hierarchy - from founding executive governance to specialized technical product sales departments. Click any circular profile node to view credentials, material domains, and direct contact details."
@@ -385,12 +402,12 @@ export default function CompanyPage() {
           </div>
         </section>
 
-        {/* ── 07 · CERTIFICATIONS & REGISTRATIONS ───────────────────────── */}
+        {/* ── 08 · CERTIFICATIONS & REGISTRATIONS ───────────────────────── */}
         <section id="certifications" className="section-pad" data-sp-section style={{ background: 'var(--white)' }}>
           <div className="container">
             <div className="sp-anim">
               <SectionHead
-                eyebrow="07 · Certifications & Registrations"
+                eyebrow="08 · Certifications & Registrations"
                 title="Certified by"
                 em="document"
                 lede="Six official certificate documents, each verified with official statutory documentation (ISO 9001:2015, GRS Scope Certificate, GRS Site Appendix, OEKO-TEX Standard 100, EPA Punjab Approval, and LCCI). Hover over any certificate on the wall to zoom in and verify details, or click to examine the full-resolution scan."
@@ -405,12 +422,12 @@ export default function CompanyPage() {
           </div>
         </section>
 
-        {/* ── 08 · INSIDE THE PLANT ─────────────────────────────────────── */}
+        {/* ── 09 · INSIDE THE PLANT ─────────────────────────────────────── */}
         <section className="section-pad" data-sp-section style={{ background: 'var(--bg-subtle)' }}>
           <div className="container">
             <div className="sp-anim">
               <SectionHead
-                eyebrow="08 · Inside The Plant"
+                eyebrow="09 · Inside The Plant"
                 title="See where Gulf Fiber"
                 em="operates"
                 lede="Explore authentic footage of our 33-KM Multan Road, Lahore production facility and live high-pressure extrusion lines in action."
@@ -423,7 +440,7 @@ export default function CompanyPage() {
           </div>
         </section>
 
-        {/* ── 09 · THE NEXT CHAPTER & DIRECT INQUIRY CLOSE ──────────────── */}
+        {/* ── 10 · THE NEXT CHAPTER & DIRECT INQUIRY CLOSE ──────────────── */}
         <section className="section-pad sp-dark" data-sp-section>
           <div className="container" style={{ textAlign: 'center', maxWidth: '840px', margin: '0 auto' }}>
             <div className="sp-anim" style={{ marginBottom: '1.25rem' }}>
@@ -441,7 +458,7 @@ export default function CompanyPage() {
                   marginBottom: '1.5rem',
                 }}
               >
-                09 · The Next Chapter & Future Vision
+                10 · The Next Chapter & Future Vision
               </span>
               <h2 className="h-section" style={{ margin: '0 auto', maxWidth: '24ch' }}>
                 Judge us on a bale,

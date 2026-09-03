@@ -46,7 +46,7 @@ export const GALLERY_ITEMS: GalleryItem[] = [
     image: '/images/Gallery/1.jpeg',
     alt: 'Gulf Fiber industrial plant complex and factory buildings',
     description:
-      'Exterior view of the Gulf Fiber manufacturing facility in Faisalabad, showing the production sheds and processing infrastructure.',
+      'Exterior view of the Gulf Fiber manufacturing facility in Lahore, showing the production sheds and processing infrastructure.',
     tags: ['plant', 'compound', 'facility', 'industrial'],
     relatedPage: '/company',
     status: 'VERIFIED',
@@ -82,7 +82,7 @@ export const GALLERY_ITEMS: GalleryItem[] = [
     image: '/images/Gallery/16.jpeg',
     alt: 'Gulf Fiber Company (Pvt) Ltd corporate entrance and plant gate',
     description:
-      'Main gate and official entrance of Gulf Fiber Company (PVT) Limited on 32-KM Sheikhupura Road, Faisalabad.',
+      'Main gate and official entrance of Gulf Fiber Company (PVT) Limited on 33-KM Multan Road, Behind Daewoo Bus Terminal, Lahore, 54000, Pakistan.',
     tags: ['entrance', 'gate', 'corporate', 'landmark'],
     relatedPage: '/contact',
     status: 'VERIFIED',
@@ -407,7 +407,7 @@ export const GALLERY_ITEMS: GalleryItem[] = [
     image: '/images/Gallery/33.jpeg',
     alt: 'Gulf Fiber executive administration building and main campus entrance',
     description:
-      'Front view of the plant administration headquarters and management offices on the Faisalabad industrial campus.',
+      'Front view of the plant administration headquarters and management offices on the Lahore industrial campus.',
     tags: ['headquarters', 'administration', 'portico', 'executive'],
     relatedPage: '/company',
     status: 'VERIFIED',

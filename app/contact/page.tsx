@@ -762,7 +762,7 @@ export default function ContactPage() {
                           Plant & Extrusion Lines
                         </strong>
                         <p style={{ margin: '0.2rem 0 0', fontSize: '0.875rem', color: 'var(--ink)', lineHeight: 1.5 }}>
-                          33-KM Multan Road, Behind Daewoo Workshop, Lahore, Punjab, Pakistan
+                          33-KM Multan Road, Behind Daewoo Bus Terminal, Lahore, 54000, Pakistan
                         </p>
                       </div>
                     </div>
@@ -774,7 +774,7 @@ export default function ContactPage() {
                           Commercial & Export Desk
                         </strong>
                         <p style={{ margin: '0.2rem 0 0', fontSize: '0.875rem', color: 'var(--ink)', lineHeight: 1.5 }}>
-                          Gulf Fiber Corporate Office, 33-KM Multan Road, Lahore 54000
+                          Gulf Fiber Corporate Office, 33-KM Multan Road, Behind Daewoo Bus Terminal, Lahore, 54000, Pakistan
                         </p>
                       </div>
                     </div>

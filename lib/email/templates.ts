@@ -47,7 +47,7 @@ const PHONES = [
   { label: '+92 322 9400077', href: 'tel:+923229400077' },
 ]
 const MAILBOX = 'gulffiber@gmail.com'
-const ADDRESS = ['33-KM Multan Road,', 'Behind Daewoo Workshop,', 'Lahore, Punjab, Pakistan']
+const ADDRESS = ['33-KM Multan Road,', 'Behind Daewoo Bus Terminal,', 'Lahore, 54000, Pakistan']
 const WEBSITE = 'gulffiber.co'
 /* The live, verified domain (see CONTACT_FROM_EMAIL in .env.local). Also the
    fallback origin for email images, so they resolve even for mail sent from a

@@ -62,7 +62,8 @@ function Portrait({ person, ratio = '4 / 5' }: { person: PersonSlot; ratio?: str
 }
 
 /** Chapter 04 - the director gets a dedicated, authoritative presence. */
-export function DirectorFeature() {
+export function DirectorFeature({ person = DIRECTOR }: { person?: PersonSlot } = {}) {
+  const paragraphs = person.message
   return (
     <div
       className="sp-director"
@@ -88,8 +89,8 @@ export function DirectorFeature() {
         }}
       >
         <Image
-          src={DIRECTOR.portrait || '/images/specialist-avatar.jpg'}
-          alt={`${DIRECTOR.name ?? 'Founder & Director'} - Gulf Fiber`}
+          src={person.portrait || '/images/specialist-avatar.jpg'}
+          alt={`${person.name ?? 'Founder & Director'} - Gulf Fiber`}
           fill
           sizes="(max-width: 992px) 100vw, 360px"
           style={{ objectFit: 'cover', objectPosition: 'center 15%' }}
@@ -116,13 +117,21 @@ export function DirectorFeature() {
           style={{
             fontFamily: 'var(--font-serif)',
             fontStyle: 'italic',
-            fontSize: 'clamp(1.25rem, 2.3vw, 1.85rem)',
-            lineHeight: 1.45,
+            /* A multi-paragraph signed letter reads at body scale; the single-sentence
+               bio keeps the original pull-quote scale. Layout/grid are untouched. */
+            fontSize: paragraphs ? 'clamp(1rem, 1.15vw, 1.0625rem)' : 'clamp(1.25rem, 2.3vw, 1.85rem)',
+            lineHeight: paragraphs ? 1.7 : 1.45,
             color: 'var(--ink)',
             margin: '0 0 1.75rem',
           }}
         >
-          {DIRECTOR.bio}
+          {paragraphs
+            ? paragraphs.map((para, i) => (
+                <p key={para} style={{ margin: i === paragraphs.length - 1 ? 0 : '0 0 1em' }}>
+                  {para}
+                </p>
+              ))
+            : person.bio}
         </blockquote>
 
         <div>
@@ -137,7 +146,7 @@ export function DirectorFeature() {
               margin: '0 0 0.25rem',
             }}
           >
-            {DIRECTOR.name}
+            {person.name}
           </h3>
           <p
             style={{
@@ -150,7 +159,7 @@ export function DirectorFeature() {
               margin: 0,
             }}
           >
-            {DIRECTOR.role}
+            {person.role}
           </p>
         </div>
       </div>
