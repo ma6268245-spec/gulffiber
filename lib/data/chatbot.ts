@@ -141,7 +141,7 @@ export const GREETING_ANSWER = `I am the Gulf Fiber assistant. Ask about our pro
    =========================================================================== */
 
 export const GENERAL_CONTACT = {
-  mailbox: 'gulffiber@gmail.com',
+  mailbox: 'ma6268245@gmail.com',
   line: '+92 52 111 505 505',
   /** Digits only, for a tel: href. */
   lineDial: '+9252111505505',

@@ -15,7 +15,7 @@ Resend API key after `RESEND_API_KEY=`:
 
 ```
 RESEND_API_KEY=re_xxxxxxxxxxxxxxxxxxxxxxxx
-CONTACT_TO_EMAIL=gulffiber@gmail.com
+CONTACT_TO_EMAIL=ma6268245@gmail.com
 CONTACT_FROM_EMAIL="Gulf Fiber <noreply@gulffiber.co>"
 NEWSLETTER_TO_EMAIL=
 ```
@@ -33,7 +33,7 @@ npm run dev
 ```
 
 Then submit the contact form at http://localhost:3000/contact and the newsletter
-box in the footer. Both should land in `gulffiber@gmail.com`.
+box in the footer. Both should land in `ma6268245@gmail.com`.
 
 ## Notes
 
