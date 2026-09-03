@@ -42,10 +42,6 @@ const WIDTH = 640
 /* ---- Company details (as they appear on the website) ---- */
 const COMPANY = 'Gulf Fiber Company (Pvt) Limited'
 const BRAND_LINE = 'Pioneers of Regenerated Polyester Fiber in Pakistan'
-const PHONES = [
-  { label: '+92 52 111 505 505', href: 'tel:+9252111505505' },
-  { label: '+92 322 9400077', href: 'tel:+923229400077' },
-]
 const MAILBOX = 'ma6268245@gmail.com'
 const ADDRESS = ['33-KM Multan Road,', 'Behind Daewoo Bus Terminal,', 'Lahore, 54000, Pakistan']
 const WEBSITE = 'gulffiber.co'
@@ -149,7 +145,6 @@ function footer() {
             <p style="margin:0 0 20px;font-family:${F};font-size:11px;font-weight:700;line-height:1.4;letter-spacing:0.12em;color:#FFFFFF;text-transform:uppercase;">${COMPANY}</p>
             <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr>
               <td class="footcol" width="50%" valign="top" style="width:50%;padding-right:12px;">
-                ${footItem('Phone', PHONES.map((p) => `<a href="${p.href}" style="${link}">${p.label}</a>`).join('<br />'))}
                 ${footItem('Email', `<a href="mailto:${MAILBOX}" style="${link}">${MAILBOX}</a>`)}
               </td>
               <td class="footcol" width="50%" valign="top" style="width:50%;">
@@ -418,7 +413,6 @@ Gulf Fiber Team
 ${BRAND_LINE}
 
 ${COMPANY}
-Phone: ${PHONES.map((p) => p.label).join(' / ')}
 Email: ${MAILBOX}
 ${ADDRESS.join(' ')}
 ${WEBSITE}
@@ -666,7 +660,6 @@ Gulf Fiber Team
 ${BRAND_LINE}
 
 ${COMPANY}
-Phone: ${PHONES.map((p) => p.label).join(' / ')}
 Email: ${MAILBOX}
 ${ADDRESS.join(' ')}
 ${WEBSITE}
