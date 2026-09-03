@@ -1213,25 +1213,8 @@ function OrgTreeNode({
         >
           {node.role}
         </p>
-
-        {node.contact && (
-          <span
-            className="org-node-contact-pill"
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '0.25rem',
-              fontSize: '0.625rem',
-              fontWeight: 800,
-              color: 'var(--muted)',
-              background: 'rgba(10, 75, 184, 0.05)',
-              padding: '0.15rem 0.45rem',
-              borderRadius: '9999px',
-            }}
-          >
-            📞 {node.contact}
-          </span>
-        )}
+        {/* No contact pill on the card: the direct line stays in the data and in
+            the tap-through drawer, but is not printed on the node itself. */}
       </div>
     </div>
   )
