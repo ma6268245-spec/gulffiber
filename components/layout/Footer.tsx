@@ -306,34 +306,70 @@ export function Footer() {
           </div>
         </div>
 
-        {/* Copyright */}
+        {/* Footer credit line */}
         <div
+          className="footer-bottom-bar"
           style={{
             display: 'flex',
             alignItems: 'center',
-            justifyContent: 'center',
+            justifyContent: 'space-between',
             padding: '1.5rem 0',
             gap: '0.85rem',
             flexWrap: 'wrap',
           }}
         >
-          <p style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.45)', textAlign: 'center', margin: 0 }}>
-            © Copyright {new Date().getFullYear()}. All rights reserved.{' '}
-            <strong style={{ color: 'rgba(255,255,255,0.7)' }}>Gulf Fiber Company (PVT) Limited</strong>
-          </p>
-          <span style={{ color: 'rgba(255,255,255,0.25)', fontSize: '0.75rem' }}>·</span>
-          <Link
-            href="/terms"
+          {/* Left — Made by COXVIN */}
+          <p
+            className="footer-credit"
             style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.4rem',
               fontSize: '0.75rem',
-              color: 'rgba(255,255,255,0.6)',
-              textDecoration: 'underline',
-              textUnderlineOffset: '3px',
-              transition: 'color 0.2s',
+              color: 'rgba(255,255,255,0.45)',
+              margin: 0,
+              fontFamily: 'var(--font-sans)',
             }}
           >
-            Terms & Conditions · Copyright Notice
-          </Link>
+            Made by
+            <Image
+              src="/coxvin-wordmark.png"
+              alt="COXVIN"
+              width={590}
+              height={112}
+              style={{ height: '0.8rem', width: 'auto', display: 'block' }}
+            />
+          </p>
+
+          {/* Right — existing Gulf Fiber footer line (unchanged) */}
+          <div
+            className="footer-legal"
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: '0.85rem',
+              flexWrap: 'wrap',
+            }}
+          >
+            <p style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.45)', textAlign: 'center', margin: 0 }}>
+              © Copyright {new Date().getFullYear()}. All rights reserved.{' '}
+              <strong style={{ color: 'rgba(255,255,255,0.7)' }}>Gulf Fiber Company (PVT) Limited</strong>
+            </p>
+            <span style={{ color: 'rgba(255,255,255,0.25)', fontSize: '0.75rem' }}>·</span>
+            <Link
+              href="/terms"
+              style={{
+                fontSize: '0.75rem',
+                color: 'rgba(255,255,255,0.6)',
+                textDecoration: 'underline',
+                textUnderlineOffset: '3px',
+                transition: 'color 0.2s',
+              }}
+            >
+              Terms & Conditions · Copyright Notice
+            </Link>
+          </div>
         </div>
       </div>
 
@@ -355,6 +391,18 @@ export function Footer() {
           }
           .footer-links-duo {
             display: contents;
+          }
+          .footer-bottom-bar {
+            flex-direction: column;
+            justify-content: center;
+            text-align: center;
+            gap: 1rem;
+          }
+          .footer-credit {
+            justify-content: center;
+          }
+          .footer-legal {
+            justify-content: center;
           }
         }
         @media (max-width: 640px) {
